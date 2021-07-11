@@ -15,6 +15,8 @@
 		5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD442688390800970794 /* LaunchScreen.storyboard */; };
 		5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD4F26883A6800970794 /* LogInViewStoryBoard.storyboard */; };
 		5541DD5326883AF500970794 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD5226883AF500970794 /* LogInViewController.swift */; };
+		5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD5A269AD35F00970794 /* SignUp.storyboard */; };
+		5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD5D269AD36800970794 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		5541DD472688390800970794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5541DD4F26883A6800970794 /* LogInViewStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LogInViewStoryBoard.storyboard; sourceTree = "<group>"; };
 		5541DD5226883AF500970794 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		5541DD5A269AD35F00970794 /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		5541DD5D269AD36800970794 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5541DD59269AD34200970794 /* SignUp */,
 				5541DD582688439800970794 /* LogIn */,
 			);
 			path = Modules;
@@ -95,6 +100,15 @@
 				5541DD4F26883A6800970794 /* LogInViewStoryBoard.storyboard */,
 			);
 			path = LogIn;
+			sourceTree = "<group>";
+		};
+		5541DD59269AD34200970794 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				5541DD5A269AD35F00970794 /* SignUp.storyboard */,
+				5541DD5D269AD36800970794 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,6 +172,7 @@
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
 				5541DD41268838FB00970794 /* Main.storyboard in Resources */,
+				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,6 +187,7 @@
 				5541DD3E268838FB00970794 /* ViewController.swift in Sources */,
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
+				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
