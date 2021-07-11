@@ -17,6 +17,8 @@
 		5541DD5326883AF500970794 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD5226883AF500970794 /* LogInViewController.swift */; };
 		5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD5A269AD35F00970794 /* SignUp.storyboard */; };
 		5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD5D269AD36800970794 /* SignUpViewController.swift */; };
+		5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD61269AD4E800970794 /* HomeViewController.swift */; };
+		5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		5541DD5226883AF500970794 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		5541DD5A269AD35F00970794 /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		5541DD5D269AD36800970794 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		5541DD61269AD4E800970794 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5541DD60269AD4D500970794 /* Home */,
 				5541DD59269AD34200970794 /* SignUp */,
 				5541DD582688439800970794 /* LogIn */,
 			);
@@ -109,6 +114,15 @@
 				5541DD5D269AD36800970794 /* SignUpViewController.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		5541DD60269AD4D500970794 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5541DD61269AD4E800970794 /* HomeViewController.swift */,
+				5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +184,7 @@
 			files = (
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
+				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
 				5541DD41268838FB00970794 /* Main.storyboard in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
@@ -188,6 +203,7 @@
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
+				5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
