@@ -9,21 +9,20 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    let storyBoardID = "SignUp"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func touchUpLogInButton(_ sender: Any) {
+        guard let nextViewController = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(identifier: "Home") as? HomeViewController else {
+            return
+        }
+        
+        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
-    */
-
+    
 }
