@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uoo-Wx-mi6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VnY-q2-LFe">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -27,6 +27,9 @@
                                 <state key="normal" title="Google로 로그인" image="google">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchUpGoogleButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="rD6-B1-akK"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHJ-g9-4ZL">
                                 <rect key="frame" x="38" y="612" width="300" height="56"/>
@@ -63,6 +66,7 @@
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="135" id="OpP-M5-387"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="t6H-Ez-CYK"/>
                     <connections>
                         <outlet property="appleLogInButton" destination="HqE-54-Os8" id="kUL-KZ-65m"/>
                         <outlet property="facebookLogInButton" destination="vHJ-g9-4ZL" id="Kdb-or-nVS"/>
@@ -71,7 +75,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcw-W5-SHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="180" y="157.38916256157637"/>
+            <point key="canvasLocation" x="3007.1999999999998" y="157.38916256157637"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="egG-hq-pZg">
+            <objects>
+                <viewController id="Yv2-Mh-TZ5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OHX-Hi-BOx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="SRA-fM-Q1L">
+                                <rect key="frame" x="15" y="59" width="345" height="345"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPM-dw-qY5">
+                                <rect key="frame" x="0.0" y="44" width="375" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="F2L-Vg-bL0">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="Dof-dY-USE">
+                                            <rect key="frame" x="63" y="70" width="248" height="234"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="X50-i4-F4S"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DaL-8W-l2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2964" y="813.54679802955673"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tsK-3v-5ya">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="VnY-q2-LFe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oEq-uJ-bxn">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="uoo-Wx-mi6" kind="relationship" relationship="rootViewController" id="nRi-fa-Oet"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BRi-DF-jN3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2064.8000000000002" y="157.38916256157637"/>
         </scene>
     </scenes>
     <resources>
@@ -79,5 +136,6 @@
         <image name="facebook" width="8" height="14"/>
         <image name="google" width="14" height="14"/>
         <image name="logo" width="105" height="124"/>
+        <image name="something" width="350" height="350"/>
     </resources>
 </document>

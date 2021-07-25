@@ -26,4 +26,11 @@ final class LogInViewController: UIViewController {
         facebookLogInButton.layer.cornerRadius = 28
         appleLogInButton.layer.cornerRadius = 28
     }
+    @IBAction func touchUpGoogleButton(_ sender: UIButton) {
+        
+        print("touchUP")
+        guard let nextViewController = UIStoryboard(name: "SignUp", bundle: nil).instantiateViewController(identifier: "SignUp") as? SignUpViewController else { return }
+        
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
 }
