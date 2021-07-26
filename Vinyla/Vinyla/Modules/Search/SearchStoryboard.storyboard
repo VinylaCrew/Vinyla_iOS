@@ -1,7 +1,86 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Search View Controller-->
+        <scene sceneID="KPS-yz-oCf">
+            <objects>
+                <viewController storyboardIdentifier="Search" id="JCS-KK-iJg" customClass="SearchViewController" customModule="Vinyla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KHM-1w-54b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r09-Ck-9SA">
+                                <rect key="frame" x="10" y="59" width="30" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="2jm-1s-6ej"/>
+                                    <constraint firstAttribute="height" constant="35" id="mBN-Fj-30W"/>
+                                </constraints>
+                                <state key="normal" image="icnBtnBack"/>
+                            </button>
+                            <searchBar contentMode="redraw" placeholder="앨범명/아티스트를 입력해주세요." translatesAutoresizingMaskIntoConstraints="NO" id="HPv-ha-BAn">
+                                <rect key="frame" x="45" y="54" width="315" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9Uk-ve-pcK"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10개의 바이닐이 업데이트 되었어요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
+                                <rect key="frame" x="15" y="116" width="186.33333333333334" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="Av9-5B-h7k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7월 9일 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-tD-29m">
+                                <rect key="frame" x="282.33333333333331" y="116" width="67.666666666666686" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="bpA-SY-YJ9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ny-7J-RQf">
+                                <rect key="frame" x="0.0" y="155" width="375" height="657"/>
+                                <color key="backgroundColor" red="0.40000000000000002" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="to3-Mi-QPH"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="5" id="53W-eE-FOl"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="bottom" secondItem="to3-Mi-QPH" secondAttribute="bottom" constant="34" id="9ok-yz-RHN"/>
+                            <constraint firstItem="r09-Ck-9SA" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="10" id="BTx-Oq-5IQ"/>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="5" id="BeX-7g-inu"/>
+                            <constraint firstAttribute="trailing" secondItem="uUi-tD-29m" secondAttribute="trailing" constant="25" id="Bqh-jO-Vtp"/>
+                            <constraint firstItem="r09-Ck-9SA" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="15" id="D93-ef-yyH"/>
+                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="18" id="DnE-0d-r9A"/>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="10" id="H3s-zs-vdp"/>
+                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="0ny-7J-RQf" secondAttribute="trailing" id="WkY-Xm-2b1"/>
+                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="HPv-ha-BAn" secondAttribute="trailing" constant="15" id="bbX-db-YtL"/>
+                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="15" id="cld-KK-reP"/>
+                            <constraint firstItem="uUi-tD-29m" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="18" id="jLg-hu-LGR"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" id="p07-vb-ONH"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="20" id="zie-lj-6Qk"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPS-uT-ohp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-423.19999999999999" y="234.97536945812809"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icnBtnBack" width="11" height="16"/>
+    </resources>
 </document>
