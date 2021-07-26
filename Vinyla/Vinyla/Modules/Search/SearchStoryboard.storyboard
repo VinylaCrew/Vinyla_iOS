@@ -29,7 +29,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="9Uk-ve-pcK"/>
                                 </constraints>
-                                <color key="barTintColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10개의 바이닐이 업데이트 되었어요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
@@ -74,6 +75,9 @@
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="20" id="zie-lj-6Qk"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="iBp-Fq-2OM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPS-uT-ohp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
