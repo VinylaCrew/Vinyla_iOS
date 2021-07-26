@@ -23,5 +23,11 @@ final class HomeViewController: UIViewController {
         vibrancyImageView.layer.borderWidth = 1
         vibrancyImageView.layer.borderColor = UIColor.clear.cgColor
     }
-
+    @IBAction func touchUpHomeButton(_ sender: UIButton) {
+        guard let nextViewController = UIStoryboard(name: "SearchStoryboard", bundle: nil).instantiateViewController(identifier: "Search") as? SearchViewController else {
+            return
+        }
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+    }
+    
 }

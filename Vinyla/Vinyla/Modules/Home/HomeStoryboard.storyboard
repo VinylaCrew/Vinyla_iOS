@@ -54,6 +54,9 @@
                                                 <rect key="frame" x="145" y="-10" width="56" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" image="icnBtnHome"/>
+                                                <connections>
+                                                    <action selector="touchUpHomeButton:" destination="MzY-J9-F6C" eventType="touchUpInside" id="8mc-hj-gfd"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="수집된 바이닐" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A3c-8R-LUO">
                                                 <rect key="frame" x="43" y="38" width="72" height="16"/>
@@ -124,6 +127,24 @@
                                             <constraint firstAttribute="height" constant="3" id="ZNK-r6-XIb"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOd-nl-kts">
+                                        <rect key="frame" x="292" y="120" width="48" height="19"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="닐라대왕">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="13" name=".AppleSDGothicNeoI-Regular"/>
+                                                    <integer key="NSUnderline" value="1"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icnHomeTooltip" translatesAutoresizingMaskIntoConstraints="NO" id="8Gq-DU-lr7">
+                                        <rect key="frame" x="344" y="124" width="2" height="10"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -201,6 +222,7 @@
         <image name="icnBtnHome" width="56" height="56"/>
         <image name="icnBtnMy" width="10" height="14"/>
         <image name="icnHomeLv4" width="18" height="18"/>
+        <image name="icnHomeTooltip" width="2" height="10"/>
         <image name="something" width="350" height="350"/>
     </resources>
 </document>
