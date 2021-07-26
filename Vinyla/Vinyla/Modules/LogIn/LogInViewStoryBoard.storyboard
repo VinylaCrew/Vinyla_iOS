@@ -19,10 +19,14 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-pe-22Z">
                                 <rect key="frame" x="135" y="187" width="105" height="124"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12l-Kj-XuC">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12l-Kj-XuC">
                                 <rect key="frame" x="38" y="541" width="300" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="PXE-yq-SkM"/>
+                                    <constraint firstAttribute="height" constant="56" id="kcG-C9-WTJ"/>
+                                    <constraint firstAttribute="width" secondItem="12l-Kj-XuC" secondAttribute="height" multiplier="75:14" id="uBP-k9-Hf1"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                 <state key="normal" title="Google로 로그인" image="google">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -31,27 +35,38 @@
                                     <action selector="touchUpGoogleButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="rD6-B1-akK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHJ-g9-4ZL">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHJ-g9-4ZL">
                                 <rect key="frame" x="38" y="612" width="300" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="W64-FA-xUG"/>
+                                    <constraint firstAttribute="width" secondItem="vHJ-g9-4ZL" secondAttribute="height" multiplier="75:14" id="c80-SY-W3l"/>
+                                    <constraint firstAttribute="height" constant="56" id="g2M-tn-uuu"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
                                 <state key="normal" title="Facebook으로 로그인" image="facebook">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-54-Os8">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-54-Os8">
                                 <rect key="frame" x="38" y="683" width="300" height="56"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="6rW-2o-W2n"/>
+                                    <constraint firstAttribute="height" constant="56" id="SYR-f4-7o9"/>
+                                    <constraint firstAttribute="width" secondItem="HqE-54-Os8" secondAttribute="height" multiplier="75:14" id="zRt-4b-2dg"/>
+                                </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                 <state key="normal" title="Apple로 로그인" image="apple">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Work, Life, Vinyl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-xb-zac">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work, Life, Vinyl" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-xb-zac">
                                 <rect key="frame" x="132" y="372" width="111" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="gc6-Fa-y6G"/>
+                                    <constraint firstAttribute="width" constant="111" id="o0W-pc-bbc"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -60,10 +75,22 @@
                         <viewLayoutGuide key="safeArea" id="kDi-Fy-4Qi"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="HqE-54-Os8" secondAttribute="trailing" constant="37" id="1R9-6R-hSx"/>
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="top" secondItem="kDi-Fy-4Qi" secondAttribute="top" constant="143" id="3Jj-2A-8eq"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="Vkh-xb-zac" secondAttribute="trailing" constant="132" id="5Iv-va-XAb"/>
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="centerX" secondItem="kDi-Fy-4Qi" secondAttribute="centerX" id="ALd-Is-0JX"/>
-                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="6ZY-pe-22Z" secondAttribute="trailing" constant="135" id="JiJ-3C-ezB"/>
+                            <constraint firstItem="vHJ-g9-4ZL" firstAttribute="top" secondItem="12l-Kj-XuC" secondAttribute="bottom" constant="15" id="CZP-Hj-kVa"/>
+                            <constraint firstItem="Vkh-xb-zac" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="132" id="HEJ-K4-HZ6"/>
+                            <constraint firstAttribute="trailing" secondItem="6ZY-pe-22Z" secondAttribute="trailing" constant="135" id="JiJ-3C-ezB"/>
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="135" id="OpP-M5-387"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="vHJ-g9-4ZL" secondAttribute="trailing" constant="37" id="Twc-7z-swQ"/>
+                            <constraint firstItem="HqE-54-Os8" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="XCJ-Dd-uaj"/>
+                            <constraint firstItem="HqE-54-Os8" firstAttribute="top" secondItem="vHJ-g9-4ZL" secondAttribute="bottom" constant="15" id="bD9-zg-GtY"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="bottom" secondItem="HqE-54-Os8" secondAttribute="bottom" constant="39" id="dUF-rs-kR4"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="12l-Kj-XuC" secondAttribute="trailing" constant="37" id="gCB-2x-rQc"/>
+                            <constraint firstItem="vHJ-g9-4ZL" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="hFe-QV-ZaS"/>
+                            <constraint firstItem="Vkh-xb-zac" firstAttribute="top" secondItem="6ZY-pe-22Z" secondAttribute="bottom" constant="61" id="opu-tZ-Fqy"/>
+                            <constraint firstItem="12l-Kj-XuC" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="yrr-0M-lHX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="t6H-Ez-CYK"/>
