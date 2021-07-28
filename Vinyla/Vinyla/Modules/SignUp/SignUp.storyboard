@@ -66,6 +66,9 @@
                                 <state key="normal" title="확인">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchUpNickNameCheckButton:" destination="GqD-Sg-nwf" eventType="touchUpInside" id="CIN-LK-72s"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닉네임은 수정할 수 없으므로 신중하게 결정 해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L70-jg-LU4">
                                 <rect key="frame" x="16" y="199" width="273" height="16"/>
@@ -111,37 +114,44 @@
                                     <action selector="touchUpLogInButton:" destination="GqD-Sg-nwf" eventType="touchUpInside" id="KLm-sI-zPD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-Fm-Amd">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-Fm-Amd">
                                 <rect key="frame" x="15" y="327" width="24" height="24"/>
-                                <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="Xqo-z1-Ml2"/>
                                     <constraint firstAttribute="width" constant="24" id="eY1-KZ-YtS"/>
                                 </constraints>
+                                <state key="selected" image="icnCheck"/>
+                                <connections>
+                                    <action selector="touchUpAllowEveryServiceButton:" destination="GqD-Sg-nwf" eventType="touchUpInside" id="b4y-sx-WgY"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWQ-Q3-hUJ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWQ-Q3-hUJ">
                                 <rect key="frame" x="15" y="361" width="24" height="24"/>
-                                <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="N7l-IR-Mcc"/>
                                     <constraint firstAttribute="height" constant="24" id="uSO-xw-sDS"/>
                                 </constraints>
+                                <state key="selected" image="icnCheck"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-m5-e1m">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au4-m5-e1m">
                                 <rect key="frame" x="15" y="395" width="24" height="24"/>
-                                <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="GPC-nK-gfV"/>
                                     <constraint firstAttribute="height" constant="24" id="dnH-74-qyE"/>
                                 </constraints>
+                                <state key="selected" image="icnCheck"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81R-ah-0tf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="81R-ah-0tf">
                                 <rect key="frame" x="15" y="429" width="24" height="24"/>
-                                <color key="backgroundColor" red="0.098039215690000001" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="24" id="Dvu-Hv-GrN"/>
                                     <constraint firstAttribute="height" constant="24" id="UDr-2H-JAI"/>
                                 </constraints>
+                                <state key="selected" image="icnCheck"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전체 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ia-V3-APp">
                                 <rect key="frame" x="47" y="331" width="56" height="19"/>
@@ -289,7 +299,14 @@
                     </view>
                     <connections>
                         <outlet property="instagramIDTextField" destination="oow-lg-1vJ" id="TQg-8l-U8H"/>
+                        <outlet property="logInButton" destination="4To-N7-7qD" id="hBy-zr-aUh"/>
+                        <outlet property="nickNameCheckButton" destination="aJB-Bo-DCg" id="UhZ-cL-aYP"/>
+                        <outlet property="nickNameStateLabel" destination="L70-jg-LU4" id="s4c-Am-Sjg"/>
                         <outlet property="nickNameTextField" destination="a9E-Kv-rYQ" id="iZ2-lt-vBc"/>
+                        <outletCollection property="allowEveryServiceButtons" destination="3UL-Fm-Amd" collectionClass="NSMutableArray" id="XTs-Rm-tdP"/>
+                        <outletCollection property="allowEveryServiceButtons" destination="bWQ-Q3-hUJ" collectionClass="NSMutableArray" id="lgf-TM-Roq"/>
+                        <outletCollection property="allowEveryServiceButtons" destination="Au4-m5-e1m" collectionClass="NSMutableArray" id="2Ky-OA-zSY"/>
+                        <outletCollection property="allowEveryServiceButtons" destination="81R-ah-0tf" collectionClass="NSMutableArray" id="vfd-i8-dKn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AuW-GD-Kgv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -299,5 +316,6 @@
     </scenes>
     <resources>
         <image name="icn" width="11" height="15"/>
+        <image name="icnCheck" width="13" height="11"/>
     </resources>
 </document>
