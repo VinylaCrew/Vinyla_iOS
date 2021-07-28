@@ -8,6 +8,17 @@
 import Foundation
 
 struct SignUpModel {
-    let nickName : String?
-    let instagramID : String?
+    var nickName : String?
+    var instagramID : String?
+    var isAllowService : Bool?
+    var isAllowPrivacy : Bool?
+    var isAllowPushMarketingAlarm : Bool?
+    
+    private mutating func setNickName(nickName : String) {
+        self.nickName = nickName
+    }
+    
+    private mutating func setInstaGramID(instagramID : String) {
+        self.instagramID = instagramID
+    }
 }
