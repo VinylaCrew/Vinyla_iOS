@@ -28,6 +28,8 @@
 		5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57526B13E4E003659C6 /* SignUpViewModel.swift */; };
 		5544D57A26B14538003659C6 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57926B14538003659C6 /* DIContainer.swift */; };
 		5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D58726B14B49003659C6 /* VinylaTests.swift */; };
+		5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */; };
+		5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +68,8 @@
 		5544D58526B14B49003659C6 /* VinylaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5544D58726B14B49003659C6 /* VinylaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaTests.swift; sourceTree = "<group>"; };
 		5544D58926B14B49003659C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 			children = (
 				5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */,
 				5541DD6C26AD5CDA00970794 /* SearchViewController.swift */,
+				5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */,
+				5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 			files = (
 				5541DD7526AE955B00970794 /* VinylBoxStoryboard.storyboard in Resources */,
 				5541DD6A26AD5C9100970794 /* SearchStoryboard.storyboard in Resources */,
+				5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
@@ -326,6 +333,7 @@
 				5541DD3E268838FB00970794 /* ViewController.swift in Sources */,
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
+				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */,
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,

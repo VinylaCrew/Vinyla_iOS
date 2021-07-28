@@ -10,10 +10,14 @@ import UIKit
 class SearchViewController: UIViewController {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
+    @IBOutlet weak var searchTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchTableView.dataSource = self
         setUI()
+        setTableViewCellXib()
     }
     
     func setUI() {
@@ -30,5 +34,25 @@ class SearchViewController: UIViewController {
         //https://fomaios.tistory.com/entry/%EC%84%9C%EC%B9%98%EB%B0%94-%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0-Custom-UISearchBar
         
     }
+    
+    func setTableViewCellXib() {
+        let searchNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
+        searchTableView.register(searchNib, forCellReuseIdentifier: "searchTableViewCell")
+    }
+}
 
+
+
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
+        
+        return cell
+    }
+    
+    
 }

@@ -76,6 +76,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
                         <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="iBp-Fq-2OM"/>
                     </connections>
                 </viewController>
