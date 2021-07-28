@@ -21,7 +21,24 @@
 		5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */; };
 		5541DD6A26AD5C9100970794 /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */; };
 		5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD6C26AD5CDA00970794 /* SearchViewController.swift */; };
+		5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7026AE955100970794 /* VinylBoxViewController.swift */; };
+		5541DD7526AE955B00970794 /* VinylBoxStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */; };
+		5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7726AF0DFF00970794 /* SignUpModel.swift */; };
+		5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7B26AF113700970794 /* TextFieldPadding.swift */; };
+		5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57526B13E4E003659C6 /* SignUpViewModel.swift */; };
+		5544D57A26B14538003659C6 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57926B14538003659C6 /* DIContainer.swift */; };
+		5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D58726B14B49003659C6 /* VinylaTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5544D58A26B14B49003659C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5541DD2E268838FB00970794 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5541DD35268838FB00970794;
+			remoteInfo = Vinyla;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5541DD36268838FB00970794 /* Vinyla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vinyla.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,10 +57,26 @@
 		5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeStoryboard.storyboard; sourceTree = "<group>"; };
 		5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
 		5541DD6C26AD5CDA00970794 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		5541DD7026AE955100970794 /* VinylBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylBoxViewController.swift; sourceTree = "<group>"; };
+		5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VinylBoxStoryboard.storyboard; sourceTree = "<group>"; };
+		5541DD7726AF0DFF00970794 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
+		5541DD7B26AF113700970794 /* TextFieldPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPadding.swift; sourceTree = "<group>"; };
+		5544D57526B13E4E003659C6 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		5544D57926B14538003659C6 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		5544D58526B14B49003659C6 /* VinylaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5544D58726B14B49003659C6 /* VinylaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaTests.swift; sourceTree = "<group>"; };
+		5544D58926B14B49003659C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5541DD33268838FB00970794 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5544D58226B14B49003659C6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -57,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				5541DD38268838FB00970794 /* Vinyla */,
+				5544D58626B14B49003659C6 /* VinylaTests */,
 				5541DD37268838FB00970794 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				5541DD36268838FB00970794 /* Vinyla.app */,
+				5544D58526B14B49003659C6 /* VinylaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +107,8 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				5544D57826B144D2003659C6 /* DIContainer */,
+				5541DD7A26AF110F00970794 /* UIExtension */,
 				5541DD562688437C00970794 /* Models */,
 				5541DD572688438100970794 /* Modules */,
 				5541DD39268838FB00970794 /* AppDelegate.swift */,
@@ -88,6 +125,7 @@
 		5541DD562688437C00970794 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5541DD7726AF0DFF00970794 /* SignUpModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -95,6 +133,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5541DD6F26AE954000970794 /* VinylBox */,
 				5541DD6826AD5C7E00970794 /* Search */,
 				5541DD60269AD4D500970794 /* Home */,
 				5541DD59269AD34200970794 /* SignUp */,
@@ -117,6 +156,7 @@
 			children = (
 				5541DD5A269AD35F00970794 /* SignUp.storyboard */,
 				5541DD5D269AD36800970794 /* SignUpViewController.swift */,
+				5544D57526B13E4E003659C6 /* SignUpViewModel.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -139,6 +179,40 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		5541DD6F26AE954000970794 /* VinylBox */ = {
+			isa = PBXGroup;
+			children = (
+				5541DD7026AE955100970794 /* VinylBoxViewController.swift */,
+				5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */,
+			);
+			path = VinylBox;
+			sourceTree = "<group>";
+		};
+		5541DD7A26AF110F00970794 /* UIExtension */ = {
+			isa = PBXGroup;
+			children = (
+				5541DD7B26AF113700970794 /* TextFieldPadding.swift */,
+			);
+			path = UIExtension;
+			sourceTree = "<group>";
+		};
+		5544D57826B144D2003659C6 /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				5544D57926B14538003659C6 /* DIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
+		5544D58626B14B49003659C6 /* VinylaTests */ = {
+			isa = PBXGroup;
+			children = (
+				5544D58726B14B49003659C6 /* VinylaTests.swift */,
+				5544D58926B14B49003659C6 /* Info.plist */,
+			);
+			path = VinylaTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -159,6 +233,24 @@
 			productReference = 5541DD36268838FB00970794 /* Vinyla.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5544D58426B14B49003659C6 /* VinylaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5544D58C26B14B49003659C6 /* Build configuration list for PBXNativeTarget "VinylaTests" */;
+			buildPhases = (
+				5544D58126B14B49003659C6 /* Sources */,
+				5544D58226B14B49003659C6 /* Frameworks */,
+				5544D58326B14B49003659C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5544D58B26B14B49003659C6 /* PBXTargetDependency */,
+			);
+			name = VinylaTests;
+			productName = VinylaTests;
+			productReference = 5544D58526B14B49003659C6 /* VinylaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -170,6 +262,10 @@
 				TargetAttributes = {
 					5541DD35268838FB00970794 = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					5544D58426B14B49003659C6 = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 5541DD35268838FB00970794;
 					};
 				};
 			};
@@ -187,6 +283,7 @@
 			projectRoot = "";
 			targets = (
 				5541DD35268838FB00970794 /* Vinyla */,
+				5544D58426B14B49003659C6 /* VinylaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -196,6 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5541DD7526AE955B00970794 /* VinylBoxStoryboard.storyboard in Resources */,
 				5541DD6A26AD5C9100970794 /* SearchStoryboard.storyboard in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
@@ -203,6 +301,13 @@
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
 				5541DD41268838FB00970794 /* Main.storyboard in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5544D58326B14B49003659C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,16 +319,37 @@
 			buildActionMask = 2147483647;
 			files = (
 				5541DD5326883AF500970794 /* LogInViewController.swift in Sources */,
+				5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
+				5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */,
+				5544D57A26B14538003659C6 /* DIContainer.swift in Sources */,
 				5541DD3E268838FB00970794 /* ViewController.swift in Sources */,
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */,
+				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
+				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5544D58126B14B49003659C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5544D58B26B14B49003659C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5541DD35268838FB00970794 /* Vinyla */;
+			targetProxy = 5544D58A26B14B49003659C6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5541DD3F268838FB00970794 /* Main.storyboard */ = {
@@ -401,6 +527,46 @@
 			};
 			name = Release;
 		};
+		5544D58D26B14B49003659C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PMD54H53GA;
+				INFOPLIST_FILE = VinylaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = gamsung.VinylaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vinyla.app/Vinyla";
+			};
+			name = Debug;
+		};
+		5544D58E26B14B49003659C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PMD54H53GA;
+				INFOPLIST_FILE = VinylaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = gamsung.VinylaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vinyla.app/Vinyla";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -418,6 +584,15 @@
 			buildConfigurations = (
 				5541DD4B2688390800970794 /* Debug */,
 				5541DD4C2688390800970794 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5544D58C26B14B49003659C6 /* Build configuration list for PBXNativeTarget "VinylaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5544D58D26B14B49003659C6 /* Debug */,
+				5544D58E26B14B49003659C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
