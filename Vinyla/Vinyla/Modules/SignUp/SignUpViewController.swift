@@ -76,8 +76,12 @@ class SignUpViewController: UIViewController {
             nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
             nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
             nickNameCheckButton.isEnabled = true
-            print(isValidName(name: nickNameCountField))
+            
         }
+        
+        var a = viewModel?.isValidNickName(nickNameCountField)
+        print("isValidName\(a)")
+        
     }
     
     
