@@ -19,6 +19,7 @@ final class LogInViewController: UIViewController {
         super.viewDidLoad()
 
         setUI()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     func setUI() {
@@ -33,4 +34,11 @@ final class LogInViewController: UIViewController {
         
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
+    
+    @IBAction func justBoxTestButton(_ sender: Any) {
+        guard let boxViewController = UIStoryboard(name: "VinylBoxStoryboard", bundle: nil).instantiateViewController(identifier: "VinylBox") as? VinylBoxViewController else { return }
+        
+        self.navigationController?.pushViewController(boxViewController, animated: true)
+    }
+    
 }
