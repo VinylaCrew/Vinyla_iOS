@@ -97,7 +97,10 @@ class SignUpViewController: UIViewController {
             return
         }
         
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        
+        self.navigationController?.setViewControllers([nextViewController], animated: true)
+        
+//        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
     func isValidName(name:String)-> Bool {
