@@ -6,3 +6,5 @@
 - Rx 어디 까지 적용할지
 - Why? MVVM / Rx 이유와 당위성을 적용 / DIContainer
 - 7 4week 메인 View 작업 및 검색 화면 test view로
+- 8.5 Coordinator 적용완료
+- Search View 부터 보관함 추가 되는 로직 & 홈뷰에서 최근 박스 4개
