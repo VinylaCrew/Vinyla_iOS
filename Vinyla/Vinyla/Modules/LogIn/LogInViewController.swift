@@ -15,11 +15,24 @@ final class LogInViewController: UIViewController {
     
     let storyBoardID = "LogInViewController"
     
+    private weak var viewModel: LogInViewModel?
+    private weak var coordiNator: AppCoordinator?
+    
+    static func instantiate(viewModel: LogInViewModel, coordiNator: AppCoordinator) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "LogInViewStoryBoard", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(identifier: "LogInViewController") as? LogInViewController else {
+            return UIViewController()
+        }
+        viewController.viewModel = viewModel
+        viewController.coordiNator = coordiNator
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUI()
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     
     func setUI() {
@@ -29,10 +42,7 @@ final class LogInViewController: UIViewController {
     }
     @IBAction func touchUpGoogleButton(_ sender: UIButton) {
         
-        print("touchUP")
-        guard let nextViewController = UIStoryboard(name: "SignUp", bundle: nil).instantiateViewController(identifier: "SignUp") as? SignUpViewController else { return }
-        
-        self.navigationController?.pushViewController(nextViewController, animated: true)
+        coordiNator?.moveToSignUPView()
     }
     
     @IBAction func justBoxTestButton(_ sender: Any) {

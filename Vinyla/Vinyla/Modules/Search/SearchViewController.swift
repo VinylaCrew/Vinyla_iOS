@@ -15,6 +15,19 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var searchTableView: UITableView!
     let disposeBag = DisposeBag()
     
+    private weak var coordiNator: AppCoordinator?
+    private weak var viewModel: SearchViewModel?
+    
+    static func instantiate(viewModel: SearchViewModel, coordiNator: AppCoordinator) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Search", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(identifier: "Search") as? SearchViewController else {
+            return UIViewController()
+        }
+        viewController.viewModel = viewModel
+        viewController.coordiNator = coordiNator
+        return viewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +61,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func touchUpViewPopButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        coordiNator?.popViewController()
     }
     
     func bindTableView() {
