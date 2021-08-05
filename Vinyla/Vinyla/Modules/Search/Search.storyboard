@@ -23,6 +23,9 @@
                                     <constraint firstAttribute="height" constant="35" id="mBN-Fj-30W"/>
                                 </constraints>
                                 <state key="normal" image="icnBtnBack"/>
+                                <connections>
+                                    <action selector="touchUpViewPopButton:" destination="JCS-KK-iJg" eventType="touchUpInside" id="Eaf-Ic-lw7"/>
+                                </connections>
                             </button>
                             <searchBar contentMode="redraw" placeholder="앨범명/아티스트를 입력해주세요." translatesAutoresizingMaskIntoConstraints="NO" id="HPv-ha-BAn">
                                 <rect key="frame" x="45" y="54" width="315" height="44"/>
@@ -52,8 +55,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ny-7J-RQf">
-                                <rect key="frame" x="0.0" y="155" width="375" height="657"/>
-                                <color key="backgroundColor" red="0.40000000000000002" green="0.098039215690000001" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="140" width="375" height="672"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="to3-Mi-QPH"/>
@@ -72,7 +75,7 @@
                             <constraint firstItem="PhD-Ui-1vJ" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="15" id="cld-KK-reP"/>
                             <constraint firstItem="uUi-tD-29m" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="18" id="jLg-hu-LGR"/>
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" id="p07-vb-ONH"/>
-                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="20" id="zie-lj-6Qk"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="5" id="zie-lj-6Qk"/>
                         </constraints>
                     </view>
                     <connections>
