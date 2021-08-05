@@ -10,18 +10,28 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private var appCoordinator: AppCoordinator?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+//   기존 window가 아닌 windowScene을 이용해 Window를 초기화해서 사용하기때문에 , 적용 X
+//        if #available(iOS 13.0, *) {
+//            window?.overrideUserInterfaceStyle = .light
+//        }
+        let sceneWindow = UIWindow(windowScene: windowScene)
+
+        appCoordinator = AppCoordinator(window: sceneWindow)
+        appCoordinator?.start()
         if #available(iOS 13.0, *) {
-            window?.overrideUserInterfaceStyle = .light
+            sceneWindow.overrideUserInterfaceStyle = .light
         }
+        window = sceneWindow
+        //window초기화 이후 사용이므로 적용 OK
+//        if #available(iOS 13.0, *) {
+//                    window?.overrideUserInterfaceStyle = .light
+//                }
         
-        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
