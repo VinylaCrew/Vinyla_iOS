@@ -66,7 +66,8 @@ class SearchViewController: UIViewController {
     
     func bindTableView() {
         let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
-        cities.bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
+        cities.observe(on: MainScheduler.instance)
+            .bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
         
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
                         
@@ -79,8 +80,10 @@ class SearchViewController: UIViewController {
     
     func didSelectCell() {
         searchTableView.rx.modelSelected(String.self)
-            .subscribe(onNext: { model in
+            .subscribe(onNext: { [weak self] model in
                 print("seletecd \(model)")
+                self?.coordiNator?.songNameCD = "\(model)"
+                self?.coordiNator?.moveToAddReview()
             })
             .disposed(by: disposeBag)
         
@@ -89,6 +92,8 @@ class SearchViewController: UIViewController {
                 print("selected \(indexPath)")
             })
             .disposed(by: disposeBag)
+        
+        
     }
     
 }
