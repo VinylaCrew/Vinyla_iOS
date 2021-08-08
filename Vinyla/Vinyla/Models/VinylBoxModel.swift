@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct VinylBoxModel {
+    var singer: String?
+    var songTitle: String?
+    var vinylImage: Data?
+}
