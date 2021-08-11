@@ -112,8 +112,7 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = UIScreen.main.bounds.size.width
-        let cellHeight = (UIScreen.main.bounds.size.height * 0.62)
-        print(cellHeight)
+        let cellHeight = vinylBoxPagingCollectionView.frame.size.height
         return CGSize(width: cellWidth, height: cellHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
