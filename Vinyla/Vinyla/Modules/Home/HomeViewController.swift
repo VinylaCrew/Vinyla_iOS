@@ -13,6 +13,14 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var vibrancyImageView: UIImageView!
     @IBOutlet weak var homeImageView: UIImageView!
     @IBOutlet weak var testImageView: UIImageView!
+    @IBOutlet weak var blurCircleView: BlurCircleView!
+    @IBOutlet weak var homeScrollView: UIScrollView!
+    @IBOutlet weak var recentVinylCollectionView: UICollectionView!
+    
+    //Constraint
+    @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var bottomMiniViewSpace: NSLayoutConstraint!
+    @IBOutlet weak var bottomTopSpace: NSLayoutConstraint!
     
     let storyBoardID = "Home"
     
@@ -31,28 +39,86 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
+//        print(UIScreen.main.bounds.size.height)
+//        self.homeScrollView.frame.size.height = UIScreen.main.bounds.size.height
+
+        homeScrollView.contentInsetAdjustmentBehavior = .never
 //        if let imageData = testImageView.image?.jpegData(compressionQuality: 1) {
 //            CoreDataManager.shared.saveImage(data: imageData)
 //        }
-        //이미지 2개 추가 하나는 username = nil
-        CoreDataManager.shared.delete(imageID: "name1")
         
+//        CoreDataManager.shared.delete(imageID: "name1")
+        recentVinylCollectionView.delegate = self
+        recentVinylCollectionView.dataSource = self
+        recentVinylCollectionView.backgroundColor = .black
+        
+        let recentCellNib = UINib(nibName: "RecentVinylCollectionViewCell", bundle: nil)
+        recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
+//        iphone 12
+//        bottomTopSpace.constant += 18
+
+        //        bottomViewSetUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        let testCoreImage = CoreDataManager.shared.fetchImage()
 //        self.homeImageView.image = UIImage(data: testCoreImage[0].favoriteImage!)
+        bottomViewSetUI()
         CoreDataManager.shared.printData()
-        
     }
-    func setUI() {
-//        vibrancyImageView.layer.cornerRadius = vibrancyImageView.frame.height/2
-//        vibrancyImageView.layer.borderWidth = 1
-//        vibrancyImageView.layer.borderColor = UIColor.clear.cgColor
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+        print(self.blurCircleView.layer.frame.height-375)
+        if UIScreen.main.bounds.size.height > 812 {
+            //1번만 작동되도록 홈뷰 돌아올때마다 constant 추가가됨
+//            bottomMiniViewSpace.constant +=  (self.blurCircleView.layer.frame.height-375)
+            self.homeScrollView.isScrollEnabled = false
+        }
+        print(homeScrollView.frame.size.height)
+    }
+    func bottomViewSetUI() {
+        let deviceHeight = UIScreen.main.bounds.size.height
+        print("deviceHeight")
+        print(deviceHeight)
+        //12 max 428 926
+        //12 390 844
+        if deviceHeight > 925 {
+            homeBottomViewHeight.constant = CGFloat(258+61)
+        } else if deviceHeight > 844 { // iPhone 11 Pro Max
+            homeBottomViewHeight.constant = CGFloat(258+48) //11pro max ok
+            
+        } else if deviceHeight > 812 { //iPhone 12
+            homeBottomViewHeight.constant = CGFloat(258+13)
+        } else {
+            //iPhone XS Under OK
+        }
     }
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
-        coordiNator?.moveToSearchView()
+//        coordiNator?.moveToSearchView()
+        coordiNator?.moveToAddInformationView()
+    }
+    
+}
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //iphone 12 81,81
+        
+        return CGSize(width: 77, height: 77)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        12
     }
     
 }

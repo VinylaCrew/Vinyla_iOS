@@ -56,6 +56,8 @@ final class AppCoordinator {
         windowRootViewController.pushViewController(searchView, animated: true)
     }
     func moveToAddReview() {
+//        let a = AddReviewViewModel()
+//        a.data = 매개변수
         let AddReviewView = AddReviewViewController.instantiate(viewModel: AddReviewViewModel(), coordiNator: self, songName: songNameCD)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(AddReviewView, animated: true)
