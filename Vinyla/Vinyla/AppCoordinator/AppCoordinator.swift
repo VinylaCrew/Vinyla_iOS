@@ -55,6 +55,11 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(searchView, animated: true)
     }
+    func moveToAddInformationView() {
+        let addInformationView = AddInformationViewController.instantiate(viewModel: AddInformationViewModel(), coordiNator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(addInformationView, animated: true)
+    }
     func moveToAddReview() {
 //        let a = AddReviewViewModel()
 //        a.data = 매개변수
