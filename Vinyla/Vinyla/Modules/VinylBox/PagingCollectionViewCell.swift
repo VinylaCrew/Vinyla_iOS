@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PaginCollectionViewCell: UICollectionViewCell {
+class PagingCollectionViewCell: UICollectionViewCell {
     
 
     let cellIdentifier = "pagingCell"
@@ -27,7 +27,7 @@ class PaginCollectionViewCell: UICollectionViewCell {
 
 }
 
-extension PaginCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         9
     }
