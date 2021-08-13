@@ -10,11 +10,56 @@ import UIKit
 class VinylBoxCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var vinylBoxImageView: UIImageView!
+    @IBOutlet weak var songTitleLabel: UILabel!
+    @IBOutlet weak var signerLabel: UILabel!
+
+    lazy var whiteCircleVinylView: UIView = { () -> UIView in
+        let view = UIView()
+        
+        let width: CGFloat = 30
+        let height: CGFloat = 30
+        let positionX: CGFloat = 0
+        let positionY: CGFloat = 0
+        view.frame = CGRect(x: positionX, y: positionY, width: width, height: height)
+        view.backgroundColor = .white
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = view.frame.height/2
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.alpha = 0.6
+        
+        let blackCircleView = UIView()
+        blackCircleView.frame = CGRect(x: 0, y: 0, width: 4, height: 4)
+        blackCircleView.backgroundColor = .black
+        blackCircleView.layer.masksToBounds = true
+        blackCircleView.layer.cornerRadius = blackCircleView.frame.height/2
+        view.addSubview(blackCircleView)
+        
+        let blackCircleViewHorizontal = blackCircleView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        let blackCircleViewVertical = blackCircleView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        let blackCircleViewWidth = blackCircleView.widthAnchor.constraint(equalToConstant: 3)
+        let blackCircleViewHeight = blackCircleView.heightAnchor.constraint(equalToConstant: 3)
+        blackCircleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addConstraints([blackCircleViewHorizontal, blackCircleViewVertical, blackCircleViewWidth, blackCircleViewHeight])
+        
+        return view
+    }()
+    
     let identifier = "VinylBoxCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.vinylBoxImageView.addSubview(whiteCircleVinylView)
+        setAutoLayoutWhiteCircleView()
+        vinylBoxImageView.layer.cornerRadius = vinylBoxImageView.frame.height/2
+    }
+    
+    func setAutoLayoutWhiteCircleView() {
+        let whiteCircleVinylViewCenterX = whiteCircleVinylView.centerXAnchor.constraint(equalTo: vinylBoxImageView.centerXAnchor)
+        let whiteCircleVinylViewCenterY = whiteCircleVinylView.centerYAnchor.constraint(equalTo: vinylBoxImageView.centerYAnchor)
+        let whiteCircleVinylViewWidthConstraint = whiteCircleVinylView.widthAnchor.constraint(equalToConstant: 30)
+        let whiteCircleVinylViewHeightConstraint = whiteCircleVinylView.heightAnchor.constraint(equalToConstant: 30)
+        contentView.addConstraints([whiteCircleVinylViewCenterX,whiteCircleVinylViewCenterY,whiteCircleVinylViewWidthConstraint,whiteCircleVinylViewHeightConstraint])
     }
 
 }
