@@ -1,4 +1,5 @@
 PODS:
+  - Cosmos (23.0.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -7,20 +8,23 @@ PODS:
   - RxSwift (6.2.0)
 
 DEPENDENCIES:
+  - Cosmos (~> 23.0)
   - RxCocoa (= 6.2.0)
   - RxSwift (= 6.2.0)
 
 SPEC REPOS:
   trunk:
+    - Cosmos
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
 
-PODFILE CHECKSUM: 029e3473cce4c4b94b6edf7957796151de553d7f
+PODFILE CHECKSUM: bb9ae634807a02fb08fa7b14a60f8ab35d98b8e7
 
 COCOAPODS: 1.10.1
