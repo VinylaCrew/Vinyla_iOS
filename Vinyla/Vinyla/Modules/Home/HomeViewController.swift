@@ -15,6 +15,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var testImageView: UIImageView!
     @IBOutlet weak var blurCircleView: BlurCircleView!
     @IBOutlet weak var homeScrollView: UIScrollView!
+    @IBOutlet weak var homeScrollContentView: UIView!
     @IBOutlet weak var recentVinylCollectionView: UICollectionView!
     
     //Constraint
@@ -39,6 +40,7 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 //        print(UIScreen.main.bounds.size.height)
 //        self.homeScrollView.frame.size.height = UIScreen.main.bounds.size.height
 
@@ -50,7 +52,8 @@ final class HomeViewController: UIViewController {
 //        CoreDataManager.shared.delete(imageID: "name1")
         recentVinylCollectionView.delegate = self
         recentVinylCollectionView.dataSource = self
-        recentVinylCollectionView.backgroundColor = .black
+        homeScrollContentView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 21/255, alpha: 1)
+        recentVinylCollectionView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 21/255, alpha: 1)
         
         let recentCellNib = UINib(nibName: "RecentVinylCollectionViewCell", bundle: nil)
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
@@ -96,7 +99,7 @@ final class HomeViewController: UIViewController {
     }
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
 //        coordiNator?.moveToSearchView()
-        coordiNator?.moveToAddInformationView()
+        coordiNator?.moveToVinylBoxView()
     }
     
 }
@@ -108,7 +111,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
-        
+        cell.recentVinylImageView.image = nil
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
