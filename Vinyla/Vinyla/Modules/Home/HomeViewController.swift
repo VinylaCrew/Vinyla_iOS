@@ -21,8 +21,8 @@ final class HomeViewController: UIViewController {
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMiniViewSpace: NSLayoutConstraint!
-    @IBOutlet weak var bottomTopSpace: NSLayoutConstraint!
-    
+    @IBOutlet weak var recentCollectionViewHeight: NSLayoutConstraint!
+
     let storyBoardID = "Home"
     
     private weak var coordiNator: AppCoordinator?
@@ -40,46 +40,70 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        print(UIScreen.main.bounds.size.height)
-//        self.homeScrollView.frame.size.height = UIScreen.main.bounds.size.height
+
 
         homeScrollView.contentInsetAdjustmentBehavior = .never
-//        if let imageData = testImageView.image?.jpegData(compressionQuality: 1) {
-//            CoreDataManager.shared.saveImage(data: imageData)
-//        }
-        
-//        CoreDataManager.shared.delete(imageID: "name1")
+        print("ijoom", homeScrollView.contentInset)
+        print("ijoom", homeScrollView.adjustedContentInset)
+
         recentVinylCollectionView.delegate = self
         recentVinylCollectionView.dataSource = self
         homeScrollContentView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 21/255, alpha: 1)
         recentVinylCollectionView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 21/255, alpha: 1)
-        
         let recentCellNib = UINib(nibName: "RecentVinylCollectionViewCell", bundle: nil)
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
-//        iphone 12
-//        bottomTopSpace.constant += 18
-
-        //        bottomViewSetUI()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        let testCoreImage = CoreDataManager.shared.fetchImage()
 //        self.homeImageView.image = UIImage(data: testCoreImage[0].favoriteImage!)
-        bottomViewSetUI()
+//        bottomViewSetUI()
+        
         CoreDataManager.shared.printData()
+        recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
+
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
-        print(self.blurCircleView.layer.frame.height-375)
-        if UIScreen.main.bounds.size.height > 812 {
-            //1번만 작동되도록 홈뷰 돌아올때마다 constant 추가가됨
-//            bottomMiniViewSpace.constant +=  (self.blurCircleView.layer.frame.height-375)
-            self.homeScrollView.isScrollEnabled = false
+
+    private var homeScrollContentViewHeightConstraint: NSLayoutConstraint?
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        if let homeScrollContentViewHeightConstraint = homeScrollContentViewHeightConstraint {
+            homeScrollContentViewHeightConstraint.isActive = false
+            self.homeScrollContentViewHeightConstraint = nil
         }
-        print(homeScrollView.frame.size.height)
+
+        //레이아웃 처음 계산때 647,0
+        //is active false nil
+
+        view.layoutIfNeeded()
+
+        homeScrollContentViewHeightConstraint = homeScrollContentView.heightAnchor.constraint(equalToConstant: {
+            let screenHeight = UIScreen.main.bounds.height - view.safeAreaInsets.top
+            let scrollViewContentHeight = homeScrollView.contentSize.height
+            if screenHeight >= scrollViewContentHeight {
+                return screenHeight
+            } else {
+                return scrollViewContentHeight
+            }
+        }())
+        homeScrollContentViewHeightConstraint?.isActive = true
     }
+
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        homeScrollView.contentInset = UIEdgeInsets(top: view.safeAreaInsets.top, left: 0, bottom: 0, right: 0)
+        //viewdidload 에선 SafeareaInsets 0 view life cycle 안맞음
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+//        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
+
+    }
+
     func bottomViewSetUI() {
         let deviceHeight = UIScreen.main.bounds.size.height
         print("deviceHeight")
@@ -98,8 +122,9 @@ final class HomeViewController: UIViewController {
         }
     }
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
+        coordiNator?.moveToAddInformationView()
 //        coordiNator?.moveToSearchView()
-        coordiNator?.moveToVinylBoxView()
+//        coordiNator?.moveToVinylBoxView()
     }
     
 }
@@ -111,15 +136,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
-        cell.recentVinylImageView.image = nil
+//        cell.recentVinylImageView.image = nil
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //iphone 12 81,81
-        
-        return CGSize(width: 77, height: 77)
+        let cellSize = floor((UIScreen.main.bounds.size.width - 66)/4)
+        print("cellSize",cellSize)
+        // width/4
+        return CGSize(width: cellSize, height: cellSize)
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         12
     }

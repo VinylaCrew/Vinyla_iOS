@@ -44,16 +44,21 @@ class RecentVinylCollectionViewCell: UICollectionViewCell {
     }()
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.contentView.layer.cornerRadius = self.contentView.frame.height/2
+
         self.contentView.backgroundColor = .black
         self.contentView.addSubview(whiteCircleVinylView)
         setAutoLayoutWhiteCircleView()
         
-        
-        self.recentVinylImageView.layer.cornerRadius = self.recentVinylImageView.frame.height/2
+        // contentview  imageview whiteview
+        self.contentView.clipsToBounds = true
     }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentView.layer.cornerRadius = self.contentView.frame.height/2
+//        self.recentVinylImageView.layer.cornerRadius = self.recentVinylImageView.frame.height/2
+        print("content height", self.contentView.frame.height/2)
+        print("image height", self.recentVinylImageView.frame.height/2)
+    }
     func setAutoLayoutWhiteCircleView() {
         let whiteCircleVinylViewCenterX = whiteCircleVinylView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         let whiteCircleVinylViewCenterY = whiteCircleVinylView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
