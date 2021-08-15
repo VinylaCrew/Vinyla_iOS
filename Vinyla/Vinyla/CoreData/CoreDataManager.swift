@@ -104,7 +104,6 @@ class CoreDataManager {
                 print($0.imageID)
             } }
         catch { print(error.localizedDescription)
-            print("에러뤄")
         }
     }
     
@@ -116,7 +115,15 @@ class CoreDataManager {
                 print($0.signer)
             } }
         catch { print(error.localizedDescription)
-            print("에러뤄")
         }
+    }
+    
+    func getCountVinylBoxData() -> Int {
+        do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
+            return vinylBox.count
+        }
+        catch { print(error.localizedDescription)
+        }
+        return 0
     }
 }
