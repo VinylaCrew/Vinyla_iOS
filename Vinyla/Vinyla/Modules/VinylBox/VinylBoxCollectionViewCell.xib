@@ -23,8 +23,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="iPd-KF-ZiH">
                                 <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="5YM-ab-Fnh"/>
-                                    <constraint firstAttribute="height" constant="100" id="sMr-7C-vVr"/>
+                                    <constraint firstAttribute="width" secondItem="iPd-KF-ZiH" secondAttribute="height" multiplier="1:1" id="FeO-Un-T2k"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="song title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chf-mT-bqd">
@@ -73,7 +72,7 @@
                 <outlet property="songTitleLabel" destination="Chf-mT-bqd" id="t4g-zZ-xNT"/>
                 <outlet property="vinylBoxImageView" destination="iPd-KF-ZiH" id="rUD-u3-1QD"/>
             </connections>
-            <point key="canvasLocation" x="131.8840579710145" y="131.91964285714286"/>
+            <point key="canvasLocation" x="131.8840579710145" y="131.58482142857142"/>
         </collectionViewCell>
     </objects>
     <resources>

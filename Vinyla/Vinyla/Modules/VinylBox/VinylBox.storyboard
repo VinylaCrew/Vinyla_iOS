@@ -31,8 +31,8 @@
                                             <action selector="touchUpPreviousButton:" destination="cl4-gs-c4k" eventType="touchUpInside" id="6NE-D2-5PC"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일론머스크도지코인" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzN-KZ-yAI">
-                                        <rect key="frame" x="96.000000000000014" y="20" width="171.33333333333337" height="33"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일론슥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kzN-KZ-yAI">
+                                        <rect key="frame" x="15" y="20" width="345" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="C28-Vt-I9Z"/>
                                         </constraints>
@@ -40,8 +40,8 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="닐암스트롱" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMU-JN-RVl">
-                                        <rect key="frame" x="157" y="58" width="69" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닐암스트롱" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMU-JN-RVl">
+                                        <rect key="frame" x="153" y="58" width="69" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="Yvh-qE-2pY"/>
                                             <constraint firstAttribute="width" constant="69" id="yqS-Yr-kzd"/>
@@ -50,8 +50,8 @@
                                         <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icnHomeLv4" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-ux-o3g">
-                                        <rect key="frame" x="131" y="58" width="18" height="18"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icnHomeLv4" translatesAutoresizingMaskIntoConstraints="NO" id="Vu0-ux-o3g">
+                                        <rect key="frame" x="127" y="58" width="18" height="18"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="18" id="GQn-wK-jV8"/>
                                             <constraint firstAttribute="width" constant="18" id="ifa-CS-KTV"/>
@@ -60,13 +60,14 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="kzN-KZ-yAI" firstAttribute="leading" secondItem="yxz-vb-kdT" secondAttribute="leading" constant="15" id="4Ha-Bo-oFH"/>
                                     <constraint firstItem="oPH-UY-XXY" firstAttribute="leading" secondItem="yxz-vb-kdT" secondAttribute="leading" constant="8" id="5YM-xr-a21"/>
-                                    <constraint firstAttribute="trailing" secondItem="kzN-KZ-yAI" secondAttribute="trailing" constant="107.66666666666663" id="8Zs-M3-7Fb"/>
+                                    <constraint firstAttribute="trailing" secondItem="kzN-KZ-yAI" secondAttribute="trailing" constant="15" id="Ak6-0Q-TXT"/>
                                     <constraint firstItem="jMU-JN-RVl" firstAttribute="top" secondItem="kzN-KZ-yAI" secondAttribute="bottom" constant="5" id="CNm-Mx-2jv"/>
+                                    <constraint firstItem="jMU-JN-RVl" firstAttribute="centerX" secondItem="yxz-vb-kdT" secondAttribute="centerX" id="DC9-Tw-jF6"/>
                                     <constraint firstItem="oPH-UY-XXY" firstAttribute="top" secondItem="yxz-vb-kdT" secondAttribute="top" constant="34" id="En3-qp-for"/>
                                     <constraint firstItem="kzN-KZ-yAI" firstAttribute="top" secondItem="yxz-vb-kdT" secondAttribute="top" constant="20" id="GPa-be-XlG"/>
                                     <constraint firstItem="Vu0-ux-o3g" firstAttribute="leading" secondItem="yxz-vb-kdT" secondAttribute="leading" priority="750" constant="131" id="Zdk-40-bjN"/>
-                                    <constraint firstItem="kzN-KZ-yAI" firstAttribute="leading" secondItem="yxz-vb-kdT" secondAttribute="leading" constant="96" id="aCN-uU-ybb"/>
                                     <constraint firstItem="jMU-JN-RVl" firstAttribute="leading" secondItem="Vu0-ux-o3g" secondAttribute="trailing" constant="8" symbolic="YES" id="h7W-dD-XYP"/>
                                     <constraint firstAttribute="trailing" secondItem="jMU-JN-RVl" secondAttribute="trailing" priority="750" constant="149" id="i7u-dX-nBr"/>
                                     <constraint firstItem="Vu0-ux-o3g" firstAttribute="top" secondItem="kzN-KZ-yAI" secondAttribute="bottom" constant="5" id="yda-Yt-Prt"/>
@@ -102,14 +103,21 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fIf-gg-zwk">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIf-gg-zwk">
                                 <rect key="frame" x="108" y="736" width="160" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Esi-eP-ClO"/>
                                     <constraint firstAttribute="width" secondItem="fIf-gg-zwk" secondAttribute="height" multiplier="10:3" id="fsV-Ou-Mam"/>
                                 </constraints>
-                                <state key="normal" title="다음 서랍 1/12">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="다음 서랍 1/12">
+                                            <attributes>
+                                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <font key="NSFont" size="15" name=".AppleSDGothicNeoI-Regular"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qz4-JV-epJ">
@@ -157,7 +165,7 @@
                     <connections>
                         <outlet property="addVinylButton" destination="Qz4-JV-epJ" id="ZJa-vh-Qen"/>
                         <outlet property="nextBoxButton" destination="fIf-gg-zwk" id="XlT-L9-a5W"/>
-                        <outlet property="previousButton" destination="oPH-UY-XXY" id="kyp-Ef-uMK"/>
+                        <outlet property="popVinylBoxViewButton" destination="oPH-UY-XXY" id="AHm-sI-nUH"/>
                         <outlet property="vinylBoxPagingCollectionView" destination="Wc3-GX-jil" id="Fdy-ag-NWZ"/>
                         <outlet property="vinylCountLabel" destination="FZV-kj-sZR" id="bOv-3L-CxM"/>
                     </connections>

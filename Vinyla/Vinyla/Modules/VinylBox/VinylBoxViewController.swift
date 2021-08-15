@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class VinylBoxViewController: UIViewController {
     
@@ -13,14 +15,16 @@ class VinylBoxViewController: UIViewController {
     @IBOutlet weak var vinylCountLabel: UILabel!
     @IBOutlet weak var addVinylButton: UIButton!
     @IBOutlet weak var nextBoxButton: UIButton!
-    @IBOutlet weak var previousButton: UIButton!
+    @IBOutlet weak var popVinylBoxViewButton: UIButton!
     @IBOutlet weak var vinylBoxPagingCollectionView: UICollectionView!
     
     private weak var coordiNator: AppCoordinator?
     private weak var viewModel: VinylBoxViewModel?
     
     private var vinylBoxes = [VinylBox]()
-    
+    private var reverseVinylBoxes = [VinylBox]()
+    var totalPageNumber: Int?
+    let disposbag = DisposeBag()
     static func instantiate(viewModel: VinylBoxViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "VinylBox", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "VinylBox") as? VinylBoxViewController else {
@@ -37,23 +41,31 @@ class VinylBoxViewController: UIViewController {
         setUI()
         vinylBoxPagingCollectionView.dataSource = self
         vinylBoxPagingCollectionView.delegate = self
-        let vinylBoxCellNib = UINib(nibName: "PaginCollectionViewCell", bundle: nil)
+        let vinylBoxCellNib = UINib(nibName: "PagingCollectionViewCell", bundle: nil)
         vinylBoxPagingCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "pagingCell")
         vinylCountLabel.text = "0개"
+
+        self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.coordiNator?.moveToAddInformationView()
+        }).disposed(by: disposbag)
         
         
-        
-//        for i in 1...20 {
-//            CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
-//        }
+        //                for i in 1...20 {
+        //                    CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
+        //                }
+        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
+        reverseVinylBoxes = vinylBoxes.reversed()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
-        CoreDataManager.shared.printVinylBoxData()
-       
+        if vinylBoxes.count%9 == 0 {
+            totalPageNumber = vinylBoxes.count/9
+        }else {
+            totalPageNumber = vinylBoxes.count/9+1
+        }
+
         vinylBoxPagingCollectionView.reloadData()
         
     }
@@ -91,29 +103,61 @@ class VinylBoxViewController: UIViewController {
 extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       
-        return 9 //vinylBoxes.count
+        
+        guard let pageNumber = totalPageNumber else { return 0 }
+        return pageNumber //page
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VinylBoxCell", for: indexPath) as? VinylBoxCollectionViewCell else { return UICollectionViewCell() }
-//        cell.vinylBoxImageView.image = downScaleImage(imageData: vinylBoxes[indexPath.row].vinylImage!, for: CGSize(width: 200, height: 200), scale: 0.7)
-//        cell.signerLabel.text = vinylBoxes[indexPath.row].signer
-//        cell.songTitleLabel.text = vinylBoxes[indexPath.row].songTitle
-//        return cell
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pagingCell", for: indexPath) as? PaginCollectionViewCell else { return UICollectionViewCell() }
+        //        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VinylBoxCell", for: indexPath) as? VinylBoxCollectionViewCell else { return UICollectionViewCell() }
+        //        cell.vinylBoxImageView.image = downScaleImage(imageData: vinylBoxes[indexPath.row].vinylImage!, for: CGSize(width: 200, height: 200), scale: 0.7)
+        //        cell.signerLabel.text = vinylBoxes[indexPath.row].signer
+        //        cell.songTitleLabel.text = vinylBoxes[indexPath.row].songTitle
+        //        return cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pagingCell", for: indexPath) as? PagingCollectionViewCell else { return UICollectionViewCell() }
         
+        let odds = reverseVinylBoxes.enumerated().filter {
+            [weak self] (index: Int, element: VinylBox) -> Bool in
+            guard let pageNumber = totalPageNumber else { return false }
+            if indexPath.row != pageNumber-1 {
+                return (indexPath.row*9 <= index && index <= ((indexPath.row+1)*9-1))
+            }else {
+                return (indexPath.row*9 <= index && index <= vinylBoxes.count-1)
+            }
+        }.map { (index: Int, element: VinylBox) -> VinylBox in
+            return element
+        }
+        
+        //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
+        cell.nineVinylItems = odds
+        cell.vinylBoxCollectionView.reloadData()
         return cell
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(indexPath)")
-    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = UIScreen.main.bounds.size.width
         let cellHeight = vinylBoxPagingCollectionView.frame.size.height
+        //        print("VinylBoxSize",cellWidth,cellHeight)
         return CGSize(width: cellWidth, height: cellHeight)
+    }
+
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        // item의 사이즈와 item 간의 간격 사이즈를 구해서 하나의 item 크기로 설정.
+        let layout = self.vinylBoxPagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = layout.itemSize.width + layout.minimumLineSpacing
+
+        // targetContentOff을 이용하여 x좌표가 얼마나 이동했는지 확인
+        // 이동한 x좌표 값과 item의 크기를 비교하여 몇 페이징이 될 것인지 값 설정
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        DispatchQueue.main.async {
+            self.nextBoxButton.setTitle("다음 서랍 \(Int(roundedIndex+1))", for: .normal)
+//            self.nextBoxButton.titleLabel?.text = "\(Int(roundedIndex+1))"
+        }
+        print(roundedIndex)
+
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0

@@ -12,6 +12,7 @@ class VinylBoxCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var vinylBoxImageView: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var signerLabel: UILabel!
+    @IBOutlet weak var vinylImageViewWidth: NSLayoutConstraint!
 
     lazy var whiteCircleVinylView: UIView = { () -> UIView in
         let view = UIView()
@@ -51,9 +52,27 @@ class VinylBoxCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.vinylBoxImageView.addSubview(whiteCircleVinylView)
         setAutoLayoutWhiteCircleView()
-        vinylBoxImageView.layer.cornerRadius = vinylBoxImageView.frame.height/2
+
+//        self.contentView.clipsToBounds = true
+
+        self.vinylBoxImageView.frame.size.width = 50.0
+
+//        print("vinlyboxcell", self.contentView.frame.size)
     }
-    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+//        print("vinlyboxcell",self.contentView.frame.size)
+
+        setVinylBoxImageAutoLayout()
+        self.vinylBoxImageView.layoutIfNeeded()
+        self.vinylBoxImageView.bounds.size.width = 25.0
+        vinylBoxImageView.layer.cornerRadius = vinylBoxImageView.frame.height/2
+
+
+    }
+    func setVinylBoxImageAutoLayout() {
+//        self.vinylBoxImageView.frame.size.width =  self.contentView.frame.size.height-45
+    }
     func setAutoLayoutWhiteCircleView() {
         let whiteCircleVinylViewCenterX = whiteCircleVinylView.centerXAnchor.constraint(equalTo: vinylBoxImageView.centerXAnchor)
         let whiteCircleVinylViewCenterY = whiteCircleVinylView.centerYAnchor.constraint(equalTo: vinylBoxImageView.centerYAnchor)

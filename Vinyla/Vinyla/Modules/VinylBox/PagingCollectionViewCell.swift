@@ -13,7 +13,10 @@ class PagingCollectionViewCell: UICollectionViewCell {
     let cellIdentifier = "pagingCell"
     @IBOutlet weak var vinylBoxCollectionView: UICollectionView!
     var nineVinylItems = [VinylBox]()
-    
+//    {
+// didset
+//    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,8 +25,6 @@ class PagingCollectionViewCell: UICollectionViewCell {
         let vinylBoxCellNib = UINib(nibName: "VinylBoxCollectionViewCell", bundle: nil)
         vinylBoxCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "VinylBoxCell")
         
-        print("Paging")
-        print(UIScreen.main.bounds.size.height)
     }
 
     func downScaleImage(imageData: Data, for size: CGSize, scale:CGFloat) -> UIImage {
@@ -42,16 +43,23 @@ class PagingCollectionViewCell: UICollectionViewCell {
         return UIImage(cgImage: downsampledImage)
     }
     
+    
 }
 
 extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return nineVinylItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VinylBoxCell", for: indexPath) as? VinylBoxCollectionViewCell else { return UICollectionViewCell() }
-                cell.vinylBoxImageView.image = downScaleImage(imageData: nineVinylItems[indexPath.row].vinylImage!, for: CGSize(width: 200, height: 200), scale: 0.7)
+        if let vinylImageData = nineVinylItems[indexPath.row].vinylImage {
+            cell.vinylBoxImageView.image = downScaleImage(imageData: vinylImageData, for: CGSize(width: 200, height: 200), scale: 0.7)
+        }else {
+            print("Load fail nineVinylItemsImage")
+        }
+//                cell.vinylBoxImageView.image = downScaleImage(imageData: nineVinylItems[indexPath.row].vinylImage!, for: CGSize(width: 200, height: 200), scale: 0.7)
                 cell.signerLabel.text = nineVinylItems[indexPath.row].signer
                 cell.songTitleLabel.text = nineVinylItems[indexPath.row].songTitle
                 return cell
@@ -60,5 +68,17 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         22
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        print("self content view",self.contentView.frame.size)
+        let cellHeight = (self.contentView.frame.size.height-44)/3
+        let cellWidth = floor((UIScreen.main.bounds.size.width-74)/3)
+        if UIScreen.main.bounds.size.height >= 812 {
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+        return CGSize(width: 100, height: 145)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+    }
 }
