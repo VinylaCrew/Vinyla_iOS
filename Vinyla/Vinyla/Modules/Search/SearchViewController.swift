@@ -30,18 +30,21 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        searchTableView.dataSource = self
-        
+        vinylSearchBar.searchTextField.delegate = self
         setUI()
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindTableView()
         didSelectCell()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        vinylSearchBar.searchTextField.becomeFirstResponder()
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+         self.view.endEditing(true)
+    }
     func setUI() {
-
-
         //search bar color custom
         vinylSearchBar.searchBarStyle = .minimal
         vinylSearchBar.searchTextField.textColor = UIColor.white
@@ -108,18 +111,9 @@ class SearchViewController: UIViewController {
     
 }
 
-
-
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.vinylSearchBar.searchTextField.resignFirstResponder()
+        return true
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
-        
-        return cell
-    }
-    
-    
 }
