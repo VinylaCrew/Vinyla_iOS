@@ -9,4 +9,7 @@ import Foundation
 
 final class SearchViewModel {
     
+    func printCellIndexPath(cell: SearchTableViewCell) {
+        print(cell)
+    }
 }

@@ -40,8 +40,18 @@ class SearchViewController: UIViewController {
     }
     
     func setUI() {
+
+
         //search bar color custom
+        vinylSearchBar.searchBarStyle = .minimal
         vinylSearchBar.searchTextField.textColor = UIColor.white
+        vinylSearchBar.layer.cornerRadius = 8
+        vinylSearchBar.clipsToBounds = true
+        vinylSearchBar.barTintColor = .clear
+        vinylSearchBar.searchTextField.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 1)
+        vinylSearchBar.searchTextField.layer.borderWidth = 1
+        vinylSearchBar.searchTextField.layer.borderColor = CGColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
+        vinylSearchBar.searchTextField.layer.cornerRadius = 8
         if let leftView = vinylSearchBar.searchTextField.leftView as? UIImageView {
             leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
             leftView.tintColor = UIColor.white

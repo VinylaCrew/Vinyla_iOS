@@ -27,13 +27,13 @@
                                     <action selector="touchUpViewPopButton:" destination="JCS-KK-iJg" eventType="touchUpInside" id="Eaf-Ic-lw7"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" placeholder="앨범명/아티스트를 입력해주세요." translatesAutoresizingMaskIntoConstraints="NO" id="HPv-ha-BAn">
-                                <rect key="frame" x="45" y="54" width="315" height="44"/>
+                            <searchBar contentMode="redraw" insetsLayoutMarginsFromSafeArea="NO" placeholder="앨범명/아티스트를 입력해주세요." translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-ha-BAn">
+                                <rect key="frame" x="41" y="54" width="291" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="9Uk-ve-pcK"/>
+                                    <constraint firstAttribute="height" constant="48" id="9Uk-ve-pcK"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10개의 바이닐이 업데이트 되었어요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
@@ -58,29 +58,40 @@
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-Lr-ZN2">
+                                <rect key="frame" x="334" y="66" width="28" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="JUE-2A-3QU"/>
+                                    <constraint firstAttribute="width" constant="28" id="eMO-ph-KN6"/>
+                                </constraints>
+                                <state key="normal" title="검색">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="to3-Mi-QPH"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="5" id="53W-eE-FOl"/>
+                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="Dhg-Lr-ZN2" secondAttribute="trailing" constant="13" id="3kH-wI-lKr"/>
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="bottom" secondItem="to3-Mi-QPH" secondAttribute="bottom" constant="34" id="9ok-yz-RHN"/>
                             <constraint firstItem="r09-Ck-9SA" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="10" id="BTx-Oq-5IQ"/>
-                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="5" id="BeX-7g-inu"/>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="1" id="BeX-7g-inu"/>
                             <constraint firstAttribute="trailing" secondItem="uUi-tD-29m" secondAttribute="trailing" constant="25" id="Bqh-jO-Vtp"/>
                             <constraint firstItem="r09-Ck-9SA" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="15" id="D93-ef-yyH"/>
-                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="18" id="DnE-0d-r9A"/>
+                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="14" id="DnE-0d-r9A"/>
                             <constraint firstItem="HPv-ha-BAn" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="10" id="H3s-zs-vdp"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="uUi-tD-29m" secondAttribute="bottom" constant="5" id="OZ2-F0-1Gh"/>
                             <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="0ny-7J-RQf" secondAttribute="trailing" id="WkY-Xm-2b1"/>
-                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="HPv-ha-BAn" secondAttribute="trailing" constant="15" id="bbX-db-YtL"/>
                             <constraint firstItem="PhD-Ui-1vJ" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="15" id="cld-KK-reP"/>
-                            <constraint firstItem="uUi-tD-29m" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="18" id="jLg-hu-LGR"/>
+                            <constraint firstItem="Dhg-Lr-ZN2" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="22" id="enf-Pm-5rD"/>
+                            <constraint firstItem="Dhg-Lr-ZN2" firstAttribute="leading" secondItem="HPv-ha-BAn" secondAttribute="trailing" constant="2" id="gwb-Hg-4w6"/>
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" id="p07-vb-ONH"/>
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="5" id="zie-lj-6Qk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
-                        <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="iBp-Fq-2OM"/>
+                        <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="avT-3d-Gmo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FPS-uT-ohp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
