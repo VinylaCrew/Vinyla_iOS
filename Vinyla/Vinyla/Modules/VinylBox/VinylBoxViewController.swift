@@ -46,7 +46,7 @@ class VinylBoxViewController: UIViewController {
         vinylCountLabel.text = "0개"
 
         self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
-            self?.coordiNator?.moveToAddInformationView()
+            self?.coordiNator?.moveToSearchView()
         }).disposed(by: disposbag)
         
         
@@ -130,7 +130,7 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         
         //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
         cell.nineVinylItems = odds
-        cell.vinylBoxCollectionView.reloadData()
+//        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
         return cell
         
     }
