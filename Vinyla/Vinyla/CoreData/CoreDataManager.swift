@@ -67,7 +67,6 @@ class CoreDataManager {
     }
     
     func delete(imageID: String) {
-        print("delete 호출")
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "MyImage")
         fetchRequest.predicate = NSPredicate(format: "imageID = %@", imageID)
         
@@ -92,10 +91,37 @@ class CoreDataManager {
             print("Error while delete func")
             print(error.localizedDescription)
         }
-        
     }
-    
-    
+    func deleteSpecificVinylBox(songTitle: String) {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
+        fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
+
+        do {
+            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
+            // Delete _all_ objects:
+            for object in results {
+                context.delete(object)
+            }
+            
+            try context.save() // data 추가 삭제후 필수로
+
+        } catch {
+            print("Error while delete func")
+            print(error.localizedDescription)
+        }
+    }
+    func clearAllObjectEntity(_ entity: String) {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            print("clearallobject error")
+            print(error.localizedDescription)
+        }
+    }
     
     func printData() {
         do { let myImage = try context.fetch(MyImage.fetchRequest()) as! [MyImage]
