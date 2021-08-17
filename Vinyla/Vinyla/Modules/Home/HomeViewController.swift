@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var vibrancyImageView: UIImageView!
@@ -17,34 +17,51 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var homeScrollView: UIScrollView!
     @IBOutlet weak var homeScrollContentView: UIView!
     @IBOutlet weak var recentVinylCollectionView: UICollectionView!
-    
+    @IBOutlet weak var homeMiniButtonView: UIView!
+    @IBOutlet weak var vinylCountLabel: UILabel!
+    @IBOutlet weak var collectedTextLabel: UILabel!
+    @IBOutlet weak var genreTextLabel: UILabel!
+    @IBOutlet weak var myGenreLabel: UILabel!
+    @IBOutlet weak var homeButton: UIButton!
+
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMiniViewSpace: NSLayoutConstraint!
     @IBOutlet weak var recentCollectionViewHeight: NSLayoutConstraint!
 
+    lazy var homeMiniButtonImageView: UIImageView = {
+        let imageName = "area"
+        let image = UIImage(named: imageName)
+        let homeMiniButtonImageView = UIImageView(image: image!)
+        homeMiniButtonImageView.frame = CGRect(x: 0, y: 0, width: 345, height: 80)
+        homeMiniButtonImageView.clipsToBounds = true
+        homeMiniButtonImageView.translatesAutoresizingMaskIntoConstraints = false
+        return homeMiniButtonImageView
+    }()
+
     let storyBoardID = "Home"
     
     private weak var coordiNator: AppCoordinator?
-    private weak var viewModel: HomeViewModel?
+    private var viewModel: HomeViewModel?
     
     static func instantiate(viewModel: HomeViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "Home") as? HomeViewController else {
             return UIViewController()
         }
-        viewController.viewModel = viewModel
+        viewController.viewModel = viewModel //weak이면 return 전에 viewController.viewModel 이 deinit 되며 nil상태가 되어짐
         viewController.coordiNator = coordiNator
+        //print("static func return 하기 전") 여기서 weak viewModel deinit
         return viewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
         homeScrollView.contentInsetAdjustmentBehavior = .never
-        print("ijoom", homeScrollView.contentInset)
-        print("ijoom", homeScrollView.adjustedContentInset)
+//        print("ijoom", homeScrollView.contentInset)
+//        print("ijoom", homeScrollView.adjustedContentInset)
+
+        setHomeButtonMiniImage()
 
         recentVinylCollectionView.delegate = self
         recentVinylCollectionView.dataSource = self
@@ -53,12 +70,11 @@ final class HomeViewController: UIViewController {
         let recentCellNib = UINib(nibName: "RecentVinylCollectionViewCell", bundle: nil)
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        let testCoreImage = CoreDataManager.shared.fetchImage()
-//        self.homeImageView.image = UIImage(data: testCoreImage[0].favoriteImage!)
-//        bottomViewSetUI()
-        
+        //        let testCoreImage = CoreDataManager.shared.fetchImage()
+        //        self.homeImageView.image = UIImage(data: testCoreImage[0].favoriteImage!)
         CoreDataManager.shared.printData()
         recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
 
@@ -89,6 +105,7 @@ final class HomeViewController: UIViewController {
             }
         }())
         homeScrollContentViewHeightConstraint?.isActive = true
+
     }
 
     override func viewSafeAreaInsetsDidChange() {
@@ -100,8 +117,21 @@ final class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-//        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
+        //        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
 
+    }
+    func setHomeButtonMiniImage() {
+        self.homeMiniButtonView.addSubview(homeMiniButtonImageView)
+        let homeBottomMiniViewHorizontal = homeMiniButtonImageView.leadingAnchor.constraint(equalTo: homeMiniButtonView.leadingAnchor)
+        let homeBottomMiniViewVertical = homeMiniButtonImageView.trailingAnchor.constraint(equalTo: homeMiniButtonView.trailingAnchor)
+        let homeBottomMiniViewWidthConstraint = homeMiniButtonImageView.widthAnchor.constraint(equalTo: homeMiniButtonView.widthAnchor)
+        let homeBottomMiniViewHeightConstraint = homeMiniButtonImageView.heightAnchor.constraint(equalTo: homeMiniButtonView.heightAnchor)
+        homeMiniButtonView.addConstraints([homeBottomMiniViewHorizontal, homeBottomMiniViewVertical, homeBottomMiniViewWidthConstraint, homeBottomMiniViewHeightConstraint])
+        self.homeMiniButtonView.bringSubviewToFront(vinylCountLabel)
+        self.homeMiniButtonView.bringSubviewToFront(myGenreLabel)
+        self.homeMiniButtonView.bringSubviewToFront(collectedTextLabel)
+        self.homeMiniButtonView.bringSubviewToFront(genreTextLabel)
+        self.homeMiniButtonView.layer.cornerRadius = 8
     }
 
     func bottomViewSetUI() {
@@ -122,9 +152,9 @@ final class HomeViewController: UIViewController {
         }
     }
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
-        coordiNator?.moveToAddInformationView()
-//        coordiNator?.moveToSearchView()
-//        coordiNator?.moveToVinylBoxView()
+        //        coordiNator?.moveToAddInformationView()
+        //        coordiNator?.moveToSearchView()
+        coordiNator?.moveToVinylBoxView()
     }
     
 }
@@ -136,12 +166,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
-//        cell.recentVinylImageView.image = nil
+        //        cell.recentVinylImageView.image = nil
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = floor((UIScreen.main.bounds.size.width - 66)/4)
-        print("cellSize",cellSize)
         // width/4
         return CGSize(width: cellSize, height: cellSize)
     }

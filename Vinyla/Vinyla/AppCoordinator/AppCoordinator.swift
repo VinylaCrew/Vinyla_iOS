@@ -14,6 +14,7 @@ final class AppCoordinator {
     private let window: UIWindow
     private var isLogIn: Bool?
     var songNameCD: String!
+
     init(window: UIWindow) {
         self.window = window
         self.isLogIn = true
@@ -54,9 +55,13 @@ final class AppCoordinator {
         let searchView = SearchViewController.instantiate(viewModel: SearchViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(searchView, animated: true)
+//        searchView.modalPresentationStyle = .fullScreen
+//        windowRootViewController.present(searchView, animated: true, completion: nil)
     }
-    func moveToAddInformationView() {
-        let addInformationView = AddInformationViewController.instantiate(viewModel: AddInformationViewModel(), coordiNator: self)
+    func pushAddInformationView(vinylDataModel: String) {
+        let addInformationViewModel = AddInformationViewModel()
+        addInformationViewModel.model.vinyTitleSong = vinylDataModel
+        let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(addInformationView, animated: true)
     }

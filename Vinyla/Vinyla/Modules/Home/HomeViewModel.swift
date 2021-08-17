@@ -7,6 +7,14 @@
 
 import Foundation
 
-final class HomeViewModel {
-    
+class HomeViewModel {
+    var homeStirng: String?
+    init() {
+        self.homeStirng = "test"
+        print("init homeviewmodel",self.homeStirng)
+    }
+
+    deinit {
+        print("deinit HomeViewModel")
+    }
 }
