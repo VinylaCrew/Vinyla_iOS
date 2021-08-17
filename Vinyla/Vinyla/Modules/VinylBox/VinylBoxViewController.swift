@@ -19,11 +19,13 @@ class VinylBoxViewController: UIViewController {
     @IBOutlet weak var vinylBoxPagingCollectionView: UICollectionView!
     
     private weak var coordiNator: AppCoordinator?
-    private weak var viewModel: VinylBoxViewModel?
-    
+    private var viewModel: VinylBoxViewModel?
+
+    //VinylBox Model
     private var vinylBoxes = [VinylBox]()
     private var reverseVinylBoxes = [VinylBox]()
     var totalPageNumber: Int?
+
     let disposbag = DisposeBag()
     static func instantiate(viewModel: VinylBoxViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "VinylBox", bundle: nil)
@@ -95,7 +97,7 @@ class VinylBoxViewController: UIViewController {
     }
     //cell 크기 100,170
     @IBAction func touchUpPreviousButton(_ sender: UIButton) {
-        coordiNator?.popViewController()
+        coordiNator?.popToHomeViewController()
     }
     
 }

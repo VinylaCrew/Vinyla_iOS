@@ -58,17 +58,18 @@ final class AppCoordinator {
 //        searchView.modalPresentationStyle = .fullScreen
 //        windowRootViewController.present(searchView, animated: true, completion: nil)
     }
-    func pushAddInformationView(vinylDataModel: String) {
+    func moveToAddInformationView(vinylDataModel: String) {
         let addInformationViewModel = AddInformationViewModel()
         addInformationViewModel.model.vinyTitleSong = vinylDataModel
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(addInformationView, animated: true)
     }
-    func moveToAddReview() {
-//        let a = AddReviewViewModel()
-//        a.data = 매개변수
-        let AddReviewView = AddReviewViewController.instantiate(viewModel: AddReviewViewModel(), coordiNator: self, songName: songNameCD)
+    func moveToAddReview(vinylDataModel: String) {
+        let addReviewViewModel = AddReviewViewModel()
+        print("coordinator addreview",vinylDataModel)
+        addReviewViewModel.songTitle = vinylDataModel
+        let AddReviewView = AddReviewViewController.instantiate(viewModel: addReviewViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(AddReviewView, animated: true)
     }
@@ -80,5 +81,9 @@ final class AppCoordinator {
     func popViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popViewController(animated: true)
+    }
+    func popToHomeViewController() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.popToRootViewController(animated: true)
     }
 }
