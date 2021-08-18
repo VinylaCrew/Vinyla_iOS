@@ -78,6 +78,14 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(vinylBoxView, animated: true)
     }
+    func moveToDeleteInformationView(songTitle: String?) {
+        let deleteInformationViewModel = DeleteInformationViewModel()
+        deleteInformationViewModel.songTitle = songTitle
+        print("coordinator delete", deleteInformationViewModel.songTitle)
+        let deleteInformationView = DeleteInformationViewController.instantiate(viewModel: deleteInformationViewModel, coordinator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(deleteInformationView, animated: true)
+    }
     func popViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popViewController(animated: true)
