@@ -20,8 +20,22 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var allowServiceButton: UIButton!
     @IBOutlet weak var allowPrivacyButton: UIButton!
     @IBOutlet weak var allowMarketingButton: UIButton!
+    @IBOutlet weak var allowMarketingLabel: UILabel!
+
+    //var viewModel : SignUpViewModelProtocol?
     
-    var viewModel : SignUpViewModelProtocol?
+    private weak var coordiNator: AppCoordinator?
+    private var viewModel: SignUpViewModel?
+    
+    static func instantiate(viewModel: SignUpViewModel, coordiNator: AppCoordinator) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "SignUp", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(identifier: "SignUp") as? SignUpViewController else {
+            return UIViewController()
+        }
+        viewController.viewModel = viewModel
+        viewController.coordiNator = coordiNator
+        return viewController
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +43,7 @@ class SignUpViewController: UIViewController {
         nickNameTextField.delegate = self
         setUI()
         
-        viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
+        //viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
     }
 //    func setViewModel(_ viewModel: SignUpViewModelProtocol) {
 //        self.viewModel = viewModel
@@ -52,7 +66,7 @@ class SignUpViewController: UIViewController {
         //button
         nickNameCheckButton.layer.cornerRadius = 8
         logInButton.layer.cornerRadius = 8
-        
+        allowMarketingLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
         //allow servicebuttons
         for buttons in allowEveryServiceButtons {
             buttons.layer.cornerRadius = 8
@@ -72,16 +86,33 @@ class SignUpViewController: UIViewController {
         if nickNameCountField.count < 6 {
             nickNameStateLabel.text = "닉네임 길이가 짧습니다."
             nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
+            logInButton.backgroundColor = UIColor.buttonDisabledColor()
+            logInButton.isEnabled = false
+            logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
+            
         } else {
             nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
             nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
             nickNameCheckButton.isEnabled = true
+            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+            logInButton.setTitleColor(.white, for: .normal)
             
         }
-        
-        var a = viewModel?.isValidNickName(nickNameCountField)
-        print("isValidName\(a)")
-        
+        //케이스 분리
+        if let isValidNickName = viewModel?.isValidNickName(nickNameCountField){
+            if isValidNickName {
+                nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
+                nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+                logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+                logInButton.setTitleColor(.white, for: .normal)
+            }else {
+                nickNameStateLabel.text = "사용하지 못하는 닉네임 입니다."
+                nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
+                logInButton.backgroundColor = UIColor.buttonDisabledColor()
+                logInButton.isEnabled = false
+                logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
+            }
+        }
     }
     
     
@@ -93,14 +124,7 @@ class SignUpViewController: UIViewController {
         guard let instaGramIDText = instagramIDTextField.text else { return }
         viewModel?.setInstaGramID(instaGramID: instaGramIDText)
         
-        guard let nextViewController = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(identifier: "Home") as? HomeViewController else {
-            return
-        }
-        
-        
-        self.navigationController?.setViewControllers([nextViewController], animated: true)
-        
-//        self.navigationController?.pushViewController(nextViewController, animated: true)
+        coordiNator?.moveAndSetHomeView()
     }
     
     func isValidName(name:String)-> Bool {
@@ -121,6 +145,7 @@ class SignUpViewController: UIViewController {
     
 }
 
+
 extension SignUpViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
@@ -136,25 +161,27 @@ extension SignUpViewController: UITextFieldDelegate {
         var strings: NSString?
         
         
-        
-        if(textField .isEqual(nickNameTextField))
-        {
-            strings=string as NSString;
-            let acceptedChars = NSCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted;
-            
-            if (strings!.rangeOfCharacter(from: acceptedChars.inverted).location != NSNotFound)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return true;
-        }
+        let invalidCharacters =
+            CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted
+          return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+//        if(textField .isEqual(nickNameTextField))
+//        {
+//            strings=string as NSString;
+//            let acceptedChars = NSCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted;
+//
+//            if (strings!.rangeOfCharacter(from: acceptedChars.inverted).location != NSNotFound)
+//            {
+//                return true;
+//            }
+//            else
+//            {
+//                return false;
+//            }
+//        }
+//        else
+//        {
+//            return true;
+//        }
     }
 }
 
