@@ -8,5 +8,8 @@
 import Foundation
 
 final class VinylBoxViewModel {
-    
+    func getTotalVinylBoxCount() -> Int {
+        guard let totalVinylCount = CoreDataManager.shared.getCountVinylBoxData() else { return 0 }
+        return totalVinylCount
+    }
 }
