@@ -45,29 +45,33 @@ class VinylBoxViewController: UIViewController {
         vinylBoxPagingCollectionView.delegate = self
         let vinylBoxCellNib = UINib(nibName: "PagingCollectionViewCell", bundle: nil)
         vinylBoxPagingCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "pagingCell")
-        vinylCountLabel.text = "0개"
 
         self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.coordiNator?.moveToSearchView()
         }).disposed(by: disposbag)
-        
-        
-        //                for i in 1...20 {
-        //                    CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
-        //                }
-        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
-        reverseVinylBoxes = vinylBoxes.reversed()
-        
+
+        self.nextBoxButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.scrollToNextCell()
+        }).disposed(by: disposbag)
+
+//                        for i in 1...20 {
+//                            CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
+//                        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
         if vinylBoxes.count%9 == 0 {
             totalPageNumber = vinylBoxes.count/9
         }else {
             totalPageNumber = vinylBoxes.count/9+1
         }
-
+        if let viewModel = self.viewModel {
+            vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
+        }
+        reverseVinylBoxes = vinylBoxes.reversed()
         vinylBoxPagingCollectionView.reloadData()
         
     }
@@ -99,7 +103,34 @@ class VinylBoxViewController: UIViewController {
     @IBAction func touchUpPreviousButton(_ sender: UIButton) {
         coordiNator?.popToHomeViewController()
     }
-    
+    func scrollToNextCell(){
+
+        //get cell size
+        let cellSize = view.frame.size
+
+        //get current content Offset of the Collection view
+        let contentOffset = vinylBoxPagingCollectionView.contentOffset
+
+        if vinylBoxPagingCollectionView.contentSize.width <= vinylBoxPagingCollectionView.contentOffset.x + cellSize.width
+        {
+            let r = CGRect(x: 0, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
+            vinylBoxPagingCollectionView.scrollRectToVisible(r, animated: true)
+
+        } else {
+            let r = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
+            vinylBoxPagingCollectionView.scrollRectToVisible(r, animated: true);
+        }
+
+//                //get cell size
+//        let cellSize = CGSize(width: vinylBoxPagingCollectionView.frame.width, height: vinylBoxPagingCollectionView.frame.height)
+//
+//                //get current content Offset of the Collection view
+//                let contentOffset = vinylBoxPagingCollectionView.contentOffset;
+//
+//                //scroll to next cell
+//
+//        vinylBoxPagingCollectionView.scrollRectToVisible(CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height), animated: true)
+    }
 }
 
 extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -132,6 +163,7 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         
         //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
         cell.nineVinylItems = odds
+        cell.coordinator = self.coordiNator
 //        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
         return cell
         
@@ -154,12 +186,12 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         var offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
         var roundedIndex = round(index)
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             self.nextBoxButton.setTitle("다음 서랍 \(Int(roundedIndex+1))", for: .normal)
-//            self.nextBoxButton.titleLabel?.text = "\(Int(roundedIndex+1))"
-        }
-        print(roundedIndex)
+        //button title attribute시 적용안됨 => setAttributedTitle 사용
 
+//            self.nextBoxButton.titleLabel?.text = "\(Int(roundedIndex+1))"
+//        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0
