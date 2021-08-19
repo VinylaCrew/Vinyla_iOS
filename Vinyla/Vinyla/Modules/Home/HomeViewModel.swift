@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class HomeViewModel {
     var homeStirng: String?
@@ -48,5 +49,39 @@ class HomeViewModel {
         default:
             return "\(totalVinylCount)/"
         }
+    }
+
+    func getLevelName() -> Observable<String?> {
+        let totalVinylCount = self.getTotalVinylBoxCount()
+        switch totalVinylCount {
+        case 0:
+            return Observable.just("닐페이스")
+        case 1...9:
+            return Observable.just("닐리즈")
+        case 10...49:
+            return Observable.just("닐스터")
+        case 50...499:
+            return Observable.just("닐암스트롱")
+        default:
+            return Observable.just("닐라대왕")
+        }
+    }
+
+    func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat {
+        let widthSize = screenSize - CGFloat(30)
+        let totalVinylCount = self.getTotalVinylBoxCount()
+        switch totalVinylCount {
+        case 0:
+            return CGFloat(0)
+        case 1...9:
+            return CGFloat((widthSize/9.0) * CGFloat(totalVinylCount))
+        case 10...49:
+            return CGFloat((widthSize/49.0) * CGFloat(totalVinylCount))
+        case 50...499:
+            return CGFloat((widthSize/499.0) * CGFloat(totalVinylCount))
+        default:
+            return widthSize
+        }
+
     }
 }

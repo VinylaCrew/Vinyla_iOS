@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
     
@@ -19,16 +21,21 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var recentVinylCollectionView: UICollectionView!
     @IBOutlet weak var homeMiniButtonView: UIView!
     @IBOutlet weak var vinylCountLabel: UILabel!
+    @IBOutlet weak var vinylLevelGagueLabel: UILabel!
     @IBOutlet weak var collectedTextLabel: UILabel!
     @IBOutlet weak var genreTextLabel: UILabel!
     @IBOutlet weak var myGenreLabel: UILabel!
     @IBOutlet weak var homeButton: UIButton!
+    @IBOutlet weak var levelGagueBackGroundView: UIView!
+    @IBOutlet weak var mainLevelLabel: UILabel!
+    @IBOutlet weak var informationLevelLabel: UILabel!
 
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMiniViewSpace: NSLayoutConstraint!
     @IBOutlet weak var recentCollectionViewHeight: NSLayoutConstraint!
-
+    var levelGagueWidthConstraint: NSLayoutConstraint?
+    var disposebag = DisposeBag()
     lazy var homeMiniButtonImageView: UIImageView = {
         let imageName = "area"
         let image = UIImage(named: imageName)
@@ -37,6 +44,16 @@ class HomeViewController: UIViewController {
         homeMiniButtonImageView.clipsToBounds = true
         homeMiniButtonImageView.translatesAutoresizingMaskIntoConstraints = false
         return homeMiniButtonImageView
+    }()
+
+    lazy var levelGagueView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 345, height: 3)
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 3
+        view.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     let storyBoardID = "Home"
@@ -60,8 +77,18 @@ class HomeViewController: UIViewController {
         homeScrollView.contentInsetAdjustmentBehavior = .never
 //        print("ijoom", homeScrollView.contentInset)
 //        print("ijoom", homeScrollView.adjustedContentInset)
-
         setHomeButtonMiniImage()
+        levelGagueBackGroundView.layer.cornerRadius = 3
+        levelGagueBackGroundView.layer.masksToBounds = true
+        levelGagueBackGroundView.addSubview(levelGagueView)
+//        let leading = levelGagueView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15)
+//        let trailing = levelGagueView.trailingAnchor.constraint(equalTo: levelGagueBackGroundView.trailingAnchor)
+        // viewDidLayoutSubviews 에서 리딩 트레일링 잡으면 오류 없음
+        levelGagueWidthConstraint = levelGagueView.widthAnchor.constraint(equalToConstant: 50)
+        levelGagueWidthConstraint?.isActive = true
+        let height = levelGagueView.heightAnchor.constraint(equalToConstant: 3)
+
+        levelGagueView.addConstraints([height])
 
         recentVinylCollectionView.delegate = self
         recentVinylCollectionView.dataSource = self
@@ -69,15 +96,25 @@ class HomeViewController: UIViewController {
         recentVinylCollectionView.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 21/255, alpha: 1)
         let recentCellNib = UINib(nibName: "RecentVinylCollectionViewCell", bundle: nil)
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
+        blurCircleView.delegate = self
+        blurCircleView.popButton.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        let testCoreImage = CoreDataManager.shared.fetchImage()
-        //        self.homeImageView.image = UIImage(data: testCoreImage[0].favoriteImage!)
-        CoreDataManager.shared.printData()
-        recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
+        viewModel?.getLevelName().bind(to: informationLevelLabel.rx.text, mainLevelLabel.rx.text)
+            .disposed(by: disposebag)
+        if let viewModel = self.viewModel {
+            levelGagueWidthConstraint?.constant = viewModel.getLevelGagueWidth(screenSize: UIScreen.main.bounds.size.width)
+        }
 
+        if let viewModel = self.viewModel {
+            vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())"
+            vinylLevelGagueLabel.text = viewModel.getLevelGague()
+        }
+        viewModel?.fetchRecentVinylData()
+        recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
+        recentVinylCollectionView.reloadData()
     }
 
     private var homeScrollContentViewHeightConstraint: NSLayoutConstraint?
@@ -116,7 +153,7 @@ class HomeViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
+        levelGagueView.leadingAnchor.constraint(equalTo: levelGagueBackGroundView.leadingAnchor).isActive = true
         //        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
 
     }
@@ -166,7 +203,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
-        //        cell.recentVinylImageView.image = nil
+
+//        if let check = viewModel?.recentVinylBoxData, indexPath.row < check.count {
+//            cell.recentVinylImageView.image = UIImage(data: check[indexPath.row].vinylImage!)
+//        }else {
+//            print("cell else", viewModel?.recentVinylBoxData, indexPath.row)
+//            cell.recentVinylImageView.image = nil
+//        }
+// viewmodel로 리팩토링
+        if let recentVinylImageData = viewModel?.getRecentVinylBoxData(indexPathRow: indexPath.row) {
+            cell.recentVinylImageView.image = UIImage(data: recentVinylImageData)
+        }else {
+            cell.recentVinylImageView.image = nil
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -178,4 +227,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         12
     }
     
+}
+
+extension HomeViewController: ButtonTapDelegate {
+    func didTapButton(sender: UIButton) {
+        print("Home VC delegate touch")
+        print(sender.isSelected)
+    }
 }
