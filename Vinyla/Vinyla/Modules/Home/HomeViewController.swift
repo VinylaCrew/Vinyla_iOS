@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var levelGagueBackGroundView: UIView!
     @IBOutlet weak var mainLevelLabel: UILabel!
     @IBOutlet weak var informationLevelLabel: UILabel!
+    @IBOutlet weak var levelIconImageView: UIImageView!
 
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
@@ -50,7 +51,7 @@ class HomeViewController: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 345, height: 3)
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 3
+        view.layer.cornerRadius = 1.5
         view.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -78,7 +79,7 @@ class HomeViewController: UIViewController {
 //        print("ijoom", homeScrollView.contentInset)
 //        print("ijoom", homeScrollView.adjustedContentInset)
         setHomeButtonMiniImage()
-        levelGagueBackGroundView.layer.cornerRadius = 3
+        levelGagueBackGroundView.layer.cornerRadius = 1.5
         levelGagueBackGroundView.layer.masksToBounds = true
         levelGagueBackGroundView.addSubview(levelGagueView)
 //        let leading = levelGagueView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15)
@@ -106,11 +107,9 @@ class HomeViewController: UIViewController {
             .disposed(by: disposebag)
         if let viewModel = self.viewModel {
             levelGagueWidthConstraint?.constant = viewModel.getLevelGagueWidth(screenSize: UIScreen.main.bounds.size.width)
-        }
-
-        if let viewModel = self.viewModel {
             vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())"
             vinylLevelGagueLabel.text = viewModel.getLevelGague()
+            levelIconImageView.image = UIImage(named: viewModel.getLevelImageName())
         }
         viewModel?.fetchRecentVinylData()
         recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
@@ -230,7 +229,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: ButtonTapDelegate {
-    func didTapButton(sender: UIButton) {
+    func didTapPopButton() {
+        
+    }
+
+    func didTapFavoriteButton(sender: UIButton) {
         print("Home VC delegate touch")
         print(sender.isSelected)
     }

@@ -82,6 +82,21 @@ class HomeViewModel {
         default:
             return widthSize
         }
+    }
 
+    func getLevelImageName() -> String {
+        let totalVinylCount = self.getTotalVinylBoxCount()
+        switch totalVinylCount {
+        case 0:
+            return "icnHomeLv1"
+        case 1...9:
+            return "icnHomeLv2"
+        case 10...49:
+            return "icnHomeLv3"
+        case 50...499:
+            return "icnHomeLv4"
+        default:
+            return "icnHomeLv5"
+        }
     }
 }
