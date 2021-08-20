@@ -7,10 +7,19 @@
 
 import UIKit
 
+protocol ButtonTapDelegate: class {
+    func didTapFavoriteButton(sender: UIButton)
+    func didTapPopButton()
+}
 class BlurCircleView: UIView {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var shownCircleImageView: UIImageView!
+    @IBOutlet weak var popButton: UIButton!
+    @IBOutlet weak var setFavoriteImageButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+
+    weak var delegate: ButtonTapDelegate?
     /*
      // Only override draw() if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
@@ -33,19 +42,9 @@ class BlurCircleView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         shownCircleImageView.layer.cornerRadius = shownCircleImageView.frame.height/2
-        print(self.superview?.frame.height)
-        print("bounds height/2")
-        print(shownCircleImageView.bounds.height/2)
-        print(self.layer.bounds)
     }
     
     override func awakeFromNib() {
-//        shownCircleImageView.layer.cornerRadius = shownCircleImageView.frame.height/2
-        print("awakefromnib")
-        print(self.superview?.frame.height)
-//        print("bounds height/2")
-//        print(shownCircleImageView.bounds.height/2)
-//        print(self.layer.bounds)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -53,6 +52,21 @@ class BlurCircleView: UIView {
         xibSetup()
     }
     
+    @IBAction func touchUpsetFavoriteButton(_ sender: UIButton) {
+        if self.setFavoriteImageButton.isSelected {
+            self.setFavoriteImageButton.isSelected = false
+        }else {
+            self.setFavoriteImageButton.isSelected = true
+        }
+        self.delegate?.didTapFavoriteButton(sender: self.setFavoriteImageButton)
+    }
+    @IBAction func touchUpPoPButton(_ sender: UIButton) {
+        self.delegate?.didTapPopButton()
+    }
+    @IBAction func touchUpShareButton(_ sender: UIButton) {
+
+    }
+
     func xibSetup() {
         guard let view = loadViewFromNib(nib: "BlurCircleView") else {
             return

@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BlurCircleView" customModule="Vinyla" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundImageView" destination="pho-VP-tXT" id="VMc-6T-Feb"/>
+                <outlet property="popButton" destination="99k-zd-ToV" id="ByM-Sr-TzX"/>
+                <outlet property="setFavoriteImageButton" destination="zwE-oP-W7D" id="JUp-Th-vm3"/>
+                <outlet property="shareButton" destination="TWb-FL-lj8" id="qmc-jn-huq"/>
                 <outlet property="shownCircleImageView" destination="LNf-DT-oGC" id="V0m-Gm-8Ee"/>
             </connections>
         </placeholder>
@@ -49,16 +52,56 @@
                     </view>
                     <blurEffect style="dark"/>
                 </visualEffectView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99k-zd-ToV">
+                    <rect key="frame" x="13" y="24" width="14" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="14" id="cC3-Jd-5to"/>
+                        <constraint firstAttribute="height" constant="19" id="cwn-wa-BNM"/>
+                    </constraints>
+                    <state key="normal" image="icnBtnBack"/>
+                    <connections>
+                        <action selector="touchUpPoPButton:" destination="-1" eventType="touchUpInside" id="adW-WN-aHa"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zwE-oP-W7D">
+                    <rect key="frame" x="312" y="22" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="18" id="Od2-DY-SEm"/>
+                        <constraint firstAttribute="height" constant="18" id="Pzq-1d-JvH"/>
+                    </constraints>
+                    <state key="normal" image="icnBtnHeart"/>
+                    <state key="selected" image="icnBtnHeartOn"/>
+                    <connections>
+                        <action selector="touchUpsetFavoriteButton:" destination="-1" eventType="touchUpInside" id="wsB-cJ-cbg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWb-FL-lj8">
+                    <rect key="frame" x="343" y="22" width="18" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="WFb-yx-BI5"/>
+                        <constraint firstAttribute="width" constant="18" id="wq0-YI-ysq"/>
+                    </constraints>
+                    <state key="normal" image="icnBtnShare"/>
+                    <connections>
+                        <action selector="touchUpShareButton:" destination="-1" eventType="touchUpInside" id="glg-mm-Kf2"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="KXy-6h-CU8" secondAttribute="bottom" id="3Zp-kC-SaZ"/>
                 <constraint firstAttribute="trailing" secondItem="KXy-6h-CU8" secondAttribute="trailing" id="BNK-I2-srB"/>
+                <constraint firstItem="TWb-FL-lj8" firstAttribute="leading" secondItem="zwE-oP-W7D" secondAttribute="trailing" constant="13" id="D4a-2m-mln"/>
                 <constraint firstAttribute="trailing" secondItem="pho-VP-tXT" secondAttribute="trailing" id="Ehd-bf-u37"/>
+                <constraint firstItem="TWb-FL-lj8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="Hfr-Im-wGk"/>
                 <constraint firstItem="pho-VP-tXT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="J3F-Gq-tTd"/>
+                <constraint firstItem="99k-zd-ToV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="LXr-Bn-j62"/>
                 <constraint firstAttribute="bottom" secondItem="pho-VP-tXT" secondAttribute="bottom" id="UXq-pG-Sc8"/>
+                <constraint firstAttribute="trailing" secondItem="TWb-FL-lj8" secondAttribute="trailing" constant="14" id="bnx-x7-I7z"/>
+                <constraint firstItem="zwE-oP-W7D" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="fRm-6f-Igw"/>
                 <constraint firstItem="KXy-6h-CU8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="q8U-1g-40a"/>
                 <constraint firstItem="pho-VP-tXT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="rJg-In-txj"/>
+                <constraint firstItem="99k-zd-ToV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="13" id="rdg-WI-dS4"/>
                 <constraint firstItem="KXy-6h-CU8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="x6T-69-qzZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -66,6 +109,10 @@
         </view>
     </objects>
     <resources>
+        <image name="icnBtnBack" width="11" height="16"/>
+        <image name="icnBtnHeart" width="18" height="18"/>
+        <image name="icnBtnHeartOn" width="18" height="18"/>
+        <image name="icnBtnShare" width="16" height="18"/>
         <image name="imgHomeMyvinly" width="375" height="375"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
