@@ -11,3 +11,4 @@
 - 8.10 Box View 좌우스크롤 View Layout 완료
 - 8.11 이번주까지 View Layout Logic 완성하기
 - 다음주에 비즈니스 모델 뷰모델 로직 완성 + 통신
+- Favorit Button시 멜론처럼 하트 애니메이션
