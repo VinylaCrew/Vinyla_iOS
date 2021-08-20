@@ -57,7 +57,7 @@ class SignUpViewController: UIViewController {
         instagramIDTextField.layer.cornerRadius = 10
         instagramIDTextField.layer.borderColor = CGColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
         
-        nickNameTextField.attributedPlaceholder = NSAttributedString(string: "6~20자 국문, 영문, 숫자로 입력", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)])
+        nickNameTextField.attributedPlaceholder = NSAttributedString(string: "2~20자 국문, 영문, 숫자로 입력", attributes: [NSAttributedString.Key.foregroundColor : UIColor(red: 102/255, green: 102/255, blue: 102/255, alpha: 1)])
         nickNameTextField.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 1)
         instagramIDTextField.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 1)
         nickNameTextField.addLeftPadding()
@@ -66,6 +66,7 @@ class SignUpViewController: UIViewController {
         //button
         nickNameCheckButton.layer.cornerRadius = 8
         logInButton.layer.cornerRadius = 8
+        logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
         allowMarketingLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
         //allow servicebuttons
         for buttons in allowEveryServiceButtons {
@@ -83,35 +84,29 @@ class SignUpViewController: UIViewController {
     
     @IBAction func touchUpNickNameCheckButton(_ sender: UIButton) {
         guard let nickNameCountField = nickNameTextField.text else { return }
-        if nickNameCountField.count < 6 {
+        var nickNameCheckValue: Int?
+        if let viewModel = self.viewModel {
+            nickNameCheckValue = viewModel.isValidNickName(nickNameCountField)
+        }
+
+        if nickNameCheckValue == 1 {
+            nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+            nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
+            logInButton.isEnabled = true
+            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+            logInButton.setTitleColor(.white, for: .normal)
+        } else if nickNameCheckValue == 2 {
             nickNameStateLabel.text = "닉네임 길이가 짧습니다."
             nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
             logInButton.backgroundColor = UIColor.buttonDisabledColor()
             logInButton.isEnabled = false
             logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
-            
-        } else {
-            nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
-            nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
-            nickNameCheckButton.isEnabled = true
-            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
-            logInButton.setTitleColor(.white, for: .normal)
-            
-        }
-        //케이스 분리
-        if let isValidNickName = viewModel?.isValidNickName(nickNameCountField){
-            if isValidNickName {
-                nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
-                nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
-                logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
-                logInButton.setTitleColor(.white, for: .normal)
-            }else {
-                nickNameStateLabel.text = "사용하지 못하는 닉네임 입니다."
-                nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
-                logInButton.backgroundColor = UIColor.buttonDisabledColor()
-                logInButton.isEnabled = false
-                logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
-            }
+        } else if nickNameCheckValue == 3 {
+            nickNameStateLabel.text = "올바르지 않은 형식입니다."
+            nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
+            logInButton.backgroundColor = UIColor.buttonDisabledColor()
+            logInButton.isEnabled = false
+            logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
         }
     }
     

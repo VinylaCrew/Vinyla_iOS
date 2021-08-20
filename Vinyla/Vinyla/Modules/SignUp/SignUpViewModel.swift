@@ -10,34 +10,47 @@ import Foundation
 protocol SignUpViewModelProtocol {
     func setNickNameModel(nickName : String)
     func setInstaGramID(instaGramID : String)
-    func isValidNickName(_ nickNameText: String) -> Bool
+    func isValidNickName(_ nickNameText: String) -> Int
     func checkString(text:String) -> Bool
 }
 
 final class SignUpViewModel: SignUpViewModelProtocol {
+
     var signUpModel = SignUpModel()
     
     func setNickNameModel(nickName : String) {
         self.signUpModel.nickName = nickName
-        print(self.signUpModel.nickName)
+//        print(self.signUpModel.nickName)
     }
     
     func setInstaGramID(instaGramID : String) {
         self.signUpModel.instagramID = instaGramID
-        print(self.signUpModel.instagramID)
+//        print(self.signUpModel.instagramID)
     }
     
-    func isValidNickName(_ nickNameText: String) -> Bool {
+    func isValidNickName(_ nickNameText: String) -> Int {
         let checkArray = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ","ㄲ","ㄸ","ㅃ","ㅆ","ㅉ","ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅐ","ㅒ","ㅔ","ㅖ","ㅘ","ㅙ","ㅚ","ㅝ","ㅞ","ㅟ","ㅢ"]
         var isValidNickName: Bool = true
-        
+        var isValidNickNameValue: Int
         for checkWord in checkArray {
             if nickNameText.contains(checkWord) {
                 isValidNickName = false
             }
         }
-        
-       return isValidNickName
+        if isValidNickName == false {
+            isValidNickNameValue = 3
+        }else {
+            isValidNickNameValue = 1
+        }
+
+        if nickNameText.count < 2 {
+            isValidNickNameValue = 2
+        }else if isValidNickNameValue == 3{
+            isValidNickNameValue = 3
+        }else {
+            isValidNickNameValue = 1
+        }
+       return isValidNickNameValue
     }
     
     func checkString(text:String) -> Bool {

@@ -54,7 +54,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="namePhonePad" textContentType="name"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aJB-Bo-DCg">
                                 <rect key="frame" x="280" y="143" width="80" height="48"/>
@@ -174,35 +174,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(필수)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Qh-1k-Ly2">
-                                <rect key="frame" x="156" y="368" width="30" height="15"/>
+                                <rect key="frame" x="155" y="368" width="30" height="14"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="J5v-3i-Mcl"/>
+                                    <constraint firstAttribute="height" constant="14" id="J5v-3i-Mcl"/>
                                     <constraint firstAttribute="width" constant="30" id="t4v-WS-eS3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="1" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcl-aJ-fOk">
-                                <rect key="frame" x="47" y="367" width="109" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 이용약관 동의 " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcl-aJ-fOk">
+                                <rect key="frame" x="47" y="367" width="108" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="109" id="1jU-2D-TNp"/>
                                     <constraint firstAttribute="height" constant="16" id="MBO-Sm-wGd"/>
+                                    <constraint firstAttribute="width" constant="108" id="RhR-Sc-uKc"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="서비스 이용약관 동의">
-                                        <attributes>
-                                            <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" metaFont="system"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            <integer key="NSUnderline" value="1"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".AppleKoreanFont" pointSize="13"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7E-Ki-82B">
-                                <rect key="frame" x="47" y="399" width="139" height="16"/>
+                                <rect key="frame" x="47" y="398" width="139" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="Cva-ip-iFG"/>
                                     <constraint firstAttribute="width" constant="139" id="W5I-x1-hgb"/>
@@ -212,23 +204,29 @@
                                         <attributes>
                                             <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" metaFont="system"/>
-                                            <integer key="NSUnderline" value="1"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYe-7G-0Sb">
-                                <rect key="frame" x="47" y="433" width="86" height="16"/>
+                                <rect key="frame" x="47" y="432" width="131" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="86" id="0pr-TW-Cpj"/>
                                     <constraint firstAttribute="height" constant="16" id="CLl-WD-djn"/>
+                                    <constraint firstAttribute="width" constant="131" id="g4i-jC-ch5"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="마케팅 수신 동의">
                                         <attributes>
-                                            <color key="NSColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                             <font key="NSFont" metaFont="system"/>
+                                            <integer key="NSUnderline" value="1"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="(선택)">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
                                             <integer key="NSUnderline" value="1"/>
                                         </attributes>
                                     </fragment>
@@ -236,7 +234,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(필수)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snv-ok-5Dl">
-                                <rect key="frame" x="185" y="402" width="30" height="15"/>
+                                <rect key="frame" x="185" y="401" width="30" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="M4o-I9-uaD"/>
                                     <constraint firstAttribute="width" constant="30" id="USR-K9-XOG"/>
@@ -245,6 +243,22 @@
                                 <color key="textColor" red="1" green="0.31372549020000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At7-RR-Y7w">
+                                <rect key="frame" x="47" y="414" width="165" height="1"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="165" id="ODu-hs-ldo"/>
+                                    <constraint firstAttribute="height" constant="1" id="SeW-Ru-vnw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RS0-4n-Da9">
+                                <rect key="frame" x="47" y="381" width="139" height="1"/>
+                                <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Ui1-Bo-RFg"/>
+                                    <constraint firstAttribute="width" constant="139" id="eJ8-u7-r9c"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ilY-A5-tgL"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -265,6 +279,7 @@
                             <constraint firstItem="Pke-xb-slq" firstAttribute="leading" secondItem="shV-wn-drZ" secondAttribute="trailing" constant="8" symbolic="YES" id="BF7-uu-uh8"/>
                             <constraint firstItem="Au4-m5-e1m" firstAttribute="top" secondItem="bWQ-Q3-hUJ" secondAttribute="bottom" constant="10" id="BgQ-U6-uhk"/>
                             <constraint firstItem="3UL-Fm-Amd" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="EVw-Ct-IKl"/>
+                            <constraint firstItem="RS0-4n-Da9" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="47" id="GE4-Fo-B9j"/>
                             <constraint firstItem="T7E-Ki-82B" firstAttribute="leading" secondItem="Au4-m5-e1m" secondAttribute="trailing" constant="8" symbolic="YES" id="Gnj-vM-218"/>
                             <constraint firstItem="XYe-7G-0Sb" firstAttribute="leading" secondItem="81R-ah-0tf" secondAttribute="trailing" constant="8" symbolic="YES" id="IWm-yY-gTP"/>
                             <constraint firstItem="a9E-Kv-rYQ" firstAttribute="top" secondItem="ccr-ay-vrX" secondAttribute="bottom" constant="5" id="KfH-k5-WTK"/>
@@ -278,15 +293,18 @@
                             <constraint firstItem="shV-wn-drZ" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="13" id="PLn-su-aKL"/>
                             <constraint firstItem="ilY-A5-tgL" firstAttribute="trailing" secondItem="4To-N7-7qD" secondAttribute="trailing" constant="15" id="PQV-yt-tnf"/>
                             <constraint firstItem="Xcl-aJ-fOk" firstAttribute="top" secondItem="8Ia-V3-APp" secondAttribute="bottom" constant="17" id="Q1S-A2-AxQ"/>
-                            <constraint firstItem="snv-ok-5Dl" firstAttribute="top" secondItem="oow-lg-1vJ" secondAttribute="bottom" constant="95" id="QVE-5r-5WP"/>
+                            <constraint firstItem="snv-ok-5Dl" firstAttribute="top" secondItem="oow-lg-1vJ" secondAttribute="bottom" constant="94" id="QVE-5r-5WP"/>
                             <constraint firstItem="aJB-Bo-DCg" firstAttribute="top" secondItem="ilY-A5-tgL" secondAttribute="top" constant="99" id="RDg-Ti-4DB"/>
                             <constraint firstItem="ilY-A5-tgL" firstAttribute="trailing" secondItem="Pke-xb-slq" secondAttribute="trailing" constant="244" id="UbL-gh-24r"/>
                             <constraint firstItem="L70-jg-LU4" firstAttribute="top" secondItem="a9E-Kv-rYQ" secondAttribute="bottom" constant="8" symbolic="YES" id="cS5-il-kfM"/>
+                            <constraint firstItem="At7-RR-Y7w" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="47" id="dVu-QE-h6l"/>
                             <constraint firstItem="T7E-Ki-82B" firstAttribute="top" secondItem="1Qh-1k-Ly2" secondAttribute="bottom" constant="16" id="egn-au-mUL"/>
                             <constraint firstItem="bWQ-Q3-hUJ" firstAttribute="top" secondItem="3UL-Fm-Amd" secondAttribute="bottom" constant="10" id="eqA-DB-JoN"/>
                             <constraint firstItem="L70-jg-LU4" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="16" id="flz-ak-0VJ"/>
                             <constraint firstItem="a9E-Kv-rYQ" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="fmh-1Z-ggg"/>
+                            <constraint firstItem="At7-RR-Y7w" firstAttribute="top" secondItem="T7E-Ki-82B" secondAttribute="bottom" id="i6R-oP-YVi"/>
                             <constraint firstItem="81R-ah-0tf" firstAttribute="top" secondItem="Au4-m5-e1m" secondAttribute="bottom" constant="10" id="j5N-Pj-Gbi"/>
+                            <constraint firstItem="RS0-4n-Da9" firstAttribute="top" secondItem="1Qh-1k-Ly2" secondAttribute="bottom" constant="-1" id="j7N-OL-JGq"/>
                             <constraint firstItem="oow-lg-1vJ" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="kCW-bA-JS7"/>
                             <constraint firstItem="ilY-A5-tgL" firstAttribute="bottom" secondItem="4To-N7-7qD" secondAttribute="bottom" constant="7" id="mVH-Lw-dJr"/>
                             <constraint firstItem="8Ia-V3-APp" firstAttribute="leading" secondItem="3UL-Fm-Amd" secondAttribute="trailing" constant="8" symbolic="YES" id="ph3-YL-gSJ"/>
@@ -298,6 +316,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allowMarketingLabel" destination="XYe-7G-0Sb" id="fva-R0-YXZ"/>
                         <outlet property="instagramIDTextField" destination="oow-lg-1vJ" id="TQg-8l-U8H"/>
                         <outlet property="logInButton" destination="4To-N7-7qD" id="hBy-zr-aUh"/>
                         <outlet property="nickNameCheckButton" destination="aJB-Bo-DCg" id="UhZ-cL-aYP"/>
@@ -311,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AuW-GD-Kgv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-319" y="188"/>
+            <point key="canvasLocation" x="-319.19999999999999" y="187.68472906403943"/>
         </scene>
     </scenes>
     <resources>
