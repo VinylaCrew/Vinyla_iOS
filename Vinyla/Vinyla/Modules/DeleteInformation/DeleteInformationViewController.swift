@@ -56,6 +56,12 @@ class DeleteInformationViewController: UIViewController {
     }()
 
     @IBOutlet weak var songTitleLabel: UILabel!
+    @IBOutlet weak var albumSongListTableView: UITableView!
+    @IBOutlet weak var deleteScrollView: UIScrollView!
+    @IBOutlet weak var deleteBlurCircleView: BlurCircleView!
+    //constraints
+    @IBOutlet weak var albumSongListTableViewHeight: NSLayoutConstraint!
+
     private weak var coordinator: AppCoordinator?
     private var viewModel: DeleteInformationViewModel?
     var disposebag = DisposeBag()
@@ -76,11 +82,61 @@ class DeleteInformationViewController: UIViewController {
             self?.viewModel?.deleteVinylBoxData()
             self?.coordinator?.popViewController()
         }).disposed(by: disposebag)
+        setAlbumListTableViewUI()
+        deleteScrollView.delegate = self
+        deleteBlurCircleView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         songTitleLabel.text = viewModel?.songTitle
-        
+//        viewModel?.songObservalble.bind(to: songTitleLabel.rx.text)
+//            .disposed(by: disposebag)
+    }
+
+    func setAlbumListTableViewUI() {
+        albumSongListTableView.delegate = self
+        albumSongListTableView.dataSource = self
+        let albumSongListCellNib = UINib(nibName: "AlbumSongListTableViewCell", bundle: nil)
+        albumSongListTableView.register(albumSongListCellNib, forCellReuseIdentifier: "albumSongListCell")
+        albumSongListTableView.rowHeight = UITableView.automaticDimension
+        albumSongListTableView.estimatedRowHeight = 24
+        albumSongListTableView.separatorStyle = .none
+        albumSongListTableView.backgroundColor = .black
+        albumSongListTableViewHeight.constant = CGFloat(1*21) // 21size가 추가셀 생성되지 않음
+        albumSongListTableView.isScrollEnabled = false
+    }
+}
+
+extension DeleteInformationViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "albumSongListCell") as? AlbumSongListTableViewCell else { return UITableViewCell() }
+        cell.backgroundColor = .black
+        cell.albumSongTitleLabel.text = "\(indexPath.row)"
+        cell.selectionStyle = .none
+        return cell
+    }
+}
+
+extension DeleteInformationViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.deleteInformationButton.alpha = 0.4
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.deleteInformationButton.alpha = 1.0
+    }
+}
+
+extension DeleteInformationViewController: ButtonTapDelegate {
+    func didTapPopButton() {
+        coordinator?.popViewController()
+    }
+
+    func didTapFavoriteButton(sender: UIButton) {
+        viewModel?.updateMainFavoriteVinylImage(isButtonSelected: sender.isSelected,imageData: Data())
     }
 }
