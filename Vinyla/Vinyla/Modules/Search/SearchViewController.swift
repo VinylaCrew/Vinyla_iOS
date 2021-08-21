@@ -16,8 +16,9 @@ class SearchViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     private weak var coordiNator: AppCoordinator?
-    private weak var viewModel: SearchViewModel?
-    
+    private var viewModel: SearchViewModel?
+
+    var vinylSongName: String?
     static func instantiate(viewModel: SearchViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Search", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "Search") as? SearchViewController else {
@@ -35,6 +36,7 @@ class SearchViewController: UIViewController {
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindTableView()
         didSelectCell()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,8 +66,6 @@ class SearchViewController: UIViewController {
             rightView.tintColor = UIColor.white
         }
         //https://fomaios.tistory.com/entry/%EC%84%9C%EC%B9%98%EB%B0%94-%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0-Custom-UISearchBar
-        
-        
     }
     
     func setTableViewCellXib() {
@@ -96,7 +96,12 @@ class SearchViewController: UIViewController {
             .subscribe(onNext: { [weak self] model in
                 print("seletecd \(model)")
                 self?.coordiNator?.songNameCD = "\(model)"
-                self?.coordiNator?.moveToAddReview()
+                self?.vinylSongName = "\(model)"
+                guard let songTitle = self?.vinylSongName else {
+                    return
+                }
+                self?.coordiNator?.moveToAddInformationView(vinylDataModel: songTitle)
+                print("pushAddInformationView")
             })
             .disposed(by: disposeBag)
         
