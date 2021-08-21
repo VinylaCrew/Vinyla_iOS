@@ -52,7 +52,26 @@ class CoreDataManager {
         
         return fetchVinylBox
     }
-    
+    func fetchRecentVinylBox() -> [VinylBox]? {
+        var fetchVinylBox = [VinylBox]()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
+
+        do {
+            fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
+        } catch {
+            print("Error while fetching the image")
+        }
+        let recentVinylBox = fetchVinylBox.reversed().enumerated().filter{ (index: Int, item: VinylBox) -> Bool in
+            if index < 4 {
+                return true
+            }else {
+                return false
+            }
+        }.map { (index: Int, item: VinylBox) in //enumerated사용시 map에 클로져 축약형 문법사용시 index offset도 같이 return하게됨.
+            return item
+        }
+        return recentVinylBox
+    }
     func fetchImage() -> [MyImage] {
         var fetchingImage = [MyImage]()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MyImage")
@@ -144,12 +163,12 @@ class CoreDataManager {
         }
     }
     
-    func getCountVinylBoxData() -> Int {
+    func getCountVinylBoxData() -> Int? {
         do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             return vinylBox.count
         }
         catch { print(error.localizedDescription)
         }
-        return 0
+        return nil
     }
 }
