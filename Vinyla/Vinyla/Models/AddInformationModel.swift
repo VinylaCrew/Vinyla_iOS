@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct AddInformationModel {
+    var vinyTitleSong: String?
+    init() {
+        self.vinyTitleSong = ""
+    }
+}
