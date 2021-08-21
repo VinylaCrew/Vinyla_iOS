@@ -316,7 +316,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="allowMarketingButton" destination="81R-ah-0tf" id="BtX-h3-Jdn"/>
                         <outlet property="allowMarketingLabel" destination="XYe-7G-0Sb" id="fva-R0-YXZ"/>
+                        <outlet property="allowPrivacyButton" destination="Au4-m5-e1m" id="dxp-49-Eop"/>
+                        <outlet property="allowServiceButton" destination="bWQ-Q3-hUJ" id="9Wg-fq-P49"/>
                         <outlet property="instagramIDTextField" destination="oow-lg-1vJ" id="TQg-8l-U8H"/>
                         <outlet property="logInButton" destination="4To-N7-7qD" id="hBy-zr-aUh"/>
                         <outlet property="nickNameCheckButton" destination="aJB-Bo-DCg" id="UhZ-cL-aYP"/>
