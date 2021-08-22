@@ -218,16 +218,16 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추천지수" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9X-IF-zua">
-                                                <rect key="frame" x="15" y="189" width="56" height="22"/>
+                                                <rect key="frame" x="15" y="189" width="52" height="22"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="56" id="2C5-tJ-4y7"/>
+                                                    <constraint firstAttribute="width" constant="52" id="2C5-tJ-4y7"/>
                                                     <constraint firstAttribute="height" constant="22" id="SMq-ZJ-dM0"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-No-XUq">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MfE-No-XUq" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="15" y="230" width="220" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
@@ -245,7 +245,7 @@
                                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="감상평" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my2-t5-U0T">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="한줄평" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my2-t5-U0T">
                                                 <rect key="frame" x="15" y="335" width="39" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="39" id="mow-yd-sI7"/>
@@ -276,10 +276,20 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Btl-F3-y8L">
+                                                <rect key="frame" x="245" y="226" width="20.333333333333314" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="Oei-If-Yki"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="jQM-GG-pvB" firstAttribute="top" secondItem="CvT-HD-Xix" secondAttribute="bottom" constant="10" id="0uj-iG-45F"/>
+                                            <constraint firstItem="Btl-F3-y8L" firstAttribute="top" secondItem="7Xo-69-Bsk" secondAttribute="bottom" constant="82" id="2HI-4z-BfY"/>
                                             <constraint firstItem="my2-t5-U0T" firstAttribute="leading" secondItem="6fU-Zq-6Ue" secondAttribute="leading" constant="15" id="5NL-ga-CZH"/>
                                             <constraint firstItem="iXn-Fs-cXS" firstAttribute="top" secondItem="psh-Rs-l5k" secondAttribute="bottom" constant="2" id="5k3-Wi-GJb"/>
                                             <constraint firstAttribute="bottom" secondItem="Xon-qa-8hY" secondAttribute="bottom" constant="209" id="5yj-VQ-WyX"/>
@@ -294,6 +304,7 @@
                                             <constraint firstItem="7Xo-69-Bsk" firstAttribute="leading" secondItem="VbK-dY-iPU" secondAttribute="trailing" constant="4" id="Rle-a9-Apf"/>
                                             <constraint firstItem="Xon-qa-8hY" firstAttribute="leading" secondItem="6fU-Zq-6Ue" secondAttribute="leading" constant="15" id="VnG-t8-8zS"/>
                                             <constraint firstAttribute="trailing" secondItem="iXn-Fs-cXS" secondAttribute="trailing" constant="15" id="aP1-xD-mkF"/>
+                                            <constraint firstItem="Btl-F3-y8L" firstAttribute="leading" secondItem="MfE-No-XUq" secondAttribute="trailing" constant="10" id="bKL-0S-Aom"/>
                                             <constraint firstItem="jQM-GG-pvB" firstAttribute="leading" secondItem="6fU-Zq-6Ue" secondAttribute="leading" constant="15" id="bUl-Qv-Wtk"/>
                                             <constraint firstItem="MfE-No-XUq" firstAttribute="top" secondItem="p9X-IF-zua" secondAttribute="bottom" constant="19" id="ceb-ed-LWI"/>
                                             <constraint firstItem="psh-Rs-l5k" firstAttribute="top" secondItem="CvT-HD-Xix" secondAttribute="bottom" constant="17" id="d6Y-eF-m10"/>
@@ -332,8 +343,13 @@
                     </view>
                     <size key="freeformSize" width="375" height="812"/>
                     <connections>
+                        <outlet property="recommendMentLabel" destination="p9X-IF-zua" id="gAa-0E-uxA"/>
                         <outlet property="reviewScrollView" destination="jMF-xQ-G1E" id="6fN-MV-Rni"/>
+                        <outlet property="reviewTextView" destination="Xon-qa-8hY" id="FyA-i4-nE0"/>
                         <outlet property="songTitleNameLabel" destination="psh-Rs-l5k" id="y7K-Hh-p62"/>
+                        <outlet property="starCosmosView" destination="MfE-No-XUq" id="Tge-X4-DFD"/>
+                        <outlet property="starScoreLabel" destination="Btl-F3-y8L" id="pfG-dX-3Cy"/>
+                        <outlet property="vinylImageView" destination="jQM-GG-pvB" id="2AK-7y-wov"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="glq-9Y-nzT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -341,6 +357,11 @@
             <point key="canvasLocation" x="311.19999999999999" y="218.7192118226601"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="MfE-No-XUq">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="icnBtnBack" width="11" height="16"/>
         <image name="icnStar" width="14" height="13"/>
