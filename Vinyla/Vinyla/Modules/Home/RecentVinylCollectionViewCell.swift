@@ -48,7 +48,7 @@ class RecentVinylCollectionViewCell: UICollectionViewCell {
         self.contentView.backgroundColor = .black
         self.contentView.addSubview(whiteCircleVinylView)
         setAutoLayoutWhiteCircleView()
-        
+
         // contentview  imageview whiteview
         self.contentView.clipsToBounds = true
     }
@@ -56,8 +56,6 @@ class RecentVinylCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         self.contentView.layer.cornerRadius = self.contentView.frame.height/2
 //        self.recentVinylImageView.layer.cornerRadius = self.recentVinylImageView.frame.height/2
-        print("content height", self.contentView.frame.height/2)
-        print("image height", self.recentVinylImageView.frame.height/2)
     }
     func setAutoLayoutWhiteCircleView() {
         let whiteCircleVinylViewCenterX = whiteCircleVinylView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)

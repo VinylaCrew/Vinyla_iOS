@@ -6,17 +6,21 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PagingCollectionViewCell: UICollectionViewCell {
     
 
     let cellIdentifier = "pagingCell"
     @IBOutlet weak var vinylBoxCollectionView: UICollectionView!
-    var nineVinylItems = [VinylBox]()
-//    {
-// didset
-//    }
-
+    var nineVinylItems = [VinylBox]() {
+        didSet(oldvalue) {
+            self.vinylBoxCollectionView.reloadData()
+        }
+    }
+    weak var coordinator: AppCoordinator?
+    var disposebag = DisposeBag()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,9 +28,13 @@ class PagingCollectionViewCell: UICollectionViewCell {
         vinylBoxCollectionView.dataSource = self
         let vinylBoxCellNib = UINib(nibName: "VinylBoxCollectionViewCell", bundle: nil)
         vinylBoxCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "VinylBoxCell")
-        
     }
-
+    func setRxVinylBoxCollectionView() {
+        //아직 모델이 옵저버블이 아니기에 작동되지않음
+        vinylBoxCollectionView.rx.modelSelected(VinylBox.self).subscribe(onNext: { item in
+            print(item)
+        }).disposed(by: disposebag)
+    }
     func downScaleImage(imageData: Data, for size: CGSize, scale:CGFloat) -> UIImage {
         // dataBuffer가 즉각적으로 decoding되는 것을 막아줍니다.
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
@@ -77,8 +85,8 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
         }
         return CGSize(width: 100, height: 145)
     }
-
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(nineVinylItems[indexPath.row].songTitle)
+        self.coordinator?.moveToDeleteInformationView(songTitle: nineVinylItems[indexPath.row].songTitle)
     }
 }

@@ -17,7 +17,7 @@ final class LogInViewController: UIViewController {
     
     private weak var coordiNator: AppCoordinator?
     private var viewModel: LogInViewModel?
-    
+
     static func instantiate(viewModel: LogInViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "LogInViewStoryBoard", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "LogInViewController") as? LogInViewController else {

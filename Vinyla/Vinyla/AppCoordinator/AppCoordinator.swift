@@ -17,7 +17,7 @@ final class AppCoordinator {
 
     init(window: UIWindow) {
         self.window = window
-        self.isLogIn = true
+        self.isLogIn = false
     }
     
     func start() {
