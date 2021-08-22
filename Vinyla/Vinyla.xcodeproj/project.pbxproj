@@ -3,14 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD39268838FB00970794 /* AppDelegate.swift */; };
 		5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD3B268838FB00970794 /* SceneDelegate.swift */; };
-		5541DD3E268838FB00970794 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD3D268838FB00970794 /* ViewController.swift */; };
-		5541DD41268838FB00970794 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD3F268838FB00970794 /* Main.storyboard */; };
 		5541DD432688390800970794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD422688390800970794 /* Assets.xcassets */; };
 		5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD442688390800970794 /* LaunchScreen.storyboard */; };
 		5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD4F26883A6800970794 /* LogInViewStoryBoard.storyboard */; };
@@ -19,10 +17,10 @@
 		5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD5D269AD36800970794 /* SignUpViewController.swift */; };
 		5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD61269AD4E800970794 /* HomeViewController.swift */; };
 		5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */; };
-		5541DD6A26AD5C9100970794 /* SearchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */; };
+		5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD6926AD5C9100970794 /* Search.storyboard */; };
 		5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD6C26AD5CDA00970794 /* SearchViewController.swift */; };
 		5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7026AE955100970794 /* VinylBoxViewController.swift */; };
-		5541DD7526AE955B00970794 /* VinylBoxStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */; };
+		5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD7426AE955B00970794 /* VinylBox.storyboard */; };
 		5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7726AF0DFF00970794 /* SignUpModel.swift */; };
 		5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7B26AF113700970794 /* TextFieldPadding.swift */; };
 		5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57526B13E4E003659C6 /* SignUpViewModel.swift */; };
@@ -30,6 +28,38 @@
 		5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D58726B14B49003659C6 /* VinylaTests.swift */; };
 		5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */; };
 		5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */; };
+		5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D5A726B3038E003659C6 /* VinylBoxCollectionViewCell.swift */; };
+		5544D5AA26B3038E003659C6 /* VinylBoxCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5544D5A826B3038E003659C6 /* VinylBoxCollectionViewCell.xib */; };
+		5544D5B026B30ED0003659C6 /* AddReview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5544D5AF26B30ED0003659C6 /* AddReview.storyboard */; };
+		5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D5B526B30EE7003659C6 /* AddReviewViewController.swift */; };
+		5544D5C526B52D07003659C6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D5C426B52D07003659C6 /* AppCoordinator.swift */; };
+		5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D5FB26BBDE13003659C6 /* LogInViewModel.swift */; };
+		5544D60226BBDFA9003659C6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D60126BBDFA9003659C6 /* HomeViewModel.swift */; };
+		5544D60626BBE855003659C6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D60526BBE855003659C6 /* SearchViewModel.swift */; };
+		5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D60B26BBF227003659C6 /* AddReviewViewModel.swift */; };
+		5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D61126BC07DA003659C6 /* VinylBoxViewModel.swift */; };
+		5544D62526BD1841003659C6 /* AddInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D62426BD1841003659C6 /* AddInformationViewController.swift */; };
+		5544D62B26BD184B003659C6 /* AddInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5544D62A26BD184B003659C6 /* AddInformation.storyboard */; };
+		5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D62E26BD187C003659C6 /* AddInformationViewModel.swift */; };
+		5544D63426BD43C4003659C6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D63326BD43C4003659C6 /* CoreDataManager.swift */; };
+		5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */; };
+		5544D64526BEA8A0003659C6 /* VinylBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D64426BEA8A0003659C6 /* VinylBoxModel.swift */; };
+		5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D64826BEBB9F003659C6 /* DownScaleImage.swift */; };
+		5544D64D26C0347D003659C6 /* BlurCircleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5544D64C26C0347D003659C6 /* BlurCircleView.xib */; };
+		5544D65126C037C2003659C6 /* BlurCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D65026C037C2003659C6 /* BlurCircleView.swift */; };
+		5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555A00926CAB7A900477DBE /* AddInformationModel.swift */; };
+		5555A01726CCE64100477DBE /* DeleteInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555A01626CCE64100477DBE /* DeleteInformationViewModel.swift */; };
+		55592C0B26C2876900F85A9A /* PagingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C0926C2876900F85A9A /* PagingCollectionViewCell.swift */; };
+		55592C0C26C2876900F85A9A /* PagingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55592C0A26C2876900F85A9A /* PagingCollectionViewCell.xib */; };
+		55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C1526C409B700F85A9A /* RecentVinylCollectionViewCell.swift */; };
+		55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55592C1626C409B700F85A9A /* RecentVinylCollectionViewCell.xib */; };
+		55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C1F26C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift */; };
+		55592C2226C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */; };
+		55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */; };
+		55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */; };
+		55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */; };
+		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
+		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,11 +73,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36D17E3E9541DE181DC65957 /* Pods-Vinyla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.release.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.release.xcconfig"; sourceTree = "<group>"; };
+		52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VinylaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5541DD36268838FB00970794 /* Vinyla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vinyla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5541DD39268838FB00970794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5541DD3B268838FB00970794 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5541DD3D268838FB00970794 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5541DD40268838FB00970794 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5541DD422688390800970794 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5541DD452688390800970794 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5541DD472688390800970794 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,10 +87,10 @@
 		5541DD5D269AD36800970794 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		5541DD61269AD4E800970794 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeStoryboard.storyboard; sourceTree = "<group>"; };
-		5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchStoryboard.storyboard; sourceTree = "<group>"; };
+		5541DD6926AD5C9100970794 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		5541DD6C26AD5CDA00970794 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5541DD7026AE955100970794 /* VinylBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylBoxViewController.swift; sourceTree = "<group>"; };
-		5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VinylBoxStoryboard.storyboard; sourceTree = "<group>"; };
+		5541DD7426AE955B00970794 /* VinylBox.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = VinylBox.storyboard; sourceTree = "<group>"; };
 		5541DD7726AF0DFF00970794 /* SignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpModel.swift; sourceTree = "<group>"; };
 		5541DD7B26AF113700970794 /* TextFieldPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldPadding.swift; sourceTree = "<group>"; };
 		5544D57526B13E4E003659C6 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -70,6 +100,40 @@
 		5544D58926B14B49003659C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		5544D5A726B3038E003659C6 /* VinylBoxCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylBoxCollectionViewCell.swift; sourceTree = "<group>"; };
+		5544D5A826B3038E003659C6 /* VinylBoxCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VinylBoxCollectionViewCell.xib; sourceTree = "<group>"; };
+		5544D5AF26B30ED0003659C6 /* AddReview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddReview.storyboard; sourceTree = "<group>"; };
+		5544D5B526B30EE7003659C6 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
+		5544D5C426B52D07003659C6 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		5544D5FB26BBDE13003659C6 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
+		5544D60126BBDFA9003659C6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		5544D60526BBE855003659C6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		5544D60B26BBF227003659C6 /* AddReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewModel.swift; sourceTree = "<group>"; };
+		5544D61126BC07DA003659C6 /* VinylBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylBoxViewModel.swift; sourceTree = "<group>"; };
+		5544D62426BD1841003659C6 /* AddInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInformationViewController.swift; sourceTree = "<group>"; };
+		5544D62A26BD184B003659C6 /* AddInformation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddInformation.storyboard; sourceTree = "<group>"; };
+		5544D62E26BD187C003659C6 /* AddInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInformationViewModel.swift; sourceTree = "<group>"; };
+		5544D63326BD43C4003659C6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		5544D63826BD4517003659C6 /* MainFavoriteModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MainFavoriteModel.xcdatamodel; sourceTree = "<group>"; };
+		5544D64426BEA8A0003659C6 /* VinylBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylBoxModel.swift; sourceTree = "<group>"; };
+		5544D64826BEBB9F003659C6 /* DownScaleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownScaleImage.swift; sourceTree = "<group>"; };
+		5544D64C26C0347D003659C6 /* BlurCircleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlurCircleView.xib; sourceTree = "<group>"; };
+		5544D65026C037C2003659C6 /* BlurCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurCircleView.swift; sourceTree = "<group>"; };
+		5555A00926CAB7A900477DBE /* AddInformationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInformationModel.swift; sourceTree = "<group>"; };
+		5555A01626CCE64100477DBE /* DeleteInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteInformationViewModel.swift; sourceTree = "<group>"; };
+		55592C0926C2876900F85A9A /* PagingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCollectionViewCell.swift; sourceTree = "<group>"; };
+		55592C0A26C2876900F85A9A /* PagingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PagingCollectionViewCell.xib; sourceTree = "<group>"; };
+		55592C1526C409B700F85A9A /* RecentVinylCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentVinylCollectionViewCell.swift; sourceTree = "<group>"; };
+		55592C1626C409B700F85A9A /* RecentVinylCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecentVinylCollectionViewCell.xib; sourceTree = "<group>"; };
+		55592C1F26C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSongListTableViewCell.swift; sourceTree = "<group>"; };
+		55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumSongListTableViewCell.xib; sourceTree = "<group>"; };
+		55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteInformationViewController.swift; sourceTree = "<group>"; };
+		55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeleteInformation.storyboard; sourceTree = "<group>"; };
+		55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.release.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.release.xcconfig"; sourceTree = "<group>"; };
+		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.debug.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.debug.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +141,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +162,8 @@
 				5541DD38268838FB00970794 /* Vinyla */,
 				5544D58626B14B49003659C6 /* VinylaTests */,
 				5541DD37268838FB00970794 /* Products */,
+				649E839C7315FE65D2FD9EBB /* Pods */,
+				E76915B2D0D870AF48EB166B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,14 +179,14 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				55592C2526C4C45400F85A9A /* AppCoordinator */,
+				5544D63226BD43A5003659C6 /* CoreData */,
 				5544D57826B144D2003659C6 /* DIContainer */,
 				5541DD7A26AF110F00970794 /* UIExtension */,
 				5541DD562688437C00970794 /* Models */,
 				5541DD572688438100970794 /* Modules */,
 				5541DD39268838FB00970794 /* AppDelegate.swift */,
 				5541DD3B268838FB00970794 /* SceneDelegate.swift */,
-				5541DD3D268838FB00970794 /* ViewController.swift */,
-				5541DD3F268838FB00970794 /* Main.storyboard */,
 				5541DD422688390800970794 /* Assets.xcassets */,
 				5541DD442688390800970794 /* LaunchScreen.storyboard */,
 				5541DD472688390800970794 /* Info.plist */,
@@ -130,6 +198,8 @@
 			isa = PBXGroup;
 			children = (
 				5541DD7726AF0DFF00970794 /* SignUpModel.swift */,
+				5544D64426BEA8A0003659C6 /* VinylBoxModel.swift */,
+				5555A00926CAB7A900477DBE /* AddInformationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -137,6 +207,10 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				55DE859F26CF8C9300E1C8DD /* BlurCircleView */,
+				5544D62326BD170F003659C6 /* DeleteInformation */,
+				5544D5AE26B30E85003659C6 /* AddReview */,
+				5544D5AD26B30E77003659C6 /* AddInformation */,
 				5541DD6F26AE954000970794 /* VinylBox */,
 				5541DD6826AD5C7E00970794 /* Search */,
 				5541DD60269AD4D500970794 /* Home */,
@@ -151,6 +225,7 @@
 			children = (
 				5541DD5226883AF500970794 /* LogInViewController.swift */,
 				5541DD4F26883A6800970794 /* LogInViewStoryBoard.storyboard */,
+				5544D5FB26BBDE13003659C6 /* LogInViewModel.swift */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -170,6 +245,9 @@
 			children = (
 				5541DD61269AD4E800970794 /* HomeViewController.swift */,
 				5541DD65269AD4F000970794 /* HomeStoryboard.storyboard */,
+				5544D60126BBDFA9003659C6 /* HomeViewModel.swift */,
+				55592C1526C409B700F85A9A /* RecentVinylCollectionViewCell.swift */,
+				55592C1626C409B700F85A9A /* RecentVinylCollectionViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -177,10 +255,11 @@
 		5541DD6826AD5C7E00970794 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				5541DD6926AD5C9100970794 /* SearchStoryboard.storyboard */,
+				5541DD6926AD5C9100970794 /* Search.storyboard */,
 				5541DD6C26AD5CDA00970794 /* SearchViewController.swift */,
 				5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */,
 				5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */,
+				5544D60526BBE855003659C6 /* SearchViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -189,7 +268,12 @@
 			isa = PBXGroup;
 			children = (
 				5541DD7026AE955100970794 /* VinylBoxViewController.swift */,
-				5541DD7426AE955B00970794 /* VinylBoxStoryboard.storyboard */,
+				5541DD7426AE955B00970794 /* VinylBox.storyboard */,
+				5544D5A726B3038E003659C6 /* VinylBoxCollectionViewCell.swift */,
+				5544D5A826B3038E003659C6 /* VinylBoxCollectionViewCell.xib */,
+				5544D61126BC07DA003659C6 /* VinylBoxViewModel.swift */,
+				55592C0926C2876900F85A9A /* PagingCollectionViewCell.swift */,
+				55592C0A26C2876900F85A9A /* PagingCollectionViewCell.xib */,
 			);
 			path = VinylBox;
 			sourceTree = "<group>";
@@ -198,6 +282,8 @@
 			isa = PBXGroup;
 			children = (
 				5541DD7B26AF113700970794 /* TextFieldPadding.swift */,
+				5544D64826BEBB9F003659C6 /* DownScaleImage.swift */,
+				55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -219,6 +305,84 @@
 			path = VinylaTests;
 			sourceTree = "<group>";
 		};
+		5544D5AD26B30E77003659C6 /* AddInformation */ = {
+			isa = PBXGroup;
+			children = (
+				5544D62426BD1841003659C6 /* AddInformationViewController.swift */,
+				5544D62A26BD184B003659C6 /* AddInformation.storyboard */,
+				5544D62E26BD187C003659C6 /* AddInformationViewModel.swift */,
+				55592C1F26C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift */,
+				55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */,
+			);
+			path = AddInformation;
+			sourceTree = "<group>";
+		};
+		5544D5AE26B30E85003659C6 /* AddReview */ = {
+			isa = PBXGroup;
+			children = (
+				5544D5AF26B30ED0003659C6 /* AddReview.storyboard */,
+				5544D5B526B30EE7003659C6 /* AddReviewViewController.swift */,
+				5544D60B26BBF227003659C6 /* AddReviewViewModel.swift */,
+			);
+			path = AddReview;
+			sourceTree = "<group>";
+		};
+		5544D62326BD170F003659C6 /* DeleteInformation */ = {
+			isa = PBXGroup;
+			children = (
+				55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */,
+				55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */,
+				5555A01626CCE64100477DBE /* DeleteInformationViewModel.swift */,
+			);
+			path = DeleteInformation;
+			sourceTree = "<group>";
+		};
+		5544D63226BD43A5003659C6 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				5544D63326BD43C4003659C6 /* CoreDataManager.swift */,
+				5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		55592C2526C4C45400F85A9A /* AppCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5544D5C426B52D07003659C6 /* AppCoordinator.swift */,
+			);
+			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		55DE859F26CF8C9300E1C8DD /* BlurCircleView */ = {
+			isa = PBXGroup;
+			children = (
+				5544D64C26C0347D003659C6 /* BlurCircleView.xib */,
+				5544D65026C037C2003659C6 /* BlurCircleView.swift */,
+			);
+			path = BlurCircleView;
+			sourceTree = "<group>";
+		};
+		649E839C7315FE65D2FD9EBB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */,
+				36D17E3E9541DE181DC65957 /* Pods-Vinyla.release.xcconfig */,
+				B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */,
+				B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E76915B2D0D870AF48EB166B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */,
+				52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,9 +390,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5541DD4A2688390800970794 /* Build configuration list for PBXNativeTarget "Vinyla" */;
 			buildPhases = (
+				568D8E21AA556EC3E793DD1B /* [CP] Check Pods Manifest.lock */,
 				5541DD32268838FB00970794 /* Sources */,
 				5541DD33268838FB00970794 /* Frameworks */,
 				5541DD34268838FB00970794 /* Resources */,
+				E7AEAECC90CEA18C3420E93E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -243,6 +409,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5544D58C26B14B49003659C6 /* Build configuration list for PBXNativeTarget "VinylaTests" */;
 			buildPhases = (
+				FA4233B7E4903743F2035369 /* [CP] Check Pods Manifest.lock */,
 				5544D58126B14B49003659C6 /* Sources */,
 				5544D58226B14B49003659C6 /* Frameworks */,
 				5544D58326B14B49003659C6 /* Resources */,
@@ -299,15 +466,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5541DD7526AE955B00970794 /* VinylBoxStoryboard.storyboard in Resources */,
-				5541DD6A26AD5C9100970794 /* SearchStoryboard.storyboard in Resources */,
+				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
+				5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */,
+				55592C0C26C2876900F85A9A /* PagingCollectionViewCell.xib in Resources */,
+				5544D5B026B30ED0003659C6 /* AddReview.storyboard in Resources */,
+				5544D62B26BD184B003659C6 /* AddInformation.storyboard in Resources */,
+				55592C2226C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib in Resources */,
 				5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
+				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
-				5541DD41268838FB00970794 /* Main.storyboard in Resources */,
+				55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */,
+				5544D64D26C0347D003659C6 /* BlurCircleView.xib in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
+				5544D5AA26B3038E003659C6 /* VinylBoxCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,23 +494,108 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		568D8E21AA556EC3E793DD1B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Vinyla-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7AEAECC90CEA18C3420E93E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vinyla/Pods-Vinyla-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Vinyla/Pods-Vinyla-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Vinyla/Pods-Vinyla-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA4233B7E4903743F2035369 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VinylaTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5541DD32268838FB00970794 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5544D64526BEA8A0003659C6 /* VinylBoxModel.swift in Sources */,
+				5544D60226BBDFA9003659C6 /* HomeViewModel.swift in Sources */,
 				5541DD5326883AF500970794 /* LogInViewController.swift in Sources */,
+				5544D65126C037C2003659C6 /* BlurCircleView.swift in Sources */,
 				5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */,
+				55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
+				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
+				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
+				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
+				55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */,
+				5544D60626BBE855003659C6 /* SearchViewModel.swift in Sources */,
 				5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */,
+				5544D63426BD43C4003659C6 /* CoreDataManager.swift in Sources */,
+				5555A01726CCE64100477DBE /* DeleteInformationViewModel.swift in Sources */,
 				5544D57A26B14538003659C6 /* DIContainer.swift in Sources */,
-				5541DD3E268838FB00970794 /* ViewController.swift in Sources */,
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
+				55592C0B26C2876900F85A9A /* PagingCollectionViewCell.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
+				5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */,
+				5544D62526BD1841003659C6 /* AddInformationViewController.swift in Sources */,
+				55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */,
+				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,
+				5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */,
 				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
+				5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */,
+				55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */,
 				5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */,
+				5544D5C526B52D07003659C6 /* AppCoordinator.swift in Sources */,
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
+				5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */,
+				5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */,
 				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,14 +619,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5541DD3F268838FB00970794 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5541DD40268838FB00970794 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5541DD442688390800970794 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -497,6 +748,7 @@
 		};
 		5541DD4B2688390800970794 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -517,6 +769,7 @@
 		};
 		5541DD4C2688390800970794 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36D17E3E9541DE181DC65957 /* Pods-Vinyla.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -537,6 +790,7 @@
 		};
 		5544D58D26B14B49003659C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -557,6 +811,7 @@
 		};
 		5544D58E26B14B49003659C6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -606,6 +861,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5544D63826BD4517003659C6 /* MainFavoriteModel.xcdatamodel */,
+			);
+			currentVersion = 5544D63826BD4517003659C6 /* MainFavoriteModel.xcdatamodel */;
+			path = MainFavoriteModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5541DD2E268838FB00970794 /* Project object */;
 }
