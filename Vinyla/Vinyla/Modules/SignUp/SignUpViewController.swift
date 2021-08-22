@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class SignUpViewController: UIViewController {
     
@@ -19,13 +21,24 @@ class SignUpViewController: UIViewController {
     @IBOutlet var allowEveryServiceButtons: [UIButton]!
     @IBOutlet weak var allowServiceButton: UIButton!
     @IBOutlet weak var allowPrivacyButton: UIButton!
-    @IBOutlet weak var allowMarketingButton: UIButton!
-    @IBOutlet weak var allowMarketingLabel: UILabel!
+    @IBOutlet weak var allowMarketingButton: UIButton?
+    @IBOutlet weak var allowMarketingLabel: UILabel?
+    @IBOutlet weak var nickNameLabel: UILabel!
 
+    lazy var pointCircleView: UIView = {
+    let view = UIView()
+        view.frame = CGRect(x: nickNameLabel.frame.size.width, y: -2, width: 5, height: 5)
+        view.backgroundColor = UIColor.vinylaMainOrangeColor()
+        view.layer.cornerRadius = 2.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+    }()
     //var viewModel : SignUpViewModelProtocol?
     
     private weak var coordiNator: AppCoordinator?
     private var viewModel: SignUpViewModel?
+
+    var disposeBag = DisposeBag()
     
     static func instantiate(viewModel: SignUpViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "SignUp", bundle: nil)
@@ -41,13 +54,19 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         nickNameTextField.delegate = self
+        instagramIDTextField.delegate = self
         setUI()
-        
+        setTapButtonsIsSelected()
+        nickNameLabel.addSubview(pointCircleView)
         //viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
     }
 //    func setViewModel(_ viewModel: SignUpViewModelProtocol) {
 //        self.viewModel = viewModel
 //    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touchUpNickNameCheckButton(self.nickNameCheckButton)
+         self.view.endEditing(true)
+    }
     func setUI() {
         //border
         nickNameTextField.layer.borderWidth = 1
@@ -67,7 +86,7 @@ class SignUpViewController: UIViewController {
         nickNameCheckButton.layer.cornerRadius = 8
         logInButton.layer.cornerRadius = 8
         logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
-        allowMarketingLabel.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
+        allowMarketingLabel?.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
         //allow servicebuttons
         for buttons in allowEveryServiceButtons {
             buttons.layer.cornerRadius = 8
@@ -77,9 +96,39 @@ class SignUpViewController: UIViewController {
             buttons.clipsToBounds = true
         }
     }
-    
+    func setTapButtonsIsSelected() {
+        allowServiceButton.rx.tap.subscribe(onNext: { [weak self] in
+            if let serviceButton = self?.allowServiceButton {
+                if serviceButton.isSelected {
+                    serviceButton.isSelected = false
+                }else {
+                    serviceButton.isSelected = true
+                }
+            }
+        }).disposed(by: disposeBag)
+
+        allowPrivacyButton.rx.tap.subscribe(onNext: { [weak self] in
+            if let privacyButton = self?.allowPrivacyButton {
+                if privacyButton.isSelected {
+                    privacyButton.isSelected = false
+                }else {
+                    privacyButton.isSelected = true
+                }
+            }
+        }).disposed(by: disposeBag)
+
+        allowMarketingButton?.rx.tap.subscribe(onNext: { [weak self] in
+            if let marketingButton = self?.allowMarketingButton {
+                if marketingButton.isSelected {
+                    marketingButton.isSelected = false
+                }else {
+                    marketingButton.isSelected = true
+                }
+            }
+        }).disposed(by: disposeBag)
+    }
     @IBAction func touchUpPopButton(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        coordiNator?.popViewController()
     }
     
     @IBAction func touchUpNickNameCheckButton(_ sender: UIButton) {
@@ -95,14 +144,12 @@ class SignUpViewController: UIViewController {
             logInButton.isEnabled = true
             logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
             logInButton.setTitleColor(.white, for: .normal)
-        } else if nickNameCheckValue == 2 {
-            nickNameStateLabel.text = "닉네임 길이가 짧습니다."
-            nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
-            logInButton.backgroundColor = UIColor.buttonDisabledColor()
-            logInButton.isEnabled = false
-            logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
-        } else if nickNameCheckValue == 3 {
-            nickNameStateLabel.text = "올바르지 않은 형식입니다."
+        } else if nickNameCheckValue == 2 || nickNameCheckValue == 3{
+            if nickNameCheckValue == 2{
+                nickNameStateLabel.text = "닉네임 길이가 짧습니다."
+            }else {
+                nickNameStateLabel.text = "올바르지 않은 형식입니다."
+            }
             nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
             logInButton.backgroundColor = UIColor.buttonDisabledColor()
             logInButton.isEnabled = false
@@ -130,9 +177,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func touchUpAllowEveryServiceButton(_ sender: UIButton) {
         for buttons in allowEveryServiceButtons {
-            if buttons.isSelected {
-                buttons.isSelected = false
-            }else {
+            if !buttons.isSelected {
                 buttons.isSelected = true
             }
         }
@@ -177,6 +222,12 @@ extension SignUpViewController: UITextFieldDelegate {
 //        {
 //            return true;
 //        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.nickNameTextField.resignFirstResponder()
+        touchUpNickNameCheckButton(self.nickNameCheckButton)
+        self.instagramIDTextField.resignFirstResponder()
+        return true
     }
 }
 

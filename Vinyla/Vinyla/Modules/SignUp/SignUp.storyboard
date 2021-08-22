@@ -323,6 +323,7 @@
                         <outlet property="instagramIDTextField" destination="oow-lg-1vJ" id="TQg-8l-U8H"/>
                         <outlet property="logInButton" destination="4To-N7-7qD" id="hBy-zr-aUh"/>
                         <outlet property="nickNameCheckButton" destination="aJB-Bo-DCg" id="UhZ-cL-aYP"/>
+                        <outlet property="nickNameLabel" destination="ccr-ay-vrX" id="uLS-zd-Dmz"/>
                         <outlet property="nickNameStateLabel" destination="L70-jg-LU4" id="s4c-Am-Sjg"/>
                         <outlet property="nickNameTextField" destination="a9E-Kv-rYQ" id="iZ2-lt-vBc"/>
                         <outletCollection property="allowEveryServiceButtons" destination="3UL-Fm-Amd" collectionClass="NSMutableArray" id="XTs-Rm-tdP"/>
