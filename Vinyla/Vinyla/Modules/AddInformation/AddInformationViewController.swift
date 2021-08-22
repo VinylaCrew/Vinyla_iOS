@@ -57,6 +57,7 @@ class AddInformationViewController: UIViewController {
     
     @IBOutlet weak var homeMainFavoriteButton: UIButton!
     @IBOutlet weak var addInformationImageView: UIImageView!
+    @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var informationScrollView: UIScrollView!
     @IBOutlet weak var albumSongListTableView: UITableView!
     @IBOutlet weak var albumSongListTableViewHeight: NSLayoutConstraint!
@@ -64,7 +65,7 @@ class AddInformationViewController: UIViewController {
     
     
     private weak var coordiNator: AppCoordinator?
-    private weak var viewModel: AddInformationViewModel?
+    private var viewModel: AddInformationViewModel?
     var disposebag = DisposeBag()
     
     var dataCount: Int = 1
@@ -84,13 +85,13 @@ class AddInformationViewController: UIViewController {
        setAlbumListTableViewUI()
         self.view.addSubview(saveInformationButton)
         saveInformationButton.rx.tap.subscribe(onNext:  { [weak self] in
-            self?.coordiNator?.moveToAddReview()
+            self?.coordiNator?.moveToAddReview(vinylDataModel: (self?.viewModel?.model.vinyTitleSong)!)
         }).disposed(by: disposebag)
         
         informationScrollView.delegate = self
-        
+
+        songTitleLabel.text = viewModel?.model.vinyTitleSong
     }
-    
     func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
         albumSongListTableView.dataSource = self
@@ -102,7 +103,6 @@ class AddInformationViewController: UIViewController {
         albumSongListTableView.backgroundColor = .black
         albumSongListTableViewHeight.constant = CGFloat(dataCount*21) // 21size가 추가셀 생성되지 않음
         albumSongListTableView.isScrollEnabled = false
-        
     }
     
     @IBAction func touchUpHomeFavoriteButton(_ sender: Any) {

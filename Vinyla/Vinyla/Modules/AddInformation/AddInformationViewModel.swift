@@ -8,5 +8,9 @@
 import Foundation
 
 class AddInformationViewModel {
-    
+    var model = AddInformationModel()
+
+    init() {
+        self.model = AddInformationModel()
+    }
 }
