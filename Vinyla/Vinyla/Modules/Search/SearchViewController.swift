@@ -35,8 +35,8 @@ class SearchViewController: UIViewController {
         setUI()
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindTableView()
-        didSelectCell()
-
+//        didSelectCell()
+        setInputSongTitleRx()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -76,18 +76,50 @@ class SearchViewController: UIViewController {
     @IBAction func touchUpViewPopButton(_ sender: UIButton) {
         coordiNator?.popViewController()
     }
-    
+    func setInputSongTitleRx() {
+        guard let viewModel = self.viewModel else {
+            return
+        }
+        vinylSearchBar.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .debounce(.seconds(1), scheduler: MainScheduler.instance)
+            .map{
+                print($0)
+                return $0
+            }
+            .bind(to: viewModel.orderNumber)
+            .disposed(by: disposeBag)
+
+//            .bind(to: viewModel?.orderNumber)
+//            .bind(to: self.viewModel?.orderNumber)
+//            .disposed(by: disposeBag)
+    }
     func bindTableView() {
-        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
-        cities.observe(on: MainScheduler.instance)
-            .bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
-        
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
-                        
-            cell.songTitleLabel.text = element
-            
-            return cell
-        }.disposed(by: disposeBag)
+//        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
+//        cities.observeOn(MainScheduler.instance)
+//            .bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
+//
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
+//
+//            cell.songTitleLabel.text = element
+//
+//            return cell
+//        }.disposed(by: disposeBag)
+        guard let viewModel = self.viewModel else {
+            print("vm error")
+            return
+        }
+        print(viewModel.moviesData.asDriver(onErrorJustReturn: []))
+        viewModel.moviesData
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn([])
+            .bind(to: searchTableView.rx.items) { tableView, index, element in
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
+                print(element.movies)
+                print("bind tb")
+                return cell
+            }.disposed(by: disposeBag)
         
     }
     
