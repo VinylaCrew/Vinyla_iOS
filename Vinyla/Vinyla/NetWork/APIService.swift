@@ -7,9 +7,11 @@
 
 import Moya
 import RxSwift
+import Foundation
 
 protocol VinylAPIServiceProtocol {
     func searchVinyl(vinylName: String) -> Observable<[SearchModel]>
+    func getMovies(order: String) -> Observable<[MovieModel]>
 }
 
 final class VinylAPIService: VinylAPIServiceProtocol {
@@ -34,7 +36,36 @@ final class VinylAPIService: VinylAPIServiceProtocol {
             }
             return Disposables.create()
         }
-
     }
 
+    func getMovies(order: String) -> Observable<[MovieModel]> {
+
+//        if order == "" { return Observable.create() { ob in
+//            ob.onNext([])
+//            ob.onCompleted()
+//            return Disposables.create()
+//        }
+//        }
+        return Observable.create() { [weak self] emitter in
+            self?.provider.request(.getMovies(urlParameters: order)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedData = try JSONDecoder().decode(MovieModel.self, from: response.data)
+                        print("APIService", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
+//                        emitter.onNext(decodedData)
+                        emitter.onCompleted()
+                    } catch {
+                        print("decode error")
+                        print(error.localizedDescription)
+                        emitter.onError(error)
+                    }
+
+                case .failure(let error):
+                    emitter.onError(error)
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

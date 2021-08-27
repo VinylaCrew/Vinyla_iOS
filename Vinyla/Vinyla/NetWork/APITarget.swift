@@ -4,32 +4,42 @@
 //
 //  Created by IJ . on 2021/08/27.
 //
-
+import Foundation
 import Moya
 
 enum APITarget: TargetType {
     case vinylSearch(urlParameters: String?)
+    case getMovies(urlParameters: String?)
 
     var baseURL: URL {
-        return URL(string:"http://")!
+        return URL(string:"https://connect-boxoffice.run.goorm.io/")!
     }
 
     var path: String {
         switch self {
         case .vinylSearch:
             return "/vinyls/search"
+        case .getMovies:
+            return "movies"
         }
     }
 
-    var method: Method {
+    var method: Moya.Method {
         switch self {
         case .vinylSearch:
+            return .get
+        case .getMovies:
             return .get
         }
     }
 
     var sampleData: Data {
-        return .init()
+        switch self {
+        case .vinylSearch(let urlParameters):
+            return "[{\"name\": \"\(String(describing: urlParameters))\"}]".data(using: .utf8)!
+        default:
+            return .init()
+        }
     }
 
     var task: Task {
@@ -40,13 +50,19 @@ enum APITarget: TargetType {
             }
             print("User Nick Name Error")
             return .requestParameters(parameters: ["q" : "error"], encoding: URLEncoding.default)
-
+        case let .getMovies(urlParameters):
+//            if let order = urlParameters {
+//                if order == "" {
+//                    return .requestParameters(parameters: ["order_type" : 0], encoding: URLEncoding.default)
+//                }
+//                return .requestParameters(parameters: ["order_type" : Int(order)], encoding: URLEncoding.default)
+//            }
+            return .requestPlain
         }
     }
 
     var headers: [String : String]? {
         switch self {
-        
         default: return ["Content-Type": "application/json"]
         }
     }
