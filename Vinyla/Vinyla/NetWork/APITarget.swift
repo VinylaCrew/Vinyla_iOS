@@ -51,12 +51,13 @@ enum APITarget: TargetType {
             print("User Nick Name Error")
             return .requestParameters(parameters: ["q" : "error"], encoding: URLEncoding.default)
         case let .getMovies(urlParameters):
-//            if let order = urlParameters {
-//                if order == "" {
-//                    return .requestParameters(parameters: ["order_type" : 0], encoding: URLEncoding.default)
-//                }
-//                return .requestParameters(parameters: ["order_type" : Int(order)], encoding: URLEncoding.default)
-//            }
+            if let order = urlParameters {
+                if order == "1" || order == "2" || order == "0" {
+                    return .requestParameters(parameters: ["order_type" : Int(order)!], encoding: URLEncoding.default)
+                }else {
+                    return .requestParameters(parameters: ["order_type" : 0], encoding: URLEncoding.default)
+                }
+            }
             return .requestPlain
         }
     }

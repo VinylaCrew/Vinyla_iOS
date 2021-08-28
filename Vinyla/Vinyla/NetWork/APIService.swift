@@ -11,7 +11,7 @@ import Foundation
 
 protocol VinylAPIServiceProtocol {
     func searchVinyl(vinylName: String) -> Observable<[SearchModel]>
-    func getMovies(order: String) -> Observable<[MovieModel]>
+    func getMovies(order: String) -> Observable<[MovieModel.Data?]>
 }
 
 final class VinylAPIService: VinylAPIServiceProtocol {
@@ -38,7 +38,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getMovies(order: String) -> Observable<[MovieModel]> {
+    func getMovies(order: String) -> Observable<[MovieModel.Data?]> {
 
 //        if order == "" { return Observable.create() { ob in
 //            ob.onNext([])
@@ -52,13 +52,13 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let decodedData = try JSONDecoder().decode(MovieModel.self, from: response.data)
-                        print("APIService", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
-//                        emitter.onNext(decodedData)
+//                        print("APIService", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
+//                        print("APIService2", decodedData.movies)
+                        emitter.onNext(decodedData.movies)
                         emitter.onCompleted()
                     } catch {
                         print("decode error")
                         print(error.localizedDescription)
-                        emitter.onError(error)
                     }
 
                 case .failure(let error):
