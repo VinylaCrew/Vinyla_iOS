@@ -13,7 +13,7 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     private weak var coordiNator: AppCoordinator?
     private var viewModel: SearchViewModel?
@@ -28,6 +28,9 @@ class SearchViewController: UIViewController {
         viewController.coordiNator = coordiNator
         return viewController
     }
+    deinit {
+        self.disposeBag = DisposeBag()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +38,7 @@ class SearchViewController: UIViewController {
         setUI()
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindTableView()
-//        didSelectCell()
+        didSelectCell()
         setInputSongTitleRx()
     }
 
@@ -82,7 +85,7 @@ class SearchViewController: UIViewController {
         }
         vinylSearchBar.rx.text
             .orEmpty
-            .distinctUntilChanged()
+            .distinctUntilChanged() // 중복 데이터 스트림 반복 X
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .map{
                 print($0)
@@ -91,9 +94,13 @@ class SearchViewController: UIViewController {
             .bind(to: viewModel.orderNumber)
             .disposed(by: disposeBag)
 
-//            .bind(to: viewModel?.orderNumber)
-//            .bind(to: self.viewModel?.orderNumber)
-//            .disposed(by: disposeBag)
+        viewModel.isSearch
+            .subscribe(onNext: { [weak self] item in
+                print(item)
+                if item == false {
+                    self?.view.endEditing(true)
+                }
+            })
     }
     func bindTableView() {
 //        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
@@ -110,30 +117,43 @@ class SearchViewController: UIViewController {
             print("vm error")
             return
         }
-        print(viewModel.moviesData.asDriver(onErrorJustReturn: []))
+
         viewModel.moviesData
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn([])
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
-                print(element.movies)
-                print("bind tb")
+                cell.songTitleLabel.text = element?.title
+                cell.singerNameLabel.text = element?.id
+                let url = URL(string: (element?.thumb)!)
+                do {
+                    let data = try Data(contentsOf: url!)
+                    cell.searchVinylImageView.image = UIImage(data: data)
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
                 return cell
             }.disposed(by: disposeBag)
         
     }
     
     func didSelectCell() {
-        searchTableView.rx.modelSelected(String.self)
+//        searchTableView.rx.modelSelected(String.self)
+//            .subscribe(onNext: { [weak self] model in
+//                print("seletecd \(model)")
+//                self?.coordiNator?.songNameCD = "\(model)"
+//                self?.vinylSongName = "\(model)"
+//                guard let songTitle = self?.vinylSongName else {
+//                    return
+//                }
+//                self?.coordiNator?.moveToAddInformationView(vinylDataModel: songTitle)
+//                print("pushAddInformationView")
+//            })
+//            .disposed(by: disposeBag)
+        searchTableView.rx.modelSelected(MovieModel.Data.self)
             .subscribe(onNext: { [weak self] model in
-                print("seletecd \(model)")
-                self?.coordiNator?.songNameCD = "\(model)"
-                self?.vinylSongName = "\(model)"
-                guard let songTitle = self?.vinylSongName else {
-                    return
-                }
-                self?.coordiNator?.moveToAddInformationView(vinylDataModel: songTitle)
-                print("pushAddInformationView")
+                print(model.title)
             })
             .disposed(by: disposeBag)
         
@@ -142,8 +162,6 @@ class SearchViewController: UIViewController {
                 print("selected \(indexPath)")
             })
             .disposed(by: disposeBag)
-        
-        
     }
     
 }

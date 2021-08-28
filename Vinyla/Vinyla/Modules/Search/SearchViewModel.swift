@@ -16,7 +16,7 @@ protocol SearchViewModelType {
     //Output
     var searchModel: BehaviorSubject<[SearchModel]> { get }
     var isSearch: PublishSubject<Bool> { get }
-    var moviesData: BehaviorSubject<MovieModel> { get }
+    var moviesData: BehaviorSubject<MovieModel.Data?> { get }
 
     var searchAPIService: VinylAPIServiceProtocol { get set }
 }
@@ -26,7 +26,7 @@ final class SearchViewModel {
     var orderNumber: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
 
     //Output
-    var moviesData: BehaviorSubject<[MovieModel]> = BehaviorSubject<[MovieModel]>(value: [])
+    var moviesData: BehaviorSubject<[MovieModel.Data?]> = BehaviorSubject<[MovieModel.Data?]>(value: [])
     var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
 
@@ -35,7 +35,7 @@ final class SearchViewModel {
 
         _ = orderNumber
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
-            .flatMapLatest{ order -> Observable<[MovieModel]> in
+            .flatMapLatest{ order -> Observable<[MovieModel.Data?]> in
                 print("flatmap", order)
                 return self.searchAPIService.getMovies(order: order)
             }
