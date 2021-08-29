@@ -28,8 +28,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var levelGagueBackGroundView: UIView!
     @IBOutlet weak var mainLevelLabel: UILabel!
-    @IBOutlet weak var informationLevelLabel: UILabel!
     @IBOutlet weak var levelIconImageView: UIImageView!
+    @IBOutlet weak var informationLevelLabel: UILabel!
+
 
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
@@ -99,6 +100,10 @@ class HomeViewController: UIViewController {
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
         blurCircleView.delegate = self
         blurCircleView.popButton.isHidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.tapInformationLevelLabel))
+        informationLevelLabel.isUserInteractionEnabled = true
+        informationLevelLabel.addGestureRecognizer(tap)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -191,6 +196,9 @@ class HomeViewController: UIViewController {
         //        coordiNator?.moveToAddInformationView()
         //        coordiNator?.moveToSearchView()
         coordiNator?.moveToVinylBoxView()
+    }
+    @IBAction func tapInformationLevelLabel() {
+        coordiNator?.moveToLevelDesignView()
     }
     
 }
