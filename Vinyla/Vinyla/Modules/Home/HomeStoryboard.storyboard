@@ -325,15 +325,17 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3vI-D9-Pdi">
-                                                        <rect key="frame" x="295" y="93.666666666666629" width="45" height="19"/>
+                                                        <rect key="frame" x="265" y="93.666666666666629" width="75" height="19"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="width" constant="75" id="24B-we-i7V"/>
                                                             <constraint firstAttribute="height" constant="19" id="gbr-GV-irl"/>
                                                         </constraints>
                                                         <attributedString key="attributedText">
                                                             <fragment content="닐라대왕">
                                                                 <attributes>
                                                                     <color key="NSColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <font key="NSFont" metaFont="system"/>
+                                                                    <font key="NSFont" size="13" name=".AppleSDGothicNeoI-Regular"/>
+                                                                    <paragraphStyle key="NSParagraphStyle" alignment="right" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     <integer key="NSUnderline" value="1"/>
                                                                 </attributes>
                                                             </fragment>
@@ -461,7 +463,7 @@
                         <outlet property="homeMiniButtonView" destination="fo8-T5-rNO" id="Vqx-Ud-S4G"/>
                         <outlet property="homeScrollContentView" destination="auJ-Kr-ogC" id="ACL-Ka-Oup"/>
                         <outlet property="homeScrollView" destination="qOL-lw-hDe" id="Pis-Jd-Luo"/>
-                        <outlet property="informationLevelLabel" destination="3vI-D9-Pdi" id="6Ty-fq-sJ2"/>
+                        <outlet property="informationLevelLabel" destination="3vI-D9-Pdi" id="9op-JI-j0V"/>
                         <outlet property="levelGagueBackGroundView" destination="h2z-Q0-pqu" id="bXl-5n-zzf"/>
                         <outlet property="levelIconImageView" destination="ySa-xb-Bq8" id="uIq-e4-ERX"/>
                         <outlet property="mainLevelLabel" destination="cJ6-VO-bYm" id="c1Z-Q7-oYP"/>
