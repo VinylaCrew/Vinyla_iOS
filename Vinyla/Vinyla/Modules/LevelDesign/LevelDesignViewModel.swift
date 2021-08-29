@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+class LevelDesignViewModel {
+    var levelDesignCellID: String = "LevelDesignCell"
+}

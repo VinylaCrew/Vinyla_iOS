@@ -7,23 +7,43 @@
 
 import UIKit
 
-class LevelDesignViewController: UIViewController {
+final class LevelDesignViewController: UIViewController {
+
+    @IBOutlet weak var levelDesignTableView: UITableView!
+
+    private weak var coordiNator: AppCoordinator?
+    private var viewModel: LevelDesignViewModel?
+
+    static func instantiate(viewModel: LevelDesignViewModel, coordiNator: AppCoordinator) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "LevelDesign", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(identifier: "LevelDesign") as? LevelDesignViewController else {
+            return UIViewController()
+        }
+        viewController.viewModel = viewModel
+        viewController.coordiNator = coordiNator
+        return viewController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        levelDesignTableView.delegate = self
+        levelDesignTableView.dataSource = self
     }
-    
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension LevelDesignViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        5
     }
-    */
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LevelDesignCell") as? LevelDesignTableViewCell else {
+            return UITableViewCell()
+        }
+        return cell
+    }
+
 
 }
