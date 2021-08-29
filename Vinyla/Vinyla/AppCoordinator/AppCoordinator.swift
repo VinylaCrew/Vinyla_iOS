@@ -17,7 +17,7 @@ final class AppCoordinator {
 
     init(window: UIWindow) {
         self.window = window
-        self.isLogIn = false
+        self.isLogIn = true
     }
     
     func start() {
@@ -85,6 +85,11 @@ final class AppCoordinator {
         let deleteInformationView = DeleteInformationViewController.instantiate(viewModel: deleteInformationViewModel, coordinator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(deleteInformationView, animated: true)
+    }
+    func moveToLevelDesignView() {
+        let levelDesignView = LevelDesignViewController.instantiate(viewModel: LevelDesignViewModel(), coordiNator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(levelDesignView, animated: true)
     }
     func popViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
