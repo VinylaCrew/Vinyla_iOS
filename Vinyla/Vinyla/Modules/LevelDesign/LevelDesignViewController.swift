@@ -10,6 +10,8 @@ import UIKit
 final class LevelDesignViewController: UIViewController {
 
     @IBOutlet weak var levelDesignTableView: UITableView!
+    @IBOutlet weak var levelMentLabel: UILabel!
+    @IBOutlet var levelCirclePointView: [UIView]!
 
     private weak var coordiNator: AppCoordinator?
     private var viewModel: LevelDesignViewModel?
@@ -29,6 +31,21 @@ final class LevelDesignViewController: UIViewController {
 
         levelDesignTableView.delegate = self
         levelDesignTableView.dataSource = self
+        levelDesignTableView.isScrollEnabled = false
+        for pointView in levelCirclePointView {
+            pointView.layer.cornerRadius = pointView.frame.size.height/2
+        }
+        
+    }
+
+    func setLabelTextColor() {
+        guard let levelMentLabelText = levelMentLabel.text else { return  }
+        let attributedString = NSMutableAttributedString(string: levelMentLabelText)
+
+//        attributedString.addAttribute(.foregroundColor, value: UIColor.blue, range: (levelMentLabelText as NSString).range(of: "Bonus"))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.vinylaMainOrangeColor(), range: (levelMentLabelText as NSString).range(of: "남다르게"))
+
+        levelMentLabel.attributedText = attributedString
     }
 
 }
@@ -42,6 +59,10 @@ extension LevelDesignViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LevelDesignCell") as? LevelDesignTableViewCell else {
             return UITableViewCell()
         }
+        if indexPath.row == 0 {
+            cell.isGradient = true
+        }
+        
         return cell
     }
 
