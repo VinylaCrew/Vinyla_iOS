@@ -48,7 +48,7 @@ enum APITarget: TargetType {
             if let vinylName = urlParameters {
                 return .requestParameters(parameters: ["q" : vinylName], encoding: URLEncoding.default)
             }
-            print("User Nick Name Error")
+            print("Vinyl Name Error")
             return .requestParameters(parameters: ["q" : "error"], encoding: URLEncoding.default)
         case let .getMovies(urlParameters):
             if let order = urlParameters {
