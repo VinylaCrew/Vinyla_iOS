@@ -10,7 +10,6 @@ import UIKit
 extension UIImageView {
     func setImageChache(imageURL: String) {
         if let cachedImage = NSCacheManager.shaerd.object(forKey: imageURL as NSString) {
-            print("cached image 사용", cachedImage)
             self.image = cachedImage
             return
         }
