@@ -17,4 +17,10 @@ extension UIColor {
     static func buttonDisabledTextColor() -> UIColor {
         return UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
     }
+    static func gradientStartColor() -> UIColor {
+        return UIColor(red: 255/255, green: 76/255, blue: 0/255, alpha: 0.18)
+    }
+    static func gradientEndColor() -> UIColor {
+        return UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 0.2)
+    }
 }
