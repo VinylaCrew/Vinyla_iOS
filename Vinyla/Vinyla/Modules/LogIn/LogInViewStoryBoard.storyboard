@@ -8,6 +8,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
         <array key="Playball-Regular.ttf">
             <string>Playball-Regular</string>
         </array>
@@ -35,6 +41,7 @@
                                     <constraint firstAttribute="height" constant="56" id="kcG-C9-WTJ"/>
                                     <constraint firstAttribute="width" secondItem="12l-Kj-XuC" secondAttribute="height" multiplier="75:14" id="uBP-k9-Hf1"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                 <state key="normal" title="Google로 로그인" image="google">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -51,6 +58,7 @@
                                     <constraint firstAttribute="width" secondItem="vHJ-g9-4ZL" secondAttribute="height" multiplier="75:14" id="c80-SY-W3l"/>
                                     <constraint firstAttribute="height" constant="56" id="g2M-tn-uuu"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
                                 <state key="normal" title="Facebook으로 로그인" image="facebook">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -64,6 +72,7 @@
                                     <constraint firstAttribute="height" constant="56" id="SYR-f4-7o9"/>
                                     <constraint firstAttribute="width" secondItem="HqE-54-Os8" secondAttribute="height" multiplier="75:14" id="zRt-4b-2dg"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
                                 <state key="normal" title="Apple로 로그인" image="apple">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -77,7 +86,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="ue4-aR-CYX"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
