@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct LevelDesignModel {
+    let levelImageName: String?
+    let level: String?
+    let levelName: String?
+    let levelMent: String?
+}
