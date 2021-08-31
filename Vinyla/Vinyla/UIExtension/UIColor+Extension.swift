@@ -23,4 +23,7 @@ extension UIColor {
     static func gradientEndColor() -> UIColor {
         return UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 0.2)
     }
+    static func textColor() -> UIColor {
+        return UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
+    }
 }
