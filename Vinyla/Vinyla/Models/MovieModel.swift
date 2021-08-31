@@ -8,12 +8,13 @@
 import Foundation
 
 struct MovieModel: Codable {
-    struct Movie: Codable {
+    struct Data: Codable {
         let title: String?
         let reservationGrade: Int?
         let thumb: String?
         let id: String?
-        let reservationRate, userRating: Double?
+        let reservationRate: Double?
+        let userRating: Double?
         let grade: Int?
         let date: String?
 
@@ -27,8 +28,12 @@ struct MovieModel: Codable {
         }
     }
     let orderType: Int?
-    let movies: [Movie?]
+    let movies: [Data?]
 
+    init() {
+        self.orderType = 0
+        self.movies = [Data]()
+    }
     enum CodingKeys: String, CodingKey {
         case orderType = "order_type"
         case movies
