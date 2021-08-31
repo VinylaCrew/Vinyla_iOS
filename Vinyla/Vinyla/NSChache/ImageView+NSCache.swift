@@ -16,6 +16,7 @@ extension UIImageView {
 
         DispatchQueue.global(qos: .background).async {
             guard let insideImageURL = URL(string: imageURL), let imageData = try? Data(contentsOf: insideImageURL), let willBeCachedImage = UIImage(data: imageData) else {
+                print("image cahcing background thread error")
                 return
             }
             //백그라운드 스레드로 image data를 얻어오고 메인 스레드에서 캐싱작업과 이미지뷰에 이미지를 넣어주는 작업 진행
