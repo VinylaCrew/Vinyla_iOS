@@ -35,7 +35,8 @@ class RequestUserVinylViewController: UIViewController {
     @objc func touchUPTapGesutre(sender: UITapGestureRecognizer) {
         print("touch")
     }
-    @IBAction func touchUPPOPButton(_ sender: Any) {
+    @IBAction func touchUpPopButton(_ sender: Any) {
+        print("pop view")
     }
     func setUI() {
         artistMentLabel.numberOfLines = 2
@@ -77,11 +78,12 @@ class RequestUserVinylViewController: UIViewController {
         }
     }
     func setCountTextViewInLabel() {
-        memoTextView.rx.text.subscribe(onNext: { [weak self] text in
-            guard let textCount = text?.count else {
-                return
-            }
-            self?.memoTextCountLabel.text = String(textCount)
+        memoTextView.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] text in
+//            guard let textCount = text?.count else {
+//                return
+//            }
+                self?.memoTextCountLabel.text = String(text.count)
         })
         .disposed(by: disposeBag)
     }
