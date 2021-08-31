@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Playball-Regular.ttf">
+            <string>Playball-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Log In View Controller-->
         <scene sceneID="2Rj-B0-idV">
@@ -63,6 +68,9 @@
                                 <state key="normal" title="Apple로 로그인" image="apple">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="ftm-qt-knE" kind="show" id="BP8-HR-A6V"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work, Life, Vinyl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-xb-zac">
                                 <rect key="frame" x="38" y="372" width="300" height="22"/>
@@ -71,6 +79,16 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vinyla" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnw-JC-E3F">
+                                <rect key="frame" x="142.66666666666666" y="321" width="90" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="oNN-HZ-fc7"/>
+                                    <constraint firstAttribute="height" constant="50" id="odO-qS-ffZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Playball-Regular" family="Playball" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -84,7 +102,9 @@
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="centerX" secondItem="kDi-Fy-4Qi" secondAttribute="centerX" id="ALd-Is-0JX"/>
                             <constraint firstItem="vHJ-g9-4ZL" firstAttribute="top" secondItem="12l-Kj-XuC" secondAttribute="bottom" constant="15" id="CZP-Hj-kVa"/>
                             <constraint firstAttribute="trailing" secondItem="6ZY-pe-22Z" secondAttribute="trailing" constant="135" id="JiJ-3C-ezB"/>
+                            <constraint firstItem="Rnw-JC-E3F" firstAttribute="centerX" secondItem="XrE-4Q-tyk" secondAttribute="centerX" id="NHN-Z3-rv4"/>
                             <constraint firstItem="6ZY-pe-22Z" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="135" id="OpP-M5-387"/>
+                            <constraint firstItem="Rnw-JC-E3F" firstAttribute="top" secondItem="6ZY-pe-22Z" secondAttribute="bottom" constant="10" id="T9a-9e-MC6"/>
                             <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="vHJ-g9-4ZL" secondAttribute="trailing" constant="37" id="Twc-7z-swQ"/>
                             <constraint firstItem="HqE-54-Os8" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="XCJ-Dd-uaj"/>
                             <constraint firstItem="HqE-54-Os8" firstAttribute="top" secondItem="vHJ-g9-4ZL" secondAttribute="bottom" constant="15" id="bD9-zg-GtY"/>
@@ -106,41 +126,15 @@
             </objects>
             <point key="canvasLocation" x="3007.1999999999998" y="157.38916256157637"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="egG-hq-pZg">
+        <!--RequestUserVinyl-->
+        <scene sceneID="X34-vh-Y1e">
             <objects>
-                <viewController id="Yv2-Mh-TZ5" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="OHX-Hi-BOx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="SRA-fM-Q1L">
-                                <rect key="frame" x="15" y="59" width="345" height="345"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPM-dw-qY5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="375"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="F2L-Vg-bL0">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="Dof-dY-USE">
-                                            <rect key="frame" x="63" y="70" width="248" height="234"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="X50-i4-F4S"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DaL-8W-l2y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardIdentifier="RequestUserVinyl" storyboardName="RequestUserVinyl" id="ftm-qt-knE" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="eKE-8t-wWr"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kHl-HN-W8M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2964" y="813.54679802955673"/>
+            <point key="canvasLocation" x="3810" y="242"/>
         </scene>
     </scenes>
     <resources>
@@ -148,6 +142,5 @@
         <image name="facebook" width="8" height="14"/>
         <image name="google" width="14" height="14"/>
         <image name="logo" width="105" height="124"/>
-        <image name="something" width="350" height="350"/>
     </resources>
 </document>
