@@ -22,7 +22,20 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
     //hugging
     @IBOutlet weak var buttonTopConstraint: NSLayoutConstraint!
     var fCurTextfieldBottom: CGFloat?
+
+    private weak var coordiNator: AppCoordinator?
+    private var viewModel: RequestUserVinylViewModel?
     var disposeBag = DisposeBag()
+
+    static func instantiate(viewModel: RequestUserVinylViewModel, coordiNator: AppCoordinator) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "RequestUserVinyl", bundle: nil)
+        guard let viewController = storyBoard.instantiateViewController(identifier: "RequestUserVinyl") as? RequestUserVinylViewController else {
+            return UIViewController()
+        }
+        viewController.viewModel = viewModel
+        viewController.coordiNator = coordiNator
+        return viewController
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
