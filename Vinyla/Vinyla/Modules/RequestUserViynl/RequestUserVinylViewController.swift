@@ -50,11 +50,24 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
 
 //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        let toolBarKeyboard = UIToolbar()
+        toolBarKeyboard.sizeToFit()
+        let btnDoneBar = UIBarButtonItem(title: "작성 완료", style: .done, target: self, action: #selector(self.doneBtnClicked))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolBarKeyboard.items = [flexSpace, btnDoneBar]
+        toolBarKeyboard.tintColor = UIColor.vinylaMainOrangeColor()
+        memoTextView.inputAccessoryView = toolBarKeyboard
     }
     @objc func touchUPTapGesutre(sender: UITapGestureRecognizer) {
         print("touch")
     }
+    @IBAction func doneBtnClicked (sender: Any) {
+        self.view.endEditing(true) }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        print("touches Began")
         self.view.endEditing(true)
     }
     @objc func keyboardWillAppear(notification: NSNotification) {
@@ -83,8 +96,8 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
 //            self.view.bounds.origin.y = 0
 //        }
     }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        fCurTextfieldBottom = textField.frame.origin.y + textField.frame.height
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
     }
     @IBAction func touchUpPopButton(_ sender: Any) {
         print("pop view")
@@ -141,19 +154,20 @@ extension RequestUserVinylViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         print("should begin edit")
         if self.view.frame.origin.y == 0 {
-            self.view.frame.origin.y -= memoTextView.frame.height
+            self.view.frame.origin.y -= (memoTextView.frame.height + 75)
         }
 //        self.view.frame.origin.y -= memoTextView.frame.height
         return true
     }
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        print("should end edit")
-        self.view.endEditing(true)
-        return true
-    }
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+//        print("should end edit")
+//        self.view.endEditing(true)
+//        return true
+//    }
     func textViewDidEndEditing(_ textView: UITextView) {
         print("did end edit")
         self.view.endEditing(true)
+        //TextViewDelegate 에서만 self.view.endEditing이 작동하지 않음
     }
 }
 
