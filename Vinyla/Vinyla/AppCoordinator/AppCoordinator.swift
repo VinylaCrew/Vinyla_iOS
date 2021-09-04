@@ -17,7 +17,7 @@ final class AppCoordinator {
 
     init(window: UIWindow) {
         self.window = window
-        self.isLogIn = true
+        self.isLogIn = false
     }
     
     func start() {
@@ -53,12 +53,14 @@ final class AppCoordinator {
     
     func moveToSearchView() {
         let searchView = SearchViewController.instantiate(viewModel: SearchViewModel(), coordiNator: self)
+//        let navigationSearchView = UINavigationController(rootViewController: searchView)
+//        navigationSearchView.navigationBar.isHidden = true
         guard let windowRootViewController = self.windowRootViewController else { return }
-        windowRootViewController.pushViewController(searchView, animated: true)
-//        searchView.modalPresentationStyle = .fullScreen
-//        windowRootViewController.present(searchView, animated: true, completion: nil)
+        windowRootViewController.pushViewController(searchView, animated: false)
+//        navigationSearchView.modalPresentationStyle = .fullScreen
+//        windowRootViewController.present(navigationSearchView, animated: true, completion: nil)
     }
-    func moveToAddInformationView(vinylDataModel: String) {
+    func moveToAddInformationView(vinylDataModel: String?) {
         let addInformationViewModel = AddInformationViewModel()
         addInformationViewModel.model.vinyTitleSong = vinylDataModel
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
@@ -95,8 +97,17 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popViewController(animated: true)
     }
+    func popNoAnimationViewController() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.popViewController(animated: false)
+    }
+    func dismissViewController() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.dismiss(animated: true, completion: nil)
+    }
     func popToHomeViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popToRootViewController(animated: true)
     }
+    
 }
