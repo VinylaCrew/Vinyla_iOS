@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5536083826E1309A00761CFF /* RequestUserVinylViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */; };
 		5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD39268838FB00970794 /* AppDelegate.swift */; };
 		5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD3B268838FB00970794 /* SceneDelegate.swift */; };
 		5541DD432688390800970794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD422688390800970794 /* Assets.xcassets */; };
@@ -57,6 +58,24 @@
 		55592C2226C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */; };
 		55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */; };
 		55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */; };
+		558383C626D8AC0C0019977A /* APITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383C526D8AC0C0019977A /* APITarget.swift */; };
+		558383CC26D8B0A00019977A /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383CB26D8B0A00019977A /* APIService.swift */; };
+		558383D026D8B1C60019977A /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383CF26D8B1C60019977A /* SearchModel.swift */; };
+		558383DE26D92E490019977A /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383DD26D92E490019977A /* MovieModel.swift */; };
+		558383EB26DB9B9D0019977A /* LevelDesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383EA26DB9B9D0019977A /* LevelDesignViewController.swift */; };
+		558383F126DB9BB20019977A /* LevelDesign.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 558383F026DB9BB20019977A /* LevelDesign.storyboard */; };
+		558383F526DB9BD30019977A /* LevelDesignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383F426DB9BD30019977A /* LevelDesignViewModel.swift */; };
+		5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */; };
+		5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583840C26DBC1650019977A /* UIView+Gradient.swift */; };
+		5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */; };
+		5599C77A26DCD510008F8FDF /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77926DCD510008F8FDF /* NSCacheManager.swift */; };
+		5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C78426DCF744008F8FDF /* LevelDesignModel.swift */; };
+		5599C7AC26DD71A0008F8FDF /* Playball-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7AB26DD71A0008F8FDF /* Playball-Regular.ttf */; };
+		5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7AF26DD71CA008F8FDF /* NotoSansKR-Medium.otf */; };
+		5599C7B326DD71CB008F8FDF /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B026DD71CA008F8FDF /* NotoSansKR-Regular.otf */; };
+		5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */; };
+		5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */; };
+		5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */; };
 		55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
@@ -75,6 +94,7 @@
 /* Begin PBXFileReference section */
 		36D17E3E9541DE181DC65957 /* Pods-Vinyla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.release.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.release.xcconfig"; sourceTree = "<group>"; };
 		52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VinylaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewModel.swift; sourceTree = "<group>"; };
 		5541DD36268838FB00970794 /* Vinyla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vinyla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5541DD39268838FB00970794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5541DD3B268838FB00970794 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +149,24 @@
 		55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumSongListTableViewCell.xib; sourceTree = "<group>"; };
 		55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteInformationViewController.swift; sourceTree = "<group>"; };
 		55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeleteInformation.storyboard; sourceTree = "<group>"; };
+		558383C526D8AC0C0019977A /* APITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITarget.swift; sourceTree = "<group>"; };
+		558383CB26D8B0A00019977A /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		558383CF26D8B1C60019977A /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		558383DD26D92E490019977A /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		558383EA26DB9B9D0019977A /* LevelDesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignViewController.swift; sourceTree = "<group>"; };
+		558383F026DB9BB20019977A /* LevelDesign.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LevelDesign.storyboard; sourceTree = "<group>"; };
+		558383F426DB9BD30019977A /* LevelDesignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignViewModel.swift; sourceTree = "<group>"; };
+		5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignTableViewCell.swift; sourceTree = "<group>"; };
+		5583840C26DBC1650019977A /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
+		5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+NSCache.swift"; sourceTree = "<group>"; };
+		5599C77926DCD510008F8FDF /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
+		5599C78426DCF744008F8FDF /* LevelDesignModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignModel.swift; sourceTree = "<group>"; };
+		5599C7AB26DD71A0008F8FDF /* Playball-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Playball-Regular.ttf"; sourceTree = "<group>"; };
+		5599C7AF26DD71CA008F8FDF /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		5599C7B026DD71CA008F8FDF /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestUserVinyl.storyboard; sourceTree = "<group>"; };
+		5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewController.swift; sourceTree = "<group>"; };
 		55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.release.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.release.xcconfig"; sourceTree = "<group>"; };
 		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +217,9 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				5599C7AA26DD717E008F8FDF /* Font */,
+				5599C77F26DCDB1D008F8FDF /* NSChache */,
+				558383C426D8ABDA0019977A /* NetWork */,
 				55592C2526C4C45400F85A9A /* AppCoordinator */,
 				5544D63226BD43A5003659C6 /* CoreData */,
 				5544D57826B144D2003659C6 /* DIContainer */,
@@ -200,6 +241,9 @@
 				5541DD7726AF0DFF00970794 /* SignUpModel.swift */,
 				5544D64426BEA8A0003659C6 /* VinylBoxModel.swift */,
 				5555A00926CAB7A900477DBE /* AddInformationModel.swift */,
+				558383CF26D8B1C60019977A /* SearchModel.swift */,
+				558383DD26D92E490019977A /* MovieModel.swift */,
+				5599C78426DCF744008F8FDF /* LevelDesignModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -207,6 +251,8 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				5599C7B726DD776F008F8FDF /* RequestUserViynl */,
+				558383E926DB9B5D0019977A /* LevelDesign */,
 				55DE859F26CF8C9300E1C8DD /* BlurCircleView */,
 				5544D62326BD170F003659C6 /* DeleteInformation */,
 				5544D5AE26B30E85003659C6 /* AddReview */,
@@ -284,6 +330,7 @@
 				5541DD7B26AF113700970794 /* TextFieldPadding.swift */,
 				5544D64826BEBB9F003659C6 /* DownScaleImage.swift */,
 				55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */,
+				5583840C26DBC1650019977A /* UIView+Gradient.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -352,6 +399,56 @@
 				5544D5C426B52D07003659C6 /* AppCoordinator.swift */,
 			);
 			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		558383C426D8ABDA0019977A /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				558383C526D8AC0C0019977A /* APITarget.swift */,
+				558383CB26D8B0A00019977A /* APIService.swift */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
+		558383E926DB9B5D0019977A /* LevelDesign */ = {
+			isa = PBXGroup;
+			children = (
+				558383EA26DB9B9D0019977A /* LevelDesignViewController.swift */,
+				558383F026DB9BB20019977A /* LevelDesign.storyboard */,
+				558383F426DB9BD30019977A /* LevelDesignViewModel.swift */,
+				5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */,
+			);
+			path = LevelDesign;
+			sourceTree = "<group>";
+		};
+		5599C77F26DCDB1D008F8FDF /* NSChache */ = {
+			isa = PBXGroup;
+			children = (
+				5599C77926DCD510008F8FDF /* NSCacheManager.swift */,
+				5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */,
+			);
+			path = NSChache;
+			sourceTree = "<group>";
+		};
+		5599C7AA26DD717E008F8FDF /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				5599C7AB26DD71A0008F8FDF /* Playball-Regular.ttf */,
+				5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */,
+				5599C7AF26DD71CA008F8FDF /* NotoSansKR-Medium.otf */,
+				5599C7B026DD71CA008F8FDF /* NotoSansKR-Regular.otf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		5599C7B726DD776F008F8FDF /* RequestUserViynl */ = {
+			isa = PBXGroup;
+			children = (
+				5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */,
+				5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */,
+				5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */,
+			);
+			path = RequestUserViynl;
 			sourceTree = "<group>";
 		};
 		55DE859F26CF8C9300E1C8DD /* BlurCircleView */ = {
@@ -466,7 +563,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */,
 				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
+				5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */,
 				5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */,
 				55592C0C26C2876900F85A9A /* PagingCollectionViewCell.xib in Resources */,
 				5544D5B026B30ED0003659C6 /* AddReview.storyboard in Resources */,
@@ -474,13 +573,17 @@
 				55592C2226C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib in Resources */,
 				5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
+				558383F126DB9BB20019977A /* LevelDesign.storyboard in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
+				5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
+				5599C7B326DD71CB008F8FDF /* NotoSansKR-Regular.otf in Resources */,
 				55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */,
 				5544D64D26C0347D003659C6 /* BlurCircleView.xib in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
+				5599C7AC26DD71A0008F8FDF /* Playball-Regular.ttf in Resources */,
 				5544D5AA26B3038E003659C6 /* VinylBoxCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,26 +669,38 @@
 				5544D64526BEA8A0003659C6 /* VinylBoxModel.swift in Sources */,
 				5544D60226BBDFA9003659C6 /* HomeViewModel.swift in Sources */,
 				5541DD5326883AF500970794 /* LogInViewController.swift in Sources */,
+				5599C77A26DCD510008F8FDF /* NSCacheManager.swift in Sources */,
 				5544D65126C037C2003659C6 /* BlurCircleView.swift in Sources */,
 				5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */,
 				55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */,
+				558383EB26DB9B9D0019977A /* LevelDesignViewController.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
+				5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */,
 				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
 				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
 				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
 				55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */,
+				558383D026D8B1C60019977A /* SearchModel.swift in Sources */,
 				5544D60626BBE855003659C6 /* SearchViewModel.swift in Sources */,
 				5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */,
+				558383C626D8AC0C0019977A /* APITarget.swift in Sources */,
 				5544D63426BD43C4003659C6 /* CoreDataManager.swift in Sources */,
+				558383DE26D92E490019977A /* MovieModel.swift in Sources */,
+				5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */,
 				5555A01726CCE64100477DBE /* DeleteInformationViewModel.swift in Sources */,
+				558383F526DB9BD30019977A /* LevelDesignViewModel.swift in Sources */,
 				5544D57A26B14538003659C6 /* DIContainer.swift in Sources */,
 				5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */,
+				5536083826E1309A00761CFF /* RequestUserVinylViewModel.swift in Sources */,
 				55592C0B26C2876900F85A9A /* PagingCollectionViewCell.swift in Sources */,
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
 				5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */,
 				5544D62526BD1841003659C6 /* AddInformationViewController.swift in Sources */,
 				55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */,
+				5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */,
 				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,
+				5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */,
+				5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */,
 				5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */,
 				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
@@ -596,6 +711,7 @@
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
 				5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */,
 				5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */,
+				558383CC26D8B0A00019977A /* APIService.swift in Sources */,
 				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -681,7 +797,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -736,7 +852,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
