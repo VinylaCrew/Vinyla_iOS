@@ -49,7 +49,7 @@
                                                 </constraints>
                                                 <state key="normal" image="icnBtnCansel"/>
                                                 <connections>
-                                                    <action selector="touchUPPOPButton:" destination="lkO-hh-fvk" eventType="touchUpInside" id="2e5-WI-fVY"/>
+                                                    <action selector="touchUpPopButton:" destination="lkO-hh-fvk" eventType="touchUpInside" id="ost-Lz-WCp"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="앨범 이미지 업로드" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhg-K6-pQx">
@@ -212,7 +212,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y7o-ja-Pmk">
-                                                <rect key="frame" x="296" y="581" width="27" height="19"/>
+                                                <rect key="frame" x="291" y="581" width="27" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19" id="WeP-cL-xan"/>
                                                     <constraint firstAttribute="width" constant="27" id="hSh-27-o35"/>
@@ -247,7 +247,7 @@
                                             <constraint firstItem="0E1-eP-j9s" firstAttribute="bottom" secondItem="DZR-XC-yyI" secondAttribute="bottom" constant="-67" id="Avs-r6-TcG"/>
                                             <constraint firstItem="f0Q-iI-qY7" firstAttribute="top" secondItem="S8v-Sl-5mf" secondAttribute="bottom" constant="30" id="Bs4-Ru-QIh"/>
                                             <constraint firstAttribute="trailing" secondItem="III-ua-8PI" secondAttribute="trailing" constant="15" id="CgK-Ng-5YS"/>
-                                            <constraint firstItem="UlW-vB-wTp" firstAttribute="leading" secondItem="y7o-ja-Pmk" secondAttribute="trailing" constant="-5" id="CwN-d1-LFS"/>
+                                            <constraint firstItem="UlW-vB-wTp" firstAttribute="leading" secondItem="y7o-ja-Pmk" secondAttribute="trailing" id="CwN-d1-LFS"/>
                                             <constraint firstItem="o4f-gB-lNR" firstAttribute="leading" secondItem="VpT-b2-fRI" secondAttribute="leading" constant="16" id="Dxx-3T-tB0"/>
                                             <constraint firstItem="S8v-Sl-5mf" firstAttribute="leading" secondItem="o4f-gB-lNR" secondAttribute="trailing" constant="4" id="FfS-sa-z7D"/>
                                             <constraint firstItem="Wtb-g9-3hC" firstAttribute="leading" secondItem="VpT-b2-fRI" secondAttribute="leading" constant="15" id="FlR-Lm-y4y"/>
@@ -296,7 +296,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Zbc-br-Ft3"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ZxF-bf-pXG" secondAttribute="trailing" id="MSv-PK-8Wy"/>
                             <constraint firstAttribute="bottom" secondItem="ZxF-bf-pXG" secondAttribute="bottom" id="dn8-1Q-C39"/>
