@@ -77,7 +77,7 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func touchUpViewPopButton(_ sender: UIButton) {
-        coordiNator?.popViewController()
+        coordiNator?.popNoAnimationViewController()
     }
     func setInputSongTitleRx() {
         guard let viewModel = self.viewModel else {
@@ -94,13 +94,13 @@ class SearchViewController: UIViewController {
             .bind(to: viewModel.orderNumber)
             .disposed(by: disposeBag)
 
-        viewModel.isSearch
-            .subscribe(onNext: { [weak self] item in
-                print(item)
-                if item == false {
-                    self?.view.endEditing(true)
-                }
-            })
+//        viewModel.isSearch
+//            .subscribe(onNext: { [weak self] item in
+//                print(item)
+//                if item == false {
+//                    self?.view.endEditing(true)
+//                }
+//            })
     }
     func bindTableView() {
 //        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
@@ -119,19 +119,17 @@ class SearchViewController: UIViewController {
         }
 
         viewModel.moviesData
+            .do(onNext: { _ in
+                print("vm movies Data")
+            })
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn([])
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
                 cell.songTitleLabel.text = element?.title
                 cell.singerNameLabel.text = element?.id
-                let url = URL(string: (element?.thumb)!)
-                do {
-                    let data = try Data(contentsOf: url!)
-                    cell.searchVinylImageView.image = UIImage(data: data)
-                }
-                catch {
-                    print(error.localizedDescription)
+                if let imageURLString = element?.thumb {
+                    cell.searchVinylImageView.setImageChache(imageURL: imageURLString)
                 }
                 return cell
             }.disposed(by: disposeBag)
@@ -154,12 +152,14 @@ class SearchViewController: UIViewController {
         searchTableView.rx.modelSelected(MovieModel.Data.self)
             .subscribe(onNext: { [weak self] model in
                 print(model.title)
+                self?.coordiNator?.moveToAddInformationView(vinylDataModel: model.title)
             })
             .disposed(by: disposeBag)
         
         searchTableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
                 print("selected \(indexPath)")
+
             })
             .disposed(by: disposeBag)
     }
