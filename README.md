@@ -14,7 +14,9 @@
 - XS 보다 큰 기기의 경우 최근 바이닐 크기 및 스크롤 View 레이아웃 계산 로직을 통해 비율을 맞추어줌
 
 > Home View
+
 <img src="https://user-images.githubusercontent.com/55793344/132819324-3264e2f2-a32d-470e-9dda-1f27e4532432.png" width="375" height="812"> <img src="https://user-images.githubusercontent.com/55793344/132819338-b22fb5d9-78b8-44a4-b0a4-5a74520c4156.png" width="375" height="812"> 
 
 > 보관함 View
+
 <img src="https://user-images.githubusercontent.com/55793344/132819665-c983f9c1-eda5-4e7c-9d94-8ba07d526c20.gif" width="375" height="812">
