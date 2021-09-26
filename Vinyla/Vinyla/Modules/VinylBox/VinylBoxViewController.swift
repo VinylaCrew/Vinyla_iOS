@@ -72,6 +72,9 @@ class VinylBoxViewController: UIViewController {
             vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
         }
         reverseVinylBoxes = vinylBoxes.reversed()
+        //ViewModel 로직으로 변경작업중 함수 코드
+        viewModel?.updateVinylBoxesAndReversBoxes()
+
         vinylBoxPagingCollectionView.reloadData()
         
     }
@@ -161,8 +164,14 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
             return element
         }
         
+        guard let testOdds = viewModel?.getPagingVinylBoxItems(indexPath: indexPath) else {
+            print("PagingVinlyBoxItemsError")
+            return UICollectionViewCell()
+        }
+        print("test odds 정렬된 9개씩 데이터", testOdds)
         //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
-        cell.nineVinylItems = odds
+//        cell.nineVinylItems = odds
+        cell.nineVinylItems = testOdds
         cell.coordinator = self.coordiNator
 //        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
         return cell
