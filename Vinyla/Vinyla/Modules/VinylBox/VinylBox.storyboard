@@ -74,8 +74,8 @@
                                     <constraint firstAttribute="height" constant="98" id="zRs-b4-bbj"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="157개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZV-kj-sZR">
-                                <rect key="frame" x="15" y="152" width="33.666666666666664" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0개" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FZV-kj-sZR">
+                                <rect key="frame" x="15.000000000000002" y="152" width="19.666666666666671" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="14q-tO-bQ7"/>
                                 </constraints>
@@ -125,7 +125,7 @@
                                 <state key="normal" image="icnBtnBoxAdd"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="의 바이닐을 수집하셨어요!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTt-Rn-HKd">
-                                <rect key="frame" x="48.666666666666657" y="152" width="135" height="19"/>
+                                <rect key="frame" x="34.666666666666657" y="152" width="135" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="rZN-4H-Ng3"/>
                                 </constraints>
