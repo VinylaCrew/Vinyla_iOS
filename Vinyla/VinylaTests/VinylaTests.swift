@@ -38,20 +38,21 @@ class VinylaTests: XCTestCase {
         //given
         var viewModel = VinylBoxViewModel()
 
-//        코어 데이터 삭제 테스트 코드
+//        코어 데이터 전체 삭제 테스트 코드
 //        CoreDataManager.shared.clearAllObjectEntity("VinylBox")
+
         //when
-//        for i in 1...10 {
+//        for i in 1...502 {
 //            CoreDataManager.shared.saveVinylBox(songTitle: "\(i)", singer: "test", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
 //        }
         viewModel.updateVinylBoxesAndReversBoxes()
         //then
-        print("개수", viewModel.getTotalVinylBoxCount())
-//        XCTAssertEqual(502, viewModel.getTotalVinylBoxCount())
-        print("test paign items",viewModel.getPagingVinylBoxItems(indexPath: IndexPath(item: 0, section: 0)))
-        var testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,1])
-        print("test pg",testVinylBoxItems)
-        print(testVinylBoxItems[0].songTitle)
+        XCTAssertEqual(502, viewModel.getTotalVinylBoxCount())
+        XCTAssertEqual(56, viewModel.totalPageNumber)
+        var testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,55])
+        XCTAssertEqual("1", testVinylBoxItems[6].songTitle)
+        testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,3])
+        XCTAssertEqual("474", testVinylBoxItems[1].songTitle)
         //특정페이지 songTitle로 맞는 데이터들어간지 확인
     }
 
@@ -59,6 +60,7 @@ class VinylaTests: XCTestCase {
         // This is an example of a performance test case.
         measure {
             // Put the code you want to measure the time of here.
+            testVinylBoxViewModel()
         }
     }
 
