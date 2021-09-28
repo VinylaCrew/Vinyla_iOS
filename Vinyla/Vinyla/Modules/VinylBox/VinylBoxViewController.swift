@@ -62,16 +62,16 @@ class VinylBoxViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
-        if vinylBoxes.count%9 == 0 {
-            totalPageNumber = vinylBoxes.count/9
-        }else {
-            totalPageNumber = vinylBoxes.count/9+1
-        }
+//        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
+//        if vinylBoxes.count%9 == 0 {
+//            totalPageNumber = vinylBoxes.count/9
+//        }else {
+//            totalPageNumber = vinylBoxes.count/9+1
+//        }
         if let viewModel = self.viewModel {
             vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
         }
-        reverseVinylBoxes = vinylBoxes.reversed()
+//        reverseVinylBoxes = vinylBoxes.reversed()
         //ViewModel 로직으로 변경작업중 함수 코드
         viewModel?.updateVinylBoxesAndReversBoxes()
 
@@ -140,7 +140,7 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        guard let pageNumber = totalPageNumber else { return 0 }
+        guard let pageNumber = viewModel?.totalPageNumber else { return 0 }
         return pageNumber //page
     }
     
@@ -152,18 +152,17 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         //        return cell
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pagingCell", for: indexPath) as? PagingCollectionViewCell else { return UICollectionViewCell() }
         
-        let odds = reverseVinylBoxes.enumerated().filter {
-            [weak self] (index: Int, element: VinylBox) -> Bool in
-            guard let pageNumber = totalPageNumber else { return false }
-            if indexPath.row != pageNumber-1 {
-                return (indexPath.row*9 <= index && index <= ((indexPath.row+1)*9-1))
-            }else {
-                return (indexPath.row*9 <= index && index <= vinylBoxes.count-1)
-            }
-        }.map { (index: Int, element: VinylBox) -> VinylBox in
-            return element
-        }
-        
+//        let odds = reverseVinylBoxes.enumerated().filter {
+//            [weak self] (index: Int, element: VinylBox) -> Bool in
+//            guard let pageNumber = totalPageNumber else { return false }
+//            if indexPath.row != pageNumber-1 {
+//                return (indexPath.row*9 <= index && index <= ((indexPath.row+1)*9-1))
+//            }else {
+//                return (indexPath.row*9 <= index && index <= vinylBoxes.count-1)
+//            }
+//        }.map { (index: Int, element: VinylBox) -> VinylBox in
+//            return element
+//        }
         guard let testOdds = viewModel?.getPagingVinylBoxItems(indexPath: indexPath) else {
             print("PagingVinlyBoxItemsError")
             return UICollectionViewCell()
