@@ -22,7 +22,7 @@ class CoreDataManager {
         vinylBoxInstance.vinylImage = vinylImage
         do {
             try context.save()
-            print("Vinyl Box is saved")
+//            print("Vinyl Box is saved")
         } catch {
             print(error.localizedDescription)
         }
