@@ -10,7 +10,7 @@ import RxSwift
 import Foundation
 
 
-class MockAPIService: VinylAPIServiceProtocol {
+final class MockAPIService: VinylAPIServiceProtocol {
     
     static let customEndpointClosure = { (target: APITarget) -> Endpoint in
         return Endpoint(url: URL(target: target).absoluteString,
@@ -22,7 +22,7 @@ class MockAPIService: VinylAPIServiceProtocol {
 
     private let provider: MoyaProvider<APITarget>
 
-    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.immediatelyStub) ) {
+    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.immediatelyStub, plugins: [NetworkLoggerPlugin()]) ) {
         self.provider = provider
     }
 
@@ -67,7 +67,7 @@ class MockAPIService: VinylAPIServiceProtocol {
             return Disposables.create()
         }
     }
-    
+
 }
 
 
