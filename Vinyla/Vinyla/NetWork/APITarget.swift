@@ -12,7 +12,8 @@ enum APITarget: TargetType {
     case getMovies(urlParameters: String?)
 
     var baseURL: URL {
-        return URL(string:"https://connect-boxoffice.run.goorm.io/")!
+        return URL(string:"http://13.209.245.76:3000")!
+
     }
 
     var path: String {
@@ -36,7 +37,8 @@ enum APITarget: TargetType {
     var sampleData: Data {
         switch self {
         case .vinylSearch(let urlParameters):
-            return "[{\"name\": \"\(String(describing: urlParameters))\"}]".data(using: .utf8)!
+//            return "[{\"name\": \"\(String(describing: urlParameters))\"}]".data(using: .utf8)!
+            return responseJSON("SearchMockData")
         default:
             return .init()
         }
@@ -67,4 +69,12 @@ enum APITarget: TargetType {
         default: return ["Content-Type": "application/json"]
         }
     }
+}
+
+func responseJSON(_ fileName: String) -> Data! {
+    @objc class TestClass: NSObject {}
+
+    let bundle = Bundle(for: TestClass.self)
+    let path = bundle.path(forResource: fileName, ofType: "json")
+    return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
 }
