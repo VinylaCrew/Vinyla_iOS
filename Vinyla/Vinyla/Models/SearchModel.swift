@@ -15,6 +15,6 @@ struct SearchModel: Codable {
     }
         let status: Int?
         let success: Bool?
-        let responseMessage: String?
+        let message: String?
         let data: [Data?]
 }
