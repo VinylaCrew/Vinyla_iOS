@@ -155,6 +155,9 @@
                                                             <constraint firstAttribute="height" constant="22" id="IOD-lU-vJd"/>
                                                         </constraints>
                                                         <state key="normal" image="icnBtnBack"/>
+                                                        <connections>
+                                                            <action selector="touchUpBackButton:" destination="NLP-VU-0iP" eventType="touchUpInside" id="5Gm-jR-ljJ"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="추천지수 남기기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTK-Nr-bUP">
                                                         <rect key="frame" x="32" y="19" width="114" height="25"/>
