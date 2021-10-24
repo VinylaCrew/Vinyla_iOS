@@ -36,22 +36,13 @@
                                 <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10개의 바이닐이 업데이트 되었어요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
-                                <rect key="frame" x="15" y="116" width="186.33333333333334" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0개의 검색 결과가 있습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
+                                <rect key="frame" x="15" y="116" width="146.33333333333334" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="Av9-5B-h7k"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7월 9일 기준" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUi-tD-29m">
-                                <rect key="frame" x="282.33333333333331" y="116" width="67.666666666666686" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="19" id="bpA-SY-YJ9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ny-7J-RQf">
@@ -76,11 +67,9 @@
                             <constraint firstItem="0ny-7J-RQf" firstAttribute="bottom" secondItem="to3-Mi-QPH" secondAttribute="bottom" constant="34" id="9ok-yz-RHN"/>
                             <constraint firstItem="r09-Ck-9SA" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="10" id="BTx-Oq-5IQ"/>
                             <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="1" id="BeX-7g-inu"/>
-                            <constraint firstAttribute="trailing" secondItem="uUi-tD-29m" secondAttribute="trailing" constant="25" id="Bqh-jO-Vtp"/>
                             <constraint firstItem="r09-Ck-9SA" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="15" id="D93-ef-yyH"/>
                             <constraint firstItem="PhD-Ui-1vJ" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="14" id="DnE-0d-r9A"/>
                             <constraint firstItem="HPv-ha-BAn" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="10" id="H3s-zs-vdp"/>
-                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="uUi-tD-29m" secondAttribute="bottom" constant="5" id="OZ2-F0-1Gh"/>
                             <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="0ny-7J-RQf" secondAttribute="trailing" id="WkY-Xm-2b1"/>
                             <constraint firstItem="PhD-Ui-1vJ" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="15" id="cld-KK-reP"/>
                             <constraint firstItem="Dhg-Lr-ZN2" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="22" id="enf-Pm-5rD"/>
@@ -91,6 +80,7 @@
                     </view>
                     <connections>
                         <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
+                        <outlet property="vinylCountLabel" destination="PhD-Ui-1vJ" id="QyF-NO-zjZ"/>
                         <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="avT-3d-Gmo"/>
                     </connections>
                 </viewController>
