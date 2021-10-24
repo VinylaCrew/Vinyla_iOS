@@ -8,8 +8,10 @@
 import Foundation
 
 struct AddInformationModel {
-    var vinyTitleSong: String?
+    var vinylTitleSong: String?
+    var vinylImageURL: String?
     init() {
-        self.vinyTitleSong = ""
+        self.vinylTitleSong = ""
+        self.vinylImageURL = ""
     }
 }
