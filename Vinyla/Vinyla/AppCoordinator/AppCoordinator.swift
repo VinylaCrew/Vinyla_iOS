@@ -60,17 +60,17 @@ final class AppCoordinator {
 //        navigationSearchView.modalPresentationStyle = .fullScreen
 //        windowRootViewController.present(navigationSearchView, animated: true, completion: nil)
     }
-    func moveToAddInformationView(vinylDataModel: String?) {
+    func moveToAddInformationView(vinylDataModel: String?, vinylImageURL: String?) {
         let addInformationViewModel = AddInformationViewModel()
-        addInformationViewModel.model.vinyTitleSong = vinylDataModel
+        addInformationViewModel.model.vinylTitleSong = vinylDataModel
+        addInformationViewModel.model.vinylImageURL = vinylImageURL
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(addInformationView, animated: true)
     }
-    func moveToAddReview(vinylDataModel: String) {
+    func moveToAddReview(vinylDataModel: AddReviewModel) {
         let addReviewViewModel = AddReviewViewModel()
-        print("coordinator addreview",vinylDataModel)
-        addReviewViewModel.songTitle = vinylDataModel
+        addReviewViewModel.model = vinylDataModel
         let AddReviewView = AddReviewViewController.instantiate(viewModel: addReviewViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(AddReviewView, animated: true)
