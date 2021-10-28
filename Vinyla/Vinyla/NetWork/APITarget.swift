@@ -10,7 +10,7 @@ import Moya
 enum APITarget: TargetType {
     case vinylSearch(urlParameters: String?)
     case getMovies(urlParameters: String?)
-    case getVinylDetail(urlParameters: Int?)
+    case getVinylDetail(pathVinylID: Int?)
 
     var baseURL: URL {
         return URL(string:"http://13.209.245.76:3000")!
@@ -23,8 +23,8 @@ enum APITarget: TargetType {
             return "/vinyls/search"
         case .getMovies:
             return "movies"
-        case let .getVinylDetail(urlParameters)://Path Variable
-            return "/vinyls/search/\(String(describing: urlParameters))"
+        case let .getVinylDetail(pathVinylID)://Path Variable
+            return "/vinyls/search/\(String(describing: pathVinylID))"
         }
     }
 
@@ -68,7 +68,7 @@ enum APITarget: TargetType {
                 }
             }
             return .requestPlain
-        case let .getVinylDetail(urlParameters):
+        case let .getVinylDetail(pathVinylID):
             return .requestPlain
         }
     }
