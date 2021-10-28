@@ -13,6 +13,8 @@ class SearchViewController: UIViewController {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var vinylCountLabel: UILabel!
+
     var disposeBag = DisposeBag()
     
     private weak var coordiNator: AppCoordinator?
@@ -88,10 +90,9 @@ class SearchViewController: UIViewController {
             .distinctUntilChanged() // 중복 데이터 스트림 반복 X
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
             .map{
-                print($0)
                 return $0
             }
-            .bind(to: viewModel.orderNumber)
+            .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
 //        viewModel.isSearch
@@ -118,7 +119,7 @@ class SearchViewController: UIViewController {
             return
         }
 
-        viewModel.moviesData
+        viewModel.vinylsData
             .do(onNext: { _ in
                 print("vm movies Data")
             })
@@ -127,13 +128,16 @@ class SearchViewController: UIViewController {
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
                 cell.songTitleLabel.text = element?.title
-                cell.singerNameLabel.text = element?.id
+                cell.singerNameLabel.text = element?.artist
                 if let imageURLString = element?.thumb {
-                    cell.searchVinylImageView.setImageChache(imageURL: imageURLString)
+//                    cell.searchVinylImageView.setImageChache(imageURL: imageURLString)
+                    cell.searchVinylImageView.setImageURLAndChaching(imageURLString)
                 }
                 return cell
             }.disposed(by: disposeBag)
-        
+
+
+        print("vm searched vinyls count",viewModel.vinylsCount)
     }
     
     func didSelectCell() {
@@ -149,10 +153,9 @@ class SearchViewController: UIViewController {
 //                print("pushAddInformationView")
 //            })
 //            .disposed(by: disposeBag)
-        searchTableView.rx.modelSelected(MovieModel.Data.self)
+        searchTableView.rx.modelSelected(SearchModel.Data.self)
             .subscribe(onNext: { [weak self] model in
-                print(model.title)
-                self?.coordiNator?.moveToAddInformationView(vinylDataModel: model.title)
+                self?.coordiNator?.moveToAddInformationView(vinylDataModel: model.title, vinylImageURL: model.thumb )
             })
             .disposed(by: disposeBag)
         
