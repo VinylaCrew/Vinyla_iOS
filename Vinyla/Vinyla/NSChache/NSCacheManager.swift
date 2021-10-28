@@ -8,7 +8,7 @@
 import UIKit
 
 class NSCacheManager {
-    static let shaerd = NSCache<NSString, UIImage>()
+    static let shared = NSCache<NSString, UIImage>()
 
     private init() {
 
