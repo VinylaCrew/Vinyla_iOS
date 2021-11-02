@@ -11,34 +11,39 @@ import XCTest
 class VinylaSearchTests: XCTestCase {
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
 
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testSearchAPI() {
+        //mock data를 통한 MockAPIService test code
+
         //given
-        let testAPIService = VinylAPIService()
+        let testAPIService = MockAPIService()
 
         let expectation = XCTestExpectation()
 
-        let expectedData = APITarget.vinylSearch(urlParameters: "test").sampleData
+        let mockSampleData = APITarget.vinylSearch(urlParameters: "IU").sampleData
+
+        let expectedResponseData = try? JSONDecoder().decode(SearchModel.self,from: mockSampleData)
 
         //when
-        testAPIService.testSearchVinyl(vinylName: "asdf")
+        testAPIService.searchVinyl(vinylName: "IU")
             .subscribe(onNext: { data in
-//                XCTAssertEqual(expectedData, data)
+
+                //then
+                XCTAssertNotNil(data)
+                print("Xcttest", data)
+                XCTAssertEqual(expectedResponseData?.data[0]?.artist, data[0]?.artist)
+                XCTAssertEqual(expectedResponseData?.data[2]?.title, data[2]?.title)
+                //sample data가 decoding 되지 않아서 빈배열이 내려와서, 올바른 형식으로 json수정
+
                 expectation.fulfill()
+            }, onError: { error in
+                print(error.localizedDescription)
             })
             .dispose()
 
         wait(for: [expectation], timeout: 2.0)
-
-
-        //then
 
     }
 
