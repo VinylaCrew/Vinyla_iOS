@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import Vinyla
+import RxSwift
 
 class GetViynlDetailAPITests: XCTestCase {
 
@@ -17,11 +18,12 @@ class GetViynlDetailAPITests: XCTestCase {
     func testGetViynlDetailAPI() {
         let testMockAPIService = MockAPIService()
 
-        let mockSampleData = APITarget.getVinylDetail(urlParameters: 1234).sampleData
+        let mockSampleData = APITarget.getVinylDetail(pathVinylID: 1234).sampleData
 
         let expectedResponseData = try? JSONDecoder().decode(VinylInformation.self,from: mockSampleData)
 
         testMockAPIService.getVinylDetail(vinylID: 12345)
+            .timeout(DispatchTimeInterval.seconds(2), scheduler: MainScheduler.instance) //2초 동안 event 발생하지 않을씨 에러방출
             .subscribe(onNext: { data in
                 XCTAssertEqual(expectedResponseData?.data.artist, data?.artist)
                 XCTAssertEqual(expectedResponseData?.data.tracklist[0].title, data?.tracklist[0].title)
