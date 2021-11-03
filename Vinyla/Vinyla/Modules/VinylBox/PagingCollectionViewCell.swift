@@ -86,7 +86,6 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
         return CGSize(width: 100, height: 145)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(nineVinylItems[indexPath.row].songTitle)
         self.coordinator?.moveToDeleteInformationView(songTitle: nineVinylItems[indexPath.row].songTitle)
     }
 }
