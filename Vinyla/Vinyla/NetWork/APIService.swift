@@ -10,7 +10,7 @@ import RxSwift
 import Foundation
 
 protocol VinylAPIServiceProtocol {
-    func searchVinyl(vinylName: String) -> Observable<[SearchModel]>
+    func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]>
     func getMovies(order: String) -> Observable<[MovieModel.Data?]>
 }
 
@@ -22,13 +22,37 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         self.provider = provider
     }
 
-    func searchVinyl(vinylName: String) -> Observable<[SearchModel]> {
+    //test 이전 틀렸던 코드
+//    func searchVinyl(vinylName: String) -> Observable<[SearchModel]> {
+//        return Observable.create() { [weak self] emitter in
+//            self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
+//                switch result {
+//                case .success(let response):
+//                    let decodedData = try? JSONDecoder().decode([SearchModel].self, from: response.data)
+//                    emitter.onNext(decodedData ?? [])
+//                case .failure(let error):
+//                    emitter.onError(error)
+//                }
+//                emitter.onCompleted()
+//            }
+//            return Disposables.create()
+//        }
+//    }
+
+    func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
+
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
                 switch result {
                 case .success(let response):
-                    let decodedData = try? JSONDecoder().decode([SearchModel].self, from: response.data)
-                    emitter.onNext(decodedData ?? [])
+                    do {
+                        let decodedData = try JSONDecoder().decode(SearchModel.self, from: response.data)
+                        print("response data",response.data)
+                        emitter.onNext(decodedData.data)
+                    }catch {
+                        print("decode error message:",error)
+                    }
+
                 case .failure(let error):
                     emitter.onError(error)
                 }
@@ -52,8 +76,8 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let decodedData = try JSONDecoder().decode(MovieModel.self, from: response.data)
-//                        print("APIService", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
-//                        print("APIService2", decodedData.movies)
+//                        print("APIService response.data", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
+                        print("APIService2", decodedData.movies)
                         emitter.onNext(decodedData.movies)
                         emitter.onCompleted()
                     } catch {
