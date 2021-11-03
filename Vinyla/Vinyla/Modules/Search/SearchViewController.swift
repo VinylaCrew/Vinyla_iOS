@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
@@ -39,6 +40,7 @@ class SearchViewController: UIViewController {
         vinylSearchBar.searchTextField.delegate = self
         setUI()
         setTableViewCellXib() //rxcocoa도 그대로 사용
+        bindCountLabel()
         bindTableView()
         didSelectCell()
         setInputSongTitleRx()
@@ -49,7 +51,7 @@ class SearchViewController: UIViewController {
         vinylSearchBar.searchTextField.becomeFirstResponder()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-         self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     func setUI() {
         //search bar color custom
@@ -67,7 +69,7 @@ class SearchViewController: UIViewController {
             leftView.tintColor = UIColor.white
         }
         if let rightView = vinylSearchBar.searchTextField.rightView as? UIImageView {
-//            rightView.image = rightView.image?.withRenderingMode(.alwaysTemplate)
+            //            rightView.image = rightView.image?.withRenderingMode(.alwaysTemplate)
             rightView.tintColor = UIColor.white
         }
         //https://fomaios.tistory.com/entry/%EC%84%9C%EC%B9%98%EB%B0%94-%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0-Custom-UISearchBar
@@ -95,27 +97,44 @@ class SearchViewController: UIViewController {
             .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
-//        viewModel.isSearch
-//            .subscribe(onNext: { [weak self] item in
-//                print(item)
-//                if item == false {
-//                    self?.view.endEditing(true)
-//                }
-//            })
+        //        viewModel.isSearch
+        //            .subscribe(onNext: { [weak self] item in
+        //                print(item)
+        //                if item == false {
+        //                    self?.view.endEditing(true)
+        //                }
+        //            })
+    }
+    func bindCountLabel() {
+        guard let viewModel = self.viewModel else {
+            print("ViewModel error")
+            return
+        }
+        viewModel.vinylsCount
+            .observeOn(MainScheduler.instance)
+            .catchErrorJustReturn("0")
+            .map{ item in
+                return item! + "개의 검색결과가 있습니다."
+            }
+            .bind(to: vinylCountLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     func bindTableView() {
-//        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
-//        cities.observeOn(MainScheduler.instance)
-//            .bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
-//
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
-//
-//            cell.songTitleLabel.text = element
-//
-//            return cell
-//        }.disposed(by: disposeBag)
+        //        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
+        //        cities.observeOn(MainScheduler.instance)
+        //            .bind(to: searchTableView.rx.items) { (tableView: UITableView, index: Int, element: String) in
+        //
+        //            guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
+        //
+        //            cell.songTitleLabel.text = element
+        //
+        //            return cell
+        //        }.disposed(by: disposeBag)
+
+        self.searchTableView.rx.setDelegate(self).disposed(by: disposeBag)
+
         guard let viewModel = self.viewModel else {
-            print("vm error")
+            print("ViewModel error")
             return
         }
 
@@ -130,29 +149,27 @@ class SearchViewController: UIViewController {
                 cell.songTitleLabel.text = element?.title
                 cell.singerNameLabel.text = element?.artist
                 if let imageURLString = element?.thumb {
-//                    cell.searchVinylImageView.setImageChache(imageURL: imageURLString)
-                    cell.searchVinylImageView.setImageURLAndChaching(imageURLString)
+                    //                    cell.searchVinylImageView.setImageURLAndChaching(imageURLString) //기존 urlsession 이미지 캐싱
+                    cell.searchVinylImageView.kf.setImage(with: URL(string: imageURLString), options: [.cacheMemoryOnly])
                 }
                 return cell
             }.disposed(by: disposeBag)
 
-
-        print("vm searched vinyls count",viewModel.vinylsCount)
     }
     
     func didSelectCell() {
-//        searchTableView.rx.modelSelected(String.self)
-//            .subscribe(onNext: { [weak self] model in
-//                print("seletecd \(model)")
-//                self?.coordiNator?.songNameCD = "\(model)"
-//                self?.vinylSongName = "\(model)"
-//                guard let songTitle = self?.vinylSongName else {
-//                    return
-//                }
-//                self?.coordiNator?.moveToAddInformationView(vinylDataModel: songTitle)
-//                print("pushAddInformationView")
-//            })
-//            .disposed(by: disposeBag)
+        //        searchTableView.rx.modelSelected(String.self)
+        //            .subscribe(onNext: { [weak self] model in
+        //                print("seletecd \(model)")
+        //                self?.coordiNator?.songNameCD = "\(model)"
+        //                self?.vinylSongName = "\(model)"
+        //                guard let songTitle = self?.vinylSongName else {
+        //                    return
+        //                }
+        //                self?.coordiNator?.moveToAddInformationView(vinylDataModel: songTitle)
+        //                print("pushAddInformationView")
+        //            })
+        //            .disposed(by: disposeBag)
         searchTableView.rx.modelSelected(SearchModel.Data.self)
             .subscribe(onNext: { [weak self] model in
                 self?.coordiNator?.moveToAddInformationView(vinylDataModel: model.title, vinylImageURL: model.thumb )
@@ -173,5 +190,13 @@ extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.vinylSearchBar.searchTextField.resignFirstResponder()
         return true
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return }
+//        cell.searchVinylImageView.kf.cancelDownloadTask()
+        //        cell.searchVinylImageView.setImageURLAndChaching("Cancel")
     }
 }

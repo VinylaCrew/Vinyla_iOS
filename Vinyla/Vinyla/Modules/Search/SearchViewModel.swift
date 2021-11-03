@@ -14,7 +14,7 @@ protocol SearchViewModelType {
     var orderNumber: BehaviorSubject<String> { get }
 
     //Output
-    var searchModel: BehaviorSubject<[SearchModel]> { get }
+    var vinylsData: BehaviorSubject<[SearchModel.Data?]> { get }
     var isSearch: PublishSubject<Bool> { get }
     var moviesData: BehaviorSubject<MovieModel.Data?> { get }
 
@@ -23,29 +23,47 @@ protocol SearchViewModelType {
 
 final class SearchViewModel {
     //Input
+    var vinylName: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     var orderNumber: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
 
     //Output
     var moviesData: BehaviorSubject<[MovieModel.Data?]> = BehaviorSubject<[MovieModel.Data?]>(value: [])
+    var vinylsData: BehaviorSubject<[SearchModel.Data?]> = BehaviorSubject<[SearchModel.Data?]>(value: [])
+    var vinylsCount: BehaviorSubject<String?> = BehaviorSubject<String?>(value: "")
     var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
 
     init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.searchAPIService = searchAPIService
 
-        _ = orderNumber
+        _ = vinylName
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
-            .flatMapLatest{ order -> Observable<[MovieModel.Data?]> in
-                print("flatmap", order)
-                return self.searchAPIService.getMovies(order: order)
+            .flatMapLatest{ vinyl -> Observable<[SearchModel.Data?]> in
+                print("vimodel test",vinyl)
+                return self.searchAPIService.searchVinyl(vinylName: vinyl)
             }
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
-            .bind(to: moviesData)
-//            .flatMapLatest { name -> Observable<[GitRepository]> in
-//                return self.githubService.searchRepos(of: name)
+            .bind(to: vinylsData)
+
+        _ = vinylName
+            .flatMapLatest{ vinyl -> Observable<[SearchModel.Data?]> in
+                print("vimodel test",vinyl)
+                return self.searchAPIService.searchVinyl(vinylName: vinyl)
+            }
+            .map{
+                return String($0.count)
+            }
+            .bind(to: vinylsCount)
+
+
+//        _ = orderNumber
+//            .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
+//            .flatMapLatest{ order -> Observable<[MovieModel.Data?]> in
+//                print("flatmap order:", order)
+//                return self.searchAPIService.getMovies(order: order)
 //            }
-//            .do(onNext: { [weak self] _ in self?.searching.onNext(false) })
-//            .bind(to: gitRepository)
+//            .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
+//            .bind(to: moviesData)
     }
     func printCellIndexPath(cell: SearchTableViewCell) {
         print(cell)
