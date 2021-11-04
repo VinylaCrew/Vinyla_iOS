@@ -39,19 +39,19 @@ extension UIImageView {
             let cachedKey = NSString(string: imageURL)
 
             /// cache된 이미지가 존재하면 그 이미지를 사용 (API 호출안하는 형태)
-//            if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
-//                DispatchQueue.main.async {
-//                    self.image = cachedImage
-//                }
-//                return
-//            }
-
-            DispatchQueue.main.async {
-                if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
-                        self.image = cachedImage
-                    return
+            if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
+                DispatchQueue.main.async {
+                    self.image = cachedImage
                 }
+                return
             }
+
+//            DispatchQueue.main.async {
+//                if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
+//                        self.image = cachedImage
+//                    return
+//                }
+//            }
 
             guard let url = URL(string: imageURL) else { return }
 
@@ -72,61 +72,9 @@ extension UIImageView {
                     }
                 }
             }
-            if imageURL == "Cancel" {
-                print("datatask cancel()")
-                dataTask.cancel()
-                return
-            }else {
                 dataTask.resume()
-            }
 
         }
     }
 
-    func setImageURLAndChaching2(_ imageURL: String) {
-
-        guard let url = URL(string: imageURL) else { return }
-
-        /// cache할 객체의 key값을 string으로 생성
-        let cachedKey = NSString(string: imageURL)
-
-        let myURLSessionTask: URLSessionTask = URLSession.shared.dataTask(with: url) { (data, result, error) in
-            guard error == nil else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.image = UIImage()
-                }
-                return
-            }
-
-            DispatchQueue.main.async { [weak self] in
-                if let data = data, let image = UIImage(data: data) {
-
-                    /// 캐싱
-                    NSCacheManager.shared.setObject(image, forKey: cachedKey)
-                    self?.image = image
-                }
-            }
-        }
-
-        DispatchQueue.global(qos: .background).async {
-
-
-
-            DispatchQueue.main.async {
-                if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
-                        self.image = cachedImage
-                    return
-                }
-            }
-
-            if imageURL == "Cancel" {
-                print("datatask cancel()")
-                myURLSessionTask.cancel()
-                return
-            }else {
-                myURLSessionTask.resume()
-            }
-
-        }
-    }
 }
