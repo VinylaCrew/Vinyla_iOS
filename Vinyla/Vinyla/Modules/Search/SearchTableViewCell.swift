@@ -14,6 +14,8 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var customSeperatorView: UIView!
 
+    private var cellImageDataTask: URLSessionDataTask?
+
     lazy var whiteCircleVinylView: UIView = { () -> UIView in
         let view = UIView()
 
@@ -52,19 +54,54 @@ class SearchTableViewCell: UITableViewCell {
         searchVinylImageView.addSubview(whiteCircleVinylView)
         setAutoLayoutWhiteCircleView()
         customSeperatorView.backgroundColor = UIColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
-//        UIColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-//        self.searchVinylImageView.setImageURLAndChaching("Cancel")
-//        self.searchVinylImageView.image = nil
+        //        self.searchVinylImageView.setImageURLAndChaching("Cancel")
+        self.searchVinylImageView.image = nil
+        self.cellImageDataTask?.cancel()
+    }
+
+    func setCachedImage(imageURL: String) {
+
+        DispatchQueue.global(qos: .background).async {//weak self?
+
+            /// cache할 객체의 key값을 string으로 생성
+            let cachedKey = NSString(string: imageURL)
+
+            /// cache된 이미지가 존재하면 그 이미지를 사용 (API 호출안하는 형태)
+            if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
+                DispatchQueue.main.async {
+                    self.searchVinylImageView.image = cachedImage
+                }
+                return
+            }
+
+
+            guard let url = URL(string: imageURL) else { return }
+
+            self.cellImageDataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, result, error) in
+                guard error == nil else {
+                    DispatchQueue.main.async { [weak self] in
+                        self?.searchVinylImageView.image = UIImage()
+                    }
+                    return
+                }
+
+                DispatchQueue.main.async { [weak self] in
+                    if let data = data, let image = UIImage(data: data) {
+
+                        /// 캐싱
+                        NSCacheManager.shared.setObject(image, forKey: cachedKey)
+                        self?.searchVinylImageView.image = image
+                    }
+                }
+            }
+
+            self.cellImageDataTask?.resume()
+
+        }
     }
 
     func setAutoLayoutWhiteCircleView() {
