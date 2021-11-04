@@ -235,6 +235,7 @@
                     <connections>
                         <outlet property="albumSongListTableView" destination="wZI-7k-GO1" id="E70-4z-Ylc"/>
                         <outlet property="albumSongListTableViewHeight" destination="d07-x1-KPi" id="YgF-9y-J7j"/>
+                        <outlet property="blurCircleView" destination="lTk-4W-6tI" id="fWf-1R-yS0"/>
                         <outlet property="informationScrollView" destination="gU9-1b-fkF" id="yVH-61-615"/>
                         <outlet property="songTitleLabel" destination="bE0-4C-389" id="xab-aU-N31"/>
                     </connections>
