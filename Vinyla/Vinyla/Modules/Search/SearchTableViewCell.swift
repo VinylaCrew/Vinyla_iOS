@@ -58,7 +58,6 @@ class SearchTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        //        self.searchVinylImageView.setImageURLAndChaching("Cancel")
         self.searchVinylImageView.image = nil
         self.cellImageDataTask?.cancel()
     }
