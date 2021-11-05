@@ -149,8 +149,9 @@ class SearchViewController: UIViewController, UIScrollViewDelegate {
                 cell.songTitleLabel.text = element?.title
                 cell.singerNameLabel.text = element?.artist
                 if let imageURLString = element?.thumb {
-                    //                    cell.searchVinylImageView.setImageURLAndChaching(imageURLString) //기존 urlsession 이미지 캐싱
-                    cell.searchVinylImageView.kf.setImage(with: URL(string: imageURLString), options: [.cacheMemoryOnly])
+                    cell.setCachedImage(imageURL: imageURLString)
+                    //                                        cell.searchVinylImageView.setImageURLAndChaching(imageURLString) //기존 urlsession 이미지 캐싱
+                    //                    cell.searchVinylImageView.kf.setImage(with: URL(string: imageURLString), options: [.cacheMemoryOnly])
                 }
                 return cell
             }.disposed(by: disposeBag)
@@ -195,8 +196,12 @@ extension SearchViewController: UITextFieldDelegate {
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return }
+        guard let cell = cell as? SearchTableViewCell else { return }
+        //        print("did end display",cell.testURL)
+        //        print("did end display",cell.cellImageDataTask)
+        //        print("did end display",indexPath.row)
+        //        cell.cellImageDataTask?.cancel()
+        
 //        cell.searchVinylImageView.kf.cancelDownloadTask()
-        //        cell.searchVinylImageView.setImageURLAndChaching("Cancel")
     }
 }
