@@ -24,7 +24,7 @@ enum APITarget: TargetType {
         case .getMovies:
             return "movies"
         case let .getVinylDetail(pathVinylID)://Path Variable
-            return "/vinyls/search/\(String(describing: pathVinylID))"
+            return "/vinyls/search/" + String(pathVinylID ?? -1)
         }
     }
 
