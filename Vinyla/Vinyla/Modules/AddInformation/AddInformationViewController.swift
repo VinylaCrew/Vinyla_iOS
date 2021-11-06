@@ -54,14 +54,13 @@ class AddInformationViewController: UIViewController {
         
         return button
     }()
-    
-    @IBOutlet weak var homeMainFavoriteButton: UIButton!
-    @IBOutlet weak var addInformationImageView: UIImageView!
+
     @IBOutlet weak var songTitleLabel: UILabel!
     @IBOutlet weak var informationScrollView: UIScrollView!
     @IBOutlet weak var albumSongListTableView: UITableView!
     @IBOutlet weak var albumSongListTableViewHeight: NSLayoutConstraint!
-    
+    @IBOutlet weak var blurCircleView: BlurCircleView!
+
     
     
     private weak var coordiNator: AppCoordinator?
@@ -85,12 +84,23 @@ class AddInformationViewController: UIViewController {
        setAlbumListTableViewUI()
         self.view.addSubview(saveInformationButton)
         saveInformationButton.rx.tap.subscribe(onNext:  { [weak self] in
-            self?.coordiNator?.moveToAddReview(vinylDataModel: (self?.viewModel?.model.vinyTitleSong)!)
+
+            self?.coordiNator?.moveToAddReview(vinylDataModel: AddReviewModel.init(songTitle: self?.viewModel?.model.vinylTitleSong, vinylImageURL: self?.viewModel?.model.vinylImageURL))
         }).disposed(by: disposebag)
         
         informationScrollView.delegate = self
+        blurCircleView.delegate = self
+        
+        songTitleLabel.text = viewModel?.model.vinylTitleSong
 
-        songTitleLabel.text = viewModel?.model.vinyTitleSong
+        guard let vinylImageURL = viewModel?.model.vinylImageURL else { return }
+        blurCircleView.shownCircleImageView.setImageChache(imageURL: vinylImageURL)
+        blurCircleView.backgroundImageView.setImageChache(imageURL: vinylImageURL)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        bindViynlInformationData()
     }
     func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
@@ -104,7 +114,24 @@ class AddInformationViewController: UIViewController {
         albumSongListTableViewHeight.constant = CGFloat(dataCount*21) // 21size가 추가셀 생성되지 않음
         albumSongListTableView.isScrollEnabled = false
     }
-    
+    func bindViynlInformationData() {
+        self.viewModel?.vinylInformationData
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                print("bindViynlInformationData",data)
+                guard let vinylInformation = data else { return }
+                if let imageURL = vinylInformation.image {
+                    self?.blurCircleView.shownCircleImageView.setImageURLAndChaching(imageURL)
+                    self?.blurCircleView.backgroundImageView.setImageURLAndChaching(imageURL)
+                }else {
+                    self?.blurCircleView.shownCircleImageView.image = UIImage()
+                    self?.blurCircleView.backgroundImageView.image = UIImage()
+                }
+                self?.songTitleLabel.text = vinylInformation.title
+            })
+            .disposed(by: disposebag)
+        
+    }
     @IBAction func touchUpHomeFavoriteButton(_ sender: Any) {
         //home 대표 이미지 변경
         //vinly box 체크버튼 표시되고, 정렬 되는 로직
@@ -133,5 +160,15 @@ extension AddInformationViewController: UIScrollViewDelegate {
     }
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.saveInformationButton.alpha = 1.0
+    }
+}
+
+extension AddInformationViewController: ButtonTapDelegate {
+    func didTapFavoriteButton(sender: UIButton) {
+
+    }
+
+    func didTapPopButton() {
+        self.coordiNator?.popViewController()
     }
 }
