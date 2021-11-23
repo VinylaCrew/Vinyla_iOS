@@ -67,6 +67,13 @@
 		558383F526DB9BD30019977A /* LevelDesignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383F426DB9BD30019977A /* LevelDesignViewModel.swift */; };
 		5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */; };
 		5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5583840C26DBC1650019977A /* UIView+Gradient.swift */; };
+		559148712720678D0081DCFD /* VinylaSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559148702720678D0081DCFD /* VinylaSearchTests.swift */; };
+		559148782721216B0081DCFD /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559148772721216B0081DCFD /* MockAPIService.swift */; };
+		5591487F272151EF0081DCFD /* SearchMockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 5591487E272151EF0081DCFD /* SearchMockData.json */; };
+		559148972722E6130081DCFD /* VinylDetailMockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 559148962722E6130081DCFD /* VinylDetailMockData.json */; };
+		5591489B2722E6620081DCFD /* VinylInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5591489A2722E6620081DCFD /* VinylInformation.swift */; };
+		5591489F2722E9080081DCFD /* GetViynlDetailAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */; };
+		559148A3272591820081DCFD /* AddReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559148A2272591820081DCFD /* AddReviewModel.swift */; };
 		5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */; };
 		5599C77A26DCD510008F8FDF /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77926DCD510008F8FDF /* NSCacheManager.swift */; };
 		5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C78426DCF744008F8FDF /* LevelDesignModel.swift */; };
@@ -76,6 +83,9 @@
 		5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */; };
 		5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */; };
 		5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */; };
+		55A394A1274C77EA0030867F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A394A0274C77EA0030867F /* GoogleService-Info.plist */; };
+		55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */; };
+		55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */; };
 		55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
@@ -158,6 +168,13 @@
 		558383F426DB9BD30019977A /* LevelDesignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignViewModel.swift; sourceTree = "<group>"; };
 		5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignTableViewCell.swift; sourceTree = "<group>"; };
 		5583840C26DBC1650019977A /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
+		559148702720678D0081DCFD /* VinylaSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaSearchTests.swift; sourceTree = "<group>"; };
+		559148772721216B0081DCFD /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
+		5591487E272151EF0081DCFD /* SearchMockData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SearchMockData.json; sourceTree = "<group>"; };
+		559148962722E6130081DCFD /* VinylDetailMockData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = VinylDetailMockData.json; sourceTree = "<group>"; };
+		5591489A2722E6620081DCFD /* VinylInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylInformation.swift; sourceTree = "<group>"; };
+		5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViynlDetailAPITests.swift; sourceTree = "<group>"; };
+		559148A2272591820081DCFD /* AddReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewModel.swift; sourceTree = "<group>"; };
 		5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+NSCache.swift"; sourceTree = "<group>"; };
 		5599C77926DCD510008F8FDF /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
 		5599C78426DCF744008F8FDF /* LevelDesignModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignModel.swift; sourceTree = "<group>"; };
@@ -167,6 +184,9 @@
 		5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestUserVinyl.storyboard; sourceTree = "<group>"; };
 		5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewController.swift; sourceTree = "<group>"; };
+		55A394A0274C77EA0030867F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInformationViewController.swift; sourceTree = "<group>"; };
+		55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceInformationViewController.xib; sourceTree = "<group>"; };
 		55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.release.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.release.xcconfig"; sourceTree = "<group>"; };
 		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +237,7 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				55A394A0274C77EA0030867F /* GoogleService-Info.plist */,
 				5599C7AA26DD717E008F8FDF /* Font */,
 				5599C77F26DCDB1D008F8FDF /* NSChache */,
 				558383C426D8ABDA0019977A /* NetWork */,
@@ -244,6 +265,8 @@
 				558383CF26D8B1C60019977A /* SearchModel.swift */,
 				558383DD26D92E490019977A /* MovieModel.swift */,
 				5599C78426DCF744008F8FDF /* LevelDesignModel.swift */,
+				5591489A2722E6620081DCFD /* VinylInformation.swift */,
+				559148A2272591820081DCFD /* AddReviewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +274,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				55A394D6274CCD990030867F /* ServiceInformation */,
 				5599C7B726DD776F008F8FDF /* RequestUserViynl */,
 				558383E926DB9B5D0019977A /* LevelDesign */,
 				55DE859F26CF8C9300E1C8DD /* BlurCircleView */,
@@ -347,7 +371,9 @@
 			isa = PBXGroup;
 			children = (
 				5544D58726B14B49003659C6 /* VinylaTests.swift */,
+				559148702720678D0081DCFD /* VinylaSearchTests.swift */,
 				5544D58926B14B49003659C6 /* Info.plist */,
+				5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */,
 			);
 			path = VinylaTests;
 			sourceTree = "<group>";
@@ -404,6 +430,8 @@
 		558383C426D8ABDA0019977A /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
+				5591487D272151D40081DCFD /* MockJson */,
+				559148762721213E0081DCFD /* MockAPIService */,
 				558383C526D8AC0C0019977A /* APITarget.swift */,
 				558383CB26D8B0A00019977A /* APIService.swift */,
 			);
@@ -419,6 +447,23 @@
 				5583840226DBA2610019977A /* LevelDesignTableViewCell.swift */,
 			);
 			path = LevelDesign;
+			sourceTree = "<group>";
+		};
+		559148762721213E0081DCFD /* MockAPIService */ = {
+			isa = PBXGroup;
+			children = (
+				559148772721216B0081DCFD /* MockAPIService.swift */,
+			);
+			path = MockAPIService;
+			sourceTree = "<group>";
+		};
+		5591487D272151D40081DCFD /* MockJson */ = {
+			isa = PBXGroup;
+			children = (
+				5591487E272151EF0081DCFD /* SearchMockData.json */,
+				559148962722E6130081DCFD /* VinylDetailMockData.json */,
+			);
+			path = MockJson;
 			sourceTree = "<group>";
 		};
 		5599C77F26DCDB1D008F8FDF /* NSChache */ = {
@@ -449,6 +494,15 @@
 				5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */,
 			);
 			path = RequestUserViynl;
+			sourceTree = "<group>";
+		};
+		55A394D6274CCD990030867F /* ServiceInformation */ = {
+			isa = PBXGroup;
+			children = (
+				55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */,
+				55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */,
+			);
+			path = ServiceInformation;
 			sourceTree = "<group>";
 		};
 		55DE859F26CF8C9300E1C8DD /* BlurCircleView */ = {
@@ -564,6 +618,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */,
+				559148972722E6130081DCFD /* VinylDetailMockData.json in Resources */,
+				55A394A1274C77EA0030867F /* GoogleService-Info.plist in Resources */,
+				5591487F272151EF0081DCFD /* SearchMockData.json in Resources */,
 				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
 				5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */,
 				5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */,
@@ -577,6 +634,7 @@
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
 				5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */,
+				55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
 				5599C7B326DD71CB008F8FDF /* NotoSansKR-Regular.otf in Resources */,
@@ -674,6 +732,7 @@
 				5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */,
 				55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */,
 				558383EB26DB9B9D0019977A /* LevelDesignViewController.swift in Sources */,
+				55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
 				5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */,
 				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
@@ -686,6 +745,7 @@
 				558383C626D8AC0C0019977A /* APITarget.swift in Sources */,
 				5544D63426BD43C4003659C6 /* CoreDataManager.swift in Sources */,
 				558383DE26D92E490019977A /* MovieModel.swift in Sources */,
+				5591489B2722E6620081DCFD /* VinylInformation.swift in Sources */,
 				5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */,
 				5555A01726CCE64100477DBE /* DeleteInformationViewModel.swift in Sources */,
 				558383F526DB9BD30019977A /* LevelDesignViewModel.swift in Sources */,
@@ -702,6 +762,7 @@
 				5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */,
 				5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */,
 				5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */,
+				559148782721216B0081DCFD /* MockAPIService.swift in Sources */,
 				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */,
@@ -711,6 +772,7 @@
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
 				5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */,
 				5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */,
+				559148A3272591820081DCFD /* AddReviewModel.swift in Sources */,
 				558383CC26D8B0A00019977A /* APIService.swift in Sources */,
 				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,
 			);
@@ -720,6 +782,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				559148712720678D0081DCFD /* VinylaSearchTests.swift in Sources */,
+				5591489F2722E9080081DCFD /* GetViynlDetailAPITests.swift in Sources */,
 				5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

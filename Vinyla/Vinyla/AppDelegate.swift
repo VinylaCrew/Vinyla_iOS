@@ -7,6 +7,8 @@
 
 import UIKit
 import CoreData
+import Firebase
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,9 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DIContainer.shared.register(SignUpViewModel())
         UIApplication.shared.statusBarStyle = .lightContent
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
+
+        FirebaseApp.configure()
+
         return true
     }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var handled: Bool
 
+        handled = GIDSignIn.sharedInstance.handle(url)
+        if handled {
+            return true
+        }
+
+        return false
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

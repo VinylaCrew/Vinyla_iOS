@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 final class AppCoordinator {
     private var windowRootViewController: UINavigationController? {
@@ -17,7 +18,16 @@ final class AppCoordinator {
 
     init(window: UIWindow) {
         self.window = window
-        self.isLogIn = true
+//        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
+        self.isLogIn = false
+//        if let currentUser = Auth.auth().currentUser {
+//            print("coordinator",currentUser)
+//            self.isLogIn = true
+//            guard let userID = Auth.auth().currentUser?.uid else { return }
+//            print("coordinator userID:",userID)
+//        }else {
+//            self.isLogIn = false
+//        }
     }
     
     func start() {

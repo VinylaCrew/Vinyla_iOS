@@ -6,6 +6,9 @@ target 'Vinyla' do
    pod 'RxCocoa' 
    pod 'Cosmos', '~> 23.0'
    pod 'Moya/RxSwift', '~> 14.0'
+   pod 'Kingfisher', '~> 6.3.1'
+   pod 'Firebase/Auth'
+   pod 'GoogleSignIn'
 
  # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
