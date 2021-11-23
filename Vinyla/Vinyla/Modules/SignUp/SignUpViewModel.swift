@@ -50,6 +50,10 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         }else {
             isValidNickNameValue = 1
         }
+
+        if isValidNickNameValue == 1 {
+            //통신해서 가능한 닉네임인지 아닌지 체크
+        }
        return isValidNickNameValue
     }
     

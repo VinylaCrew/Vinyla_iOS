@@ -23,6 +23,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var allowPrivacyButton: UIButton!
     @IBOutlet weak var allowMarketingButton: UIButton?
     @IBOutlet weak var allowMarketingLabel: UILabel?
+    @IBOutlet weak var everyAgreeButton: UIButton!
     @IBOutlet weak var nickNameLabel: UILabel!
 
     lazy var pointCircleView: UIView = {
@@ -58,6 +59,8 @@ class SignUpViewController: UIViewController {
         setUI()
         setTapButtonsIsSelected()
         nickNameLabel.addSubview(pointCircleView)
+        logInButton.isEnabled = false
+
         //viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
     }
 //    func setViewModel(_ viewModel: SignUpViewModelProtocol) {
@@ -85,7 +88,7 @@ class SignUpViewController: UIViewController {
         //button
         nickNameCheckButton.layer.cornerRadius = 8
         logInButton.layer.cornerRadius = 8
-        logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+        logInButton.backgroundColor = UIColor.buttonDisabledColor()
         allowMarketingLabel?.textColor = UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1)
         //allow servicebuttons
         for buttons in allowEveryServiceButtons {
@@ -103,7 +106,10 @@ class SignUpViewController: UIViewController {
                     serviceButton.isSelected = false
                 }else {
                     serviceButton.isSelected = true
+                    self?.presentServiceInformationView()
                 }
+                self?.isCheckingEveryAgreeButton()
+                self?.isCheckLogInButtonLogic()
             }
         }).disposed(by: disposeBag)
 
@@ -113,7 +119,13 @@ class SignUpViewController: UIViewController {
                     privacyButton.isSelected = false
                 }else {
                     privacyButton.isSelected = true
+                    let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: nil)
+                    serviceInformationViewController.typeCheck = "Privacy"
+                    serviceInformationViewController.modalPresentationStyle = .pageSheet
+                    self?.present(serviceInformationViewController, animated: true, completion: nil)
                 }
+                self?.isCheckingEveryAgreeButton()
+                self?.isCheckLogInButtonLogic()
             }
         }).disposed(by: disposeBag)
 
@@ -124,13 +136,25 @@ class SignUpViewController: UIViewController {
                 }else {
                     marketingButton.isSelected = true
                 }
+                self?.isCheckingEveryAgreeButton()
             }
         }).disposed(by: disposeBag)
+    }
+    func presentServiceInformationView() {
+        let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: nil)
+        serviceInformationViewController.typeCheck = "Service"
+        serviceInformationViewController.modalPresentationStyle = .pageSheet
+        self.present(serviceInformationViewController, animated: true, completion: nil)
     }
     @IBAction func touchUpPopButton(_ sender: Any) {
         coordiNator?.popViewController()
     }
-    
+
+    func isCheckingEveryAgreeButton() {
+        if allowServiceButton.isSelected == false || allowPrivacyButton.isSelected == false || allowMarketingButton?.isSelected == false {
+            self.everyAgreeButton.isSelected = false
+        }
+    }
     @IBAction func touchUpNickNameCheckButton(_ sender: UIButton) {
         guard let nickNameCountField = nickNameTextField.text else { return }
         var nickNameCheckValue: Int?
@@ -140,23 +164,51 @@ class SignUpViewController: UIViewController {
 
         if nickNameCheckValue == 1 {
             nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
-            nickNameStateLabel.text = "사용 가능한 닉네임 입니다."
-            logInButton.isEnabled = true
-            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
-            logInButton.setTitleColor(.white, for: .normal)
+            let attributedString = NSMutableAttributedString(string: "")
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: "icnLoginComplete")
+            imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
+            attributedString.append(NSAttributedString(attachment: imageAttachment))
+            attributedString.append(NSAttributedString(string: " 사용 가능한 닉네임 입니다."))
+            nickNameStateLabel.attributedText = attributedString
+            nickNameStateLabel.sizeToFit()
+
+            nickNameStateLabel.textColor = UIColor.vinylaMainOrangeColor()
+            isCheckLogInButtonLogic()
+
         } else if nickNameCheckValue == 2 || nickNameCheckValue == 3{
+            var nickNameText: String = ""
             if nickNameCheckValue == 2{
-                nickNameStateLabel.text = "닉네임 길이가 짧습니다."
-            }else {
-                nickNameStateLabel.text = "올바르지 않은 형식입니다."
+                nickNameText = " 닉네임 길이가 짧습니다."
+            }else if nickNameCheckValue == 3{
+                nickNameText = " 올바르지 않은 형식입니다."
             }
+            let attributedString = NSMutableAttributedString(string: "")
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = UIImage(named: "icnLoginFail")
+            imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
+            attributedString.append(NSAttributedString(attachment: imageAttachment))
+            attributedString.append(NSAttributedString(string: nickNameText))
+            nickNameStateLabel.attributedText = attributedString
+            nickNameStateLabel.sizeToFit()
+            nickNameStateLabel.textColor = UIColor.vinylaPurple()
             nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
             logInButton.backgroundColor = UIColor.buttonDisabledColor()
             logInButton.isEnabled = false
             logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
         }
     }
-    
+    func isCheckLogInButtonLogic() {
+        if allowServiceButton.isSelected && allowPrivacyButton.isSelected {
+            logInButton.isEnabled = true
+            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+            logInButton.setTitleColor(.white, for: .normal)
+        }else {
+            logInButton.isEnabled = false
+            logInButton.backgroundColor = UIColor.buttonDisabledColor()
+            logInButton.setTitleColor(.white, for: .normal)
+        }
+    }
     
     @IBAction func touchUpLogInButton(_ sender: Any) {
         
@@ -181,6 +233,7 @@ class SignUpViewController: UIViewController {
                 buttons.isSelected = true
             }
         }
+        self.presentServiceInformationView()
     }
     
 }
@@ -204,24 +257,6 @@ extension SignUpViewController: UITextFieldDelegate {
         let invalidCharacters =
             CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted
           return (string.rangeOfCharacter(from: invalidCharacters) == nil)
-//        if(textField .isEqual(nickNameTextField))
-//        {
-//            strings=string as NSString;
-//            let acceptedChars = NSCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted;
-//
-//            if (strings!.rangeOfCharacter(from: acceptedChars.inverted).location != NSNotFound)
-//            {
-//                return true;
-//            }
-//            else
-//            {
-//                return false;
-//            }
-//        }
-//        else
-//        {
-//            return true;
-//        }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nickNameTextField.resignFirstResponder()
@@ -230,39 +265,3 @@ extension SignUpViewController: UITextFieldDelegate {
         return true
     }
 }
-
-//final class SignUpViewModel {
-//    func isEmpty(_ text: String?) -> Bool {
-//        guard let text = text else {return false}
-//        //키보드 delete버튼 활성화
-//        if string.isEmpty {
-//            return true
-//        }
-//
-//        if text.count >= 20 {
-//            return false
-//        }
-//        var strings: NSString?
-//
-//
-//
-//        if(textField .isEqual(nickNameTextField))
-//        {
-//            strings=string as NSString;
-//            let acceptedChars = NSCharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted;
-//
-//            if (strings!.rangeOfCharacter(from: acceptedChars.inverted).location != NSNotFound)
-//            {
-//                return true;
-//            }
-//            else
-//            {
-//                return false;
-//            }
-//        }
-//        else
-//        {
-//            return true;
-//        }
-//    }
-//}
