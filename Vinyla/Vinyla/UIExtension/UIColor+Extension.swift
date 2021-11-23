@@ -26,4 +26,7 @@ extension UIColor {
     static func textColor() -> UIColor {
         return UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1)
     }
+    static func vinylaPurple() -> UIColor {
+        return UIColor(red: 145/255, green: 50/255, blue: 255/255, alpha: 1)
+    }
 }
