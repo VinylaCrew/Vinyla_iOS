@@ -28,25 +28,26 @@ final class SearchViewModel {
 
     //Output
     var moviesData: BehaviorSubject<[MovieModel.Data?]> = BehaviorSubject<[MovieModel.Data?]>(value: [])
-    var vinylsData: BehaviorSubject<[SearchModel.Data?]> = BehaviorSubject<[SearchModel.Data?]>(value: [])
+    public private(set) var vinylsData: BehaviorSubject<[SearchModel.Data?]> = BehaviorSubject<[SearchModel.Data?]>(value: [])
     var vinylsCount: BehaviorSubject<String?> = BehaviorSubject<String?>(value: "")
     var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
-
+    var disposeBag = DisposeBag()
     init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.searchAPIService = searchAPIService
 
         _ = vinylName
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
-            .flatMapLatest{ vinyl -> Observable<[SearchModel.Data?]> in
+            .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
                 print("vimodel test",vinyl)
                 return self.searchAPIService.searchVinyl(vinylName: vinyl)
             }
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
             .bind(to: vinylsData)
+            .disposed(by: disposeBag)
 
         _ = vinylName
-            .flatMapLatest{ vinyl -> Observable<[SearchModel.Data?]> in
+            .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
                 print("vimodel test",vinyl)
                 return self.searchAPIService.searchVinyl(vinylName: vinyl)
             }
@@ -54,6 +55,7 @@ final class SearchViewModel {
                 return String($0.count)
             }
             .bind(to: vinylsCount)
+            .disposed(by: disposeBag)
 
 
 //        _ = orderNumber
