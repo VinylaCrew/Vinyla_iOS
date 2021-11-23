@@ -12,6 +12,7 @@ import Foundation
 protocol VinylAPIServiceProtocol {
     func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]>
     func getMovies(order: String) -> Observable<[MovieModel.Data?]>
+    func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?>
 }
 
 final class VinylAPIService: VinylAPIServiceProtocol {
@@ -88,6 +89,32 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                 case .failure(let error):
                     emitter.onError(error)
                 }
+            }
+            return Disposables.create()
+        }
+    }
+
+    func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
+
+        return Observable.create() { [weak self] emitter in
+            self?.provider.request(.getVinylDetail(pathVinylID: vinylID)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedData = try JSONDecoder().decode(VinylInformation.self, from: response.data)
+                        emitter.onNext(decodedData.data)
+                        print("dadada1")
+                        emitter.onCompleted()
+
+                    } catch {
+                        print("get Vinyl Detail decode error")
+                        print(error.localizedDescription)
+                    }
+                case .failure(let error):
+                    emitter.onError(error)
+                    print("dadada2")
+                }
+
             }
             return Disposables.create()
         }
