@@ -47,7 +47,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchUpGoogleButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="rD6-B1-akK"/>
+                                    <action selector="touchUPGoogleButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="pxu-0l-Pat"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHJ-g9-4ZL">
@@ -63,6 +63,9 @@
                                 <state key="normal" title="Facebook으로 로그인" image="facebook">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchUPAppleLogInButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="4d6-cj-q2X"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-54-Os8">
                                 <rect key="frame" x="38" y="683" width="300" height="56"/>
