@@ -23,7 +23,7 @@ protocol SearchViewModelType {
 
 final class SearchViewModel {
     //Input
-    var vinylName: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
+    var vinylName: PublishSubject<String> = PublishSubject<String>()
     var orderNumber: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
 
     //Output
@@ -35,12 +35,14 @@ final class SearchViewModel {
     var disposeBag = DisposeBag()
     init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.searchAPIService = searchAPIService
+        let testAPIService = MockAPIService()
 
         _ = vinylName
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
             .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
-                print("vimodel test",vinyl)
-                return self.searchAPIService.searchVinyl(vinylName: vinyl)
+                print("vinylName vimodel test:",vinyl)
+//                return self.searchAPIService.searchVinyl(vinylName: vinyl)
+                return testAPIService.searchVinyl(vinylName: vinyl)
             }
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
             .bind(to: vinylsData)
@@ -48,7 +50,7 @@ final class SearchViewModel {
 
         _ = vinylName
             .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
-                print("vimodel test",vinyl)
+                print("viewmodel count test:",vinyl)
                 return self.searchAPIService.searchVinyl(vinylName: vinyl)
             }
             .map{
