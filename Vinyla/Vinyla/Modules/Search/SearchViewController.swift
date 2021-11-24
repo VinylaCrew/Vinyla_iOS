@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-class SearchViewController: UIViewController, UIScrollViewDelegate {
+final class SearchViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
@@ -91,9 +91,7 @@ class SearchViewController: UIViewController, UIScrollViewDelegate {
             .orEmpty
             .distinctUntilChanged() // 중복 데이터 스트림 반복 X
             .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .map{
-                return $0
-            }
+            .skip(1)
             .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
@@ -134,16 +132,13 @@ class SearchViewController: UIViewController, UIScrollViewDelegate {
         self.searchTableView.rx.setDelegate(self).disposed(by: disposeBag)
 
         guard let viewModel = self.viewModel else {
-            print("ViewModel error")
+            print("ViewModel Init Error")
             return
         }
 
         viewModel.vinylsData
-            .do(onNext: { _ in
-                print("vm movies Data")
-            })
             .observeOn(MainScheduler.instance)
-            .catchErrorJustReturn([])
+//            .catchErrorJustReturn([])
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
                 cell.songTitleLabel.text = element?.title
@@ -203,5 +198,8 @@ extension SearchViewController: UITableViewDelegate {
         //        cell.cellImageDataTask?.cancel()
         
 //        cell.searchVinylImageView.kf.cancelDownloadTask()
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(107)
     }
 }
