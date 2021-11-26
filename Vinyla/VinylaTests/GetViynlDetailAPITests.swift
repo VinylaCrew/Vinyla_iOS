@@ -25,8 +25,8 @@ class GetViynlDetailAPITests: XCTestCase {
         testMockAPIService.getVinylDetail(vinylID: 12345)
             .timeout(DispatchTimeInterval.seconds(2), scheduler: MainScheduler.instance) //2초 동안 event 발생하지 않을씨 에러방출
             .subscribe(onNext: { data in
-                XCTAssertEqual(expectedResponseData?.data.artist, data?.artist)
-                XCTAssertEqual(expectedResponseData?.data.tracklist[0].title, data?.tracklist[0].title)
+                XCTAssertEqual(expectedResponseData?.data?.artist, data?.artist)
+                XCTAssertEqual(expectedResponseData?.data?.tracklist?[0], data?.tracklist?[0])
 
                 print(data)
             })
