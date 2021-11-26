@@ -68,14 +68,18 @@ enum APITarget: TargetType {
                 }
             }
             return .requestPlain
-        case let .getVinylDetail(pathVinylID):
+        case .getVinylDetail(_):
             return .requestPlain
         }
     }
 
     var headers: [String : String]? {
         switch self {
-        default: return ["Content-Type": "application/json"]
+        case .vinylSearch(_):
+            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2Mzc3Mzk1NjAsImV4cCI6MTYzNzc1NzU2MCwiaXNzIjoiaGFlbHkifQ.CBz8xUuF5YOpuZ6LuE9CdzDrbS2NYQzzQQSHihG4PkY"]
+        case .getVinylDetail(_):
+            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2Mzc3Mzk1NjAsImV4cCI6MTYzNzc1NzU2MCwiaXNzIjoiaGFlbHkifQ.CBz8xUuF5YOpuZ6LuE9CdzDrbS2NYQzzQQSHihG4PkY"]
+        default: return ["Content-Type" : "application/json"]
         }
     }
 }
