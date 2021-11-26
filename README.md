@@ -50,9 +50,9 @@ View에서 직접 ViewModel 객체를 선언하여 만들지 않음 ViewModel Pr
 
 ```swift
 func moveToSignUPView() {
-  			let signUpView = SignUpViewController.instantiate(viewModel: SignUpViewModel(), coordiNator: self)
-        guard let windowRootViewController = self.windowRootViewController else { return }
-        windowRootViewController.pushViewController(signUpView, animated: true)
+let signUpView = SignUpViewController.instantiate(viewModel: SignUpViewModel(), coordiNator: self)
+guard let windowRootViewController = self.windowRootViewController else { return }
+windowRootViewController.pushViewController(signUpView, animated: true)
     }
 ```
 
