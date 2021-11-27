@@ -4,27 +4,37 @@
 
 ***
 
+* 목차
+  * 앱 실행 화면
+  * 아키텍쳐 설계 및 고려한 점
+
+***
+
 > 로그인 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679020-dae05bd9-3919-4718-97bb-dbe48da00e3f.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679138-4a7bae32-221d-4b80-a335-8e040feadc83.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679139-8060a08e-a4e2-40f7-a769-c5b1e2757099.png" width="250" height="550"/>
 </p>
+
 > 홈화면 + 레벨 디자인 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679261-beb9457a-85d5-42d3-8237-b76f6159fd9b.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679262-ab0c1c0b-94d0-4c5d-a4f6-92bec0a85899.png" width="250" height="550"/>
 </p>
+
 > 바이닐 보관함 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679349-547d2241-c7f9-40de-9cf1-ceff681d6eda.png" width="250" height="550"/>
-<img src="https://user-images.githubusercontent.com/55793344/143679368-6d5b9792-dd55-49ae-a51b-41a3ec1a0af1.gif" width="250" height="450"/>
+<img src="https://user-images.githubusercontent.com/55793344/143679368-6d5b9792-dd55-49ae-a51b-41a3ec1a0af1.gif" width="250" height="550"/>
 </p>
+
 > 바이닐 검색 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679500-28e7f67a-a0f3-4b79-a945-bed5ba24cb64.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679503-7804a526-0f84-4a99-967a-da5220dcfb0c.gif" width="230" height="550"/>
 </p>
+
 > 바이닐 상세정보 확인 + 저장 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
@@ -116,6 +126,3 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
    - 통신을 줄이기 위해 동기화 로직 Test 진행
 - 홈화면 레이아웃 커스텀 , XS 이하의 화면 해상도에선 스크롤 View로 전환되도록
 - XS 보다 큰 기기의 경우 최근 바이닐 크기 및 스크롤 View 레이아웃 계산 로직을 통해 비율을 맞추어줌
-- Todo
-   - 보관함 저장하기 1,2 View 상세 바이닐 이미지 변경되도록
-   - 리드미 구조정리
