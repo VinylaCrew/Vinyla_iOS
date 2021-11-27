@@ -10,10 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BlurCircleView" customModule="Vinyla" customModuleProvider="target">
             <connections>
+                <outlet property="InstagramShareButton" destination="TWb-FL-lj8" id="f8N-ea-lHZ"/>
                 <outlet property="backgroundImageView" destination="pho-VP-tXT" id="VMc-6T-Feb"/>
                 <outlet property="popButton" destination="99k-zd-ToV" id="ByM-Sr-TzX"/>
                 <outlet property="setFavoriteImageButton" destination="zwE-oP-W7D" id="JUp-Th-vm3"/>
-                <outlet property="shareButton" destination="TWb-FL-lj8" id="qmc-jn-huq"/>
                 <outlet property="shownCircleImageView" destination="LNf-DT-oGC" id="V0m-Gm-8Ee"/>
             </connections>
         </placeholder>
@@ -81,9 +81,9 @@
                         <constraint firstAttribute="height" constant="18" id="WFb-yx-BI5"/>
                         <constraint firstAttribute="width" constant="18" id="wq0-YI-ysq"/>
                     </constraints>
-                    <state key="normal" image="icnBtnShare"/>
+                    <state key="normal" image="icnBtnInsta"/>
                     <connections>
-                        <action selector="touchUpShareButton:" destination="-1" eventType="touchUpInside" id="glg-mm-Kf2"/>
+                        <action selector="touchUpInstagramShareButton:" destination="-1" eventType="touchUpInside" id="2O2-9c-XX0"/>
                     </connections>
                 </button>
             </subviews>
@@ -112,7 +112,7 @@
         <image name="icnBtnBack" width="11" height="16"/>
         <image name="icnBtnHeart" width="18" height="18"/>
         <image name="icnBtnHeartOn" width="18" height="18"/>
-        <image name="icnBtnShare" width="16" height="18"/>
+        <image name="icnBtnInsta" width="20" height="20"/>
         <image name="imgHomeMyvinly" width="375" height="375"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

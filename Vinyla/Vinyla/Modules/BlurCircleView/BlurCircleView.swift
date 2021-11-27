@@ -17,7 +17,7 @@ class BlurCircleView: UIView {
     @IBOutlet weak var shownCircleImageView: UIImageView!
     @IBOutlet weak var popButton: UIButton!
     @IBOutlet weak var setFavoriteImageButton: UIButton!
-    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var InstagramShareButton: UIButton!
 
     weak var delegate: ButtonTapDelegate?
     /*
@@ -63,7 +63,7 @@ class BlurCircleView: UIView {
     @IBAction func touchUpPoPButton(_ sender: UIButton) {
         self.delegate?.didTapPopButton()
     }
-    @IBAction func touchUpShareButton(_ sender: UIButton) {
+    @IBAction func touchUpInstagramShareButton(_ sender: UIButton) {
 
     }
 
