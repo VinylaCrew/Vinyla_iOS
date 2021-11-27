@@ -18,19 +18,18 @@
 > 바이닐 보관함 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679349-547d2241-c7f9-40de-9cf1-ceff681d6eda.png" width="250" height="550"/>
-<img src="https://user-images.githubusercontent.com/55793344/143679368-6d5b9792-dd55-49ae-a51b-41a3ec1a0af1.gif" width="250" height="550"/>
+<img src="https://user-images.githubusercontent.com/55793344/143679368-6d5b9792-dd55-49ae-a51b-41a3ec1a0af1.gif" width="250" height="450"/>
 </p>
 > 바이닐 검색 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679500-28e7f67a-a0f3-4b79-a945-bed5ba24cb64.png" width="250" height="550"/>
-<img src="https://user-images.githubusercontent.com/55793344/143679503-7804a526-0f84-4a99-967a-da5220dcfb0c.gif" width="250" height="550"/>
+<img src="https://user-images.githubusercontent.com/55793344/143679503-7804a526-0f84-4a99-967a-da5220dcfb0c.gif" width="250" height="450"/>
 </p>
 > 바이닐 상세정보 확인 + 저장 화면
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
-
 ***
 
 🔍 설계
@@ -120,11 +119,3 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 - Todo
    - 보관함 저장하기 1,2 View 상세 바이닐 이미지 변경되도록
    - 리드미 구조정리
-
-> Home View
-
-<img src="https://user-images.githubusercontent.com/55793344/132819324-3264e2f2-a32d-470e-9dda-1f27e4532432.png" width="375" height="812"> <img src="https://user-images.githubusercontent.com/55793344/132819338-b22fb5d9-78b8-44a4-b0a4-5a74520c4156.png" width="375" height="812"> 
-
-> 보관함 View
-
-<img src="https://user-images.githubusercontent.com/55793344/132819665-c983f9c1-eda5-4e7c-9d94-8ba07d526c20.gif" width="375" height="812">
