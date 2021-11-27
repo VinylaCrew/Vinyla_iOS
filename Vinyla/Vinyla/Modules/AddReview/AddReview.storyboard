@@ -349,6 +349,8 @@
                         <outlet property="recommendMentLabel" destination="p9X-IF-zua" id="gAa-0E-uxA"/>
                         <outlet property="reviewScrollView" destination="jMF-xQ-G1E" id="6fN-MV-Rni"/>
                         <outlet property="reviewTextView" destination="Xon-qa-8hY" id="FyA-i4-nE0"/>
+                        <outlet property="songArtistLabel" destination="iXn-Fs-cXS" id="suT-Bu-eQa"/>
+                        <outlet property="songRateLabel" destination="7Xo-69-Bsk" id="f3j-wI-tek"/>
                         <outlet property="songTitleNameLabel" destination="psh-Rs-l5k" id="y7K-Hh-p62"/>
                         <outlet property="starCosmosView" destination="MfE-No-XUq" id="Tge-X4-DFD"/>
                         <outlet property="starScoreLabel" destination="Btl-F3-y8L" id="pfG-dX-3Cy"/>
