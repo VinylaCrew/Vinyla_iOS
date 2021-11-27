@@ -48,7 +48,11 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        vinylSearchBar.searchTextField.becomeFirstResponder()
+        if vinylSearchBar.text?.isEmpty == true {
+            vinylSearchBar.searchTextField.becomeFirstResponder()
+        }else {
+            self.view.endEditing(true)
+        }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -151,6 +155,12 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
                 return cell
             }.disposed(by: disposeBag)
 
+        viewModel.vinylsData
+            .subscribe(onNext: { data in
+                print("search vc data subscribe:")
+            })
+            .disposed(by: disposeBag)
+
     }
     
     func didSelectCell() {
@@ -168,7 +178,7 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
         //            .disposed(by: disposeBag)
         searchTableView.rx.modelSelected(SearchModel.Data.self)
             .subscribe(onNext: { [weak self] model in
-                self?.coordiNator?.moveToAddInformationView(vinylDataModel: model.title, vinylImageURL: model.thumb )
+                self?.coordiNator?.moveToAddInformationView(vinylID: model.id, vinylImageURL: model.thumb )
             })
             .disposed(by: disposeBag)
         
