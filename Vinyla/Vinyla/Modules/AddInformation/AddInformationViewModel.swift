@@ -10,25 +10,30 @@ import RxSwift
 
 class AddInformationViewModel {
     var model: AddInformationModel
-    var vinylInformationData: BehaviorSubject<VinylInformation.Data?> = BehaviorSubject<VinylInformation.Data?>(value: nil)
+    var vinylInformationDataModel: VinylInformation.Data?
+    var vinylInformationData: PublishSubject<VinylInformation.Data?> = PublishSubject<VinylInformation.Data?>()
     var vinylInformationService: VinylAPIServiceProtocol
 
     var disposeBag = DisposeBag()
     init(vinylInformationService: VinylAPIServiceProtocol = VinylAPIService()) {
+        print("information vm init()")
         self.model = AddInformationModel()
         self.vinylInformationService = vinylInformationService
 
-        _ = self.vinylInformationService.getVinylDetail(vinylID: 2865072)
-            .bind(to: vinylInformationData)
+        print("init()", model.vinylID)
+//        _ = self.vinylInformationService.getVinylDetail(vinylID: model.vinylID)
 //            .bind(to: vinylInformationData)
+//            .disposed(by: disposeBag)
     }
 
     func fetchVinylInformation() {
-        print("hihi")
-        self.vinylInformationService.getVinylDetail(vinylID: 18048907)
-            .subscribe(onNext: { data in
-                print("fetch",data!)
+        print(self.model.vinylID)
+        
+        self.vinylInformationService.getVinylDetail(vinylID: model.vinylID)
+            .do(onNext:{ [weak self] data in
+                self?.vinylInformationDataModel = data
             })
+            .bind(to: vinylInformationData)
             .disposed(by: disposeBag)
     }
 }
