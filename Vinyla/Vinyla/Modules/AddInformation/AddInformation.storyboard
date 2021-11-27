@@ -38,7 +38,7 @@
                                                     <constraint firstAttribute="width" secondItem="lTk-4W-6tI" secondAttribute="height" multiplier="1:1" id="llP-yM-H0T"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memories...Do Not Open" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE0-4C-389">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bE0-4C-389">
                                                 <rect key="frame" x="15" y="395" width="345" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="WD4-Pi-E9D"/>
@@ -237,6 +237,10 @@
                         <outlet property="albumSongListTableViewHeight" destination="d07-x1-KPi" id="YgF-9y-J7j"/>
                         <outlet property="blurCircleView" destination="lTk-4W-6tI" id="fWf-1R-yS0"/>
                         <outlet property="informationScrollView" destination="gU9-1b-fkF" id="yVH-61-615"/>
+                        <outlet property="songArtistLabel" destination="lS1-eh-YIE" id="FrH-uL-7ug"/>
+                        <outlet property="songCountLabel" destination="18A-pc-sJq" id="bMc-t1-Fcf"/>
+                        <outlet property="songGenresLabel" destination="ZDa-T2-Zg9" id="40o-lw-dxg"/>
+                        <outlet property="songReleaseDataLabel" destination="fNt-Jt-aM2" id="tzs-bQ-Pzc"/>
                         <outlet property="songTitleLabel" destination="bE0-4C-389" id="xab-aU-N31"/>
                     </connections>
                 </viewController>
