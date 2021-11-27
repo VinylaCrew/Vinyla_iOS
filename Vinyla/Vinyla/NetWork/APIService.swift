@@ -48,10 +48,14 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let decodedData = try JSONDecoder().decode(SearchModel.self, from: response.data)
-                        print("response data",response.data)
+//                        print("response data",response.data)
+                        print("response data status,message:",decodedData.status,decodedData.message)
                         emitter.onNext(decodedData.data)
                     }catch {
-                        print("decode error message:",error)
+                        print("decode error message:",error,response.data)
+                        //토큰 안넣고 검색한경우 fail model 안맞아서 디코드 에러 발생
+                        //검색에 아무것도 없는경우도 fail model처리
+                        emitter.onNext([])//이전 검색결과값 지워짐
                     }
 
                 case .failure(let error):
@@ -103,7 +107,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                     do {
                         let decodedData = try JSONDecoder().decode(VinylInformation.self, from: response.data)
                         emitter.onNext(decodedData.data)
-                        print("dadada1")
+                        print("getvinyl detail:",decodedData.message,decodedData.status)
                         emitter.onCompleted()
 
                     } catch {
