@@ -99,6 +99,8 @@ class AddReviewViewController: UIViewController {
     }()
     
     @IBOutlet weak var songTitleNameLabel: UILabel!
+    @IBOutlet weak var songArtistLabel: UILabel!
+    @IBOutlet weak var songRateLabel: UILabel!
     @IBOutlet weak var reviewScrollView: UIScrollView!
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var starCosmosView: CosmosView!
@@ -121,7 +123,10 @@ class AddReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        songTitleNameLabel.text = viewModel?.songTitle
+        songTitleNameLabel.text = viewModel?.model.songTitle
+        songArtistLabel.text = viewModel?.model.songArtist
+        songRateLabel.text = String(viewModel?.model.rate ?? -1)
+        vinylImageView.setImageChache(imageURL: (viewModel?.model.vinylImageURL)!)
 
         self.view.addSubview(saveVinylButton)
         vinylImageView.addSubview(whiteCircleVinylView)
@@ -158,11 +163,15 @@ class AddReviewViewController: UIViewController {
     }
     @IBAction func touchUpBackButton(_ sender: Any) {
         coordiNator?.popViewController()
-        
     }
     
     @IBAction func touchUpSaveBoxButton(_ sender: Any) {
-        CoreDataManager.shared.saveVinylBox(songTitle: (viewModel?.songTitle)!, singer: "IU", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0.01))!)
+
+        guard let insideImageURL = URL(string: (viewModel?.model.vinylImageURL)!), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
+            print("vinyl image error")
+            return
+        }
+        CoreDataManager.shared.saveVinylBox(songTitle: (viewModel?.model.songTitle)!, singer: "IU", vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
         coordiNator?.moveToVinylBoxView()
     }
 }
