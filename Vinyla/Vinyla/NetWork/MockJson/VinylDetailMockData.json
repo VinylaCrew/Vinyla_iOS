@@ -3,39 +3,23 @@
     "success": true,
     "message": "바이닐 상세 조회 성공",
     "data": {
-        "id": 17111,
-        "title": "EP",
-        "artist": "Urban Electro",
-        "image": "https://img.discogs.com/hdCD8wSqNJUy2geSLPFKWdLOoC0=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-17111-1474833110-4920.jpeg.jpg",
-        "year": 1996,
+        "id": 2865072,
+        "title": "Iu...Im (2nd Mini Album)",
+        "artist": "IU (3)",
+        "image": "https://img.discogs.com/tgn3muIhHGSMx_ZUKrIcWUT7V0c=/fit-in/500x441/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-2865072-1304627023.jpeg.jpg",
+        "year": 2009,
         "genres": [
-            "Electronic"
+            "Blues",
+            "Pop"
         ],
         "tracklist": [
-            {
-                "position": "A1",
-                "type_": "track",
-                "title": "Wildpitch",
-                "duration": "7:30"
-            },
-            {
-                "position": "A2",
-                "type_": "track",
-                "title": "Battery",
-                "duration": "9:10"
-            },
-            {
-                "position": "B1",
-                "type_": "track",
-                "title": "Urban Electro",
-                "duration": "10:07"
-            },
-            {
-                "position": "B2",
-                "type_": "track",
-                "title": "Insomniac",
-                "duration": "6:53"
-            }
+            "Love Attack",
+            "기차를 타고",
+            "마쉬멜로우",
+            "아침 눈물",
+            "두근두근 데이트",
+            "기차를 타고 (Inst.)",
+            "아침 눈물 (Inst.)"
         ],
         "rate": 0,
         "rateCount": 0
