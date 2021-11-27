@@ -8,6 +8,8 @@
 import Foundation
 
 struct AddReviewModel {
-    var songTitle: String?
     var vinylImageURL: String?
+    var songTitle: String?
+    var songArtist: String?
+    var rate, rateCount: Int?
 }
