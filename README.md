@@ -40,6 +40,7 @@
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
+
 ***
 
 ### 🔍 설계 및 고려한 점
@@ -51,6 +52,10 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 나아가 Coordinator를 통해 View 전환 Code를 통합 관리의 필요성 (유연한 View 전환 대응)
 
 **현재 프로젝트에 맞는 MVVM - C 구조 도입**
+
+<p align="center">
+<img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="750" height="750"/>
+</p>
 
 => Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
 
