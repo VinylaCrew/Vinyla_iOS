@@ -40,12 +40,26 @@
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
-
 ***
 
 ### 🔍 설계 및 고려한 점
 
 ### 이전 프로젝트들의 문제점 (거대한 클래스, 복잡한 의존성, 메모리 누수, 유연하지 못한 View) 해결하기 위해 깊이 고민
+
+**🧐 설계에 앞서 고민한 점**
+
+배보다 배꼽이 더 커지는 상황을 방지하고자 했습니다.
+
+아키텍쳐 및 디자인 패턴 등을 추가적으로 알아보며, 모든 것이 좋고 효과가 좋아보여서 마치 쇼핑을 하듯 많이 담게되지 않도록 꼭 필요하며 다음과 같은 질문에 적합한지 판단했습니다.
+
+1. 생산성을 올려주는가?
+   1.  (아키텍쳐 및 디자인 패턴의 도입이 엄청난 세분화된 추상화로 생산성이 떨어지는 것을 방지하기위해)
+2. 과거의 문제점을 개선하거나 해결해주는가?
+3. 가독성 좋아지는가?
+4. 코드가 여러상황에 유연해지는가?
+5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
+
+
 
 MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (거대한 ViewController 및 복잡한 의존성 문제)
 
@@ -109,6 +123,12 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 
 View에서 직접 ViewModel 객체를 만들지 않고 ViewModel Protocol에 의존(의존성 분리), Coordinator를 통해 ViewModel을 생성하고 주입 (의존성 주입)
 
+=> 추후 서비스한지 어느정도의 시간이지나면 생길 리팩토링에서 View와 ViewModeld의 결합도를 낮추기 위함
+
+=> UI 및 Unit Test에 보다 유연하게 대응 및 Test 진행 가능해짐
+
+=> 리팩토링시 보다 적은 리소스 투입
+
 ```swift
 func moveToSignUPView() {
 let signUpView = SignUpViewController.instantiate(viewModel: SignUpViewModel(), coordiNator: self)
@@ -131,11 +151,17 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 }
 ```
 
-=> 통신이 분리된 Mock 통신 객체로 API Test 가능
+**고민하며 깨달은 점**
 
 통신이 필요한 ViewModel에만 통신 API 객체를 만들어줌
 
-=> 싱글턴 패턴으로 통신 객체에 접근 하지 않음, 통신이 필요하지 않은 View에서 통신 객체에 접근 가능성을 배제 및 상황에 맞는 싱글턴 디자인패턴 사용
+=> 싱글턴 패턴으로 통신 객체를 사용하면, 특정 API의 Mock Test를 위해서 전체 메소드에 영향이 가는 수정이 이루어질 수 있고 Test 과정 자체가 불편하고 복잡해짐
+
+=> 싱글턴 패턴으로 통신 객체에 접근 하지 않음
+
+=> 통신이 필요하지 않은 ViewModel에서 통신 객체에 접근 가능성을 배제, 접근 가능한 상황과 접근하기 힘든 상황은 완전 다른 것이라고 판단
+
+=> 의존성 분리를 통해 유연하게 통신이 분리된 Mock 통신 객체로 API Test 가능, 미리 설정해둔 MockAPIService 객체로 빠르고 정확하게 Test 가능
 
 ### 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
 
@@ -150,9 +176,13 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 
 검색화면 및 상세화면의 image는 NSCache를 사용하여 캐싱
 
-=> 싱글턴 디자인 패턴의 사용으로 앱이 종료되면 캐싱 데이터 소멸
+**고민하며 깨달은 점**
 
 => 한번 검색하여 보관한 가수 및 앨범의 제목을, 다음에 앱을 실행하여 또 다시 검색하는 경우가 적을 것으로 생각하여 디바이스 내부 저장 공간에 캐싱 데이터를 저장하는 방법을 선택하지 않음
+
+=> 싱글턴 디자인 패턴의 사용으로 앱이 종료되면 캐싱 데이터도 소멸하도록 설계, 또한 이미지 캐싱을 Thread Safe 하게진행 (Swift의 싱글턴 패턴은 사용시점에 초기화되고, dispatchonce 적용되어 쓰레드 Safe 하므로)
+
+=> 이미지 캐싱까지 디바이스에 파일디스크 형태로 이루어지면, 시간이 지날수록 앱을 통해 많은 공간을 차지하여 유저의 리스크 증가
 
 => 검색과정에서 같은 Word를 다시 검색하고 빠른 스크롤을 위한 이미지 캐싱은 필수라고 생각
 
@@ -207,9 +237,17 @@ func setImageURLAndChaching(_ imageURL: String?) {
 
 ### RxSwift를 이용한 반응형 검색화면
 
-=> 데이터를 스트림으로 관리하는 법을 이해
+=> Input 데이터를 비동기 데이터를 통한 스트림으로 관리하는 법을 이해
 
-=> 이스케이핑 클로저를 통한 통신 함수 대신, Observable을 통한 return이 가능한 비동기 코드 사용
+**고민하며 깨달은 점**
+
+=> 이스케이핑 클로저를 통한 통신 함수 대신, Observable을 통한 return이 가능한 비동기 코드 사용 
+
+(비동기 통신 Code 부분의 가독성 증가)
+
+=> TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 또한 DispatchQueue를 통해 Delay 상태를 구현할 수 있지만 코드의 가독성 저하 및 별도의 DispatchQueue 작업이 이루어지므로 쓰레드에 관련해 더욱 조심히 디버깅 및 코딩이 진행되어야 함. (추가 리소스 발생)
+
+=> debounce 및 observeOn 을 통해 직관적이며 간편하게 쓰레드 관리가 가능
 
 Vinyl 이름을 ViewModel의 VinylName에 bind 진행
 
