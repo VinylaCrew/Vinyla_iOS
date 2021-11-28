@@ -54,7 +54,7 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 **현재 프로젝트에 맞는 MVVM - C 구조 도입**
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="750" height="750"/>
+<img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="450" height="370"/>
 </p>
 
 => Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
