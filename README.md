@@ -68,7 +68,7 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 **현재 프로젝트에 맞는 MVVM - C 구조 도입**
 
 <p align="center">
-<img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="450" height="370"/>
+<img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="650" height="370"/>
 </p>
 
 => Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
@@ -85,7 +85,16 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 
 빠른 Scroll시 성능저하 방지를 위해 이미지 통신 Cancel
 
-=> Cell의 Life Cycle을 고려하여, Cell 재활용 상태가 될때 해당 image 비동기 통신 Cancel
+처음 검색 화면의 문제점 정의
+
+* **실제 프로젝트**에서, 검색 화면에서 최대 검색 데이터 수는 50개
+* 빠른 스크롤로 맨 밑으로 TableView 이동시 이전의 스크롤되는 이미지 통신이 모두 진행됨
+* 데이터 속도가 느린 상황이라면, 이전의 셀 이미지 통신때문에 보여져야 할 셀의 이미지 통신이 느려질 수 있음
+* 또한, 원하는 검색 결과가 맨밑에 있었다면 중간에 있는 셀들의 이미지 통신은 유저 입장에선 비효율적 (데이터 소모값 증가)
+
+**개선하며 깨달은 점**
+
+=> Cell의 Life Cycle을 고려하여, Cell이 재활용 상태가 될때 해당 image 비동기 통신의 DataTask가 Cancel 되도록
 
 ```swift
 final class SearchTableViewCell: UITableViewCell {
@@ -101,12 +110,26 @@ override func prepareForReuse() {
 
 ### 메모리 누수
 
-View는 Coordinator를 약한 참조하며, ViewModel을 강하게 참조하지만 추가 참조가 없어 Retain Cycle이 생기지 않도록 설계 해당 View가 사라지면 ViewModel도 메모리 해제가 됨
+예상하지 못한 강한 참조로 인해, Retain Cycle이 발생하지 않게
+
+* View와 ViewModel에서 다른 클래스의 참조를 주의있게 진행했습니다.
+* 또한 항상 자신을 참조하는 상황의 클로저 에선, 캡쳐리스트를 사용했습니다.
+
+View는 Coordinator를 약한 참조하며, ViewModel을 강하게 참조
+
+* 추가 참조가 없어 Retain Cycle이 생기지 않도록 설계 해당 View가 사라지면 ViewModel도 메모리 해제가 됨
+
+View 및 ViewModel에서 클로저로 인한 참조로 Retain Cycle 발생하지 않기 위해
+
+* weak, unowned 캡쳐리스트 사용
+
+Profile - Leaks 및 CFGetRetainCount 활용하여 디버깅 및 검증
 
 ```swift
 final class SignUpViewController: UIViewController {
   private weak var coordiNator: AppCoordinator?
   private var viewModel: SignUpViewModelProtocol
+  //Coordinator type method 설명추가
 static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "SignUp", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "SignUp") as? SignUpViewController else {
