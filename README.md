@@ -65,6 +65,8 @@
 4. 코드가 여러상황에 유연해지는가?
 5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
 
+
+
 **🧑‍💻 고민이후의 결과**
 
 * MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌 (거대한 ViewController 및 복잡한 의존성 문제)
@@ -79,6 +81,8 @@
   * View는 ViewModel의 데이터를 표현만하는 단일 책임을 지게됨
 
 * ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리
+
+
 
 #### **현재 프로젝트에 맞는 MVVM - C 구조 도입**
 
@@ -107,6 +111,8 @@
 
 **=> 유저의 통신 리소스는 줄이고, 데이터는 캐싱하여 성능 개선**
 
+
+
 **1️⃣ 바이닐 보관함 데이터는 CoreData를 통해 캐싱**
 
 **왜 보관함 데이터가 캐싱이 필요했는지?**
@@ -122,7 +128,11 @@
 
 **=> 바이닐 보관시 서버에 기록되며, 보관함 데이터는 내부 CoreData에 저장하여 보관함 화면에서 보여줌**
 
-**=> 앱을 지우고 다시 로그인한 경우, 보관함에 진입시 통신을 통해 CoreData 캐싱을 진행하고 다시 기존 방식으로 진행되도록 설계중**
+**=> 앱을 지우고 다시 로그인한 경우**
+
+**=> 보관함에 진입시 통신을 통해 CoreData 캐싱을 진행하고(동기화) 다시 기존 방식으로 진행되도록 설계중**
+
+
 
 **2️⃣ 빠른 Scroll시 성능저하 방지를 위해 이미지 통신 Cancel**
 
@@ -155,9 +165,11 @@ override func prepareForReuse() {
 
 **❌ 이전 프로젝트의 문제점**
 
-**=> 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생**
+=> 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생
 
-**=> 복잡한 참조 구조로, 어떠한 Class가 누수를 일으키는지 분석이 어려움**
+=> 복잡한 참조 구조로, 어떠한 Class가 누수를 일으키는지 분석이 어려움
+
+
 
 **☑️ 해결**
 
@@ -194,13 +206,17 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 }
 ```
 
+
+
 ###  📘복잡한 의존성
 
 **❌ 이전 프로젝트의 문제점**
 
-**=> MVC 아키텍쳐로 인해, 다른 ViewController를 의존하거나 다른 Class들을 직접 프로퍼티로 참조하여 결합도가 높아짐**
+=> MVC 아키텍쳐로 인해, 다른 ViewController를 의존하거나 다른 Class들을 직접 프로퍼티로 참조하여 결합도가 높아짐
 
-**=> 싱글턴 패턴으로 통신 객체에 접근하게 되어 Testable한 구조를 지니기 어려움, 모든 곳에서 통신 객체에 접근이 가능**
+=> 싱글턴 패턴으로 통신 객체에 접근하게 되어 Testable한 구조를 지니기 어려움, 모든 곳에서 통신 객체에 접근이 가능
+
+
 
 **☑️ 해결**
 
@@ -234,6 +250,8 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 }
 ```
 
+
+
 **🧐고민하며 깨달은 점**
 
 통신이 필요한 ViewModel에만 통신 API 객체를 만들어줌
@@ -246,6 +264,8 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 
 => 의존성 분리를 통해 유연하게 통신이 분리된 Mock 통신 객체로 API Test 가능, 미리 설정해둔 MockAPIService 객체로 빠르고 정확하게 Test 가능
 
+
+
 ### ✅ 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
 
 * Search API 구현전 Mock Test 선제 진행하여 개발
@@ -253,13 +273,31 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 * Vinyl Detail View Mock Test 진행
   * **바이닐 상세 API 연속 조회시 응답이 오지 않는 에러 이슈 즉시 발견**
 
-**🧐고민한점**
+**🧐고민 및 깨달은 점**
 
 * Test가 필요하지만, 검증하기가 까다로운 Code 부분을 정확하게 Unit Test진행 (최고 레벨디자인)
 * Exceptation과 fulfill, wait으로 실제 통신을 하여 Test 진행이 가능
 * 하지만, 서버가 다운되거나 개발환경에서 인터넷이 끊긴 상황이라면 테스트가 불가능
 * 서버통신이 가능한 상황에서도 Test가 가능하며, 통신이 분리된 Test진행도 가능해야함
 * 따라서, MockAPIService 서버통신이 분리된 Test 진행이 가능하도록 변경
+
+
+
+### ✅ 보관함 최고 레벨디자인 Paging Unit Test 진행
+
+* 최고 레벨은, 보관함 갯수가 500개를 넘길시 달성함
+* Unit Test를 진행하여, 500개의 데이터를 저장시키고 올바른 순서대로 9개씩 Paging 되는지 Unit Test 진행
+* 마지막 페이지에서 데이터 Index가 맞지 않아 Test 실패
+  * 올바르게 Paging 되도록 Code 수정하여, Unit Test 성공
+
+**🧐고민 및 깨달은 점**
+
+* Test가 필요하지만, 검증하기가 까다로운 Code 부분을 정확하게 Unit Test진행 (최고 레벨디자인)
+* Logic이 들어가는 View에서 Code의 검증이 필요한 부분은 Unit Test의 필요 및 필수
+  * 추후 리팩토링 진행시 Side Effect를 Unit Test로 줄일 수 있음
+  * 배포준비시 Unit Test가 실패한 부분을 중점적으로 다시 확인하면 됨
+
+
 
 ### 🔵 싱글턴 디자인 패턴과 NSCache를 사용하여 image 캐싱
 
@@ -338,6 +376,8 @@ func setImageURLAndChaching(_ imageURL: String?) {
 ```
 
 **(비동기 통신 Code 부분의 가독성 증가)**
+
+
 
 **🧐고민하며 깨달은 점**
 
