@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Kingfisher
 
 final class SearchViewController: UIViewController, UIScrollViewDelegate {
 
@@ -19,7 +18,7 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
     var disposeBag = DisposeBag()
     
     private weak var coordiNator: AppCoordinator?
-    private var viewModel: SearchViewModel?
+    private var viewModel: SearchViewModelType?
 
     var vinylSongName: String?
     static func instantiate(viewModel: SearchViewModel, coordiNator: AppCoordinator) -> UIViewController {
