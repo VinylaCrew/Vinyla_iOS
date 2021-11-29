@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var searchVinylImageView: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!
@@ -15,6 +15,7 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var customSeperatorView: UIView!
 
     private var cellImageDataTask: URLSessionDataTask?
+    var testURL: String?
 
     lazy var whiteCircleVinylView: UIView = { () -> UIView in
         let view = UIView()
@@ -58,12 +59,15 @@ class SearchTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.searchVinylImageView.image = nil
+
         self.cellImageDataTask?.cancel()
+        self.searchVinylImageView.image = nil
+
+//        self.searchVinylImageView.kf.cancelDownloadTask()
     }
 
     func setCachedImage(imageURL: String) {
-
+        self.testURL = imageURL
         DispatchQueue.global(qos: .background).async {//weak self?
 
             /// cache할 객체의 key값을 string으로 생성
