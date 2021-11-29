@@ -44,7 +44,7 @@
 
 ### 🔍 설계 및 고려한 점
 
-### 이전 프로젝트들의 문제점 (거대한 클래스, 복잡한 의존성, 메모리 누수, 유연하지 못한 View) 해결하기 위해 깊이 고민
+#### 이전 프로젝트들의 문제점 (거대한 클래스, 복잡한 의존성, 메모리 누수, 유연하지 못한 View) 해결하기 위해 깊이 고민
 
 **🧐 설계에 앞서 고민한 점**
 
@@ -53,19 +53,35 @@
 아키텍쳐 및 디자인 패턴 등을 추가적으로 알아보며, 모든 것이 좋고 효과가 좋아보여서 마치 쇼핑을 하듯 많이 담게되지 않도록 꼭 필요하며 다음과 같은 질문에 적합한지 판단했습니다.
 
 1. 생산성을 올려주는가?
-   1.  (아키텍쳐 및 디자인 패턴의 도입이 엄청난 세분화된 추상화로 생산성이 떨어지는 것을 방지하기위해)
+   1.  (아키텍쳐 및 디자인 패턴의 도입이, 오히려 세분화된 추상화로 인해 생산성이 떨어지는 것을 방지하기위해)
 2. 과거의 문제점을 개선하거나 해결해주는가?
 3. 가독성 좋아지는가?
 4. 코드가 여러상황에 유연해지는가?
 5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
 
+**고민이후의 결과**
 
+MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌 (거대한 ViewController 및 복잡한 의존성 문제)
 
-MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (거대한 ViewController 및 복잡한 의존성 문제)
+=> MVVM의 도입
 
-나아가 Coordinator를 통해 View 전환 Code를 통합 관리의 필요성 (유연한 View 전환 대응)
+=> Presentation Logic 분리를 위해 코딩하는 시간이 조금 더 걸릴 수 있지만, 프로젝트가 커져도 Unit Test가 편리
 
-**현재 프로젝트에 맞는 MVVM - C 구조 도입**
+=> 과거의 문제점 (복잡한 의존성, 거대한 클래스) 해결 가능하다고 판단 + ViewModel의 추상화로 유연해지는 구조
+
+=> 무의식적으로 ViewController가 비대해지는 상황을 방지할 수 있음
+
+=> 유지보수가 편해지므로, 시간이 지날 수록 생산성이 증가한다고 판단
+
+나아가 Coordinator를 통해 View 전환 Code 통합 관리의 필요성 (유연한 View 전환 대응)
+
+=> View 전환 코드 하드 코딩 X, 메소드 한줄로 자유로운 View 전환 (여러 상황에 유연 + 가독성 증가)
+
+=> View는 ViewModel의 데이터를 표현만하는 단일 책임을 지게됨
+
+ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리
+
+#### **현재 프로젝트에 맞는 MVVM - C 구조 도입**
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="650" height="370"/>
@@ -77,7 +93,13 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 
 => MVVM 계산기를 만들어 보며 Logic 및 UI Code 분리에 대한 이해, RxSwift bind의 편리함을 알게됨
 
-### 성능
+=> 적재적소에 맞는 코드 작성 / 의존성 줄이기 / 자유로운 뷰 전환 구조 / Testable한 구조
+
+=> 통신을 담당하는 APIService는 ViewModel에 의존성 주입 및 분리
+
+***
+
+### 📕성능
 
 상속이 필요하지 않은 class는 final class로 선언 , 클래스 내부에서만 사용되는 property에 대하여 적극적으로 private 선언
 
@@ -87,14 +109,16 @@ MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌, (�
 
 처음 검색 화면의 문제점 정의
 
-* **실제 프로젝트**에서, 검색 화면에서 최대 검색 데이터 수는 50개
+* **실제 프로젝트**에서, 검색 화면에서 **최대 검색 데이터 수는 50개**
 * 빠른 스크롤로 맨 밑으로 TableView 이동시 이전의 스크롤되는 이미지 통신이 모두 진행됨
 * 데이터 속도가 느린 상황이라면, 이전의 셀 이미지 통신때문에 보여져야 할 셀의 이미지 통신이 느려질 수 있음
 * 또한, 원하는 검색 결과가 맨밑에 있었다면 중간에 있는 셀들의 이미지 통신은 유저 입장에선 비효율적 (데이터 소모값 증가)
 
-**개선하며 깨달은 점**
+**🧐 개선하며 깨달은 점**
 
 => Cell의 Life Cycle을 고려하여, Cell이 재활용 상태가 될때 해당 image 비동기 통신의 DataTask가 Cancel 되도록
+
+=> 빠른 스크롤시 중간 부분의 셀은 이미지 통신이 이루어지지 않고, 마지막 부분이 바로 이미지 통신 진행
 
 ```swift
 final class SearchTableViewCell: UITableViewCell {
@@ -108,7 +132,7 @@ override func prepareForReuse() {
 
 
 
-### 메모리 누수
+### 📗메모리 누수
 
 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생하지 않게
 
@@ -142,7 +166,7 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 }
 ```
 
-### 복잡한 의존성
+###  📘복잡한 의존성
 
 View에서 직접 ViewModel 객체를 만들지 않고 ViewModel Protocol에 의존(의존성 분리), Coordinator를 통해 ViewModel을 생성하고 주입 (의존성 주입)
 
@@ -174,7 +198,7 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 }
 ```
 
-**고민하며 깨달은 점**
+**🧐고민하며 깨달은 점**
 
 통신이 필요한 ViewModel에만 통신 API 객체를 만들어줌
 
@@ -186,16 +210,23 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 
 => 의존성 분리를 통해 유연하게 통신이 분리된 Mock 통신 객체로 API Test 가능, 미리 설정해둔 MockAPIService 객체로 빠르고 정확하게 Test 가능
 
-### 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
+### ✅ 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
 
 * Search API 구현전 Mock Test 선제 진행하여 개발
 * Vinyl Detail View Mock Test 진행으로, 바이닐 상세 API 연속 조회시 응답이 오지 않는 에러 이슈 즉시 발견
 
+**🧐고민한점**
 
+* Exceptation과 fulfill, wait으로 실제 통신을 하여 Test 진행이 가능
+* 하지만, 서버가 다운되거나 개발환경에서 인터넷이 끊긴 상황이라면 테스트가 불가능
+* 서버통신이 가능한 상황에서도 Test가 가능하며, 통신이 분리된 Test진행도 가능해야함
+* 따라서, MockAPIService 서버통신이 분리된 Test 진행이 가능하도록 변경
 
-### 싱글턴 디자인 패턴과 NSCache를 사용하여 image 캐싱
+### 🔵 싱글턴 디자인 패턴과 NSCache를 사용하여 image 캐싱
 
 보관함 데이터는 CoreData를 통해 캐싱
+
+=> 설명필요
 
 검색화면 및 상세화면의 image는 NSCache를 사용하여 캐싱
 
@@ -258,21 +289,31 @@ func setImageURLAndChaching(_ imageURL: String?) {
 
 
 
-### RxSwift를 이용한 반응형 검색화면
+### 🔴 RxSwift를 이용한 반응형 검색화면
 
 => Input 데이터를 비동기 데이터를 통한 스트림으로 관리하는 법을 이해
 
-**고민하며 깨달은 점**
+**🧐고민하며 깨달은 점**
 
 => 이스케이핑 클로저를 통한 통신 함수 대신, Observable을 통한 return이 가능한 비동기 코드 사용 
 
+```swift
+.flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
+                return self.searchAPIService.searchVinyl(vinylName: vinyl)
+            }
+```
+
 (비동기 통신 Code 부분의 가독성 증가)
 
-=> TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 또한 DispatchQueue를 통해 Delay 상태를 구현할 수 있지만 코드의 가독성 저하 및 별도의 DispatchQueue 작업이 이루어지므로 쓰레드에 관련해 더욱 조심히 디버깅 및 코딩이 진행되어야 함. (추가 리소스 발생)
+=> TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 
+
+=> DispatchQueue를 통해 Delay 상태를 구현할 수 있지만 코드의 가독성 저하 및 별도의 DispatchQueue 작업이 이루어지므로 쓰레드에 관련해 더욱 조심히 디버깅 및 코딩이 진행되어야 함. (추가 리소스 발생)
 
 => debounce 및 observeOn 을 통해 직관적이며 간편하게 쓰레드 관리가 가능
 
-Vinyl 이름을 ViewModel의 VinylName에 bind 진행
+=> 유저경험을 높임, 원하는 Word를 검색하고나면 검색 버튼을 눌르지 않아도 자동으로 검색 진행
+
+**1️⃣ Vinyl 이름을 ViewModel의 VinylName에 bind 진행**
 
 ```swift
 //View
@@ -285,7 +326,7 @@ vinylSearchBar.rx.text
             .disposed(by: disposeBag)
 ```
 
-ViewModel 생성자를 통해, VinylName으로 검색 통신 진행 및 스트림 생성
+**2️⃣ ViewModel 생성자를 통해, VinylName으로 검색 통신 진행 및 스트림 생성**
 
 ```swift
 //ViewModel
@@ -300,7 +341,7 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 }
 ```
 
-통신된 Data를 통해 TableView Update
+**3️⃣ 통신된 Data를 통해 TableView Update**
 
 ```swift
 //View
