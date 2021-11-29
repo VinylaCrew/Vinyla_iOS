@@ -50,7 +50,7 @@ final class MockAPIService: VinylAPIServiceProtocol {
     }
 
     func getMovies(order: String) -> Observable<[MovieModel.Data?]> {
-        
+
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.getMovies(urlParameters: order)) { result in
                 switch result {
@@ -77,7 +77,7 @@ final class MockAPIService: VinylAPIServiceProtocol {
     func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
 
         return Observable.create() { [weak self] emitter in
-            self?.provider.request(.getVinylDetail(urlParameters: vinylID)) { result in
+            self?.provider.request(.getVinylDetail(pathVinylID: vinylID)) { result in
                 switch result {
                 case .success(let response):
                     do {
