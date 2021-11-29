@@ -159,7 +159,7 @@ override func prepareForReuse() {
     }
 ```
 
-
+***
 
 ### 📗메모리 누수
 
@@ -168,9 +168,6 @@ override func prepareForReuse() {
 => 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생
 
 => 복잡한 참조 구조로, 어떠한 Class가 누수를 일으키는지 분석이 어려움
-
-
-
 
 **☑️ 해결**
 
@@ -207,7 +204,7 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 }
 ```
 
-
+***
 
 ###  📘복잡한 의존성
 
@@ -216,8 +213,6 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 => MVC 아키텍쳐로 인해, 다른 ViewController를 의존하거나 다른 Class들을 직접 프로퍼티로 참조하여 결합도가 높아짐
 
 => 싱글턴 패턴으로 통신 객체에 접근하게 되어 Testable한 구조를 지니기 어려움, 모든 곳에서 통신 객체에 접근이 가능
-
-
 
 **☑️ 해결**
 
@@ -265,7 +260,7 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 
 => 의존성 분리를 통해 유연하게 통신이 분리된 Mock 통신 객체로 API Test 가능, 미리 설정해둔 MockAPIService 객체로 빠르고 정확하게 Test 가능
 
-
+***
 
 ### ✅ 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
 
@@ -298,7 +293,7 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
   * 추후 리팩토링 진행시 Side Effect를 Unit Test로 줄일 수 있음
   * 배포준비시 Unit Test가 실패한 부분을 중점적으로 다시 확인하면 됨
 
-
+***
 
 ### 🔵 싱글턴 디자인 패턴과 NSCache를 사용하여 image 캐싱
 
@@ -361,7 +356,7 @@ func setImageURLAndChaching(_ imageURL: String?) {
     }
 ```
 
-
+***
 
 ### 🔴 RxSwift를 이용한 반응형 검색화면
 
@@ -377,8 +372,6 @@ func setImageURLAndChaching(_ imageURL: String?) {
 ```
 
 **(비동기 통신 Code 부분의 가독성 증가)**
-
-
 
 **🧐고민하며 깨달은 점**
 
@@ -435,17 +428,5 @@ viewModel.vinylsData
 
 
 
-
-
 ***
 
-- MVVM-C 구조 도입
-    - 적재적소에 맞는 코드 작성 / 의존성을 줄이기 위해 / 자유로운 뷰 전환 구조 / Testable한 구조
-- 유저에게 바이닐을 책장에서 넘기는 유저 경험 제공
- - Collection View Cell 안에 Collection View를 넣는 구조로 구현
- - 자연스러운 페이징 효과 및 좋은 성능으로 구현 완료
-- 내부 이미지 캐싱, NSCache Manager를 통해 해결 (오픈소스 사용 X)
-- 내부 플로우 및 데이터 Test => CoreData를 활용해서 진행
-   - 통신을 줄이기 위해 동기화 로직 Test 진행
-- 홈화면 레이아웃 커스텀 , XS 이하의 화면 해상도에선 스크롤 View로 전환되도록
-- XS 보다 큰 기기의 경우 최근 바이닐 크기 및 스크롤 View 레이아웃 계산 로직을 통해 비율을 맞추어줌
