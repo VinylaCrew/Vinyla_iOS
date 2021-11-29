@@ -6,7 +6,10 @@
 
 * 목차
   * 앱 실행 화면
-  * 아키텍쳐 설계 및 고려한 점
+  * 아키텍쳐 설계 및 고려한 점 [이동](#설계)
+  * 성능
+  * 메모리 누수
+  * 복잡한 의존성
 
 ***
 
@@ -40,10 +43,11 @@
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
+
 ***
 
 ### 🔍 설계 및 고려한 점
-
+#설계
 #### 이전 프로젝트들의 문제점 (거대한 클래스, 복잡한 의존성, 메모리 누수, 유연하지 못한 View) 해결하기 위해 깊이 고민
 
 **🧐 설계에 앞서 고민한 점**
@@ -59,7 +63,7 @@
 4. 코드가 여러상황에 유연해지는가?
 5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
 
-**고민이후의 결과**
+**🧑‍💻 고민이후의 결과**
 
 MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌 (거대한 ViewController 및 복잡한 의존성 문제)
 
@@ -101,7 +105,16 @@ ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않�
 
 ### 📕성능
 
-상속이 필요하지 않은 class는 final class로 선언 , 클래스 내부에서만 사용되는 property에 대하여 적극적으로 private 선언
+**❌ 이전 프로젝트의 문제점**
+
+**=> 상속이 필요하지 않은 Class여도 일반적인 Class로 선언 (성능의 이점을 누리지 못함)**
+
+**=> 소극적인 private property 사용**
+
+**☑️ 해결**
+
+* 상속이 필요하지 않은 class는 final class로 선언 
+* 클래스 내부에서만 사용되는 property에 대하여 적극적으로 private 선언
 
 **=> 메소드 인라이닝과 컴파일러 최적화를 통해 성능 개선**
 
@@ -134,10 +147,19 @@ override func prepareForReuse() {
 
 ### 📗메모리 누수
 
-예상하지 못한 강한 참조로 인해, Retain Cycle이 발생하지 않게
+**❌ 이전 프로젝트의 문제점**
+
+**=> 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생하지 않게**
+
+**=> 복잡한 참조 구조로, 어떠한 Class가 누수를 일으키는지 분석이 어려움**
+
+**☑️ 해결**
 
 * View와 ViewModel에서 다른 클래스의 참조를 주의있게 진행했습니다.
+  * View와 ViewModel의 의존성과 결합도를 낮추고
+  * View와 ViewModel의 불필요한 Retain Count가 증가되지않도록
 * 또한 항상 자신을 참조하는 상황의 클로저 에선, 캡쳐리스트를 사용했습니다.
+  * 특히 ViewModel에서 이러한 경우를 더욱 확인하고 조심했습니다.
 
 View는 Coordinator를 약한 참조하며, ViewModel을 강하게 참조
 
@@ -168,13 +190,21 @@ static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoor
 
 ###  📘복잡한 의존성
 
+**❌ 이전 프로젝트의 문제점**
+
+**=> MVC 아키텍쳐로 인해, 다른 ViewController를 의존하거나 다른 Class들을 직접 프로퍼티로 참조하여 결합도가 높아짐**
+
+**=> 싱글턴 패턴으로 통신 객체에 접근하게 되어 Testable한 구조를 지니기 어려움, 모든 곳에서 통신 객체에 접근이 가능**
+
+**☑️ 해결**
+
 View에서 직접 ViewModel 객체를 만들지 않고 ViewModel Protocol에 의존(의존성 분리), Coordinator를 통해 ViewModel을 생성하고 주입 (의존성 주입)
 
-=> 추후 서비스한지 어느정도의 시간이지나면 생길 리팩토링에서 View와 ViewModeld의 결합도를 낮추기 위함
+* 추후 서비스한지 어느정도의 시간이지나면 생길 리팩토링에서 View와 ViewModeld의 결합도를 낮추기 위함
 
-=> UI 및 Unit Test에 보다 유연하게 대응 및 Test 진행 가능해짐
+* UI 및 Unit Test에 보다 유연하게 대응 및 Test 진행 가능해짐
 
-=> 리팩토링시 보다 적은 리소스 투입
+* 리팩토링시 보다 적은 리소스 투입
 
 ```swift
 func moveToSignUPView() {
@@ -213,7 +243,9 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 ### ✅ 프로젝트 적용: Search View 및 Vinyl Detail View Mock APIService Test 진행
 
 * Search API 구현전 Mock Test 선제 진행하여 개발
-* Vinyl Detail View Mock Test 진행으로, 바이닐 상세 API 연속 조회시 응답이 오지 않는 에러 이슈 즉시 발견
+  * Mock Data로 내부 CoreData 로직 구현 및 Test 진행 가능 (생산성 증가)
+* Vinyl Detail View Mock Test 진행
+  * **바이닐 상세 API 연속 조회시 응답이 오지 않는 에러 이슈 즉시 발견**
 
 **🧐고민한점**
 
@@ -228,9 +260,9 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 
 => 설명필요
 
-검색화면 및 상세화면의 image는 NSCache를 사용하여 캐싱
+#### 검색화면 및 상세화면의 image는 NSCache를 사용하여 캐싱
 
-**고민하며 깨달은 점**
+**🧐고민하며 깨달은 점**
 
 => 한번 검색하여 보관한 가수 및 앨범의 제목을, 다음에 앱을 실행하여 또 다시 검색하는 경우가 적을 것으로 생각하여 디바이스 내부 저장 공간에 캐싱 데이터를 저장하는 방법을 선택하지 않음
 
@@ -291,11 +323,10 @@ func setImageURLAndChaching(_ imageURL: String?) {
 
 ### 🔴 RxSwift를 이용한 반응형 검색화면
 
-=> Input 데이터를 비동기 데이터를 통한 스트림으로 관리하는 법을 이해
+#### Input 데이터를 비동기 데이터를 통한 스트림으로 관리하는 법을 이해
 
-**🧐고민하며 깨달은 점**
-
-=> 이스케이핑 클로저를 통한 통신 함수 대신, Observable을 통한 return이 가능한 비동기 코드 사용 
+* 일반적인 이스케이핑 클로저를 통한 통신 함수 사용 대신 
+  * Observable을 통한 return이 가능한 비동기 코드 사용 
 
 ```swift
 .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
@@ -303,7 +334,9 @@ func setImageURLAndChaching(_ imageURL: String?) {
             }
 ```
 
-(비동기 통신 Code 부분의 가독성 증가)
+**(비동기 통신 Code 부분의 가독성 증가)**
+
+**🧐고민하며 깨달은 점**
 
 => TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 
 
