@@ -52,7 +52,6 @@ PODS:
     - AppAuth/Core (~> 1.4)
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.0)
-  - Kingfisher (6.3.1)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -75,7 +74,6 @@ DEPENDENCIES:
   - Cosmos (~> 23.0)
   - Firebase/Auth
   - GoogleSignIn
-  - Kingfisher (~> 6.3.1)
   - Moya/RxSwift (~> 14.0)
   - RxCocoa
   - RxSwift
@@ -94,7 +92,6 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
-    - Kingfisher
     - Moya
     - nanopb
     - PromisesObjC
@@ -115,7 +112,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
-  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -123,6 +119,6 @@ SPEC CHECKSUMS:
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
 
-PODFILE CHECKSUM: 91ccf1146717de0223b5a27b13c79e5ee202791e
+PODFILE CHECKSUM: 6b46e5f95c322293788198563789fb5a78f24fe9
 
 COCOAPODS: 1.10.1
