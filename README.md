@@ -1,6 +1,7 @@
 # Vinyla_iOS
 
 ### 국내 및 해외 바이닐 저장 및 공유, 나만의 장르 분석 서비스
+<img src="https://img.shields.io/badge/-RxSwift-red">
 
 ***
 
