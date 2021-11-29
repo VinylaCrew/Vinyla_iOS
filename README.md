@@ -46,6 +46,7 @@
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
+
 ***
 
 ### 🔍 설계 및 고려한 점
@@ -64,8 +65,6 @@
 3. 가독성 좋아지는가?
 4. 코드가 여러상황에 유연해지는가?
 5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
-
-
 
 
 **🧑‍💻 고민이후의 결과**
@@ -91,6 +90,7 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="650" height="370"/>
 </p>
+
 * Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
 
 * MVVM 계산기를 만들어 보며 Logic 및 UI Code 분리에 대한 이해, RxSwift bind의 편리함을 알게됨
