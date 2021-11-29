@@ -43,7 +43,6 @@
 <img src="https://user-images.githubusercontent.com/55793344/143679555-953d7258-e579-4186-9c87-8b219225e276.png" width="250" height="550"/>
 <img src="https://user-images.githubusercontent.com/55793344/143679561-6d71fc9b-bf0d-4e9a-affb-f5c9e673fe94.png" width="250" height="550"/>
 </p>
-
 ***
 
 ### 🔍 설계 및 고려한 점
@@ -65,41 +64,33 @@
 
 **🧑‍💻 고민이후의 결과**
 
-MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌 (거대한 ViewController 및 복잡한 의존성 문제)
+* MVC 아키텍쳐에서 UI Code와 Logic 코드의 분리 필요성을 느낌 (거대한 ViewController 및 복잡한 의존성 문제)
+  * MVVM의 도입
+  * Presentation Logic 분리를 위해 코딩하는 시간이 조금 더 걸릴 수 있지만, 프로젝트가 커져도 Unit Test가 편리
+  * 과거의 문제점 (복잡한 의존성, 거대한 클래스) 해결 가능하다고 판단 + ViewModel의 추상화로 유연해지는 구조
+  * 무의식적으로 ViewController가 비대해지는 상황을 방지할 수 있음
+  * 유지보수가 편해지므로, 시간이 지날 수록 생산성이 증가한다고 판단
 
-=> MVVM의 도입
+* 나아가 Coordinator를 통해 View 전환 Code 통합 관리의 필요성 (유연한 View 전환 대응)
+  * View 전환 코드 하드 코딩 X, 메소드 한줄로 자유로운 View 전환 (여러 상황에 유연 + 가독성 증가)
+  * View는 ViewModel의 데이터를 표현만하는 단일 책임을 지게됨
 
-=> Presentation Logic 분리를 위해 코딩하는 시간이 조금 더 걸릴 수 있지만, 프로젝트가 커져도 Unit Test가 편리
-
-=> 과거의 문제점 (복잡한 의존성, 거대한 클래스) 해결 가능하다고 판단 + ViewModel의 추상화로 유연해지는 구조
-
-=> 무의식적으로 ViewController가 비대해지는 상황을 방지할 수 있음
-
-=> 유지보수가 편해지므로, 시간이 지날 수록 생산성이 증가한다고 판단
-
-나아가 Coordinator를 통해 View 전환 Code 통합 관리의 필요성 (유연한 View 전환 대응)
-
-=> View 전환 코드 하드 코딩 X, 메소드 한줄로 자유로운 View 전환 (여러 상황에 유연 + 가독성 증가)
-
-=> View는 ViewModel의 데이터를 표현만하는 단일 책임을 지게됨
-
-ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리
+* ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리
 
 #### **현재 프로젝트에 맞는 MVVM - C 구조 도입**
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/55793344/143764461-8c8ef2a6-6d36-4df1-a5f3-ced1b57d165b.jpeg" width="650" height="370"/>
 </p>
+* Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
 
-=> Testable한 구조, View에선 불필요한 화면전환 Code를 가지지 않으며 여러 상황에 맞는 자유로운 View 전환 가능
+* 적극적인 의존성 주입 및 분리를 통해 보다 유연하고 Test 하기 쉬운 환경을 조성
 
-=> 적극적인 의존성 주입 및 분리를 통해 보다 유연하고 Test 하기 쉬운 환경을 조성
+* MVVM 계산기를 만들어 보며 Logic 및 UI Code 분리에 대한 이해, RxSwift bind의 편리함을 알게됨
 
-=> MVVM 계산기를 만들어 보며 Logic 및 UI Code 분리에 대한 이해, RxSwift bind의 편리함을 알게됨
+* 적재적소에 맞는 코드 작성 / 의존성 줄이기 / 자유로운 뷰 전환 구조 / Testable한 구조
 
-=> 적재적소에 맞는 코드 작성 / 의존성 줄이기 / 자유로운 뷰 전환 구조 / Testable한 구조
-
-=> 통신을 담당하는 APIService는 ViewModel에 의존성 주입 및 분리
+* 통신을 담당하는 APIService는 ViewModel에 의존성 주입 및 분리
 
 ***
 
@@ -338,13 +329,15 @@ func setImageURLAndChaching(_ imageURL: String?) {
 
 **🧐고민하며 깨달은 점**
 
-=> TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 
+* TextField에 addTarget .editingChanged 메소드를 이용해 검색API를 구현할 수 있지만, 1글자의 변화상태마다 통신이 이루어지므로 비효율적으로 판단. 
+  * DispatchQueue를 통해 Delay 상태를 구현할 수 있지만 코드의 가독성 저하
+  * 별도의 DispatchQueue 작업이 이루어지므로 쓰레드에 관련해 더욱 조심히 디버깅 및 코딩이 진행 (추가 리소스 발생)
 
-=> DispatchQueue를 통해 Delay 상태를 구현할 수 있지만 코드의 가독성 저하 및 별도의 DispatchQueue 작업이 이루어지므로 쓰레드에 관련해 더욱 조심히 디버깅 및 코딩이 진행되어야 함. (추가 리소스 발생)
+* debounce 및 observeOn 을 통해 직관적이며 간편하게 쓰레드 관리가 가능
+  * 가독성 증가 및 직관적인 쓰레드 관리 표시
 
-=> debounce 및 observeOn 을 통해 직관적이며 간편하게 쓰레드 관리가 가능
-
-=> 유저경험을 높임, 원하는 Word를 검색하고나면 검색 버튼을 눌르지 않아도 자동으로 검색 진행
+* 유저경험을 높임
+  * 원하는 Word를 검색하고나면 검색 버튼을 눌르지 않아도 자연스럽게 검색 진행 및 결과 표시
 
 **1️⃣ Vinyl 이름을 ViewModel의 VinylName에 bind 진행**
 
