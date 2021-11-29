@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController {
     
     let storyBoardID = "SignUp"
     
@@ -37,11 +37,11 @@ class SignUpViewController: UIViewController {
     //var viewModel : SignUpViewModelProtocol?
     
     private weak var coordiNator: AppCoordinator?
-    private var viewModel: SignUpViewModel?
+    private var viewModel: SignUpViewModelProtocol?
 
     var disposeBag = DisposeBag()
     
-    static func instantiate(viewModel: SignUpViewModel, coordiNator: AppCoordinator) -> UIViewController {
+    static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "SignUp", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "SignUp") as? SignUpViewController else {
             return UIViewController()
@@ -60,14 +60,36 @@ class SignUpViewController: UIViewController {
         setTapButtonsIsSelected()
         nickNameLabel.addSubview(pointCircleView)
         logInButton.isEnabled = false
+//        nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+        guard let viewModel = self.viewModel else { return }
+        
+        nickNameTextField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .skip(1)
+            .debounce(.milliseconds(600), scheduler: MainScheduler.instance)
+            .bind(to: viewModel.nickNameText)
+            .disposed(by: disposeBag)
 
+        viewModel.validNickNameNumberSubject
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] number in
+                print("viewmodel publish subject number",number)
+                self.touchUpNickNameCheckButton()
+            })
+            .disposed(by: disposeBag)
+
+//        print("retain count",CFGetRetainCount(self.viewModel))
         //viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
+    }
+    deinit {
+//        print("retain count deinit vm",CFGetRetainCount(viewModel))
     }
 //    func setViewModel(_ viewModel: SignUpViewModelProtocol) {
 //        self.viewModel = viewModel
 //    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchUpNickNameCheckButton(self.nickNameCheckButton)
+        touchUpNickNameCheckButton()
          self.view.endEditing(true)
     }
     func setUI() {
@@ -99,6 +121,12 @@ class SignUpViewController: UIViewController {
             buttons.clipsToBounds = true
         }
     }
+
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let textFieldText = textField.text else { return }
+        touchUpNickNameCheckButton()
+    }
+
     func setTapButtonsIsSelected() {
         allowServiceButton.rx.tap.subscribe(onNext: { [weak self] in
             if let serviceButton = self?.allowServiceButton {
@@ -155,11 +183,25 @@ class SignUpViewController: UIViewController {
             self.everyAgreeButton.isSelected = false
         }
     }
-    @IBAction func touchUpNickNameCheckButton(_ sender: UIButton) {
-        guard let nickNameCountField = nickNameTextField.text else { return }
+    func isCheckLogInButtonLogic() {
+        let nickNameCheckValue: Int? = viewModel?.isValidNickNameNumber
+
+        if allowServiceButton.isSelected && allowPrivacyButton.isSelected && nickNameCheckValue == 1 {
+            logInButton.isEnabled = true
+            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
+            logInButton.setTitleColor(.white, for: .normal)
+        }else {
+            logInButton.isEnabled = false
+            logInButton.backgroundColor = UIColor.buttonDisabledColor()
+            logInButton.setTitleColor(.white, for: .normal)
+        }
+    }
+
+    @IBAction func touchUpNickNameCheckButton() {
+        guard let nickNameCheckField = nickNameTextField.text else { return }
         var nickNameCheckValue: Int?
         if let viewModel = self.viewModel {
-            nickNameCheckValue = viewModel.isValidNickName(nickNameCountField)
+            nickNameCheckValue = viewModel.isValidNickNameNumber
         }
 
         if nickNameCheckValue == 1 {
@@ -198,17 +240,7 @@ class SignUpViewController: UIViewController {
             logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
         }
     }
-    func isCheckLogInButtonLogic() {
-        if allowServiceButton.isSelected && allowPrivacyButton.isSelected {
-            logInButton.isEnabled = true
-            logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
-            logInButton.setTitleColor(.white, for: .normal)
-        }else {
-            logInButton.isEnabled = false
-            logInButton.backgroundColor = UIColor.buttonDisabledColor()
-            logInButton.setTitleColor(.white, for: .normal)
-        }
-    }
+
     
     @IBAction func touchUpLogInButton(_ sender: Any) {
         
@@ -221,18 +253,13 @@ class SignUpViewController: UIViewController {
         coordiNator?.moveAndSetHomeView()
     }
     
-    func isValidName(name:String)-> Bool {
-        let nameRegEx = "^[a-z0-9_]+$" // this mean you can only use lower case a-z, 0-9 and underscore
-        let namelTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
-        return namelTest.evaluate(with: name)
-    }
-    
     @IBAction func touchUpAllowEveryServiceButton(_ sender: UIButton) {
         for buttons in allowEveryServiceButtons {
             if !buttons.isSelected {
                 buttons.isSelected = true
             }
         }
+        touchUpNickNameCheckButton()
         self.presentServiceInformationView()
     }
     
@@ -251,6 +278,7 @@ extension SignUpViewController: UITextFieldDelegate {
         if text.count >= 20 {
             return false
         }
+
         var strings: NSString?
         
         
@@ -260,7 +288,7 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nickNameTextField.resignFirstResponder()
-        touchUpNickNameCheckButton(self.nickNameCheckButton)
+        touchUpNickNameCheckButton()
         self.instagramIDTextField.resignFirstResponder()
         return true
     }
