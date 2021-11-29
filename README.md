@@ -65,7 +65,8 @@
 4. 코드가 여러상황에 유연해지는가?
 5. 코딩할 때 무의식적인 실수를 방지해줄 수 있는가?
 
-#
+
+
 
 **🧑‍💻 고민이후의 결과**
 
@@ -80,7 +81,9 @@
   * View 전환 코드 하드 코딩 X, 메소드 한줄로 자유로운 View 전환 (여러 상황에 유연 + 가독성 증가)
   * View는 ViewModel의 데이터를 표현만하는 단일 책임을 지게됨
 
-* ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리  
+* ARC를 고려하여 ViewModel 및 Coordinator가 Retain Cycle이 생기지 않도록,  선제적인 레퍼런스 카운트 관리
+
+
 
 
 #### **현재 프로젝트에 맞는 MVVM - C 구조 도입**
@@ -165,6 +168,7 @@ override func prepareForReuse() {
 => 예상하지 못한 강한 참조로 인해, Retain Cycle이 발생
 
 => 복잡한 참조 구조로, 어떠한 Class가 누수를 일으키는지 분석이 어려움
+
 
 
 
