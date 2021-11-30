@@ -8,10 +8,13 @@
 import UIKit
 
 extension UIColor {
-    class func buttonDisabledColor() -> UIColor {
+    static func buttonDisabledColor() -> UIColor {
         return UIColor(red: 35/255, green: 35/255, blue: 36/255, alpha: 1)
     }
-    class func vinylaMainOrangeColor() -> UIColor {
+    static func buttonOrangeColor() -> UIColor {
+        return UIColor(red: 255/255, green: 63/255, blue: 0/255, alpha: 1)
+    }
+    static func vinylaMainOrangeColor() -> UIColor {
         return UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
     }
     static func buttonDisabledTextColor() -> UIColor {
