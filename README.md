@@ -278,6 +278,21 @@ init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
 * 서버통신이 가능한 상황에서도 Test가 가능하며, 통신이 분리된 Test진행도 가능해야함
 * 따라서, MockAPIService 서버통신이 분리된 Test 진행이 가능하도록 변경
 
+```swift
+func testGetViynlDetailAPI() {
+        let testMockAPIService = MockAPIService()
+        let mockSampleData = APITarget.getVinylDetail(pathVinylID: 1234).sampleData
+        let expectedResponseData = try? JSONDecoder().decode(VinylInformation.self,from: mockSampleData)
+	//바이닐 상세 API MockTest 진행
+        testMockAPIService.getVinylDetail(vinylID: 12345)
+            .subscribe(onNext: { data in
+                XCTAssertEqual(expectedResponseData?.data?.artist, data?.artist)
+                XCTAssertEqual(expectedResponseData?.data?.tracklist?[0], data?.tracklist?[0])
+                print(data)
+            })
+    }
+```
+
 
 
 ### ✅ 보관함 최고 레벨디자인 Paging Unit Test 진행
