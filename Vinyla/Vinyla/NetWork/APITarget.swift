@@ -76,7 +76,7 @@ enum APITarget: TargetType {
     var headers: [String : String]? {
         switch self {
         case .vinylSearch(_), .getVinylDetail(_):
-            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2Mzc5ODk2NjQsImV4cCI6MTYzODAwNzY2NCwiaXNzIjoiaGFlbHkifQ.R4y31y6Rg6oTsOCNit8aTxS0W8EwYxHXI2syw0LVy_M"]
+            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2MzgwMTYyMjIsImV4cCI6MTYzODAzNDIyMiwiaXNzIjoiaGFlbHkifQ.hCDMxQQrJNuW04lXET57EvagzdndZ1PDWDX37fAOVD8"]
         default: return ["Content-Type" : "application/json"]
         }
     }
