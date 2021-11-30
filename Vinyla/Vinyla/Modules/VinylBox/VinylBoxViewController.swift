@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class VinylBoxViewController: UIViewController {
+final class VinylBoxViewController: UIViewController {
     
     let storyBoardID = "VinylBox"
     @IBOutlet weak var vinylCountLabel: UILabel!
@@ -167,7 +167,7 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
             print("PagingVinlyBoxItemsError")
             return UICollectionViewCell()
         }
-        print("test odds 정렬된 9개씩 데이터", testOdds)
+//        print("test odds 정렬된 9개씩 데이터", testOdds)
         //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
 //        cell.nineVinylItems = odds
         cell.nineVinylItems = testOdds
