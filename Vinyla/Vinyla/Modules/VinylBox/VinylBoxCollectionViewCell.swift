@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VinylBoxCollectionViewCell: UICollectionViewCell {
+final class VinylBoxCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var vinylBoxImageView: UIImageView!
     @IBOutlet weak var songTitleLabel: UILabel!

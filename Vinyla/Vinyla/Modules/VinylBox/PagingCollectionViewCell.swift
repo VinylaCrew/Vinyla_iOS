@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class PagingCollectionViewCell: UICollectionViewCell {
+final class PagingCollectionViewCell: UICollectionViewCell {
     
 
     let cellIdentifier = "pagingCell"
