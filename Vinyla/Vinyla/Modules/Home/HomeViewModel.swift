@@ -11,6 +11,13 @@ import RxSwift
 protocol HomeViewModelProtocol {
     var homeString: String? { get }
     var recentVinylBoxData: [VinylBox]? { get }
+    func fetchRecentVinylData()
+    func getRecentVinylBoxData(indexPathRow: Int) -> Data?
+    func getTotalVinylBoxCount() -> Int
+    func getLevelGague() -> String
+    func getLevelName() -> Observable<String?>
+    func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat
+    func getLevelImageName() -> String
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
