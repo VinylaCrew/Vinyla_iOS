@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Firebase
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var vibrancyImageView: UIImageView!
@@ -36,9 +37,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
     @IBOutlet weak var bottomMiniViewSpace: NSLayoutConstraint!
     @IBOutlet weak var recentCollectionViewHeight: NSLayoutConstraint!
-    var levelGagueWidthConstraint: NSLayoutConstraint?
-    var disposebag = DisposeBag()
-    lazy var homeMiniButtonImageView: UIImageView = {
+    private var levelGagueWidthConstraint: NSLayoutConstraint?
+    private var homeScrollContentViewHeightConstraint: NSLayoutConstraint?
+
+    private var disposebag = DisposeBag()
+    lazy private var homeMiniButtonImageView: UIImageView = {
         let imageName = "area"
         let image = UIImage(named: imageName)
         let homeMiniButtonImageView = UIImageView(image: image!)
@@ -61,7 +64,7 @@ class HomeViewController: UIViewController {
     let storyBoardID = "Home"
     
     private weak var coordiNator: AppCoordinator?
-    private var viewModel: HomeViewModel?
+    private var viewModel: HomeViewModelProtocol?
     
     static func instantiate(viewModel: HomeViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
@@ -100,6 +103,7 @@ class HomeViewController: UIViewController {
         recentVinylCollectionView.register(recentCellNib, forCellWithReuseIdentifier: "recentCell")
         blurCircleView.delegate = self
         blurCircleView.popButton.isHidden = true
+        blurCircleView.setFavoriteImageButton.isHidden = true
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.tapInformationLevelLabel))
         informationLevelLabel.isUserInteractionEnabled = true
@@ -120,8 +124,6 @@ class HomeViewController: UIViewController {
         recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
         recentVinylCollectionView.reloadData()
     }
-
-    private var homeScrollContentViewHeightConstraint: NSLayoutConstraint?
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
