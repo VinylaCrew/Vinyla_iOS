@@ -8,8 +8,13 @@
 import Foundation
 import RxSwift
 
-class HomeViewModel {
-    var homeStirng: String?
+protocol HomeViewModelProtocol {
+    var homeString: String? { get }
+    var recentVinylBoxData: [VinylBox]? { get }
+}
+
+final class HomeViewModel: HomeViewModelProtocol {
+    var homeString: String?
     private(set) var recentVinylBoxData: [VinylBox]?
     init() {
         
