@@ -9,8 +9,11 @@ import Foundation
 import RxSwift
 
 protocol HomeViewModelProtocol {
-    var homeString: String? { get }
+
+    //output
     var recentVinylBoxData: [VinylBox]? { get }
+    var isSyncVinylBox: BehaviorSubject<Bool> { get }
+    //func
     func fetchRecentVinylData()
     func getRecentVinylBoxData(indexPathRow: Int) -> Data?
     func getTotalVinylBoxCount() -> Int
@@ -18,17 +21,91 @@ protocol HomeViewModelProtocol {
     func getLevelName() -> Observable<String?>
     func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat
     func getLevelImageName() -> String
+    func syncServerMyVinylBox()
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
-    var homeString: String?
     private(set) var recentVinylBoxData: [VinylBox]?
-    init() {
-        
+    var isSyncVinylBox: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
+
+    var homeAPIService: VinylAPIServiceProtocol?
+    var disposeBag = DisposeBag()
+    init(homeAPIService: VinylAPIServiceProtocol = MockAPIService()) {
+        self.homeAPIService = homeAPIService
+
+        let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
+
+        if isFirstLogin {
+            _ = homeAPIService.getVinylBoxMyData()
+//                .do(onNext: { [weak self] _ in
+//                        print("vm do 첫 실행")
+//                        self?.isSyncVinylBox.onNext(true)
+//                })
+                .delay(.seconds(3), scheduler: MainScheduler.instance)
+                .subscribe(onNext:{ [weak self] data in
+                    CoreDataManager.shared.clearAllObjectEntity("VinylBox")
+                    print("내부데이터 전체 삭제")
+                    guard let myVinylData = data?.myVinyls else { return }
+                    print("test getvinylboxdata():",myVinylData)
+                    for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
+                        guard let myItem = item else { return }
+                        if let myVinylImageURL = myItem.imageURL {
+                            guard let insideImageURL = URL(string: myVinylImageURL), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
+                                return
+                            }
+                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
+                        }else {
+                            guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
+                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
+                        }
+                    }
+                    UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
+                    self?.isSyncVinylBox.onNext(false)
+                }, onError: { [weak self] error in
+                    self?.isSyncVinylBox.onNext(false)
+                })
+                .disposed(by: disposeBag)
+        }
+
     }
     
     deinit {
         print("deinit HomeViewModel")
+    }
+
+    func syncServerMyVinylBox() {
+//        let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
+//
+//        if isFirstLogin {
+//            _ = homeAPIService?.getVinylBoxMyData()
+//                .do(onNext: { [weak self] _ in
+//                        print("vm do 첫 실행")
+//                        self?.isSyncVinylBox.onNext(true)
+//                })
+//                .delay(.seconds(3), scheduler: MainScheduler.instance)
+//                .subscribe(onNext:{ [weak self] data in
+//                    CoreDataManager.shared.clearAllObjectEntity("VinylBox")
+//                    print("내부데이터 전체 삭제")
+//                    guard let myVinylData = data?.myVinyls else { return }
+//                    print("test getvinylboxdata():",myVinylData)
+//                    for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
+//                        guard let myItem = item else { return }
+//                        if let myVinylImageURL = myItem.imageURL {
+//                            guard let insideImageURL = URL(string: myVinylImageURL), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
+//                                return
+//                            }
+//                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
+//                        }else {
+//                            guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
+//                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
+//                        }
+//                        print("vm for문")
+//                    }
+//                    UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
+//                    self?.isSyncVinylBox.onNext(false)
+//                })
+//                .disposed(by: disposeBag)
+//        }
     }
     
     func fetchRecentVinylData() {
