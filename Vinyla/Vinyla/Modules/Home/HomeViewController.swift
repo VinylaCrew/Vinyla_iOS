@@ -66,7 +66,7 @@ final class HomeViewController: UIViewController {
     private weak var coordiNator: AppCoordinator?
     private var viewModel: HomeViewModelProtocol?
     
-    static func instantiate(viewModel: HomeViewModel, coordiNator: AppCoordinator) -> UIViewController {
+    static func instantiate(viewModel: HomeViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "Home") as? HomeViewController else {
             return UIViewController()
@@ -76,9 +76,11 @@ final class HomeViewController: UIViewController {
         //print("static func return 하기 전") 여기서 weak viewModel deinit
         return viewController
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad()")
+        
         homeScrollView.contentInsetAdjustmentBehavior = .never
 //        print("ijoom", homeScrollView.contentInset)
 //        print("ijoom", homeScrollView.adjustedContentInset)
@@ -112,6 +114,7 @@ final class HomeViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("viewWillAppear()")
         viewModel?.getLevelName().bind(to: informationLevelLabel.rx.text, mainLevelLabel.rx.text)
             .disposed(by: disposebag)
         if let viewModel = self.viewModel {
@@ -123,6 +126,11 @@ final class HomeViewController: UIViewController {
         viewModel?.fetchRecentVinylData()
         recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
         recentVinylCollectionView.reloadData()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear()")
+        setRxIndicator()
     }
 
     override func viewWillLayoutSubviews() {
@@ -162,6 +170,23 @@ final class HomeViewController: UIViewController {
         levelGagueView.leadingAnchor.constraint(equalTo: levelGagueBackGroundView.leadingAnchor).isActive = true
         //        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
 
+    }
+    func setRxIndicator() {
+        if UserDefaults.standard.bool(forKey: "isFirstLogin") {
+            viewModel?.isSyncVinylBox
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] isLoading in
+                    print("isSyncVinylBox",isLoading)
+                    if isLoading {
+                        print("isLoading in VC")
+                        self?.ShowLoadingIndicator()
+                    }else {
+                        print("done Loading in VC")
+                        self?.removeLoadingIndicator()
+                    }
+                })
+                .disposed(by: disposebag)
+        }
     }
     func setHomeButtonMiniImage() {
         self.homeMiniButtonView.addSubview(homeMiniButtonImageView)
