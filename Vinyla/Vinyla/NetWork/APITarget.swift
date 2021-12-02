@@ -9,8 +9,8 @@ import Moya
 
 enum APITarget: TargetType {
     case vinylSearch(urlParameters: String?)
-    case getMovies(urlParameters: String?)
     case getVinylDetail(pathVinylID: Int?)
+    case getVinylBoxMyData
 
     var baseURL: URL {
         return URL(string:"http://13.209.245.76:3000")!
@@ -21,10 +21,10 @@ enum APITarget: TargetType {
         switch self {
         case .vinylSearch:
             return "/vinyls/search"
-        case .getMovies:
-            return "movies"
         case let .getVinylDetail(pathVinylID)://Path Variable
             return "/vinyls/search/" + String(pathVinylID ?? -1)
+        case .getVinylBoxMyData:
+            return "/vinyls/my"
         }
     }
 
@@ -32,9 +32,9 @@ enum APITarget: TargetType {
         switch self {
         case .vinylSearch:
             return .get
-        case .getMovies:
-            return .get
         case .getVinylDetail:
+            return .get
+        case .getVinylBoxMyData:
             return .get
         }
     }
@@ -46,6 +46,8 @@ enum APITarget: TargetType {
             return responseJSON("SearchMockData")
         case .getVinylDetail(_):
             return responseJSON("VinylDetailMockData")
+        case .getVinylBoxMyData:
+            return responseJSON("VinylBoxMockData")
         default:
             return .init()
         }
@@ -59,23 +61,16 @@ enum APITarget: TargetType {
             }
             print("Vinyl Name Error")
             return .requestParameters(parameters: ["q" : "error"], encoding: URLEncoding.default)
-        case let .getMovies(urlParameters):
-            if let order = urlParameters {
-                if order == "1" || order == "2" || order == "0" {
-                    return .requestParameters(parameters: ["order_type" : Int(order)!], encoding: URLEncoding.default)
-                }else {
-                    return .requestParameters(parameters: ["order_type" : 0], encoding: URLEncoding.default)
-                }
-            }
-            return .requestPlain
         case .getVinylDetail(_):
+            return .requestPlain
+        case .getVinylBoxMyData:
             return .requestPlain
         }
     }
 
     var headers: [String : String]? {
         switch self {
-        case .vinylSearch(_), .getVinylDetail(_):
+        case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData:
             return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2MzgwMTYyMjIsImV4cCI6MTYzODAzNDIyMiwiaXNzIjoiaGFlbHkifQ.hCDMxQQrJNuW04lXET57EvagzdndZ1PDWDX37fAOVD8"]
         default: return ["Content-Type" : "application/json"]
         }
