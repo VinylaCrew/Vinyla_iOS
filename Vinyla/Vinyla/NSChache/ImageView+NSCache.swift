@@ -29,11 +29,11 @@ extension UIImageView {
         }
     }
 
-    func setImageURLAndChaching(_ imageURL: String) {
+    func setImageURLAndChaching(_ imageURL: String?) {
 
-        var myURLSessionTask: URLSessionTask?
+        guard let imageURL = imageURL else { return }
 
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.global(qos: .userInitiated).async {
 
             /// cache할 객체의 key값을 string으로 생성
             let cachedKey = NSString(string: imageURL)
