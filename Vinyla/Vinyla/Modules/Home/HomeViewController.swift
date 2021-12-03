@@ -115,17 +115,7 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("viewWillAppear()")
-        viewModel?.getLevelName().bind(to: informationLevelLabel.rx.text, mainLevelLabel.rx.text)
-            .disposed(by: disposebag)
-        if let viewModel = self.viewModel {
-            levelGagueWidthConstraint?.constant = viewModel.getLevelGagueWidth(screenSize: UIScreen.main.bounds.size.width)
-            vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())"
-            vinylLevelGagueLabel.text = viewModel.getLevelGague()
-            levelIconImageView.image = UIImage(named: viewModel.getLevelImageName())
-        }
-        viewModel?.fetchRecentVinylData()
-        recentCollectionViewHeight.constant = floor((UIScreen.main.bounds.size.width - 66)/4)
-        recentVinylCollectionView.reloadData()
+        updateUIHomeVinylData()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -182,6 +172,8 @@ final class HomeViewController: UIViewController {
                         self?.ShowLoadingIndicator()
                     }else {
                         print("done Loading in VC")
+                        //서버에서 다운로드된 DATA로 UI Update
+                        self?.updateUIHomeVinylData()
                         self?.removeLoadingIndicator()
                     }
                 })
@@ -218,6 +210,19 @@ final class HomeViewController: UIViewController {
         } else {
             //iPhone XS Under OK
         }
+    }
+    func updateUIHomeVinylData() {
+        if let viewModel = self.viewModel {
+            viewModel.fetchRecentVinylData()
+            viewModel.getLevelName()
+                .bind(to: informationLevelLabel.rx.text, mainLevelLabel.rx.text)
+                .disposed(by: disposebag)
+            self.levelGagueWidthConstraint?.constant = viewModel.getLevelGagueWidth(screenSize: UIScreen.main.bounds.size.width)
+            self.vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())"
+            self.vinylLevelGagueLabel.text = viewModel.getLevelGague()
+            self.levelIconImageView.image = UIImage(named: viewModel.getLevelImageName())
+        }
+        self.recentVinylCollectionView.reloadData()
     }
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
         //        coordiNator?.moveToAddInformationView()
