@@ -72,41 +72,6 @@ final class HomeViewModel: HomeViewModelProtocol {
     deinit {
         print("deinit HomeViewModel")
     }
-
-    func syncServerMyVinylBox() {
-//        let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
-//
-//        if isFirstLogin {
-//            _ = homeAPIService?.getVinylBoxMyData()
-//                .do(onNext: { [weak self] _ in
-//                        print("vm do 첫 실행")
-//                        self?.isSyncVinylBox.onNext(true)
-//                })
-//                .delay(.seconds(3), scheduler: MainScheduler.instance)
-//                .subscribe(onNext:{ [weak self] data in
-//                    CoreDataManager.shared.clearAllObjectEntity("VinylBox")
-//                    print("내부데이터 전체 삭제")
-//                    guard let myVinylData = data?.myVinyls else { return }
-//                    print("test getvinylboxdata():",myVinylData)
-//                    for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
-//                        guard let myItem = item else { return }
-//                        if let myVinylImageURL = myItem.imageURL {
-//                            guard let insideImageURL = URL(string: myVinylImageURL), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
-//                                return
-//                            }
-//                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
-//                        }else {
-//                            guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
-//                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
-//                        }
-//                        print("vm for문")
-//                    }
-//                    UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
-//                    self?.isSyncVinylBox.onNext(false)
-//                })
-//                .disposed(by: disposeBag)
-//        }
-    }
     
     func fetchRecentVinylData() {
         self.recentVinylBoxData = CoreDataManager.shared.fetchRecentVinylBox()
