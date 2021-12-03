@@ -21,7 +21,6 @@ protocol HomeViewModelProtocol {
     func getLevelName() -> Observable<String?>
     func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat
     func getLevelImageName() -> String
-    func syncServerMyVinylBox()
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
@@ -72,6 +71,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     deinit {
         print("deinit HomeViewModel")
     }
+
     
     func fetchRecentVinylData() {
         self.recentVinylBoxData = CoreDataManager.shared.fetchRecentVinylBox()
