@@ -41,32 +41,20 @@ final class SearchViewModel: SearchViewModelType {
             .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
                 print("vinylName vimodel test:",vinyl)
                 return self.searchAPIService.searchVinyl(vinylName: vinyl)
-//                return testAPIService.searchVinyl(vinylName: vinyl)
+                //return testAPIService.searchVinyl(vinylName: vinyl)
             }
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
             .bind(to: vinylsData)
             .disposed(by: disposeBag)
 
-        _ = vinylName
-            .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
-                print("viewmodel count test:",vinyl)
-                return self.searchAPIService.searchVinyl(vinylName: vinyl)
-            }
-            .map{
-                return String($0.count)
-            }
+        _ = vinylsData
+            .map({ String($0.count) })
             .bind(to: vinylsCount)
             .disposed(by: disposeBag)
 
-
-//        _ = orderNumber
-//            .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
-//            .flatMapLatest{ order -> Observable<[MovieModel.Data?]> in
-//                print("flatmap order:", order)
-//                return self.searchAPIService.getMovies(order: order)
-//            }
-//            .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
-//            .bind(to: moviesData)
+    }
+    deinit {
+        print("search viewmodel deinit")
     }
     func printCellIndexPath(cell: SearchTableViewCell) {
         print(cell)
