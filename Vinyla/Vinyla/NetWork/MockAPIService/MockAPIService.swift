@@ -12,7 +12,6 @@ import Foundation
 
 final class MockAPIService: VinylAPIServiceProtocol {
 
-    
     static let customEndpointClosure = { (target: APITarget) -> Endpoint in
         return Endpoint(url: URL(target: target).absoluteString,
                         sampleResponseClosure: { .networkResponse(200, target.sampleData) },
@@ -49,31 +48,6 @@ final class MockAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getMovies(order: String) -> Observable<[MovieModel.Data?]> {
-
-        return Observable.create() { [weak self] emitter in
-            self?.provider.request(.getMovies(urlParameters: order)) { result in
-                switch result {
-                case .success(let response):
-                    do {
-                        let decodedData = try JSONDecoder().decode(MovieModel.self, from: response.data)
-//                        print("APIService response.data", decodedData, response.data) // 통신성공 데이터 타입만 맞춰주면됨 [MovieModel] 아님
-                        print("APIService2", decodedData.movies)
-                        emitter.onNext(decodedData.movies)
-                        emitter.onCompleted()
-                    } catch {
-                        print("decode error")
-                        print(error.localizedDescription)
-                    }
-
-                case .failure(let error):
-                    emitter.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
-    }
-
     func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
 
         return Observable.create() { [weak self] emitter in
@@ -93,6 +67,28 @@ final class MockAPIService: VinylAPIServiceProtocol {
                 }
 
             }
+            return Disposables.create()
+        }
+    }
+
+    func getVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?> {
+        return Observable.create() { [weak self] emiiter in
+            self?.provider.request(.getVinylBoxMyData){ result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedData = try JSONDecoder().decode(MyVinylBoxModel.self, from: response.data)
+                        emiiter.onNext(decodedData.data)
+                        emiiter.onCompleted()
+                    } catch {
+                        print("decode error")
+                        print(error.localizedDescription)
+                    }
+                case .failure(let error):
+                    emiiter.onError(error)
+                }
+            }
+
             return Disposables.create()
         }
     }
