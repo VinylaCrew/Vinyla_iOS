@@ -34,6 +34,7 @@ final class LogInViewController: UIViewController {
         super.viewDidLoad()
 
         setUI()
+        UserDefaults.standard.setValue(true, forKey: "isFirstLogin")
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -52,8 +53,9 @@ final class LogInViewController: UIViewController {
     @IBAction func touchUPGoogleButton(_ sender: UIButton) {
         self.coordiNator?.moveToSignUPView()
 //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+//        print("clientID",clientID)
 //        let signInConfig = GIDConfiguration.init(clientID: clientID)
-//
+//        print("signInConfig",signInConfig)
 //        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
 //            guard error == nil else { return }
 //
