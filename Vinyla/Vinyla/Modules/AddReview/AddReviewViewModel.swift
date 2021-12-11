@@ -8,5 +8,8 @@
 import Foundation
 
 final class AddReviewViewModel {
-    var songTitle: String?
+    var model: AddReviewModel
+    init() {
+        self.model = AddReviewModel()
+    }
 }
