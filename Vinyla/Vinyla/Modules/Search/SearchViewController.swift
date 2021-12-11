@@ -14,6 +14,7 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var vinylCountLabel: UILabel!
+    @IBOutlet weak var searchButton: UIButton!
 
     var disposeBag = DisposeBag()
     
@@ -90,11 +91,12 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
         guard let viewModel = self.viewModel else {
             return
         }
+        
         vinylSearchBar.rx.text
             .orEmpty
             .distinctUntilChanged() // 중복 데이터 스트림 반복 X
-            .debounce(.seconds(1), scheduler: MainScheduler.instance)
-            .skip(1)
+            .debounce(.milliseconds(550), scheduler: MainScheduler.instance)
+//            .skip(1)
             .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
