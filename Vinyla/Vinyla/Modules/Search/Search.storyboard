@@ -79,6 +79,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="searchButton" destination="Dhg-Lr-ZN2" id="v6q-Hk-Dkz"/>
                         <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
                         <outlet property="vinylCountLabel" destination="PhD-Ui-1vJ" id="QyF-NO-zjZ"/>
                         <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="avT-3d-Gmo"/>
