@@ -14,17 +14,24 @@ class CoreDataManager {
     private init() { }
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let newbackgroundContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+        newbackgroundContext.automaticallyMergesChangesFromParent = true
+        return newbackgroundContext
+    }()
     
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
-        let vinylBoxInstance = VinylBox(context: context)
-        vinylBoxInstance.signer = singer
-        vinylBoxInstance.songTitle = songTitle
-        vinylBoxInstance.vinylImage = vinylImage
-        do {
-            try context.save()
-//            print("Vinyl Box is saved")
-        } catch {
-            print(error.localizedDescription)
+        backgroundContext.performAndWait { [weak self] in
+            do {
+                let vinylBoxInstance = VinylBox(context: backgroundContext)
+                vinylBoxInstance.signer = singer
+                vinylBoxInstance.songTitle = songTitle
+                vinylBoxInstance.vinylImage = vinylImage
+                try self?.backgroundContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -42,9 +49,9 @@ class CoreDataManager {
     }
     func fetchVinylBox() -> [VinylBox] {
         var fetchVinylBox = [VinylBox]()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
-        
+
         do {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
             fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
         } catch {
             print("Error while fetching the image")
@@ -114,32 +121,42 @@ class CoreDataManager {
     func deleteSpecificVinylBox(songTitle: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
         fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
+        backgroundContext.performAndWait { [weak self] in
+            do {
+                let results = try self?.backgroundContext.fetch(fetchRequest) as! [NSManagedObject]
+                // Delete _all_ objects:
+                for object in results {
+                    self?.backgroundContext.delete(object)
+                }
 
-        do {
-            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
-            // Delete _all_ objects:
-            for object in results {
-                context.delete(object)
+                try self?.backgroundContext.save() // data 추가 삭제후 필수로
+
+            } catch {
+                print("Error while delete func")
+                print(error.localizedDescription)
             }
-            
-            try context.save() // data 추가 삭제후 필수로
-
-        } catch {
-            print("Error while delete func")
-            print(error.localizedDescription)
         }
     }
     func clearAllObjectEntity(_ entity: String) {
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-        
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            print("clearallobject error")
-            print(error.localizedDescription)
+
+        backgroundContext.performAndWait { [weak self] in
+            do {
+                try self?.backgroundContext.execute(deleteRequest)
+                try self?.backgroundContext.save()
+            } catch {
+                print("clearallobject error")
+                print(error.localizedDescription)
+            }
         }
+//        do {
+//            try context.execute(deleteRequest)
+//            try context.save()
+//        } catch {
+//            print("clearallobject error")
+//            print(error.localizedDescription)
+//        }
     }
     
     func printData() {
