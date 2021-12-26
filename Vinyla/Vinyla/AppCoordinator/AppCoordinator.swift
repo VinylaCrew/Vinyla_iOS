@@ -21,14 +21,14 @@ final class AppCoordinator {
 //        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
         self.isLogIn = false
 
-        if let currentUser = Auth.auth().currentUser {
-            print("coordinator",currentUser)
-            self.isLogIn = true
-            guard let userID = Auth.auth().currentUser?.uid else { return }
-            print("coordinator userID:",currentUser.uid)
-        }else {
-            self.isLogIn = false
-        }
+//        if let currentUser = Auth.auth().currentUser {
+//            print("coordinator",currentUser)
+//            self.isLogIn = true
+//            guard let userID = Auth.auth().currentUser?.uid else { return }
+//            print("coordinator userID:",currentUser.uid)
+//        }else {
+//            self.isLogIn = false
+//        }
     }
     
     func start() {
@@ -46,7 +46,6 @@ final class AppCoordinator {
             navigationController.interactivePopGestureRecognizer?.delegate = nil
             window.rootViewController = navigationController
         }
-        
         window.makeKeyAndVisible()
     }
     
@@ -71,9 +70,9 @@ final class AppCoordinator {
 //        navigationSearchView.modalPresentationStyle = .fullScreen
 //        windowRootViewController.present(navigationSearchView, animated: true, completion: nil)
     }
-    func moveToAddInformationView(vinylDataModel: String?, vinylImageURL: String?) {
+    func moveToAddInformationView(vinylID: Int?, vinylImageURL: String?) {
         let addInformationViewModel = AddInformationViewModel()
-        addInformationViewModel.model.vinylTitleSong = vinylDataModel
+        addInformationViewModel.model.vinylID = vinylID
         addInformationViewModel.model.vinylImageURL = vinylImageURL
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
@@ -93,16 +92,34 @@ final class AppCoordinator {
     }
     func moveToDeleteInformationView(songTitle: String?) {
         let deleteInformationViewModel = DeleteInformationViewModel()
+        print("1 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
         deleteInformationViewModel.songTitle = songTitle
         print("coordinator delete", deleteInformationViewModel.songTitle)
         let deleteInformationView = DeleteInformationViewController.instantiate(viewModel: deleteInformationViewModel, coordinator: self)
+        print("2 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(deleteInformationView, animated: true)
+        print("3 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
     }
     func moveToLevelDesignView() {
         let levelDesignView = LevelDesignViewController.instantiate(viewModel: LevelDesignViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(levelDesignView, animated: true)
+    }
+    func popToVinylBoxView() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        var viewStackVinylBoxView: UIViewController?
+        for viewStack in windowRootViewController.viewControllers {
+            if viewStack is VinylBoxViewController {
+                viewStackVinylBoxView = viewStack
+                break
+            }
+        }
+        if let moveVinylBoxView = viewStackVinylBoxView {
+            windowRootViewController.popToViewController(moveVinylBoxView, animated: false)
+        }else {
+            moveToVinylBoxView()
+        }
     }
     func popViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
