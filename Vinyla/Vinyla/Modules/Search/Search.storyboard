@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Search View Controller-->
         <scene sceneID="KPS-yz-oCf">
@@ -55,6 +60,7 @@
                                     <constraint firstAttribute="height" constant="22" id="JUE-2A-3QU"/>
                                     <constraint firstAttribute="width" constant="28" id="eMO-ph-KN6"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
                                 <state key="normal" title="검색">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
