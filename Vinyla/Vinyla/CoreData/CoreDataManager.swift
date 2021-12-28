@@ -128,19 +128,15 @@ class CoreDataManager {
         }
     }
     func deleteSpecificVinylBox(songTitle: String) {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
-        fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
-        backgroundContext.perform { [weak self] in
+
+        backgroundContext.performAndWait { [weak self] in
             do {
+                let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
+                fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
                 let results = try self?.backgroundContext.fetch(fetchRequest) as! [NSManagedObject]
                 // Delete _all_ objects:
                 for object in results {
                     self?.backgroundContext.delete(object)
-                }
-                if Thread.isMainThread {
-                    print("delete: MainThread")
-                }else {
-                    print("delete: BackgroundThread")
                 }
                 try self?.backgroundContext.save() // data 추가 삭제후 필수로
 
@@ -154,8 +150,13 @@ class CoreDataManager {
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
 
-        backgroundContext.performAndWait { [weak self] in
+        backgroundContext.perform { [weak self] in
             do {
+                if Thread.isMainThread {
+                    print("clearAllObjectEntity: MainThread")
+                }else {
+                    print("clearAllObjectEntity: BackgroundThread")
+                }
                 try self?.backgroundContext.execute(deleteRequest)
                 try self?.backgroundContext.save()
             } catch {
