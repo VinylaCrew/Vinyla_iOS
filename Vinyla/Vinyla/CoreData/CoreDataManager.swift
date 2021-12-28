@@ -22,12 +22,21 @@ class CoreDataManager {
     }()
     
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
-        backgroundContext.performAndWait { [weak self] in
+
+        backgroundContext.perform { [weak self] in
             do {
-                let vinylBoxInstance = VinylBox(context: backgroundContext)
+                guard let myBackgroundContext = self?.backgroundContext else {
+                    return
+                }
+                let vinylBoxInstance = VinylBox(context: myBackgroundContext)
                 vinylBoxInstance.signer = singer
                 vinylBoxInstance.songTitle = songTitle
                 vinylBoxInstance.vinylImage = vinylImage
+                if Thread.isMainThread {
+                    print("Save: MainThread")
+                }else {
+                    print("Save: BackgroundThread")
+                }
                 try self?.backgroundContext.save()
             } catch {
                 print(error.localizedDescription)
@@ -121,18 +130,22 @@ class CoreDataManager {
     func deleteSpecificVinylBox(songTitle: String) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
         fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
-        backgroundContext.performAndWait { [weak self] in
+        backgroundContext.perform { [weak self] in
             do {
                 let results = try self?.backgroundContext.fetch(fetchRequest) as! [NSManagedObject]
                 // Delete _all_ objects:
                 for object in results {
                     self?.backgroundContext.delete(object)
                 }
-
+                if Thread.isMainThread {
+                    print("delete: MainThread")
+                }else {
+                    print("delete: BackgroundThread")
+                }
                 try self?.backgroundContext.save() // data 추가 삭제후 필수로
 
             } catch {
-                print("Error while delete func")
+                print("Error delete specific func")
                 print(error.localizedDescription)
             }
         }
