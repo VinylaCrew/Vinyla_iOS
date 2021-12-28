@@ -172,7 +172,7 @@ class AddReviewViewController: UIViewController {
             return
         }
         CoreDataManager.shared.saveVinylBox(songTitle: (viewModel?.model.songTitle)!, singer: "IU", vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
-        coordiNator?.moveToVinylBoxView()
+        coordiNator?.popToVinylBoxView()
     }
 }
 
