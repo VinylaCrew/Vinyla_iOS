@@ -23,10 +23,9 @@ final class VinylBoxViewController: UIViewController {
 
     //VinylBox Model
     private var vinylBoxes = [VinylBox]()
-    private var reverseVinylBoxes = [VinylBox]()
     var totalPageNumber: Int?
 
-    let disposbag = DisposeBag()
+    let disposebag = DisposeBag()
     static func instantiate(viewModel: VinylBoxViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "VinylBox", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "VinylBox") as? VinylBoxViewController else {
@@ -39,7 +38,6 @@ final class VinylBoxViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUI()
         vinylBoxPagingCollectionView.dataSource = self
         vinylBoxPagingCollectionView.delegate = self
@@ -48,31 +46,52 @@ final class VinylBoxViewController: UIViewController {
 
         self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.coordiNator?.moveToSearchView()
-        }).disposed(by: disposbag)
+        }).disposed(by: disposebag)
 
         self.nextBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.scrollToNextCell()
-        }).disposed(by: disposbag)
+        }).disposed(by: disposebag)
 
 //                        for i in 1...20 {
 //                            CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
 //                        }
+        viewModel?.isDeletedVinylData
+            .subscribe(onNext: { [weak self] isTrue in
+                if isTrue {
+                    DispatchQueue.main.async { [weak self] in
+                        print("updateUIBox")
+                        if let viewModel = self?.viewModel {
+                            self?.vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
+                        }
+                        self?.viewModel?.updateVinylBoxesAndReversBoxes()
+                        self?.vinylBoxPagingCollectionView.reloadData()
+                    }
+                    print("isTrue",isTrue)
+                    if Thread.isMainThread {
+                        print("isTrue MainThread")
+                    }else {
+                        print("isTrue backThread")
+                    }
+                }else {
+                    print("isTrue",isTrue)
+                    if Thread.isMainThread {
+                        print("isTruefalse: MainThread")
+                    }else {
+                        print("isTruefalse: backThread")
+                    }
+                }
+            })
+            .disposed(by: disposebag)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        vinylBoxes = CoreDataManager.shared.fetchVinylBox()
-//        if vinylBoxes.count%9 == 0 {
-//            totalPageNumber = vinylBoxes.count/9
-//        }else {
-//            totalPageNumber = vinylBoxes.count/9+1
-//        }
         if let viewModel = self.viewModel {
             vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
         }
-//        reverseVinylBoxes = vinylBoxes.reversed()
         //ViewModel 로직으로 변경작업중 함수 코드
+        print("box viewWillAppear")
         viewModel?.updateVinylBoxesAndReversBoxes()
 
         vinylBoxPagingCollectionView.reloadData()
@@ -163,14 +182,14 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
 //        }.map { (index: Int, element: VinylBox) -> VinylBox in
 //            return element
 //        }
-        guard let testOdds = viewModel?.getPagingVinylBoxItems(indexPath: indexPath) else {
+        guard let pagingVinylItems = viewModel?.getPagingVinylBoxItems(indexPath: indexPath) else {
             print("PagingVinlyBoxItemsError")
             return UICollectionViewCell()
         }
 //        print("test odds 정렬된 9개씩 데이터", testOdds)
         //셀 내부 컬렉션뷰가 셀 재사용으로 인해 indexpath.item 안맞는 문제발생
 //        cell.nineVinylItems = odds
-        cell.nineVinylItems = testOdds
+        cell.nineVinylItems = pagingVinylItems
         cell.coordinator = self.coordiNator
 //        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
         return cell
