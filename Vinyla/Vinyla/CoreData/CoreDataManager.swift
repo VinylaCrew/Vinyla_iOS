@@ -7,22 +7,45 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 final class CoreDataManager {
     static let shared = CoreDataManager()
     
     private init() { }
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    private lazy var context = appDelegate?.persistentContainer.viewContext
+    private(set) var isSpecificVinylDelete: BehaviorSubject<Bool> = BehaviorSubject(value: false)
 
     lazy var backgroundContext: NSManagedObjectContext = {
-        let newbackgroundContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+//        let newbackgroundContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+        guard let myAppDelegate = appDelegate else {
+            return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+        }
+        let newbackgroundContext = myAppDelegate.persistentContainer.newBackgroundContext()
         newbackgroundContext.automaticallyMergesChangesFromParent = true
         return newbackgroundContext
     }()
     
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
 
+//        (UIApplication.shared.delegate as! AppDelegate).persistentContainer.performBackgroundTask{ [weak self] _ in
+//            do {//Background 실행됨
+//                let vinylBoxInstance = VinylBox(context: (self?.backgroundContext)!)
+//                vinylBoxInstance.signer = singer
+//                vinylBoxInstance.songTitle = songTitle
+//                vinylBoxInstance.vinylImage = vinylImage
+//                if Thread.isMainThread {
+//                    print("Save: MainThread")
+//                }else {
+//                    print("Save: BackgroundThread")
+//                }
+//                try self?.backgroundContext.save()
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
         backgroundContext.perform { [weak self] in
             do {
                 guard let myBackgroundContext = self?.backgroundContext else {
@@ -45,12 +68,13 @@ final class CoreDataManager {
     }
     
     func saveImage(data: Data) {
-        
-        let imageInstance = MyImage(context: context)
-        imageInstance.favoriteImage = data
-        imageInstance.imageID = "name1"
+
         do {
-            try context.save()
+            let imageInstance = MyImage(context: context ?? backgroundContext)
+            imageInstance.favoriteImage = data
+            imageInstance.imageID = "name1"
+
+            try context?.save()
             print("MyImage is saved")
         } catch {
             print(error.localizedDescription)
@@ -61,7 +85,12 @@ final class CoreDataManager {
 
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
-            fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
+            fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
+            if Thread.isMainThread {
+                print("fetchVinylBox: MainThread")
+            }else {
+                print("fetchVinylBox: BackGroundThread")
+            }
         } catch {
             print("Error while fetching the image")
         }
@@ -73,7 +102,7 @@ final class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
 
         do {
-            fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
+            fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
         } catch {
             print("Error while fetching the image")
         }
@@ -93,7 +122,7 @@ final class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MyImage")
         
         do {
-            fetchingImage = try context.fetch(fetchRequest) as! [MyImage]
+            fetchingImage = try context?.fetch(fetchRequest) as! [MyImage]
         } catch {
             print("Error while fetching the image")
         }
@@ -106,10 +135,10 @@ final class CoreDataManager {
         fetchRequest.predicate = NSPredicate(format: "imageID = %@", imageID)
         
         do {
-            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
+            let results = try context?.fetch(fetchRequest) as! [NSManagedObject]
             // Delete _all_ objects:
             for object in results {
-                context.delete(object)
+                context?.delete(object)
             }
             
             print("CoreData object 수:\(results.count)")
@@ -120,7 +149,7 @@ final class CoreDataManager {
             for object in results {
                 print("oject \(object)")
             }
-            try context.save() // data 추가 삭제후 필수로
+            try context?.save() // data 추가 삭제후 필수로
             
         } catch {
             print("Error while delete func")
@@ -129,7 +158,9 @@ final class CoreDataManager {
     }
     func deleteSpecificVinylBox(songTitle: String) {
 
-        backgroundContext.performAndWait { [weak self] in
+        isSpecificVinylDelete.onNext(false)
+
+        backgroundContext.perform { [weak self] in
             do {
                 let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
                 fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
@@ -139,6 +170,13 @@ final class CoreDataManager {
                     self?.backgroundContext.delete(object)
                 }
                 try self?.backgroundContext.save() // data 추가 삭제후 필수로
+
+                if Thread.isMainThread {
+                    print("deleteSpecificVinylBox: MainThread")
+                }else {
+                    print("deleteSpecificVinylBox: BackGroundThread")
+                }
+                self?.isSpecificVinylDelete.onNext(true)
 
             } catch {
                 print("Error delete specific func")
@@ -174,7 +212,7 @@ final class CoreDataManager {
     }
     
     func printData() {
-        do { let myImage = try context.fetch(MyImage.fetchRequest()) as! [MyImage]
+        do { let myImage = try context?.fetch(MyImage.fetchRequest()) as! [MyImage]
             print("Data 출력")
             myImage.forEach { print($0.favoriteImage)
                 print($0.imageID)
@@ -184,7 +222,7 @@ final class CoreDataManager {
     }
     
     func printVinylBoxData() {
-        do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
+        do { let vinylBox = try context?.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             print("Data 출력")
             vinylBox.forEach { print($0.vinylImage)
                 print($0.songTitle)
@@ -195,7 +233,7 @@ final class CoreDataManager {
     }
     
     func getCountVinylBoxData() -> Int? {
-        do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
+        do { let vinylBox = try context?.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             return vinylBox.count
         }
         catch { print(error.localizedDescription)
