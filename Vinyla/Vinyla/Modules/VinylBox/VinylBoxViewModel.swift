@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 final class VinylBoxViewModel {
 
@@ -13,6 +14,14 @@ final class VinylBoxViewModel {
     var reverseVinylBoxes = [VinylBox]()
 
     var totalPageNumber: Int?
+    private(set) var isDeletedVinylData = PublishSubject<Bool>()
+    private var disposeBag = DisposeBag()
+
+    init() {
+        CoreDataManager.shared.isDeletedSpecificVinyl
+            .bind(to: isDeletedVinylData)
+            .disposed(by: disposeBag)
+    }
 
     func updateVinylBoxesAndReversBoxes() {
         vinylBoxes = CoreDataManager.shared.fetchVinylBox()
