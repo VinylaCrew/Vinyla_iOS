@@ -15,9 +15,10 @@ final class CoreDataManager {
     private init() { }
 
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    //MARK: - UI Update and Data Fetch Main Thread
     private lazy var context = appDelegate?.persistentContainer.viewContext
     private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
-
+    //MARK: - Data Save and Delete Unique Background Thread
     private lazy var backgroundContext: NSManagedObjectContext = {
         guard let myAppDelegate = appDelegate else {
             return NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -29,22 +30,6 @@ final class CoreDataManager {
     
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
 
-//        (UIApplication.shared.delegate as! AppDelegate).persistentContainer.performBackgroundTask{ [weak self] _ in
-//            do {//Background 실행됨
-//                let vinylBoxInstance = VinylBox(context: (self?.backgroundContext)!)
-//                vinylBoxInstance.signer = singer
-//                vinylBoxInstance.songTitle = songTitle
-//                vinylBoxInstance.vinylImage = vinylImage
-//                if Thread.isMainThread {
-//                    print("Save: MainThread")
-//                }else {
-//                    print("Save: BackgroundThread")
-//                }
-//                try self?.backgroundContext.save()
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
         backgroundContext.perform { [weak self] in
             do {
                 guard let myBackgroundContext = self?.backgroundContext else {
