@@ -17,7 +17,6 @@ final class CoreDataManager {
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     //MARK: - UI Update and Data Fetch Main Thread
     private lazy var context = appDelegate?.persistentContainer.viewContext
-    private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     //MARK: - Data Save and Delete Unique Background Thread
     private lazy var backgroundContext: NSManagedObjectContext = {
         guard let myAppDelegate = appDelegate else {
@@ -27,6 +26,7 @@ final class CoreDataManager {
         newbackgroundContext.automaticallyMergesChangesFromParent = true
         return newbackgroundContext
     }()
+    private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
 
