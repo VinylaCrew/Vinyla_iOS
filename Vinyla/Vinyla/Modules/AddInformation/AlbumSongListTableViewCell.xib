@@ -19,6 +19,10 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peaches (feat blabla)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8W-yp-rTC">
                         <rect key="frame" x="15" y="2.5" width="345" height="19"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19" id="CMz-YU-dlw"/>
+                            <constraint firstAttribute="width" constant="345" id="ogl-hb-GjY"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
