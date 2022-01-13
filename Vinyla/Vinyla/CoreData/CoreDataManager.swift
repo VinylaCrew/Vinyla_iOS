@@ -16,12 +16,11 @@ final class CoreDataManager {
 
     private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     private lazy var context = appDelegate?.persistentContainer.viewContext
-    private(set) var isSpecificVinylDelete: BehaviorSubject<Bool> = BehaviorSubject(value: false)
+    private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
 
-    lazy var backgroundContext: NSManagedObjectContext = {
-//        let newbackgroundContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+    private lazy var backgroundContext: NSManagedObjectContext = {
         guard let myAppDelegate = appDelegate else {
-            return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.newBackgroundContext()
+            return NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         }
         let newbackgroundContext = myAppDelegate.persistentContainer.newBackgroundContext()
         newbackgroundContext.automaticallyMergesChangesFromParent = true
@@ -158,7 +157,7 @@ final class CoreDataManager {
     }
     func deleteSpecificVinylBox(songTitle: String) {
 
-        isSpecificVinylDelete.onNext(false)
+        isDeletedSpecificVinyl.onNext(false)
 
         backgroundContext.perform { [weak self] in
             do {
@@ -176,7 +175,7 @@ final class CoreDataManager {
                 }else {
                     print("deleteSpecificVinylBox: BackGroundThread")
                 }
-                self?.isSpecificVinylDelete.onNext(true)
+                self?.isDeletedSpecificVinyl.onNext(true)
 
             } catch {
                 print("Error delete specific func")
@@ -224,7 +223,7 @@ final class CoreDataManager {
     func printVinylBoxData() {
         do { let vinylBox = try context?.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             print("Data 출력")
-            vinylBox.forEach { print($0.vinylImage)
+            vinylBox.forEach { //print($0.vinylImage)
                 print($0.songTitle)
                 print($0.signer)
             } }
