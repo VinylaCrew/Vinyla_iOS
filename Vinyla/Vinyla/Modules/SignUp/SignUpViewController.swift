@@ -11,7 +11,7 @@ import RxSwift
 
 final class SignUpViewController: UIViewController {
     
-    let storyBoardID = "SignUp"
+    static let storyBoardID = "SignUp"
     
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var nickNameTextField: UITextField!
@@ -43,7 +43,7 @@ final class SignUpViewController: UIViewController {
     
     static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "SignUp", bundle: nil)
-        guard let viewController = storyBoard.instantiateViewController(identifier: "SignUp") as? SignUpViewController else {
+        guard let viewController = storyBoard.instantiateViewController(identifier: self.storyBoardID) as? SignUpViewController else {
             return UIViewController()
         }
         viewController.viewModel = viewModel
@@ -60,36 +60,65 @@ final class SignUpViewController: UIViewController {
         setTapButtonsIsSelected()
         nickNameLabel.addSubview(pointCircleView)
         logInButton.isEnabled = false
-//        nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+
         guard let viewModel = self.viewModel else { return }
-        
+
+        //Nickname TextField Bind
         nickNameTextField.rx.text
             .orEmpty
             .distinctUntilChanged()
             .skip(1)
             .debounce(.milliseconds(600), scheduler: MainScheduler.instance)
-            .bind(to: viewModel.nickNameText)
+            .bind(to: viewModel.nicknameText)
             .disposed(by: disposeBag)
 
+        //이 부분으로 NickName 안내문구 작동
+        //MARK: Refactoring
         viewModel.validNickNameNumberSubject
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [unowned self] number in
-                print("viewmodel publish subject number",number)
-                self.touchUpNickNameCheckButton()
+            .subscribe(onNext: { [unowned self] isValidNickNameNumber in
+                print("viewmodel publish subject number",isValidNickNameNumber)
+                if isValidNickNameNumber == 1 {
+                    nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+                    let attributedString = NSMutableAttributedString(string: "")
+                    let imageAttachment = NSTextAttachment()
+                    imageAttachment.image = UIImage(named: "icnLoginComplete")
+                    imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
+                    attributedString.append(NSAttributedString(attachment: imageAttachment))
+                    attributedString.append(NSAttributedString(string: " 사용 가능한 닉네임 입니다."))
+                    nickNameStateLabel.attributedText = attributedString
+                    nickNameStateLabel.sizeToFit()
+                    nickNameStateLabel.textColor = UIColor.vinylaMainOrangeColor()
+                    isCheckLogInButtonLogic()
+
+                } else if isValidNickNameNumber == 2 || isValidNickNameNumber == 3 || isValidNickNameNumber == 4{
+                    var nickNameText: String = ""
+                    if isValidNickNameNumber == 2 {
+                        nickNameText = " 닉네임 길이가 짧습니다."
+                    }else if isValidNickNameNumber == 3 {
+                        nickNameText = " 올바르지 않은 형식입니다."
+                    }else if isValidNickNameNumber == 4 {
+                        nickNameText = " 사용 중인 닉네임 입니다."
+                    }
+                    let attributedString = NSMutableAttributedString(string: "")
+                    let imageAttachment = NSTextAttachment()
+                    imageAttachment.image = UIImage(named: "icnLoginFail")
+                    imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
+                    attributedString.append(NSAttributedString(attachment: imageAttachment))
+                    attributedString.append(NSAttributedString(string: nickNameText))
+                    nickNameStateLabel.attributedText = attributedString
+                    nickNameStateLabel.sizeToFit()
+                    nickNameStateLabel.textColor = UIColor.vinylaPurple()
+                    nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
+                    logInButton.backgroundColor = UIColor.buttonDisabledColor()
+                    logInButton.isEnabled = false
+                    logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
+                }
             })
             .disposed(by: disposeBag)
 
-//        print("retain count",CFGetRetainCount(self.viewModel))
-        //viewModel = DIContainer.shared.resolve(SignUpViewModel.self)
     }
-    deinit {
-//        print("retain count deinit vm",CFGetRetainCount(viewModel))
-    }
-//    func setViewModel(_ viewModel: SignUpViewModelProtocol) {
-//        self.viewModel = viewModel
-//    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        touchUpNickNameCheckButton()
          self.view.endEditing(true)
     }
     func setUI() {
@@ -122,11 +151,6 @@ final class SignUpViewController: UIViewController {
         }
     }
 
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let textFieldText = textField.text else { return }
-        touchUpNickNameCheckButton()
-    }
-
     func setTapButtonsIsSelected() {
         allowServiceButton.rx.tap.subscribe(onNext: { [weak self] in
             if let serviceButton = self?.allowServiceButton {
@@ -134,7 +158,6 @@ final class SignUpViewController: UIViewController {
                     serviceButton.isSelected = false
                 }else {
                     serviceButton.isSelected = true
-                    self?.presentServiceInformationView()
                 }
                 self?.isCheckingEveryAgreeButton()
                 self?.isCheckLogInButtonLogic()
@@ -147,10 +170,10 @@ final class SignUpViewController: UIViewController {
                     privacyButton.isSelected = false
                 }else {
                     privacyButton.isSelected = true
-                    let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: nil)
-                    serviceInformationViewController.typeCheck = "Privacy"
-                    serviceInformationViewController.modalPresentationStyle = .pageSheet
-                    self?.present(serviceInformationViewController, animated: true, completion: nil)
+//                    let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+//                    serviceInformationViewController.typeCheck = "Privacy"
+//                    serviceInformationViewController.modalPresentationStyle = .pageSheet
+//                    self?.present(serviceInformationViewController, animated: true, completion: nil)
                 }
                 self?.isCheckingEveryAgreeButton()
                 self?.isCheckLogInButtonLogic()
@@ -198,58 +221,11 @@ final class SignUpViewController: UIViewController {
     }
 
     @IBAction func touchUpNickNameCheckButton() {
-        guard let nickNameCheckField = nickNameTextField.text else { return }
-        var nickNameCheckValue: Int?
-        if let viewModel = self.viewModel {
-            nickNameCheckValue = viewModel.isValidNickNameNumber
-        }
-
-        if nickNameCheckValue == 1 {
-            nickNameCheckButton.backgroundColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
-            let attributedString = NSMutableAttributedString(string: "")
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = UIImage(named: "icnLoginComplete")
-            imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
-            attributedString.append(NSAttributedString(attachment: imageAttachment))
-            attributedString.append(NSAttributedString(string: " 사용 가능한 닉네임 입니다."))
-            nickNameStateLabel.attributedText = attributedString
-            nickNameStateLabel.sizeToFit()
-
-            nickNameStateLabel.textColor = UIColor.vinylaMainOrangeColor()
-            isCheckLogInButtonLogic()
-
-        } else if nickNameCheckValue == 2 || nickNameCheckValue == 3{
-            var nickNameText: String = ""
-            if nickNameCheckValue == 2{
-                nickNameText = " 닉네임 길이가 짧습니다."
-            }else if nickNameCheckValue == 3{
-                nickNameText = " 올바르지 않은 형식입니다."
-            }
-            let attributedString = NSMutableAttributedString(string: "")
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = UIImage(named: "icnLoginFail")
-            imageAttachment.bounds = CGRect(x: 0, y: -2, width: 14, height: 14)
-            attributedString.append(NSAttributedString(attachment: imageAttachment))
-            attributedString.append(NSAttributedString(string: nickNameText))
-            nickNameStateLabel.attributedText = attributedString
-            nickNameStateLabel.sizeToFit()
-            nickNameStateLabel.textColor = UIColor.vinylaPurple()
-            nickNameCheckButton.backgroundColor = UIColor(red: 60/255, green: 60/255, blue: 63/255, alpha: 1)
-            logInButton.backgroundColor = UIColor.buttonDisabledColor()
-            logInButton.isEnabled = false
-            logInButton.setTitleColor(UIColor.buttonDisabledTextColor(), for: .normal)
-        }
+        print("touchUpNickNameCheckButton")
     }
 
     
     @IBAction func touchUpLogInButton(_ sender: Any) {
-        
-        guard let nickNameText = nickNameTextField.text else { return }
-        viewModel?.setNickNameModel(nickName: nickNameText)
-        
-        guard let instaGramIDText = instagramIDTextField.text else { return }
-        viewModel?.setInstaGramID(instaGramID: instaGramIDText)
-        
         coordiNator?.moveAndSetHomeView()
     }
     
@@ -259,8 +235,7 @@ final class SignUpViewController: UIViewController {
                 buttons.isSelected = true
             }
         }
-        touchUpNickNameCheckButton()
-        self.presentServiceInformationView()
+        isCheckLogInButtonLogic()
     }
     
 }
@@ -288,7 +263,6 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nickNameTextField.resignFirstResponder()
-        touchUpNickNameCheckButton()
         self.instagramIDTextField.resignFirstResponder()
         return true
     }
