@@ -13,8 +13,6 @@ protocol SignUpViewModelProtocol {
     var isValidNickNameNumberSubject: BehaviorSubject<Int> { get }
     var validNickNameNumberSubject: PublishSubject<Int> { get }
     var isValidNickNameNumber: Int? { get }
-    func setNickNameModel(nickName : String)
-    func setInstaGramID(instaGramID : String)
     func isValidNickName(_ nickNameText: String) -> Int
     func checkString(text:String) -> Bool
 }
@@ -30,32 +28,16 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     var disposeBag = DisposeBag()
 
     init() {
-        _ = nickNameText.subscribe(onNext: { [weak self] nickName in
-            print("viewmodel nickname text:",nickName)
-            let checkStringNumber = self?.isValidNickName(nickName)
-            print("CheckStringNumber:",self?.isValidNickNameNumber)
-        })
-        .disposed(by: disposeBag)
-
-        let test = nickNameText.map{ [unowned self] text in
+        // input textfield text를 , 유효한 닉네임인지 검사해서 Int값으로 Output 출력 바인딩
+        _ = nickNameText.map{ [unowned self] text in
             return self.isValidNickName(text)
         }
         .bind(to: validNickNameNumberSubject)
         .disposed(by: disposeBag)
-        // input textfield text를 , 유효한 닉네임인지 검사해서 Int값으로 Output 출력 바인딩
+
     }
     deinit {
         print("SignUpViewModel deinit")
-    }
-    
-    func setNickNameModel(nickName : String) {
-        self.signUpModel.nickName = nickName
-        //        print(self.signUpModel.nickName)
-    }
-    
-    func setInstaGramID(instaGramID : String) {
-        self.signUpModel.instagramID = instaGramID
-        //        print(self.signUpModel.instagramID)
     }
     
     func isValidNickName(_ nickNameText: String) -> Int {
@@ -85,7 +67,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         if isValidNickNameValue == 1 {
             //통신해서 가능한 닉네임인지 아닌지 체크
         }
-        self.isValidNickNameNumber = isValidNickNameValue
 
         return isValidNickNameValue
     }
@@ -109,11 +90,3 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         return true
     }
 }
-
-// Test ViewModel 만들때
-//final class MockSignUpViewModel: SignUpViewModelProtocol {
-//    var storage: String?
-//    func setNickNameModel(nickName: String) {
-//        storage = "asdf"
-//    }
-//}
