@@ -8,17 +8,19 @@ import Foundation
 import Moya
 
 enum APITarget: TargetType {
+    case checkNickName(body: NickNameCheckRequest)
     case vinylSearch(urlParameters: String?)
     case getVinylDetail(pathVinylID: Int?)
     case getVinylBoxMyData
 
     var baseURL: URL {
         return URL(string:"http://13.209.245.76:3000")!
-
     }
 
     var path: String {
         switch self {
+        case .checkNickName:
+            return "/users/check"
         case .vinylSearch:
             return "/vinyls/search"
         case let .getVinylDetail(pathVinylID)://Path Variable
@@ -30,6 +32,8 @@ enum APITarget: TargetType {
 
     var method: Moya.Method {
         switch self {
+        case .checkNickName:
+            return .post
         case .vinylSearch:
             return .get
         case .getVinylDetail:
@@ -55,6 +59,11 @@ enum APITarget: TargetType {
 
     var task: Task {
         switch self {
+        case let .checkNickName(body):
+            guard let encodedData = try? JSONEncoder().encode(body) else {
+                return .requestData(Data())
+            }
+            return .requestData(encodedData)
         case let .vinylSearch(urlParameters):
             if let vinylName = urlParameters {
                 return .requestParameters(parameters: ["q" : vinylName], encoding: URLEncoding.default)
@@ -71,7 +80,7 @@ enum APITarget: TargetType {
     var headers: [String : String]? {
         switch self {
         case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData:
-            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2MzgwMTYyMjIsImV4cCI6MTYzODAzNDIyMiwiaXNzIjoiaGFlbHkifQ.hCDMxQQrJNuW04lXET57EvagzdndZ1PDWDX37fAOVD8"]
+            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjE3LCJpYXQiOjE2NDIwNjM2ODQsImV4cCI6MTY0MjA4MTY4NCwiaXNzIjoiaGFlbHkifQ.EDjL6oTqsI1MnpJj5rXP3zFvnpMrjyG2yOWXWFOeijI"]
         default: return ["Content-Type" : "application/json"]
         }
     }
