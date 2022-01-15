@@ -23,6 +23,27 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         self.provider = provider
     }
 
+    func checkNickName(requestModel: NickNameCheckRequest) -> Observable<NickNameCheckResponse.Data?> {
+        return Observable.create() { [weak self] observer in
+            self?.provider.request(.checkNickName(body: requestModel)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let decodedData = try JSONDecoder().decode(NickNameCheckResponse.self, from: response.data)
+                        observer.onNext(decodedData.data)
+                    } catch {
+                        print("nickname response decode error message:",error,response.data)
+                    }
+                case .failure(let error):
+                    observer.onError(error)
+                }
+                observer.onCompleted()
+
+            }
+            return Disposables.create()
+        }
+    }
+
     func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
 
         return Observable.create() { [weak self] emitter in
