@@ -41,7 +41,6 @@ class VinylaSearchTests: XCTestCase {
             }, onError: { error in
                 print(error.localizedDescription)
             })
-            .dispose()
 
         wait(for: [expectation], timeout: 2.0)
 
