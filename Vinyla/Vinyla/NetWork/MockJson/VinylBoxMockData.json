@@ -158,6 +158,20 @@
                 "imageUrl": "https://img.discogs.com/xHXl487xmsoI6fj5llE-9czb7V4=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-323293-1438579112-7595.jpeg.jpg",
                 "artist": "Booool",
                 "id": 9
+            },
+            {
+                "vinylIdx": 16,
+                "title": "ssssV",
+                "imageUrl": "https://img.discogs.com/xHXl487xmsoI6fj5llE-9czb7V4=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-323293-1438579112-7595.jpeg.jpg",
+                "artist": "asdf",
+                "id": 9
+            },
+            {
+                "vinylIdx": 16,
+                "title": "aaaaV",
+                "imageUrl": "https://img.discogs.com/xHXl487xmsoI6fj5llE-9czb7V4=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-323293-1438579112-7595.jpeg.jpg",
+                "artist": "bbedf",
+                "id": 9
             }
         ]
     }
