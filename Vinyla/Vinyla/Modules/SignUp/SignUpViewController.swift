@@ -34,11 +34,9 @@ final class SignUpViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
     return view
     }()
-    //var viewModel : SignUpViewModelProtocol?
-    
+
     private weak var coordiNator: AppCoordinator?
     private var viewModel: SignUpViewModelProtocol?
-
     var disposeBag = DisposeBag()
     
     static func instantiate(viewModel: SignUpViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
@@ -74,7 +72,8 @@ final class SignUpViewController: UIViewController {
 
         //이 부분으로 NickName 안내문구 작동
         //MARK: Refactoring
-        viewModel.validNickNameNumberSubject
+//        viewModel.validNickNameNumberSubject
+        viewModel.checkNickNameNumberSubject
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] isValidNickNameNumber in
                 print("viewmodel publish subject number",isValidNickNameNumber)
@@ -224,7 +223,6 @@ final class SignUpViewController: UIViewController {
         print("touchUpNickNameCheckButton")
     }
 
-    
     @IBAction func touchUpLogInButton(_ sender: Any) {
         coordiNator?.moveAndSetHomeView()
     }
@@ -244,19 +242,15 @@ final class SignUpViewController: UIViewController {
 extension SignUpViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-        guard let text = nickNameTextField.text else {return false}
+        guard let text = nickNameTextField.text else { return false }
         //키보드 delete버튼 활성화
         if string.isEmpty {
             return true
         }
-        
         if text.count >= 20 {
             return false
         }
 
-        var strings: NSString?
-        
-        
         let invalidCharacters =
             CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted
           return (string.rangeOfCharacter(from: invalidCharacters) == nil)
