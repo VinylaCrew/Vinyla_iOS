@@ -68,7 +68,7 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
             print("Load fail nineVinylItemsImage")
         }
 //                cell.vinylBoxImageView.image = downScaleImage(imageData: nineVinylItems[indexPath.row].vinylImage!, for: CGSize(width: 200, height: 200), scale: 0.7)
-                cell.signerLabel.text = nineVinylItems[indexPath.row].signer
+                cell.signerLabel.text = nineVinylItems[indexPath.row].singer
                 cell.songTitleLabel.text = nineVinylItems[indexPath.row].songTitle
                 return cell
     }
