@@ -10,9 +10,9 @@ import RxSwift
 import Foundation
 
 protocol VinylAPIServiceProtocol {
-    func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]>
-    func getVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?>
-    func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?>
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]>
+    func requestVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?>
+    func requestVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?>
 }
 
 final class VinylAPIService: VinylAPIServiceProtocol {
@@ -23,7 +23,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         self.provider = provider
     }
 
-    func checkNickName(requestModel: NickNameCheckRequest) -> Observable<NickNameCheckResponse.Data?> {
+    func requestCheckNickName(requestModel: NickNameCheckRequest) -> Observable<NickNameCheckResponse.Data?> {
         return Observable.create() { [weak self] observer in
             self?.provider.request(.checkNickName(body: requestModel)) { result in
                 switch result {
@@ -31,6 +31,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                     do {
                         let decodedData = try JSONDecoder().decode(NickNameCheckResponse.self, from: response.data)
                         observer.onNext(decodedData.data)
+//                        observer.onCompleted()
                     } catch {
                         print("nickname response decode error message:",error,response.data)
                     }
@@ -44,7 +45,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
@@ -71,7 +72,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?> {
+    func requestVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?> {
         return Observable.create() { [weak self] emiiter in
             self?.provider.request(.getVinylBoxMyData){ result in
                 switch result {
@@ -93,7 +94,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
+    func requestVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.getVinylDetail(pathVinylID: vinylID)) { result in
