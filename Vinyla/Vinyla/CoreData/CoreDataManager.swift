@@ -27,16 +27,17 @@ final class CoreDataManager {
         return newbackgroundContext
     }()
     private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
-    
+
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
 
         backgroundContext.perform { [weak self] in
+
             do {
                 guard let myBackgroundContext = self?.backgroundContext else {
                     return
                 }
                 let vinylBoxInstance = VinylBox(context: myBackgroundContext)
-                vinylBoxInstance.signer = singer
+                vinylBoxInstance.singer = singer
                 vinylBoxInstance.songTitle = songTitle
                 vinylBoxInstance.vinylImage = vinylImage
                 if Thread.isMainThread {
@@ -44,6 +45,27 @@ final class CoreDataManager {
                 }else {
                     print("Save: BackgroundThread")
                 }
+                try self?.backgroundContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    func saveVinylBox2(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data) {
+
+        backgroundContext.perform { [weak self] in
+
+            do {
+                guard let myBackgroundContext = self?.backgroundContext else {
+                    return
+                }
+                let vinylBoxInstance = VinylBox(context: myBackgroundContext)
+                vinylBoxInstance.index = vinylIndex
+                vinylBoxInstance.singer = singer
+                vinylBoxInstance.songTitle = songTitle
+                vinylBoxInstance.vinylImage = vinylImage
+
                 try self?.backgroundContext.save()
             } catch {
                 print(error.localizedDescription)
@@ -66,10 +88,14 @@ final class CoreDataManager {
     }
     func fetchVinylBox() -> [VinylBox] {
         var fetchVinylBox = [VinylBox]()
-
+        
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
+            let sortCondition = NSSortDescriptor(key: "index", ascending: true)
+            fetchRequest.sortDescriptors = [sortCondition]
+
             fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
+
             if Thread.isMainThread {
                 print("fetchVinylBox: MainThread")
             }else {
@@ -84,6 +110,8 @@ final class CoreDataManager {
     func fetchRecentVinylBox() -> [VinylBox]? {
         var fetchVinylBox = [VinylBox]()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "VinylBox")
+        let sortCondition = NSSortDescriptor(key: "index", ascending: true)
+        fetchRequest.sortDescriptors = [sortCondition]
 
         do {
             fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
@@ -145,22 +173,29 @@ final class CoreDataManager {
         isDeletedSpecificVinyl.onNext(false)
 
         backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+
             do {
                 let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "VinylBox")
                 fetchRequest.predicate = NSPredicate(format: "songTitle = %@", songTitle)
-                let results = try self?.backgroundContext.fetch(fetchRequest) as! [NSManagedObject]
+                let results = try self.backgroundContext.fetch(fetchRequest) as! [NSManagedObject]
                 // Delete _all_ objects:
                 for object in results {
-                    self?.backgroundContext.delete(object)
+                    self.backgroundContext.delete(object)
                 }
-                try self?.backgroundContext.save() // data 추가 삭제후 필수로
+
+                if self.backgroundContext.hasChanges {
+                    print("data deleted and save()")
+                    try self.backgroundContext.save() // data 추가 삭제후 필수로
+                }
+
 
                 if Thread.isMainThread {
                     print("deleteSpecificVinylBox: MainThread")
                 }else {
                     print("deleteSpecificVinylBox: BackGroundThread")
                 }
-                self?.isDeletedSpecificVinyl.onNext(true)
+                self.isDeletedSpecificVinyl.onNext(true)
 
             } catch {
                 print("Error delete specific func")
@@ -210,7 +245,7 @@ final class CoreDataManager {
             print("Data 출력")
             vinylBox.forEach { //print($0.vinylImage)
                 print($0.songTitle)
-                print($0.signer)
+                print($0.singer)
             } }
         catch { print(error.localizedDescription)
         }
