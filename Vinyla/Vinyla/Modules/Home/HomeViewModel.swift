@@ -37,29 +37,54 @@ final class HomeViewModel: HomeViewModelProtocol {
         if isFirstLogin {
             _ = homeAPIService.getVinylBoxMyData()
 //                .do(onNext: { [weak self] _ in
-//                        print("vm do 첫 실행")
 //                        self?.isSyncVinylBox.onNext(true)
 //                })
-                .delay(.seconds(3), scheduler: MainScheduler.instance)
+//                .delay(.seconds(3), scheduler: MainScheduler.instance)
                 .subscribe(onNext:{ [weak self] data in
                     CoreDataManager.shared.clearAllObjectEntity("VinylBox")
-                    print("내부데이터 전체 삭제")
+                    print("내부데이터 전체 삭제 + Thread",Thread.isMainThread)
                     guard let myVinylData = data?.myVinyls else { return }
-                    print("test getvinylboxdata():",myVinylData)
+                    print(myVinylData)
+
+                    let dispatchGroup = DispatchGroup()
+
                     for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
                         guard let myItem = item else { return }
                         if let myVinylImageURL = myItem.imageURL {
-                            guard let insideImageURL = URL(string: myVinylImageURL), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
-                                return
+
+                            dispatchGroup.enter()
+                            DispatchQueue.global().async(group: dispatchGroup) {
+                                guard let insideImageURL = URL(string: myVinylImageURL) else { return }
+                                let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (data, result, error) in
+                                    guard error == nil else {
+                                        dispatchGroup.leave()
+                                        return
+                                    }
+
+                                    if let data = data, let vinylImage = UIImage(data: data) {
+                                        print("데이터 VM 저장 호출(이미지URL ON)",myItem.title,vinylImage)
+                                        CoreDataManager.shared.saveVinylBox2(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
+                                        dispatchGroup.leave()
+                                    }
+                                }
+
+                                dataTask.resume()
                             }
-                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
+
                         }else {
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
-                            CoreDataManager.shared.saveVinylBox(songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
+                            print("데이터 VM 저장 호출(이미지URL OFF)",myItem.title)
+
+                            CoreDataManager.shared.saveVinylBox2(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
                         }
                     }
-                    UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
-                    self?.isSyncVinylBox.onNext(false)
+
+                    dispatchGroup.notify(queue: .global()) {
+                        UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
+                        print("홈 VM SyncVinylBox: false 호출")
+                        self?.isSyncVinylBox.onNext(false)
+                    }
+
                 }, onError: { [weak self] error in
                     self?.isSyncVinylBox.onNext(false)
                 })
