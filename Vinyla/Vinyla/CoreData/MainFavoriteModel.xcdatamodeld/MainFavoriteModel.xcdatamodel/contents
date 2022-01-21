@@ -5,12 +5,13 @@
         <attribute name="imageID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="VinylBox" representedClassName="VinylBox" syncable="YES" codeGenerationType="class">
-        <attribute name="signer" optional="YES" attributeType="String"/>
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="singer" optional="YES" attributeType="String"/>
         <attribute name="songTitle" optional="YES" attributeType="String"/>
         <attribute name="vinylImage" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
     </entity>
     <elements>
         <element name="MyImage" positionX="-63" positionY="-18" width="128" height="59"/>
-        <element name="VinylBox" positionX="-45" positionY="18" width="128" height="74"/>
+        <element name="VinylBox" positionX="-45" positionY="18" width="128" height="89"/>
     </elements>
 </model>
