@@ -21,6 +21,7 @@ protocol HomeViewModelProtocol {
     func getLevelName() -> Observable<String?>
     func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat
     func getLevelImageName() -> String
+    func requestServerVinylBoxData() -> Void
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
@@ -32,14 +33,22 @@ final class HomeViewModel: HomeViewModelProtocol {
     init(homeAPIService: VinylAPIServiceProtocol = MockAPIService()) {
         self.homeAPIService = homeAPIService
 
+    }
+    
+    deinit {
+        print("deinit HomeViewModel")
+    }
+
+    func requestServerVinylBoxData() {
         let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
 
         if isFirstLogin {
-            _ = homeAPIService.getVinylBoxMyData()
+            _ = self.homeAPIService?.requestVinylBoxMyData()
 //                .do(onNext: { [weak self] _ in
+//                    print("do do")
 //                        self?.isSyncVinylBox.onNext(true)
 //                })
-//                .delay(.seconds(3), scheduler: MainScheduler.instance)
+//                .delay(.seconds(1), scheduler: MainScheduler.instance)
                 .subscribe(onNext:{ [weak self] data in
                     CoreDataManager.shared.clearAllObjectEntity("VinylBox")
                     print("내부데이터 전체 삭제 + Thread",Thread.isMainThread)
@@ -63,8 +72,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
                                     if let data = data, let vinylImage = UIImage(data: data) {
                                         print("데이터 VM 저장 호출(이미지URL ON)",myItem.title,vinylImage)
-                                        CoreDataManager.shared.saveVinylBox2(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
-                                        dispatchGroup.leave()
+                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
                                     }
                                 }
 
@@ -74,15 +82,14 @@ final class HomeViewModel: HomeViewModelProtocol {
                         }else {
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
                             print("데이터 VM 저장 호출(이미지URL OFF)",myItem.title)
-
                             CoreDataManager.shared.saveVinylBox2(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
                         }
                     }
 
                     dispatchGroup.notify(queue: .global()) {
-                        UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
                         print("홈 VM SyncVinylBox: false 호출")
                         self?.isSyncVinylBox.onNext(false)
+                        UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
                     }
 
                 }, onError: { [weak self] error in
@@ -90,14 +97,8 @@ final class HomeViewModel: HomeViewModelProtocol {
                 })
                 .disposed(by: disposeBag)
         }
-
-    }
-    
-    deinit {
-        print("deinit HomeViewModel")
     }
 
-    
     func fetchRecentVinylData() {
         self.recentVinylBoxData = CoreDataManager.shared.fetchRecentVinylBox()
     }
