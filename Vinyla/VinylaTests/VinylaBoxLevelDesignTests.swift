@@ -9,7 +9,7 @@ import XCTest
 @testable import Vinyla
 import CoreData
 
-class VinylaTests: XCTestCase {
+class VinylaBoxLevelDesignTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -17,21 +17,6 @@ class VinylaTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        //        let view = SignUpViewController()
-        //        view.setViewModel(MockSignUpViewModel())
-        //
-        //        XCTAssert(view.)
-        
-        
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
     func test_async() {
