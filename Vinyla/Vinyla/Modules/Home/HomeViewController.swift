@@ -121,6 +121,7 @@ final class HomeViewController: UIViewController {
         super.viewDidAppear(animated)
         print("viewDidAppear()")
         setRxIndicator()
+        viewModel?.requestServerVinylBoxData()
     }
 
     override func viewWillLayoutSubviews() {
@@ -172,6 +173,7 @@ final class HomeViewController: UIViewController {
                         self?.ShowLoadingIndicator()
                     }else {
                         print("done Loading in VC")
+                        CoreDataManager.shared.printVinylBoxData()
                         //서버에서 다운로드된 DATA로 UI Update
                         self?.updateUIHomeVinylData()
                         self?.removeLoadingIndicator()
