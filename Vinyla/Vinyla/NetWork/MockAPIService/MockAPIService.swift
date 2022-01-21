@@ -22,11 +22,11 @@ final class MockAPIService: VinylAPIServiceProtocol {
 
     private let provider: MoyaProvider<APITarget>
 
-    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.immediatelyStub, plugins: [NetworkLoggerPlugin()]) ) {
+    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.delayedStub(2), plugins: [NetworkLoggerPlugin()]) ) {
         self.provider = provider
     }
 
-    func searchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
@@ -48,7 +48,7 @@ final class MockAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
+    func requestVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.getVinylDetail(pathVinylID: vinylID)) { result in
@@ -71,7 +71,7 @@ final class MockAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func getVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?> {
+    func requestVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?> {
         return Observable.create() { [weak self] emiiter in
             self?.provider.request(.getVinylBoxMyData){ result in
                 switch result {
