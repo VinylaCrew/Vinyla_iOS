@@ -27,7 +27,7 @@ class VinylaSearchTests: XCTestCase {
         let expectedResponseData = try? JSONDecoder().decode(SearchModel.self,from: mockSampleData)
 
         //when
-        testAPIService.searchVinyl(vinylName: "IU")
+        testAPIService.requestSearchVinyl(vinylName: "IU")
             .subscribe(onNext: { data in
 
                 //then
