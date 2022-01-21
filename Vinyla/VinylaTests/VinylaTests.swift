@@ -57,23 +57,27 @@ class VinylaTests: XCTestCase {
     func testVinylBoxViewModel() {
         //given
         var viewModel = VinylBoxViewModel()
-
+        let dispatchGroup = DispatchGroup()
 //        코어 데이터 전체 삭제 테스트 코드
-//        CoreDataManager.shared.clearAllObjectEntity("VinylBox")
+        CoreDataManager.shared.clearAllObjectEntity("VinylBox")
 
         //when
-//        for i in 1...502 {
-//            CoreDataManager.shared.saveVinylBox(songTitle: "\(i)", singer: "test", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
-//        }
-        viewModel.updateVinylBoxesAndReversBoxes()
-        //then
-//        XCTAssertEqual(502, viewModel.getTotalVinylBoxCount())
-//        XCTAssertEqual(56, viewModel.totalPageNumber)
-//        var testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,55])
-//        XCTAssertEqual("1", testVinylBoxItems[6].songTitle)
-//        testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,3])
-//        XCTAssertEqual("474", testVinylBoxItems[1].songTitle)
-        //특정페이지 songTitle로 맞는 데이터들어간지 확인
+        for i in 1...502 {
+            dispatchGroup.enter()
+            CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(i), songTitle: "\(i)", singer: "test", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!, dispatchGroup: dispatchGroup)
+        }
+        dispatchGroup.notify(queue: .global()) {
+            viewModel.updateVinylBoxesAndReversBoxes()
+            //then
+            XCTAssertEqual(502, viewModel.getTotalVinylBoxCount())
+            XCTAssertEqual(56, viewModel.totalPageNumber)
+            var testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,55])
+            XCTAssertEqual("1", testVinylBoxItems[6].songTitle)
+            testVinylBoxItems = viewModel.getPagingVinylBoxItems(indexPath: [0,3])
+            XCTAssertEqual("474", testVinylBoxItems[1].songTitle)
+            //특정페이지 songTitle로 맞는 데이터들어간지 확인
+        }
+
     }
 
     func testPerformanceExample() throws {
