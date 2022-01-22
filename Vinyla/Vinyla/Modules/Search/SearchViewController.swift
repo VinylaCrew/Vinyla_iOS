@@ -96,7 +96,7 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
             .orEmpty
             .distinctUntilChanged() // 중복 데이터 스트림 반복 X
             .debounce(.milliseconds(550), scheduler: MainScheduler.instance)
-//            .skip(1)
+            .skip(1)
             .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
@@ -143,22 +143,37 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
 
         viewModel.vinylsData
             .observeOn(MainScheduler.instance)
-//            .catchErrorJustReturn([])
+            .catchErrorJustReturn([])
+            .map{ $0!}
+//            .do(onNext: { data in
+//                print("do do:",data)
+//                if data.isEmpty {
+//                    print("빈 배열",data)
+//                }
+//            })
+//            .map{ data -> [SearchModel2.Data] in
+//                if let data = data {
+//                    return data
+//                }else {
+//                    return []
+//                }
+//            }
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
-                cell.songTitleLabel.text = element?.title
-                cell.singerNameLabel.text = element?.artist
-                if let imageURLString = element?.thumb {
+                cell.songTitleLabel.text = element.title
+                cell.singerNameLabel.text = element.artist
+                if let imageURLString = element.thumb {
                     cell.setCachedImage(imageURL: imageURLString)
-                    //                                        cell.searchVinylImageView.setImageURLAndChaching(imageURLString) //기존 urlsession 이미지 캐싱
-                    //                    cell.searchVinylImageView.kf.setImage(with: URL(string: imageURLString), options: [.cacheMemoryOnly])
                 }
                 return cell
             }.disposed(by: disposeBag)
 
         viewModel.vinylsData
-            .subscribe(onNext: { data in
-                print("search vc data subscribe:")
+            .map{ $0! }
+            .subscribe(onNext: { [weak self] data in
+                //MARK: - TODO 찾는 바이닐 없는 경우, UI 처리
+                if data.isEmpty {
+                }
             })
             .disposed(by: disposeBag)
 
