@@ -14,7 +14,7 @@ protocol SearchViewModelType {
     var orderNumber: BehaviorSubject<String> { get }
 
     //Output
-    var vinylsData: BehaviorSubject<[SearchModel.Data?]> { get }
+    var vinylsData: PublishSubject<[SearchModel.Data]?> { get }
     var isSearch: PublishSubject<Bool> { get }
     var vinylsCount: BehaviorSubject<String?> { get set }
 
@@ -27,7 +27,7 @@ final class SearchViewModel: SearchViewModelType {
     var orderNumber: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
 
     //Output
-    public private(set) var vinylsData: BehaviorSubject<[SearchModel.Data?]> = BehaviorSubject<[SearchModel.Data?]>(value: [])
+    public private(set) var vinylsData: PublishSubject<[SearchModel.Data]?> = PublishSubject<[SearchModel.Data]?>()
     var vinylsCount: BehaviorSubject<String?> = BehaviorSubject<String?>(value: "0")
     var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
@@ -38,9 +38,9 @@ final class SearchViewModel: SearchViewModelType {
 
         _ = vinylName
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(true) })
-            .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data?]> in
+            .flatMapLatest{ [unowned self] vinyl -> Observable<[SearchModel.Data]?> in
                 print("vinylName vimodel test:",vinyl)
-                return self.searchAPIService.searchVinyl(vinylName: vinyl)
+                return self.searchAPIService.requestSearchVinyl(vinylName: vinyl)
                 //return testAPIService.searchVinyl(vinylName: vinyl)
             }
             .do(onNext: { [weak self] _ in self?.isSearch.onNext(false) })
@@ -48,7 +48,13 @@ final class SearchViewModel: SearchViewModelType {
             .disposed(by: disposeBag)
 
         _ = vinylsData
-            .map({ String($0.count) })
+            .map({ data -> String in
+                if let data = data {
+                    return String(data.count)
+                }else {
+                    return String(0)
+                }
+            })
             .bind(to: vinylsCount)
             .disposed(by: disposeBag)
 
