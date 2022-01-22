@@ -10,7 +10,7 @@ import RxSwift
 import Foundation
 
 protocol VinylAPIServiceProtocol {
-    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]>
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data]?>
     func requestVinylBoxMyData() -> Observable<MyVinylBoxModel.Data?>
     func requestVinylDetail(vinylID: Int?) -> Observable<VinylInformation.Data?>
 }
@@ -45,7 +45,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
         }
     }
 
-    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data]?> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
@@ -53,14 +53,17 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let decodedData = try JSONDecoder().decode(SearchModel.self, from: response.data)
-//                        print("response data",response.data)
-                        print("response data status,message:",decodedData.status,decodedData.message)
-                        emitter.onNext(decodedData.data)
+                        print("response data status,message:",decodedData.status,decodedData.message,decodedData.data)
+                        if let data = decodedData.data {
+                            emitter.onNext(data)
+                        }else {
+                            print("response data가 없는 경우 [] 호출")
+                            emitter.onNext([])
+                        }
                     }catch {
-                        print("decode error message:",error,response.data)
+                        print("decode error message:",error)
                         //토큰 안넣고 검색한경우 fail model 안맞아서 디코드 에러 발생
-                        //검색에 아무것도 없는경우도 fail model처리
-                        emitter.onNext([])//이전 검색결과값 지워짐
+                        //Data 옵셔널 처리로 인한 decoding fail
                     }
 
                 case .failure(let error):
