@@ -52,7 +52,7 @@ final class CoreDataManager {
         }
     }
 
-    func saveVinylBox2(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data) {
+    func saveVinylBoxWithIndex(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data) {
 
         backgroundContext.perform { [weak self] in
 
@@ -67,6 +67,28 @@ final class CoreDataManager {
                 vinylBoxInstance.vinylImage = vinylImage
 
                 try self?.backgroundContext.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    func saveVinylBoxWithDispatchGroup(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
+
+        backgroundContext.perform { [weak self] in
+
+            do {
+                guard let myBackgroundContext = self?.backgroundContext else {
+                    return
+                }
+                let vinylBoxInstance = VinylBox(context: myBackgroundContext)
+                vinylBoxInstance.index = vinylIndex
+                vinylBoxInstance.singer = singer
+                vinylBoxInstance.songTitle = songTitle
+                vinylBoxInstance.vinylImage = vinylImage
+
+                try self?.backgroundContext.save()
+                dispatchGroup.leave()
             } catch {
                 print(error.localizedDescription)
             }
