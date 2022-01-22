@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct SearchModel: Codable {
     struct Data: Codable {
         let id: Int?
@@ -16,5 +17,5 @@ struct SearchModel: Codable {
         let status: Int?
         let success: Bool?
         let message: String?
-        let data: [Data?]
+        let data: [Data]?
 }
