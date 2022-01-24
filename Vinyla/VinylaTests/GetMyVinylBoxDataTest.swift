@@ -19,7 +19,7 @@ class GetMyVinylBoxDataTest: XCTestCase {
         let mockSampleData = APITarget.getVinylBoxMyData.sampleData
         let expectedData = try? JSONDecoder().decode(MyVinylBoxModel.self, from: mockSampleData)
 
-        testMockAPIService.getVinylBoxMyData()
+        testMockAPIService.requestVinylBoxMyData()
             .subscribe(onNext:{ data in
                 XCTAssertEqual(expectedData?.data?.userIdx, data?.userIdx)
                 XCTAssertEqual(expectedData?.data?.myVinyls[0]?.imageURL, data?.myVinyls[0]?.imageURL)
