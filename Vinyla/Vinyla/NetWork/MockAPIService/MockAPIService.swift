@@ -22,11 +22,11 @@ final class MockAPIService: VinylAPIServiceProtocol {
 
     private let provider: MoyaProvider<APITarget>
 
-    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.delayedStub(2), plugins: [NetworkLoggerPlugin()]) ) {
+    init(provider: MoyaProvider<APITarget> = MoyaProvider<APITarget>(endpointClosure: customEndpointClosure, stubClosure: MoyaProvider.immediatelyStub, plugins: [NetworkLoggerPlugin()]) ) {
         self.provider = provider
     }
 
-    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data?]> {
+    func requestSearchVinyl(vinylName: String) -> Observable<[SearchModel.Data]?> {
 
         return Observable.create() { [weak self] emitter in
             self?.provider.request(.vinylSearch(urlParameters: vinylName)) { result in
@@ -34,7 +34,9 @@ final class MockAPIService: VinylAPIServiceProtocol {
                 case .success(let response):
                     do {
                         let decodedData = try JSONDecoder().decode(SearchModel.self, from: response.data)
-                        emitter.onNext(decodedData.data)
+                        if let data = decodedData.data {
+                            emitter.onNext(data)
+                        }
                     }catch {
                         print("decode error message:",error)
                     }
