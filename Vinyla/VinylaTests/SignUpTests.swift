@@ -26,7 +26,7 @@ class SignUpTests: XCTestCase {
         let expectation = XCTestExpectation(description: "API Request")
         let nickNameRequest = NickNameCheckRequest(nickname: "test")
 
-        _ = testViewModel.signUpAPIService.checkNickName(requestModel: nickNameRequest)
+        _ = testViewModel.signUpAPIService.requestCheckNickName(requestModel: nickNameRequest)
             .subscribe(onNext: { data in
                 if let data = data {
                     //닉네임 중복되지 않음
