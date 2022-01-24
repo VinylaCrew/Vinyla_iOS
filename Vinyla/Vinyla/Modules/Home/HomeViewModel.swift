@@ -82,7 +82,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                         }else {
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
                             print("데이터 VM 저장 호출(이미지URL OFF)",myItem.title)
-                            CoreDataManager.shared.saveVinylBox2(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
+                            CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
                         }
                     }
 
