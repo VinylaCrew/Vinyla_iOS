@@ -29,12 +29,12 @@ class VinylaSearchTests: XCTestCase {
         //when
         testAPIService.requestSearchVinyl(vinylName: "IU")
             .subscribe(onNext: { data in
-
+                guard let data = data else { return }
                 //then
                 XCTAssertNotNil(data)
                 print("Xcttest", data)
-                XCTAssertEqual(expectedResponseData?.data[0]?.artist, data[0]?.artist)
-                XCTAssertEqual(expectedResponseData?.data[2]?.title, data[2]?.title)
+                XCTAssertEqual(expectedResponseData?.data?[0].artist, data[0].artist)
+                XCTAssertEqual(expectedResponseData?.data?[2].title, data[2].title)
                 //sample data가 decoding 되지 않아서 빈배열이 내려와서, 올바른 형식으로 json수정
 
                 expectation.fulfill()
