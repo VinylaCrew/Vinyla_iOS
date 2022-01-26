@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum ServerHost: String {
-    case develop = "http://13.209.245.76:3000"
+
+struct ServerHost {
+    static let develop: String = "http://13.209.245.76:3000"
 }
