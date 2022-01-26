@@ -14,7 +14,7 @@ enum APITarget: TargetType {
     case getVinylBoxMyData
 
     var baseURL: URL {
-        return URL(string:ServerHost.develop.rawValue)!
+        return URL(string:ServerHost.develop)!
     }
 
     var path: String {
@@ -80,7 +80,7 @@ enum APITarget: TargetType {
     var headers: [String : String]? {
         switch self {
         case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData:
-            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MjY5MDQwMCwiZXhwIjoxNjc0MjI2NDAwLCJpc3MiOiJoYWVseSJ9.u5PNRzD9cgZbhZP-ZFhZtr7v6gjam58GZdAkppNbGmA"]
+            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
         default: return ["Content-Type" : "application/json"]
         }
     }
