@@ -7,12 +7,12 @@
 
 import Foundation
 
-class LevelDesignViewModel {
+final class LevelDesignViewModel {
     var levelDesignCellID: String = "LevelDesignCell"
     var levelDesignModel: [LevelDesignModel] = [LevelDesignModel]()
 
     init() {
-        print("init leve d vm")
+        print("init leveldesign viewmodel",CFGetRetainCount(self))
         levelDesignModel.append(LevelDesignModel(levelImageName: "icnHomeLv1", level: "LV.1", levelName: "닐페이스 (0~1)", levelMent: "바이닐과 밀당의 시작"))
         levelDesignModel.append(LevelDesignModel(levelImageName: "icnHomeLv2", level: "LV.2", levelName: "닐리즈 (1~9)", levelMent: "바이닐 수집의 매력을 알게된 리즈시절"))
         levelDesignModel.append(LevelDesignModel(levelImageName: "icnHomeLv3", level: "LV.3", levelName: "닐스터 (10~49)", levelMent: "바이닐 수집에 진심인 힙스터"))
