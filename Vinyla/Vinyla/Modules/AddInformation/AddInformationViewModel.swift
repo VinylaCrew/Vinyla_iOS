@@ -29,11 +29,12 @@ class AddInformationViewModel {
     func fetchVinylInformation() {
         print(self.model.vinylID)
         
-        self.vinylInformationService.getVinylDetail(vinylID: model.vinylID)
+        self.vinylInformationService.requestVinylDetail(vinylID: model.vinylID)
             .do(onNext:{ [weak self] data in
                 self?.vinylInformationDataModel = data
             })
             .bind(to: vinylInformationData)
             .disposed(by: disposeBag)
+
     }
 }
