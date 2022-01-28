@@ -52,9 +52,6 @@ final class VinylBoxViewController: UIViewController {
             self?.scrollToNextCell()
         }).disposed(by: disposebag)
 
-//                        for i in 1...20 {
-//                            CoreDataManager.shared.saveVinylBox(songTitle: "level\(i)", singer: "espa", vinylImage: (UIImage(named: "testdog")?.jpegData(compressionQuality: 0))!)
-//                        }
         viewModel?.isDeletedVinylData
             .subscribe(onNext: { [weak self] isTrue in
                 if isTrue {
@@ -93,7 +90,6 @@ final class VinylBoxViewController: UIViewController {
         //ViewModel 로직으로 변경작업중 함수 코드
         print("box viewWillAppear")
         viewModel?.updateVinylBoxesAndReversBoxes()
-
         vinylBoxPagingCollectionView.reloadData()
         
     }
