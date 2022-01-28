@@ -8,7 +8,10 @@ import Foundation
 import Moya
 
 enum APITarget: TargetType {
+    //MARK: - User API
+    case createUser(userData: SignUpRequest)
     case checkNickName(body: NickNameCheckRequest)
+    //MARK: - Vinyla APP Logic API
     case vinylSearch(urlParameters: String?)
     case getVinylDetail(pathVinylID: Int?)
     case getVinylBoxMyData
@@ -19,11 +22,13 @@ enum APITarget: TargetType {
 
     var path: String {
         switch self {
+        case .createUser:
+            return "/users/signup"
         case .checkNickName:
             return "/users/check"
         case .vinylSearch:
             return "/vinyls/search"
-        case let .getVinylDetail(pathVinylID)://Path Variable
+        case let .getVinylDetail(pathVinylID): //Path Variable
             return "/vinyls/search/" + String(pathVinylID ?? -1)
         case .getVinylBoxMyData:
             return "/vinyls/my"
@@ -32,6 +37,8 @@ enum APITarget: TargetType {
 
     var method: Moya.Method {
         switch self {
+        case .createUser:
+            return .post
         case .checkNickName:
             return .post
         case .vinylSearch:
@@ -59,8 +66,13 @@ enum APITarget: TargetType {
 
     var task: Task {
         switch self {
-        case let .checkNickName(body):
-            guard let encodedData = try? JSONEncoder().encode(body) else {
+        case let .createUser(userData):
+            guard let encodedData = try? JSONEncoder().encode(userData) else {
+                return .requestData(Data())
+            }
+            return .requestData(encodedData)
+        case let .checkNickName(nickName):
+            guard let encodedData = try? JSONEncoder().encode(nickName) else {
                 return .requestData(Data())
             }
             return .requestData(encodedData)
