@@ -18,7 +18,7 @@ class SignUpTests: XCTestCase {
         testViewModel = SignUpViewModel(signUpAPIService: VinylAPIService())
     }
 
-    func testSignUpCase1() throws {
+    func testCehckNickNameCase() throws {
 
         let testValue1 = testViewModel.isValidNickName("jj")
         let testValue2 = testViewModel.isValidNickName("Testㄱㄴ")
@@ -45,6 +45,26 @@ class SignUpTests: XCTestCase {
 
         wait(for: [expectation], timeout: 10)
 
+    }
+
+    func testCreateUser() throws {
+        let exceptation = XCTestExpectation(description: "SignUp Request")
+
+        let requestData = SignUpRequest(fuid: "amsiejr", sns: "Google", nickname: "asdf5000",instaId: "abcd", fcmToken: "mwgpasifj", subscribeAgreed: 1)
+        let createUserAPI = APITarget.createUser(userData: requestData)
+
+        NetworkManager.request(apiType: createUserAPI)
+            .subscribe(onSuccess: { (response: SignUpResponse) in
+                print(response.message)
+                print(response.data)
+                XCTAssertEqual(response.message, "회원 가입 성공")
+                exceptation.fulfill()
+            }, onError: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+
+        wait(for: [exceptation], timeout: 5)
     }
 
     func testPerformanceExample() throws {
