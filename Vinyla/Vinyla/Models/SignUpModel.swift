@@ -7,18 +7,22 @@
 
 import Foundation
 
-struct SignUpModel {
-    var nickName : String?
-    var instagramID : String?
-    var isAllowService : Bool?
-    var isAllowPrivacy : Bool?
-    var isAllowPushMarketingAlarm : Bool?
-    
-    private mutating func setNickName(nickName : String) {
-        self.nickName = nickName
+struct SignUpRequest: Encodable {
+    let fuid: String?
+    let sns: String
+    let nickname: String
+    let instaId: String
+    let fcmToken: String
+    let subscribeAgreed: Int
+}
+
+struct SignUpResponse: Decodable {
+    struct Data: Decodable {
+        let token, nickname: String
+        let subscribeAgreed: Int
     }
-    
-    private mutating func setInstaGramID(instagramID : String) {
-        self.instagramID = instagramID
-    }
+    let status: Int
+    let success: Bool
+    let message: String
+    let data: Data?
 }
