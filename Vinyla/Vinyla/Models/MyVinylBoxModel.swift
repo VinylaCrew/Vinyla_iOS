@@ -10,7 +10,7 @@ import Foundation
 struct MyVinylBoxModel: Codable {
     struct Data: Codable {
         let userIdx: Int?
-        let myVinyls: [MyVinyl?]
+        let myVinyls: [MyVinyl]?
     }
     let status: Int
     let success: Bool
