@@ -58,8 +58,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                     let dispatchGroup = DispatchGroup()
 
                     for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
-                        guard let myItem = item else { return }
-                        if let myVinylImageURL = myItem.imageURL {
+                        if let myVinylImageURL = item.imageURL {
 
                             dispatchGroup.enter()
                             DispatchQueue.global().async(group: dispatchGroup) {
@@ -71,8 +70,8 @@ final class HomeViewModel: HomeViewModelProtocol {
                                     }
 
                                     if let data = data, let vinylImage = UIImage(data: data) {
-                                        print("데이터 VM 저장 호출(이미지URL ON)",myItem.title,vinylImage)
-                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
+                                        print("데이터 VM 저장 호출(이미지URL ON)",item.title,vinylImage)
+                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
                                     }
                                 }
 
@@ -81,8 +80,8 @@ final class HomeViewModel: HomeViewModelProtocol {
 
                         }else {
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
-                            print("데이터 VM 저장 호출(이미지URL OFF)",myItem.title)
-                            CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int32(myItem.vinylIdx), songTitle: myItem.title, singer: myItem.artist, vinylImage: baseImage)
+                            print("데이터 VM 저장 호출(이미지URL OFF)",item.title)
+                            CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int32(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: baseImage)
                         }
                     }
 
