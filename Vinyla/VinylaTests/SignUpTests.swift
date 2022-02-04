@@ -53,7 +53,7 @@ class SignUpTests: XCTestCase {
         let requestData = SignUpRequest(fuid: "amsiejr", sns: "Google", nickname: "asdf5000",instaId: "abcd", fcmToken: "mwgpasifj", subscribeAgreed: 1)
         let createUserAPI = APITarget.createUser(userData: requestData)
 
-        NetworkManager.request(apiType: createUserAPI)
+        CommonNetworkManager.request(apiType: createUserAPI)
             .subscribe(onSuccess: { (response: SignUpResponse) in
                 print(response.message)
                 print(response.data)
