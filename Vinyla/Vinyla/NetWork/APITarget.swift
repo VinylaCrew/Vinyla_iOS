@@ -9,6 +9,7 @@ import Moya
 
 enum APITarget: TargetType {
     //MARK: - User API
+    case signinUser(userToken: SignInRequest)
     case createUser(userData: SignUpRequest)
     case checkNickName(body: NickNameCheckRequest)
     //MARK: - Vinyla APP Logic API
@@ -22,6 +23,8 @@ enum APITarget: TargetType {
 
     var path: String {
         switch self {
+        case .signinUser:
+            return "/users/signin"
         case .createUser:
             return "/users/signup"
         case .checkNickName:
@@ -37,6 +40,8 @@ enum APITarget: TargetType {
 
     var method: Moya.Method {
         switch self {
+        case .signinUser:
+            return .post
         case .createUser:
             return .post
         case .checkNickName:
@@ -66,15 +71,14 @@ enum APITarget: TargetType {
 
     var task: Task {
         switch self {
+        case let .signinUser(userToken):
+            guard let encodedData = try? JSONEncoder().encode(userToken) else { return .requestData(Data()) }
+            return .requestData(encodedData)
         case let .createUser(userData):
-            guard let encodedData = try? JSONEncoder().encode(userData) else {
-                return .requestData(Data())
-            }
+            guard let encodedData = try? JSONEncoder().encode(userData) else { return .requestData(Data()) }
             return .requestData(encodedData)
         case let .checkNickName(nickName):
-            guard let encodedData = try? JSONEncoder().encode(nickName) else {
-                return .requestData(Data())
-            }
+            guard let encodedData = try? JSONEncoder().encode(nickName) else { return .requestData(Data()) }
             return .requestData(encodedData)
         case let .vinylSearch(urlParameters):
             if let vinylName = urlParameters {
