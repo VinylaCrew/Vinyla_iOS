@@ -6,3 +6,18 @@
 //
 
 import Foundation
+
+struct SignInRequest: Encodable {
+    let fuid: String
+    let fcmToken: String
+}
+
+struct SignInResponse: Decodable {
+    struct Data: Codable {
+        let token: String
+        let nickname: String
+        let subscribeAgreed: Int
+    }
+    let data: Data?
+}
+
