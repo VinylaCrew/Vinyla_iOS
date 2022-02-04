@@ -22,7 +22,7 @@ class NetworkManagerTests: XCTestCase {
         var searchExpectation = XCTestExpectation(description: "SearchServerAPI")
         let nicknameAPI = APITarget.checkNickName(body: NickNameCheckRequest(nickname: "tes"))
 
-        NetworkManager.request(apiType: nicknameAPI)
+        CommonNetworkManager.request(apiType: nicknameAPI)
             .subscribe(onSuccess: { (successModel: NickNameCheckResponse) in
                 print(successModel.message)
                 XCTAssertEqual(successModel.message,"사용 가능한 닉네임입니다.")
@@ -32,7 +32,7 @@ class NetworkManagerTests: XCTestCase {
 
         let searchAPI = APITarget.vinylSearch(urlParameters: "hh")
 
-        NetworkManager.request(apiType: searchAPI)
+        CommonNetworkManager.request(apiType: searchAPI)
             .subscribe(onSuccess: { (responseData: SearchModel) in
                 print(responseData.message)
                 XCTAssertEqual(responseData.message, "바이닐 검색 성공")
