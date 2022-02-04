@@ -11,18 +11,34 @@ import Moya
 extension Moya.Response {
 
     var vinylaErrorModel: VinylaErrorModel? {
-        guard let decodeData = try? JSONDecoder().decode(VinylaErrorModel.self, from: self.data) else { return nil }
-        return decodeData
+        guard let decodedData = try? JSONDecoder().decode(VinylaErrorModel.self, from: self.data) else { return nil }
+        return decodedData
     }
 
 }
 
 enum NetworkError: Error {
-    case decodingError
+    case bodyDataError
+    case serverError
+    case unexpectedError
 }
 
 struct VinylaErrorModel: Codable {
     let status: Int
     let success: Bool
     let message: String
+}
+
+extension VinylaErrorModel {
+    var vinylaError: NetworkError? {
+        if self.status >= 300 {
+            switch self.status {
+            case 400: return NetworkError.bodyDataError
+            case 600: return NetworkError.serverError
+            default: return NetworkError.unexpectedError
+            }
+        }else {
+            return nil
+        }
+    }
 }
