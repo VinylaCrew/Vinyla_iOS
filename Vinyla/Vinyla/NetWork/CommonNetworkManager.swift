@@ -27,7 +27,7 @@ class CommonNetworkManager {
                         guard let responseJsonDecodedData = try? JSONDecoder().decode(T.self, from: response.data) else {
                             throw NSError(domain: "JSON Parsing Error", code: -1, userInfo: nil)
                         }
-                        
+
                         single(.success(responseJsonDecodedData))
                     } catch let error {
                         single(.error(error))
@@ -55,13 +55,3 @@ class CommonNetworkManager {
     }
 }
 
-
-class DefaultSesssion: Session {
-    static let shared: DefaultSesssion = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest  = 30
-        configuration.timeoutIntervalForResource = 30
-        configuration.requestCachePolicy         = .useProtocolCachePolicy
-        return DefaultSesssion(configuration: configuration)
-    }()
-}
