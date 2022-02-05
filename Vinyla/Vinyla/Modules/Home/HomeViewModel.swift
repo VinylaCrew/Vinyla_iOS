@@ -40,7 +40,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
 
     func requestServerVinylBoxData() {
-        let isFirstLogin = UserDefaults.standard.bool(forKey: "isFirstLogin")
+        let isFirstLogin = UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn)
 
         if isFirstLogin {
             _ = self.homeAPIService?.requestVinylBoxMyData()
@@ -88,7 +88,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                     dispatchGroup.notify(queue: .global()) {
                         print("홈 VM SyncVinylBox: false 호출")
                         self?.isSyncVinylBox.onNext(false)
-                        UserDefaults.standard.setValue(false, forKey: "isFirstLogin")
+                        UserDefaults.standard.setValue(false, forKey: UserDefaultsKey.initIsFirstLogIn)
                     }
 
                 }, onError: { [weak self] error in
