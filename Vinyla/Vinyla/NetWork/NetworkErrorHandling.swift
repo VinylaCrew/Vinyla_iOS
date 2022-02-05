@@ -18,7 +18,7 @@ extension Moya.Response {
 }
 
 enum NetworkError: Error {
-    case bodyDataError
+    case requestDataError
     case serverError
     case unexpectedError
 }
@@ -33,8 +33,8 @@ extension VinylaErrorModel {
     var vinylaError: NetworkError? {
             switch self.status {
             case 200..<300: return nil
-            case 400: return NetworkError.bodyDataError
-            case 600: return NetworkError.serverError
+            case 400: return NetworkError.requestDataError
+            case 500...600: return NetworkError.serverError
             default: return NetworkError.unexpectedError
             }
     }
