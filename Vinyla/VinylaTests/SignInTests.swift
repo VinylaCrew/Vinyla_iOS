@@ -41,7 +41,7 @@ class SignInTests: XCTestCase {
             .subscribe(onSuccess:{ [weak self] (response: SignInResponse) in
                 self?.expectation.fulfill()
             },onError: { error in
-                XCTAssertEqual(error as? NetworkError, NetworkError.bodyDataError)
+                XCTAssertEqual(error as? NetworkError, NetworkError.requestDataError)
                 self.expectation.fulfill()
             })
             .disposed(by: disposeBag)
