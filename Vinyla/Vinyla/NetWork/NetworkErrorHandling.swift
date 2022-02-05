@@ -31,14 +31,11 @@ struct VinylaErrorModel: Codable {
 
 extension VinylaErrorModel {
     var vinylaError: NetworkError? {
-        if self.status >= 300 {
             switch self.status {
+            case 200..<300: return nil
             case 400: return NetworkError.bodyDataError
             case 600: return NetworkError.serverError
             default: return NetworkError.unexpectedError
             }
-        }else {
-            return nil
-        }
     }
 }
