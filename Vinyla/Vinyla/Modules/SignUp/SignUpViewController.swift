@@ -60,6 +60,12 @@ final class SignUpViewController: UIViewController {
         logInButton.isEnabled = false
 
         guard let viewModel = self.viewModel else { return }
+        //Instagram ID TextFiedl Bind
+        instagramIDTextField.rx.text
+            .orEmpty
+            .distinctUntilChanged()
+            .bind(to: viewModel.instagramIDText)
+            .disposed(by: disposeBag)
 
         //Nickname TextField Bind
         nickNameTextField.rx.text
@@ -69,6 +75,14 @@ final class SignUpViewController: UIViewController {
             .debounce(.milliseconds(600), scheduler: MainScheduler.instance)
             .bind(to: viewModel.nicknameText)
             .disposed(by: disposeBag)
+
+        //Request Create User Bind
+        viewModel.isCompletedCreateUserRequest
+            .observeOn(MainScheduler.instance)
+            .filter({ $0 == true })
+            .subscribe(onNext:{ [weak self] data in
+                self?.coordiNator?.moveAndSetHomeView()
+            })
 
         //이 부분으로 NickName 안내문구 작동
         //MARK: Refactoring
@@ -224,7 +238,7 @@ final class SignUpViewController: UIViewController {
     }
 
     @IBAction func touchUpLogInButton(_ sender: Any) {
-        coordiNator?.moveAndSetHomeView()
+        self.viewModel?.requestCreateUser()
     }
     
     @IBAction func touchUpAllowEveryServiceButton(_ sender: UIButton) {
@@ -235,7 +249,10 @@ final class SignUpViewController: UIViewController {
         }
         isCheckLogInButtonLogic()
     }
-    
+    @IBAction func touchUpTestButton(_ sender: UIButton) {
+        viewModel?.testStreamMethod()
+    }
+
 }
 
 
