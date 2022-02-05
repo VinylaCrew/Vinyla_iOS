@@ -163,7 +163,7 @@ final class HomeViewController: UIViewController {
 
     }
     func setRxIndicator() {
-        if UserDefaults.standard.bool(forKey: "isFirstLogin") {
+        if UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn) {
             viewModel?.isSyncVinylBox
                 .observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self] isLoading in
