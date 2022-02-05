@@ -17,7 +17,7 @@ protocol SignUpViewModelProtocol {
     var checkNickNameNumberSubject: PublishSubject<Int> { get }
     var isCompletedCreateUserRequest: PublishSubject<Bool> { get }
     func isValidNickName(_ nickNameText: String) -> Int
-//    func testStreamMethod() -> Void
+    func testStreamMethod() -> Void
     func requestCreateUser() -> Void
 }
 
@@ -107,7 +107,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             })
             .disposed(by: disposeBag)
     }
-
     
     func isValidNickName(_ nickNameText: String) -> Int {
 
@@ -134,21 +133,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             isValidNickNameValue = 3
         }else {
             isValidNickNameValue = 1
-        }
-
-        if isValidNickNameValue == 1 {
-            //통신해서 가능한 닉네임인지 아닌지 체크
-            //            let nickNameCheckRequest = NickNameCheckRequest(nickname: nickNameText)
-            //            self.signUpAPIService.checkNickName(requestModel: nickNameCheckRequest)
-            //                .subscribe(onNext:{ [weak self] data in
-            //                    if data == nil {
-            //                        self?.isValidNickNameNumber = 4
-            //                        self?.validNickNameNumberSubject.onNext(4)
-            //                    }
-            //
-            //                })
-            //                .disposed(by: disposeBag)
-
         }
 
         self.isValidNickNameNumber = isValidNickNameValue
