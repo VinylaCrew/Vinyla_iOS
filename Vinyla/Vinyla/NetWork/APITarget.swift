@@ -103,9 +103,9 @@ enum APITarget: TargetType {
 }
 
 func responseJSON(_ fileName: String) -> Data! {
-    @objc class TestClass: NSObject {}
+    @objc class BundleIdentifierClass: NSObject {}
 
-    let bundle = Bundle(for: TestClass.self)
+    let bundle = Bundle(for: BundleIdentifierClass.self)
     let path = bundle.path(forResource: fileName, ofType: "json")
     return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
 }
