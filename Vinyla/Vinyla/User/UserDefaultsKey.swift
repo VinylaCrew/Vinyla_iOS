@@ -10,4 +10,6 @@ import Foundation
 struct UserDefaultsKey {
     static let vinylaToken = "VinylaToken"
     static let initIsFirstLogIn = "IsFirstLogin"
+    static let userNickName = "UserNickName"
+    static let firebaseAccessToken = "FirebaseAccessToken"
 }
