@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import RxSwift
 
 final class AppCoordinator {
     private var windowRootViewController: UINavigationController? {
@@ -15,25 +16,48 @@ final class AppCoordinator {
     private let window: UIWindow
     private var isLogIn: Bool?
     var songNameCD: String!
+    var disposeBag = DisposeBag()
 
     init(window: UIWindow) {
         self.window = window
 //        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
-        self.isLogIn = false
+//        self.isLogIn = true
+        autoLogIn()
+    }
 
-//        if let currentUser = Auth.auth().currentUser {
-//            print("coordinator",currentUser)
-//            self.isLogIn = true
-//            guard let userID = Auth.auth().currentUser?.uid else { return }
-//            print("coordinator userID:",currentUser.uid)
-//        }else {
-//            self.isLogIn = false
-//        }
+    func autoLogIn() {
+        if let currentUser = Auth.auth().currentUser {
+
+            guard let firebaseID = Auth.auth().currentUser?.uid else { return }
+            print("coordinator userID:",currentUser.uid)
+//            guard let vinylaUserToken = UserDefaults.standard.string(forKey: UserDefaultsKey.vinylaToken) else { return }
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: "nousertest", fcmToken: "12"))
+
+            _ = CommonNetworkManager.request(apiType: logInAPITarget)
+                .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                    print(model)
+                    UserDefaults.standard.setValue(model.data?.token, forKey: UserDefaultsKey.vinylaToken)
+                    UserDefaults.standard.setValue(model.data?.nickname, forKey: UserDefaultsKey.userNickName)
+                    self?.isLogIn = true
+                    self?.start()
+                }, onError: { [weak self] error in
+                    if error as? NetworkError == NetworkError.nonExistentVinylaUser {
+                        self?.isLogIn = false
+                        self?.start()
+                    }
+                })
+                .disposed(by: disposeBag)
+
+        }else {
+            self.isLogIn = false
+            self.start()
+        }
     }
     
     func start() {
         guard let isLogIn = self.isLogIn else { return }
-        
+
+        //로그인 되지 않은 경우, LogInView로 이동
         if !isLogIn {
             let navigationController = UINavigationController(rootViewController: LogInViewController.instantiate(viewModel: LogInViewModel(), coordiNator: self))
             navigationController.navigationBar.isHidden = true
