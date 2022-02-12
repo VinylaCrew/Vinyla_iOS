@@ -18,6 +18,7 @@ extension Moya.Response {
 }
 
 enum NetworkError: Error {
+    case nonExistentVinylaUser
     case requestDataError
     case serverError
     case unexpectedError
@@ -32,6 +33,7 @@ struct VinylaErrorModel: Codable {
 extension VinylaErrorModel {
     var vinylaError: NetworkError? {
             switch self.status {
+            case 204: return NetworkError.nonExistentVinylaUser
             case 200..<300: return nil
             case 400: return NetworkError.requestDataError
             case 500...600: return NetworkError.serverError
