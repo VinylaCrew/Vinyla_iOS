@@ -9,7 +9,51 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class SearchViewController: UIViewController, UIScrollViewDelegate {
+final class SearchViewController: UIViewController {
+
+    lazy var lookingforVinylButton: UIButton = {
+        let button = UIButton()
+
+        // Define the size of the button
+        let width: CGFloat = self.view.bounds.width-195
+        let height: CGFloat = 48
+
+        // Define coordinates to be placed.
+        // (center of screen)
+        let posX: CGFloat = 15
+        let posY: CGFloat = self.view.bounds.height-28-48
+        print("viewboundsheight")
+        print(self.view.bounds.height)
+
+        // Set the button installation coordinates and size.
+        button.frame = CGRect(x: posX, y: posY, width: width, height: height)
+
+        // Set the background color of the button.
+        button.backgroundColor = UIColor.buttonOrangeColor()
+
+        // Round the button frame.
+        button.layer.masksToBounds = true
+
+        // Set the radius of the corner.
+        button.layer.cornerRadius = 24.0
+        button.titleLabel?.font = UIFont(name: "NotoSansKR-Medium", size: 15)
+        button.titleLabel?.textAlignment = .center
+        // Set the title (normal).
+        button.setTitle("찾는 바이닐 요청하기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+
+        // Set the title (highlighted).
+        button.setTitle("찾는 바이닐 요청하기", for: .highlighted)
+        button.setTitleColor(.black, for: .highlighted)
+
+        // Tag a button.
+        button.tag = 1
+
+        // Add an event
+//        button.addTarget(self, action: #selector(touchUpSaveBoxButton(_:)), for: .touchUpInside)
+
+        return button
+    }()
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
@@ -37,6 +81,13 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLookingForVinylButtonUI()
+        lookingforVinylButton.rx.tap
+            .subscribe({ [weak self] _ in
+                //요청뷰 이동
+                self?.coordiNator?.presentRequestUserVinylView()
+            })
+            .disposed(by: disposeBag)
         vinylSearchBar.searchTextField.delegate = self
         setUI()
         setTableViewCellXib() //rxcocoa도 그대로 사용
@@ -77,6 +128,14 @@ final class SearchViewController: UIViewController, UIScrollViewDelegate {
             rightView.tintColor = UIColor.white
         }
         //https://fomaios.tistory.com/entry/%EC%84%9C%EC%B9%98%EB%B0%94-%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0-Custom-UISearchBar
+    }
+    func setLookingForVinylButtonUI() {
+        self.view.addSubview(lookingforVinylButton)
+        lookingforVinylButton.translatesAutoresizingMaskIntoConstraints = false
+        lookingforVinylButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        lookingforVinylButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28).isActive = true
+        lookingforVinylButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width-195).isActive = true
+        lookingforVinylButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
     
     func setTableViewCellXib() {
@@ -227,5 +286,14 @@ extension SearchViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(107)
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.lookingforVinylButton.alpha = 0.4
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.lookingforVinylButton.alpha = 1.0
     }
 }
