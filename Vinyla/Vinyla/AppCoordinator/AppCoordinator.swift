@@ -21,8 +21,9 @@ final class AppCoordinator {
     init(window: UIWindow) {
         self.window = window
 //        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
-//        self.isLogIn = true
-        autoLogIn()
+        self.isLogIn = true
+        start()
+//        autoLogIn()
     }
 
     func autoLogIn() {
@@ -129,6 +130,12 @@ final class AppCoordinator {
         let levelDesignView = LevelDesignViewController.instantiate(viewModel: LevelDesignViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(levelDesignView, animated: true)
+    }
+    func presentRequestUserVinylView() {
+        let requestUserViynlView = RequestUserVinylViewController.instantiate(viewModel: RequestUserVinylViewModel(), coordiNator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        requestUserViynlView.modalPresentationStyle = .fullScreen
+        windowRootViewController.present(requestUserViynlView, animated: true, completion: nil)
     }
     func popToVinylBoxView() {
         guard let windowRootViewController = self.windowRootViewController else { return }
