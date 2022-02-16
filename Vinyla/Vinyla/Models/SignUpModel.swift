@@ -8,12 +8,12 @@
 import Foundation
 
 struct SignUpRequest: Encodable {
-    let fuid: String?
-    let sns: String
-    let nickname: String
-    let instaId: String
-    let fcmToken: String
-    let subscribeAgreed: Int
+    var fuid: String?
+    var sns: String
+    var nickname: String
+    var instaId: String
+    var fcmToken: String
+    var subscribeAgreed: Int
 }
 
 struct SignUpResponse: Decodable {
