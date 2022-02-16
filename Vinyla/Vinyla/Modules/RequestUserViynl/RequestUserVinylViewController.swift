@@ -100,7 +100,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         self.view.endEditing(true)
     }
     @IBAction func touchUpPopButton(_ sender: Any) {
-        print("pop view")
+        self.coordiNator?.dismissViewController()
     }
     func setUI() {
         artistMentLabel.numberOfLines = 2
