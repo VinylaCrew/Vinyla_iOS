@@ -22,8 +22,8 @@ class GetMyVinylBoxDataTest: XCTestCase {
         testMockAPIService.requestVinylBoxMyData()
             .subscribe(onNext:{ data in
                 XCTAssertEqual(expectedData?.data?.userIdx, data?.userIdx)
-                XCTAssertEqual(expectedData?.data?.myVinyls[0]?.imageURL, data?.myVinyls[0]?.imageURL)
-                XCTAssertEqual(expectedData?.data?.myVinyls[1]?.title, data?.myVinyls[1]?.title)
+                XCTAssertEqual(expectedData?.data?.myVinyls?[0].imageURL, data?.myVinyls?[0].imageURL)
+                XCTAssertEqual(expectedData?.data?.myVinyls?[1].title, data?.myVinyls?[1].title)
 
                 print(data)
             })
