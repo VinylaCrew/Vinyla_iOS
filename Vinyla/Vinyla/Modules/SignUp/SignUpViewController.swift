@@ -56,7 +56,6 @@ final class SignUpViewController: UIViewController {
         instagramIDTextField.delegate = self
         setUI()
         setTapButtonsIsSelected()
-        nickNameLabel.addSubview(pointCircleView)
         logInButton.isEnabled = false
 
         guard let viewModel = self.viewModel else { return }
@@ -135,6 +134,8 @@ final class SignUpViewController: UIViewController {
          self.view.endEditing(true)
     }
     func setUI() {
+        nickNameLabel.addSubview(pointCircleView)
+
         //border
         nickNameTextField.layer.borderWidth = 1
         nickNameTextField.layer.cornerRadius = 10
