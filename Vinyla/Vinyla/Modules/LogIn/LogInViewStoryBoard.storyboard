@@ -129,7 +129,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="t6H-Ez-CYK"/>
                     <connections>
-                        <outlet property="appleLogInButton" destination="HqE-54-Os8" id="kUL-KZ-65m"/>
+                        <outlet property="appleLogInButton" destination="HqE-54-Os8" id="RWU-we-fNz"/>
                         <outlet property="facebookLogInButton" destination="vHJ-g9-4ZL" id="Kdb-or-nVS"/>
                         <outlet property="googleLogInButton" destination="12l-Kj-XuC" id="02F-oI-Yhi"/>
                     </connections>
