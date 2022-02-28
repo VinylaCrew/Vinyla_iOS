@@ -85,6 +85,11 @@ class DeleteInformationViewController: UIViewController {
         setAlbumListTableViewUI()
         deleteScrollView.delegate = self
         deleteBlurCircleView.delegate = self
+
+        print("view did load",CFGetRetainCount(self.viewModel))
+    }
+    deinit {
+        print("deinit",CFGetRetainCount(self.viewModel))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +99,10 @@ class DeleteInformationViewController: UIViewController {
 //            .disposed(by: disposebag)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("didappear",CFGetRetainCount(self.viewModel))
+    }
     func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
         albumSongListTableView.dataSource = self
