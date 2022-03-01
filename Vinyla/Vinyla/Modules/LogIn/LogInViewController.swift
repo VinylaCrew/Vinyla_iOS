@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import RxSwift
 
 final class LogInViewController: UIViewController {
 
@@ -19,6 +20,7 @@ final class LogInViewController: UIViewController {
     
     private weak var coordiNator: AppCoordinator?
     private var viewModel: LogInViewModel?
+    var disposeBag = DisposeBag()
 
     static func instantiate(viewModel: LogInViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "LogInViewStoryBoard", bundle: nil)
@@ -29,12 +31,16 @@ final class LogInViewController: UIViewController {
         viewController.coordiNator = coordiNator
         return viewController
     }
-    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("required init")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad()")
 
         setUI()
-        UserDefaults.standard.setValue(true, forKey: "isFirstLogin")
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsKey.initIsFirstLogIn)
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -51,37 +57,55 @@ final class LogInViewController: UIViewController {
         appleLogInButton.layer.cornerRadius = 28
     }
     @IBAction func touchUPGoogleButton(_ sender: UIButton) {
-        self.coordiNator?.moveToSignUPView()
-//        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-//        print("clientID",clientID)
-//        let signInConfig = GIDConfiguration.init(clientID: clientID)
-//        print("signInConfig",signInConfig)
-//        GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
-//            guard error == nil else { return }
-//
-//            guard let authentication = user?.authentication else { return }
-//            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
-//            // access token 부여 받음
-//
-//            UserDefaults.standard.setValue(authentication.idToken!, forKey: "IdToken")
-//            UserDefaults.standard.setValue(authentication.accessToken, forKey: "AccessToken")
-//
-//            // 파베 인증정보 등록
-//            Auth.auth().signIn(with: credential) { result , error in
-//                // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
-//                if let error = error {
-//                    print(error)
-//                }else {
-//                    guard let userID = Auth.auth().currentUser?.uid else { return }
-//                    guard let userEmail = Auth.auth().currentUser?.email else {
-//                        return
-//                    }
-//                    print("User UID",type(of: userID),userEmail)
-//                    UserDefaults.standard.setValue(userID, forKey: "UID")
-//                    self.coordiNator?.moveToSignUPView()
-//                }
-//            }
-//        }
+        if let currentUser = Auth.auth().currentUser {
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            print("coordinator userID:",currentUser.uid)
+//            guard let vinylaUserToken = UserDefaults.standard.string(forKey: UserDefaultsKey.vinylaToken) else { return }
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: "nousertest", fcmToken: "12"))
+
+            _ = CommonNetworkManager.request(apiType: logInAPITarget)
+                .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                    print(model)
+                    UserDefaults.standard.setValue(model.data?.token, forKey: UserDefaultsKey.vinylaToken)
+                    UserDefaults.standard.setValue(model.data?.nickname, forKey: UserDefaultsKey.userNickName)
+                    self?.coordiNator?.moveAndSetHomeView()
+                }, onError: { [weak self] error in
+                    if error as? NetworkError == NetworkError.nonExistentVinylaUser {
+                        print(error)
+                        self?.coordiNator?.moveToSignUPView()
+                    }
+                })
+                .disposed(by: disposeBag)
+        }else {
+            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+            print("clientID",clientID)
+            let signInConfig = GIDConfiguration.init(clientID: clientID)
+            print("signInConfig",signInConfig)
+            GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+                guard error == nil else { return }
+
+                guard let authentication = user?.authentication else { return }
+                let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
+                // access token 부여 받음
+
+                UserDefaults.standard.setValue(authentication.idToken!, forKey: "IdToken")
+                UserDefaults.standard.setValue(authentication.accessToken, forKey: UserDefaultsKey.firebaseAccessToken)
+
+                // 파베 인증정보 등록
+                Auth.auth().signIn(with: credential) { result , error in
+                    // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+                    if let error = error {
+                        print(error)
+                    }else {
+                        guard let userID = Auth.auth().currentUser?.uid else { return }
+                        guard let userEmail = Auth.auth().currentUser?.email else { return }
+
+                        self.coordiNator?.moveToSignUPView()
+                    }
+                }
+            }
+        }
+
     }
     
     @IBAction func touchUPAppleLogInButton(_ sender: Any) {
