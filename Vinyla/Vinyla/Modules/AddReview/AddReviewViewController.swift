@@ -110,6 +110,8 @@ class AddReviewViewController: UIViewController {
 
     private weak var coordiNator: AppCoordinator?
     private var viewModel: AddReviewViewModel?
+
+    var disposeBag = DisposeBag()
     
     static func instantiate(viewModel: AddReviewViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "AddReview", bundle: nil)
@@ -123,10 +125,18 @@ class AddReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        songTitleNameLabel.text = viewModel?.model.songTitle
-        songArtistLabel.text = viewModel?.model.songArtist
-        songRateLabel.text = String(viewModel?.model.rate ?? -1)
-        vinylImageView.setImageChache(imageURL: (viewModel?.model.vinylImageURL)!)
+        guard let viewModel = viewModel else { return }
+        songTitleNameLabel.text = viewModel.model.title
+        songArtistLabel.text = viewModel.model.artist
+        songRateLabel.text = String(viewModel.model.rate ?? 0)
+        vinylImageView.setImageChache(imageURL: (viewModel.model.image))
+
+        reviewTextView.rx.text
+            .orEmpty
+            .bind(to: viewModel.userCommnet)
+            .disposed(by: disposeBag)
+
+        print("vinyl detail model:",self.viewModel?.model)
 
         self.view.addSubview(saveVinylButton)
         vinylImageView.addSubview(whiteCircleVinylView)
@@ -148,6 +158,7 @@ class AddReviewViewController: UIViewController {
         starCosmosView.settings.minTouchRating = 0
         starCosmosView.didFinishTouchingCosmos = { [weak self] rating in
             self?.starScoreLabel.text = "\(Int(rating*2.0))"
+            self?.viewModel?.userRate.onNext(Int(rating*2.0))
         }
         reviewTextView.layer.borderColor = CGColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
         reviewTextView.layer.borderWidth = 1
@@ -167,12 +178,19 @@ class AddReviewViewController: UIViewController {
     
     @IBAction func touchUpSaveBoxButton(_ sender: Any) {
 
-        guard let insideImageURL = URL(string: (viewModel?.model.vinylImageURL)!), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
-            print("vinyl image error")
-            return
+//        guard let insideImageURL = URL(string: (viewModel?.model.image)!), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
+//            print("vinyl image error")
+//            return
+//        }
+
+        print("thumbnail: ",self.viewModel?.thumbnailImage)
+        let chekedCompletedispatchGroup = DispatchGroup()
+        chekedCompletedispatchGroup.enter()
+        viewModel?.requestSaveVinylData(dispatchGroup: chekedCompletedispatchGroup)
+        chekedCompletedispatchGroup.notify(queue: .main){ [weak self] in
+            self?.coordiNator?.popToVinylBoxView()
         }
-        CoreDataManager.shared.saveVinylBox(songTitle: (viewModel?.model.songTitle)!, singer: "IU", vinylImage: vinylImage.jpegData(compressionQuality: 1)!)
-        coordiNator?.popToVinylBoxView()
+
     }
 }
 
