@@ -29,7 +29,6 @@ final class CoreDataManager {
     private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
 
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
-
         backgroundContext.perform { [weak self] in
 
             do {
@@ -73,7 +72,7 @@ final class CoreDataManager {
         }
     }
 
-    func saveVinylBoxWithDispatchGroup(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
+    func saveVinylBoxWithDispatchGroup(vinylIndex: Int32,vinylID: Int64, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
 
         backgroundContext.perform { [weak self] in
 
@@ -86,11 +85,13 @@ final class CoreDataManager {
                 vinylBoxInstance.singer = singer
                 vinylBoxInstance.songTitle = songTitle
                 vinylBoxInstance.vinylImage = vinylImage
+                vinylBoxInstance.vinylID = vinylID
 
                 try self?.backgroundContext.save()
                 dispatchGroup.leave()
             } catch {
-                print(error.localizedDescription)
+                print("CoreData Error:",error.localizedDescription)
+                dispatchGroup.leave()
             }
         }
     }
