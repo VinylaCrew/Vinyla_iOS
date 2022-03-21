@@ -30,7 +30,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
     var homeAPIService: VinylAPIServiceProtocol?
     var disposeBag = DisposeBag()
-    init(homeAPIService: VinylAPIServiceProtocol = MockAPIService()) {
+    init(homeAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.homeAPIService = homeAPIService
 
     }
@@ -41,6 +41,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
     func requestServerVinylBoxData() {
         let isFirstLogin = UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn)
+        let dispatchGroup = DispatchGroup()
 
         if isFirstLogin {
             _ = self.homeAPIService?.requestVinylBoxMyData()
@@ -55,13 +56,11 @@ final class HomeViewModel: HomeViewModelProtocol {
                     guard let myVinylData = data?.myVinyls else { return }
                     print(myVinylData)
 
-                    let dispatchGroup = DispatchGroup()
-
                     for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
                         if let myVinylImageURL = item.imageURL {
 
                             dispatchGroup.enter()
-                            DispatchQueue.global().async(group: dispatchGroup) {
+                            DispatchQueue.global().async() {
                                 guard let insideImageURL = URL(string: myVinylImageURL) else { return }
                                 let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (data, result, error) in
                                     guard error == nil else {
@@ -71,14 +70,17 @@ final class HomeViewModel: HomeViewModelProtocol {
 
                                     if let data = data, let vinylImage = UIImage(data: data) {
                                         print("데이터 VM 저장 호출(이미지URL ON)",item.title,vinylImage)
-                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
+                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(item.vinylIdx), vinylID: Int64(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
+                                    }else {//썸네일 URL은 있으나, 이미지 변경 등의 이유로 삭제된 경우
+                                        print("thumbnail image doesn't exist error")
+                                        dispatchGroup.leave()
                                     }
                                 }
 
                                 dataTask.resume()
                             }
 
-                        }else {
+                        } else {//썸네일 이미지 없는 경우
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
                             print("데이터 VM 저장 호출(이미지URL OFF)",item.title)
                             CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int32(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: baseImage)
