@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q7F-7Y-uKC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Q7F-7Y-uKC">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -241,6 +241,7 @@
                         <outlet property="songCountLabel" destination="18A-pc-sJq" id="bMc-t1-Fcf"/>
                         <outlet property="songGenresLabel" destination="ZDa-T2-Zg9" id="40o-lw-dxg"/>
                         <outlet property="songReleaseDataLabel" destination="fNt-Jt-aM2" id="tzs-bQ-Pzc"/>
+                        <outlet property="songStarCountLabel" destination="cSU-nj-CLj" id="aZB-nj-BeE"/>
                         <outlet property="songTitleLabel" destination="bE0-4C-389" id="xab-aU-N31"/>
                     </connections>
                 </viewController>

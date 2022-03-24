@@ -60,6 +60,7 @@ class AddInformationViewController: UIViewController {
     @IBOutlet weak var songReleaseDataLabel: UILabel!
     @IBOutlet weak var songGenresLabel: UILabel!
     @IBOutlet weak var songCountLabel: UILabel!
+    @IBOutlet weak var songStarCountLabel: UILabel!
 
     @IBOutlet weak var informationScrollView: UIScrollView!
     @IBOutlet weak var albumSongListTableView: UITableView!
@@ -90,8 +91,12 @@ class AddInformationViewController: UIViewController {
         self.view.addSubview(saveInformationButton)
         saveInformationButton.rx.tap.subscribe(onNext:  { [weak self] in
             guard let vinylInformationModel = self?.viewModel?.vinylInformationDataModel else { return }
-            let viniylDetailData = AddReviewModel.init(vinylImageURL: self?.viewModel?.model.vinylImageURL, songTitle: vinylInformationModel.title, songArtist: vinylInformationModel.artist, rate: vinylInformationModel.rate, rateCount: vinylInformationModel.rateCount)
-            self?.coordiNator?.moveToAddReview(vinylDataModel: viniylDetailData)
+//            let vinylDetailData = AddReviewModel.init(vinylImageURL: self?.viewModel?.model.vinylImageURL, songTitle: vinylInformationModel.title, songArtist: vinylInformationModel.artist, rate: vinylInformationModel.rate, rateCount: vinylInformationModel.rateCount)
+
+            let vinylDetailData = RequestSaveVinylModel.init(id: vinylInformationModel.id, title: vinylInformationModel.title, artist: vinylInformationModel.artist, image: vinylInformationModel.image, year: vinylInformationModel.year, genres: vinylInformationModel.genres, tracklist: vinylInformationModel.tracklist, rate: nil, comment: nil)
+
+            guard let thumbnail = self?.viewModel?.model.vinylImageURL else { return }
+            self?.coordiNator?.moveToAddReview(vinylDataModel: vinylDetailData, thumbnailImage: thumbnail,songRate: vinylInformationModel.rate ,songRateCount: vinylInformationModel.rateCount)
         }).disposed(by: disposebag)
         
         informationScrollView.delegate = self
@@ -111,7 +116,6 @@ class AddInformationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDid",viewModel?.model.vinylTrackList,viewModel?.model.vinylTitleSong)
-        self.albumSongListTableViewHeight.constant = CGFloat((viewModel?.model.vinylTrackList.count)!*21)
     }
     func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
@@ -122,7 +126,7 @@ class AddInformationViewController: UIViewController {
         albumSongListTableView.estimatedRowHeight = 24
         albumSongListTableView.separatorStyle = .none
         albumSongListTableView.backgroundColor = .black
-//        albumSongListTableViewHeight.constant = CGFloat(dataCount*21) // 21size가 추가셀 생성되지 않음
+        albumSongListTableViewHeight.constant = CGFloat(21) // 21size가 추가셀 생성되지 않음
         albumSongListTableView.isScrollEnabled = false
     }
     func bindViynlInformationData() {
@@ -137,22 +141,21 @@ class AddInformationViewController: UIViewController {
                     return
                 }
                 //tracklist tableview
-                self?.viewModel?.model.vinylTrackList = vinylInformation.tracklist!
-                self?.albumSongListTableViewHeight.constant = CGFloat((self?.viewModel?.model.vinylTrackList.count)!*21)
+                self?.viewModel?.model.vinylTrackList = vinylInformation.tracklist
+                self?.albumSongListTableViewHeight.constant = CGFloat(((self?.viewModel?.model.vinylTrackList.count)!)*24)
+                //cell artist label 사이즈 고정하거나 , 긴 노래 제목 문자열 계산 필요
                 self?.albumSongListTableView.reloadData()
 
-                if let imageURL = vinylInformation.image {
-                    self?.blurCircleView.shownCircleImageView.setImageURLAndChaching(imageURL)
-                    self?.blurCircleView.backgroundImageView.setImageURLAndChaching(imageURL)
-                }else {
-                    self?.blurCircleView.shownCircleImageView.image = UIImage()
-                    self?.blurCircleView.backgroundImageView.image = UIImage()
-                }
+
+                self?.blurCircleView.shownCircleImageView.setImageURLAndChaching(vinylInformation.image)
+                self?.blurCircleView.backgroundImageView.setImageURLAndChaching(vinylInformation.image)
+
                 self?.songTitleLabel.text = vinylInformation.title
                 self?.songArtistLabel.text = vinylInformation.artist
-                self?.songGenresLabel.text = vinylInformation.genres?[0]
-                self?.songCountLabel.text = String(vinylInformation.tracklist?.count ?? 0)
+                self?.songGenresLabel.text = vinylInformation.genres[0]
+                self?.songCountLabel.text = String(vinylInformation.tracklist.count)
                 self?.songReleaseDataLabel.text = String(vinylInformation.year ?? 0)
+                self?.songStarCountLabel.text = String(vinylInformation.rate) + " (\(vinylInformation.rateCount)건)"
 
                 //save button enabled setting
                 self?.saveInformationButton.isEnabled = true
@@ -173,7 +176,8 @@ class AddInformationViewController: UIViewController {
 extension AddInformationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("count",viewModel!.model.vinylTrackList.count)
-        return viewModel!.model.vinylTrackList.count
+        guard let viewModel = self.viewModel else { return 0 }
+        return viewModel.model.vinylTrackList.count
         //return dataCount
     }
     
