@@ -106,6 +106,7 @@ class AddReviewViewController: UIViewController {
     @IBOutlet weak var starCosmosView: CosmosView!
     @IBOutlet weak var starScoreLabel: UILabel!
     @IBOutlet weak var vinylImageView: UIImageView!
+    @IBOutlet weak var userReviewCommentCountLabel: UILabel!
     @IBOutlet weak var recommendMentLabel: UILabel!
 
     private weak var coordiNator: AppCoordinator?
@@ -128,7 +129,7 @@ class AddReviewViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         songTitleNameLabel.text = viewModel.model.title
         songArtistLabel.text = viewModel.model.artist
-        songRateLabel.text = String(viewModel.model.rate ?? 0)
+        songRateLabel.text = String(viewModel.songRate ?? 0) + "(\(viewModel.songRateCount ?? 0)건)"
         vinylImageView.setImageChache(imageURL: (viewModel.model.image))
 
         reviewTextView.rx.text
@@ -144,7 +145,14 @@ class AddReviewViewController: UIViewController {
         setAutoLayoutWhiteCircleView()
         reviewScrollView.delegate = self
         setStarUI()
+        setCountTextViewInLabel()
+        setPlaceholderTextView()
+        limitReviewTextCount()
+        setKeyboardDoneItem()
+        setKeyboardDisapperResetOriginalFrame()
+        framControlDidBeginEditing()
     }
+
     func setStarUI() {
         starCosmosView.settings.emptyImage = UIImage(named: "icnOffStar")
         starCosmosView.settings.filledImage = UIImage(named: "icnStar")
@@ -165,6 +173,7 @@ class AddReviewViewController: UIViewController {
         reviewTextView.layer.cornerRadius = 8
         vinylImageView.layer.cornerRadius = vinylImageView.frame.size.height/2
     }
+
     func setAutoLayoutWhiteCircleView() {
         let whiteCircleVinylViewCenterX = whiteCircleVinylView.centerXAnchor.constraint(equalTo: vinylImageView.centerXAnchor)
         let whiteCircleVinylViewCenterY = whiteCircleVinylView.centerYAnchor.constraint(equalTo: vinylImageView.centerYAnchor)
@@ -172,6 +181,86 @@ class AddReviewViewController: UIViewController {
         let whiteCircleVinylViewHeightConstraint = whiteCircleVinylView.heightAnchor.constraint(equalToConstant: 23)
         vinylImageView.addConstraints([whiteCircleVinylViewCenterX,whiteCircleVinylViewCenterY,whiteCircleVinylViewWidthConstraint,whiteCircleVinylViewHeightConstraint])
     }
+
+    func setKeyboardDoneItem() {
+        let toolBarKeyboard = UIToolbar()
+        toolBarKeyboard.sizeToFit()
+        let buttonDoneBar = UIBarButtonItem(title: "작성 완료", style: .done, target: self, action: #selector(self.doneBtnClicked))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        toolBarKeyboard.items = [flexSpace, buttonDoneBar]
+        toolBarKeyboard.tintColor = UIColor.vinylaMainOrangeColor()
+        reviewTextView.inputAccessoryView = toolBarKeyboard
+    }
+
+    func setKeyboardDisapperResetOriginalFrame() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc func keyboardWillDisappear(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+
+    @IBAction func doneBtnClicked (sender: Any) {
+        self.view.endEditing(true)
+    }
+
+    func setCountTextViewInLabel() {
+        reviewTextView.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] text in
+                self?.userReviewCommentCountLabel.text = String(text.count)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func limitReviewTextCount() {
+        reviewTextView.rx.text.orEmpty
+            .map{ $0.count <= 150 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext:{ [weak self] isEditable in
+                if !isEditable {
+                    self?.reviewTextView.text = String(self?.reviewTextView.text?.dropLast() ?? "")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func setPlaceholderTextView() {
+        reviewTextView.rx.didBeginEditing
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                if(self.reviewTextView.text == "이 음반에 대해 감상평을 솔직하게 남겨주세요." ) {
+                    self.reviewTextView.text = nil
+                    self.reviewTextView.textColor = .white
+                }}).disposed(by: disposeBag)
+
+        reviewTextView.rx.didEndEditing
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext:{ [weak self] in
+                guard let self = self else { return }
+                if self.reviewTextView.text == nil || self.reviewTextView.text == "" {
+                    self.reviewTextView.text = "이 음반에 대해 감상평을 솔직하게 남겨주세요."
+                    self.reviewTextView.textColor = UIColor.textColor()
+                    self.view.endEditing(true)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func framControlDidBeginEditing() {
+        reviewTextView.rx.didBeginEditing
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext:{ [weak self] in
+                guard let self = self else { return }
+                if self.view.frame.origin.y == 0 {
+                    self.view.frame.origin.y -= (self.reviewTextView.frame.height + 15)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
     @IBAction func touchUpBackButton(_ sender: Any) {
         coordiNator?.popViewController()
     }
@@ -183,14 +272,12 @@ class AddReviewViewController: UIViewController {
 //            return
 //        }
 
-        print("thumbnail: ",self.viewModel?.thumbnailImage)
         let chekedCompletedispatchGroup = DispatchGroup()
         chekedCompletedispatchGroup.enter()
         viewModel?.requestSaveVinylData(dispatchGroup: chekedCompletedispatchGroup)
         chekedCompletedispatchGroup.notify(queue: .main){ [weak self] in
             self?.coordiNator?.popToVinylBoxView()
         }
-
     }
 }
 
