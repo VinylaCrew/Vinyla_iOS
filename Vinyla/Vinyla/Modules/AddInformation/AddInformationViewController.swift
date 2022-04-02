@@ -11,6 +11,36 @@ import RxSwift
 
 class AddInformationViewController: UIViewController {
 
+    lazy var deleteVinylButton: UIButton = {
+        let button = UIButton()
+
+        let width: CGFloat = self.view.bounds.width-30
+        let height: CGFloat = 62
+
+        let posX: CGFloat = 15
+        let posY: CGFloat = self.view.bounds.height-28-62
+        print("viewboundsheight")
+        print(self.view.bounds.height)
+
+        button.frame = CGRect(x: posX, y: posY, width: width, height: height)
+        button.backgroundColor = UIColor(red: 35/255, green: 35/255, blue: 36/255, alpha: 1)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 8.0
+        button.titleLabel?.font = UIFont(name: "NotoSansKR-Medium", size: 17)
+        button.titleLabel?.textAlignment = .center
+        // Set the title (normal).
+        button.setTitle("삭제하기", for: .normal)
+        button.setTitleColor(UIColor.textColor(), for: .normal)
+        // Set the title (highlighted).
+        button.setTitle("삭제하기", for: .highlighted)
+//        button.setTitleColor(UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1), for: .highlighted)
+//        button.setBackgroundColor(UIColor(red: 35/255, green: 35/255, blue: 36/255, alpha: 1), for: .highlighted)
+        // Tag a button.
+        button.tag = 1
+
+        return button
+    }()
+
     lazy var saveInformationButton: UIButton = {
         let button = UIButton()
         
@@ -22,8 +52,6 @@ class AddInformationViewController: UIViewController {
         // (center of screen)
         let posX: CGFloat = 15
         let posY: CGFloat = self.view.bounds.height-28-62
-        print("viewboundsheight")
-        print(self.view.bounds.height)
         
         // Set the button installation coordinates and size.
         button.frame = CGRect(x: posX, y: posY, width: width, height: height)
@@ -36,7 +64,7 @@ class AddInformationViewController: UIViewController {
         
         // Set the radius of the corner.
         button.layer.cornerRadius = 8.0
-        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.titleLabel?.font = UIFont(name: "NotoSansKR-Medium", size: 17)
         button.titleLabel?.textAlignment = .center
         // Set the title (normal).
         button.setTitle("보관함에 저장하기(1/2)", for: .normal)
@@ -68,7 +96,7 @@ class AddInformationViewController: UIViewController {
     @IBOutlet weak var blurCircleView: BlurCircleView!
 
 
-    private weak var coordiNator: AppCoordinator?
+    private weak var coordinator: AppCoordinator?
     private var viewModel: AddInformationViewModel?
     var disposebag = DisposeBag()
     
@@ -80,7 +108,7 @@ class AddInformationViewController: UIViewController {
             return UIViewController()
         }
         viewController.viewModel = viewModel
-        viewController.coordiNator = coordiNator
+        viewController.coordinator = coordiNator
         return viewController
     }
     
@@ -88,7 +116,21 @@ class AddInformationViewController: UIViewController {
         super.viewDidLoad()
 
         setAlbumListTableViewUI()
-        self.view.addSubview(saveInformationButton)
+        //DeleteMode 분기처리
+        if viewModel?.isDeleteMode == true {
+            self.view.addSubview(deleteVinylButton)
+            deleteVinylButton.rx.tap
+                .subscribe(onNext: { [weak self] in
+                    self?.viewModel?.deleteVinylBoxData()
+                    self?.coordinator?.popViewController()
+                })
+                .disposed(by: disposebag)
+
+        }else {
+            blurCircleView.setFavoriteImageButton.isHidden = true
+            self.view.addSubview(saveInformationButton)
+        }
+
         saveInformationButton.rx.tap.subscribe(onNext:  { [weak self] in
             guard let vinylInformationModel = self?.viewModel?.vinylInformationDataModel else { return }
 //            let vinylDetailData = AddReviewModel.init(vinylImageURL: self?.viewModel?.model.vinylImageURL, songTitle: vinylInformationModel.title, songArtist: vinylInformationModel.artist, rate: vinylInformationModel.rate, rateCount: vinylInformationModel.rateCount)
@@ -96,11 +138,12 @@ class AddInformationViewController: UIViewController {
             let vinylDetailData = RequestSaveVinylModel.init(id: vinylInformationModel.id, title: vinylInformationModel.title, artist: vinylInformationModel.artist, image: vinylInformationModel.image, year: vinylInformationModel.year, genres: vinylInformationModel.genres, tracklist: vinylInformationModel.tracklist, rate: nil, comment: nil)
 
             guard let thumbnail = self?.viewModel?.model.vinylImageURL else { return }
-            self?.coordiNator?.moveToAddReview(vinylDataModel: vinylDetailData, thumbnailImage: thumbnail,songRate: vinylInformationModel.rate ,songRateCount: vinylInformationModel.rateCount)
+            self?.coordinator?.moveToAddReview(vinylDataModel: vinylDetailData, thumbnailImage: thumbnail,songRate: vinylInformationModel.rate ,songRateCount: vinylInformationModel.rateCount)
         }).disposed(by: disposebag)
         
         informationScrollView.delegate = self
         blurCircleView.delegate = self
+
 
         guard let vinylImageURL = viewModel?.model.vinylImageURL else { return }
         blurCircleView.shownCircleImageView.setImageChache(imageURL: vinylImageURL)
@@ -194,9 +237,11 @@ extension AddInformationViewController: UITableViewDelegate, UITableViewDataSour
 extension AddInformationViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.saveInformationButton.alpha = 0.4
+        self.deleteVinylButton.alpha = 0.4
     }
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.saveInformationButton.alpha = 1.0
+        self.deleteVinylButton.alpha = 1.0
     }
 }
 
@@ -206,6 +251,6 @@ extension AddInformationViewController: ButtonTapDelegate {
     }
 
     func didTapPopButton() {
-        self.coordiNator?.popViewController()
+        self.coordinator?.popViewController()
     }
 }
