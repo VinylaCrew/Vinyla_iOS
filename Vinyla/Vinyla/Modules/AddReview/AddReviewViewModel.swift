@@ -15,6 +15,8 @@ protocol AddReviewViewModelProtocol {
 }
 
 final class AddReviewViewModel: AddReviewViewModelProtocol {
+    var songRate: Int?
+    var songRateCount: Int?
     //input
     var userRate: PublishSubject<Int> = PublishSubject<Int>()
     var userCommnet: PublishSubject<String> = PublishSubject<String>()
@@ -49,7 +51,8 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
                 if let vinylIndex = response.data?.vinylIdx {
                     DispatchQueue.global().async() {
                         checkSaveDispatchGroup.enter()
-                        guard let insideImageURL = URL(string: (self?.thumbnailImage)!) else { return }
+                        guard let thumbnailImageURL = self?.thumbnailImage else { return }
+                        guard let insideImageURL = URL(string: thumbnailImageURL) else { return }
                         let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (data, result, error) in
                             guard error == nil else {
                                 return
