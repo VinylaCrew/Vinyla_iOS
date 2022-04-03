@@ -40,6 +40,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setPlaceholderTextView()
         setCountTextViewInLabel()
         albumNameTextField.delegate = self
         artistNameTextField.delegate = self
@@ -63,7 +64,8 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         print("touch")
     }
     @IBAction func doneBtnClicked (sender: Any) {
-        self.view.endEditing(true) }
+        self.view.endEditing(true)
+    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -75,12 +77,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
 
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
-//            print(self.fCurTextfieldBottom)
-//            guard let bottom = self.fCurTextfieldBottom else { return }
-//            if bottom <= self.view.frame.height - keyboardHeight {
-//                print(self.fCurTextfieldBottom)
-//                return
-//            }
+
             //text view 만 키보드 올라가게
             if self.fCurTextfieldBottom == nil {
                 self.view.frame.origin.y -= keyboardHeight
@@ -92,9 +89,6 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
-//        if self.view.bounds.origin.y != 0 {
-//            self.view.bounds.origin.y = 0
-//        }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -132,7 +126,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         memoTextView.layer.borderColor = CGColor(red: 40/255, green: 40/255, blue: 41/255, alpha: 1)
         memoTextView.layer.cornerRadius = 8
         memoTextView.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 26/255, alpha: 1)
-        memoTextView.textColor = UIColor.white
+        memoTextView.textColor = UIColor.textColor()
         memoTextView.font = UIFont(name: "NotoSansKR-Regular", size: 13)
 
         requestUserVinylButton.layer.cornerRadius = 8
@@ -141,22 +135,56 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
             buttonTopConstraint.constant += CGFloat(UIScreen.main.bounds.height - 811)
         }
     }
+
     func setCountTextViewInLabel() {
         memoTextView.rx.text.orEmpty
             .subscribe(onNext: { [weak self] text in
                 self?.memoTextCountLabel.text = String(text.count)
-        })
-        .disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func remitMemoTextCount() {
+        memoTextView.rx.text.orEmpty
+            .map{ $0.count <= 100 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext:{ [weak self] isEditable in
+                if !isEditable {
+                    self?.memoTextView.text = String(self?.memoTextView.text?.dropLast() ?? "")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func setPlaceholderTextView() {
+        let placeholder = "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요."
+        memoTextView.rx.didBeginEditing
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                if self.memoTextView.text == "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요." {
+                    print("memoTextView")
+                    self.memoTextView.text = nil
+                    self.memoTextView.textColor = .white
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension RequestUserVinylViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         print("should begin edit")
+        if self.memoTextView.text == "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요." {
+            print("memoTextView")
+            self.memoTextView.text = nil
+            self.memoTextView.textColor = .white
+        }
+
         if self.view.frame.origin.y == 0 {
             self.view.frame.origin.y -= (memoTextView.frame.height + 75)
         }
-//        self.view.frame.origin.y -= memoTextView.frame.height
+
         return true
     }
 //    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -165,10 +193,12 @@ extension RequestUserVinylViewController: UITextViewDelegate {
 //        return true
 //    }
     func textViewDidEndEditing(_ textView: UITextView) {
-        print("did end edit")
-        self.view.endEditing(true)
-        //TextViewDelegate 에서만 self.view.endEditing이 작동하지 않음
+        if(memoTextView.text == nil || memoTextView.text == ""){
+            self.memoTextView.text = "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요."
+            memoTextView.textColor = UIColor.textColor()
+            self.view.endEditing(true)
+            //TextViewDelegate 에서만 self.view.endEditing이 작동하지 않음
+        }
     }
+
 }
-
-
