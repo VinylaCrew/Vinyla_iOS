@@ -1,18 +1,73 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+    </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyGuideView" customModule="Vinyla" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        <view contentMode="scaleToFill" id="VAg-To-dsn">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="510"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img" translatesAutoresizingMaskIntoConstraints="NO" id="nSt-GP-JEn">
+                    <rect key="frame" x="139" y="137" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="4t1-L0-4MH"/>
+                        <constraint firstAttribute="height" constant="100" id="Xiu-Xl-1wf"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pik" translatesAutoresizingMaskIntoConstraints="NO" id="dtN-oe-ZIh">
+                    <rect key="frame" x="205" y="203" width="34" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="34" id="1jY-tH-gTH"/>
+                        <constraint firstAttribute="height" constant="34" id="ny7-B8-Fm7"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수집한 바이닐을 보관해보세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eGV-eE-kkX">
+                    <rect key="frame" x="67" y="257" width="245" height="28"/>
+                    <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="19"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="우측 하단 +버튼을 통해 바이닐 보관함을 채워보세요!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sV-Ue-ISo">
+                    <rect key="frame" x="48" y="295" width="284" height="19"/>
+                    <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="13"/>
+                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="y4d-ex-KRh"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="nSt-GP-JEn" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="139" id="3kv-aw-tbU"/>
+                <constraint firstItem="eGV-eE-kkX" firstAttribute="top" secondItem="nSt-GP-JEn" secondAttribute="bottom" constant="20" id="4Zw-2C-uaE"/>
+                <constraint firstItem="9sV-Ue-ISo" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="48" id="9be-Ps-eWw"/>
+                <constraint firstItem="9sV-Ue-ISo" firstAttribute="top" secondItem="eGV-eE-kkX" secondAttribute="bottom" constant="10" id="Ity-cu-pjA"/>
+                <constraint firstItem="nSt-GP-JEn" firstAttribute="top" secondItem="y4d-ex-KRh" secondAttribute="top" constant="93" id="afo-1f-qOZ"/>
+                <constraint firstItem="dtN-oe-ZIh" firstAttribute="trailing" secondItem="nSt-GP-JEn" secondAttribute="trailing" id="cac-zZ-npJ"/>
+                <constraint firstItem="dtN-oe-ZIh" firstAttribute="bottom" secondItem="nSt-GP-JEn" secondAttribute="bottom" id="dex-PJ-zae"/>
+                <constraint firstItem="y4d-ex-KRh" firstAttribute="trailing" secondItem="nSt-GP-JEn" secondAttribute="trailing" constant="136" id="gIZ-cF-Kyc"/>
+                <constraint firstItem="eGV-eE-kkX" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="67" id="mQH-hp-YBE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="51.449275362318843" y="56.919642857142854"/>
         </view>
     </objects>
+    <resources>
+        <image name="img" width="100" height="100"/>
+        <image name="pik" width="35" height="34"/>
+    </resources>
 </document>

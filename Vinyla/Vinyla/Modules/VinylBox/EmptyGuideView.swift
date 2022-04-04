@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmptyGuidView: UIView {
+class EmptyGuideView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
