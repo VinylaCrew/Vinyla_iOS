@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,6 +53,33 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ny-7J-RQf">
                                 <rect key="frame" x="0.0" y="140" width="375" height="672"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="akX-GQ-u5L">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대한 검색 결과가 DB에 없어요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz7-2T-6UH">
+                                            <rect key="frame" x="20" y="232" width="335" height="22"/>
+                                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="찾는 바이닐에 대한 정보를 알려주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTv-zi-dPE">
+                                            <rect key="frame" x="20" y="254" width="335" height="22"/>
+                                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="kTv-zi-dPE" firstAttribute="leading" secondItem="akX-GQ-u5L" secondAttribute="leading" constant="20" symbolic="YES" id="9D7-Eo-m2n"/>
+                                        <constraint firstItem="Cz7-2T-6UH" firstAttribute="top" secondItem="akX-GQ-u5L" secondAttribute="top" constant="232" id="E5T-gj-zFT"/>
+                                        <constraint firstAttribute="trailing" secondItem="kTv-zi-dPE" secondAttribute="trailing" constant="20" symbolic="YES" id="PA1-xI-kku"/>
+                                        <constraint firstItem="Cz7-2T-6UH" firstAttribute="leading" secondItem="akX-GQ-u5L" secondAttribute="leading" constant="20" id="iVO-qn-bH1"/>
+                                        <constraint firstItem="kTv-zi-dPE" firstAttribute="top" secondItem="Cz7-2T-6UH" secondAttribute="bottom" id="oU3-5Y-D3A"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cz7-2T-6UH" secondAttribute="trailing" constant="20" id="w6k-He-Dhv"/>
+                                    </constraints>
+                                </view>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-Lr-ZN2">
                                 <rect key="frame" x="334" y="66" width="28" height="22"/>
@@ -85,8 +112,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noSearchInformationView" destination="akX-GQ-u5L" id="YX0-cC-X90"/>
                         <outlet property="searchButton" destination="Dhg-Lr-ZN2" id="v6q-Hk-Dkz"/>
                         <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
+                        <outlet property="userSearchTextLabel" destination="Cz7-2T-6UH" id="Jxc-ec-ovq"/>
                         <outlet property="vinylCountLabel" destination="PhD-Ui-1vJ" id="QyF-NO-zjZ"/>
                         <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="avT-3d-Gmo"/>
                     </connections>
