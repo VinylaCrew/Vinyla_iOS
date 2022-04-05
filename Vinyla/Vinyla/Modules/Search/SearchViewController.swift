@@ -57,7 +57,9 @@ final class SearchViewController: UIViewController {
 
     @IBOutlet weak var vinylSearchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var noSearchInformationView: UIView!
     @IBOutlet weak var vinylCountLabel: UILabel!
+    @IBOutlet weak var userSearchTextLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
 
     var disposeBag = DisposeBag()
@@ -228,10 +230,25 @@ final class SearchViewController: UIViewController {
             }.disposed(by: disposeBag)
 
         viewModel.vinylsData
-            .map{ $0! }
-            .subscribe(onNext: { [weak self] data in
+            .map{ $0?.count ?? 0 < 1 }
+            .subscribe(onNext: { [weak self] isEmpty in
                 //MARK: - TODO 찾는 바이닐 없는 경우, UI 처리
-                if data.isEmpty {
+                guard let self = self else { return }
+                if isEmpty {
+                    do {
+                        guard let userSearchText = try self.viewModel?.userSearchText.value() else { return }
+                        let attributedString = NSMutableAttributedString(string: "\(userSearchText)에 대한 검색 결과가 DB에 없어요.")
+                        let font = UIFont(name: "NotoSansKR-Medium", size: 15)
+                        attributedString.addAttribute(.font, value: font, range: (userSearchText as NSString).range(of:"\(userSearchText)에 대한 검색 결과가 DB에 없어요."))
+                        attributedString.addAttribute(.foregroundColor, value: UIColor.vinylaMainOrangeColor(), range: (userSearchText as NSString).range(of:"\(userSearchText)"))
+                        self.userSearchTextLabel.attributedText = attributedString
+                        self.noSearchInformationView.isHidden = false
+
+                    } catch {
+                        print(error)
+                    }
+                }else {
+                    self.noSearchInformationView.isHidden = true
                 }
             })
             .disposed(by: disposeBag)
@@ -253,7 +270,7 @@ final class SearchViewController: UIViewController {
         //            .disposed(by: disposeBag)
         searchTableView.rx.modelSelected(SearchModel.Data.self)
             .subscribe(onNext: { [weak self] model in
-                self?.coordiNator?.moveToAddInformationView(vinylID: model.id, vinylImageURL: model.thumb )
+                self?.coordiNator?.moveToAddInformationView(vinylID: model.id, vinylImageURL: model.thumb, isDeleteMode: false)
             })
             .disposed(by: disposeBag)
         
