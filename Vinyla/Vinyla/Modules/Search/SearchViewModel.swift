@@ -17,6 +17,7 @@ protocol SearchViewModelType {
     var vinylsData: PublishSubject<[SearchModel.Data]?> { get }
     var isSearch: PublishSubject<Bool> { get }
     var vinylsCount: BehaviorSubject<String?> { get set }
+    var userSearchText: BehaviorSubject<String> { get set }
 
     var searchAPIService: VinylAPIServiceProtocol { get set }
 }
@@ -28,10 +29,12 @@ final class SearchViewModel: SearchViewModelType {
 
     //Output
     public private(set) var vinylsData: PublishSubject<[SearchModel.Data]?> = PublishSubject<[SearchModel.Data]?>()
+    public internal(set) var userSearchText: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     var vinylsCount: BehaviorSubject<String?> = BehaviorSubject<String?>(value: "0")
     var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
     var disposeBag = DisposeBag()
+
     init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.searchAPIService = searchAPIService
         let testAPIService = MockAPIService()
@@ -47,16 +50,26 @@ final class SearchViewModel: SearchViewModelType {
             .bind(to: vinylsData)
             .disposed(by: disposeBag)
 
-        _ = vinylsData
-            .map({ data -> String in
-                if let data = data {
-                    return String(data.count)
-                }else {
-                    return String(0)
-                }
-            })
-            .bind(to: vinylsCount)
-            .disposed(by: disposeBag)
+                _ = vinylsData
+                .map({ data -> String in
+                    if let data = data {
+                        return String(data.count)
+                    }else {
+                        return String(0)
+                    }
+                })
+                .bind(to: vinylsCount)
+                .disposed(by: disposeBag)
+
+                _ = vinylName
+                .subscribe(onNext:{ [weak self] text in
+                    if text.count <= 9 {
+                        self?.userSearchText.onNext(text)
+                    }else {
+                        self?.userSearchText.onNext(String(text.prefix(8)) + "...")
+                    }
+                })
+                .disposed(by: disposeBag)
 
     }
     deinit {
