@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5536083826E1309A00761CFF /* RequestUserVinylViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */; };
+		553AE2B2279ED0FC00A2655B /* NetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553AE2B1279ED0FC00A2655B /* NetworkManagerTests.swift */; };
 		5541DD3A268838FB00970794 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD39268838FB00970794 /* AppDelegate.swift */; };
 		5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD3B268838FB00970794 /* SceneDelegate.swift */; };
 		5541DD432688390800970794 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5541DD422688390800970794 /* Assets.xcassets */; };
@@ -26,7 +27,7 @@
 		5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5541DD7B26AF113700970794 /* TextFieldPadding.swift */; };
 		5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57526B13E4E003659C6 /* SignUpViewModel.swift */; };
 		5544D57A26B14538003659C6 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D57926B14538003659C6 /* DIContainer.swift */; };
-		5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D58726B14B49003659C6 /* VinylaTests.swift */; };
+		5544D58826B14B49003659C6 /* VinylaBoxLevelDesignTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D58726B14B49003659C6 /* VinylaBoxLevelDesignTests.swift */; };
 		5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */; };
 		5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */; };
 		5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5544D5A726B3038E003659C6 /* VinylBoxCollectionViewCell.swift */; };
@@ -58,6 +59,8 @@
 		55592C2226C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */; };
 		55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */; };
 		55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */; };
+		555995872797BF31002FA8AC /* SignUpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555995862797BF31002FA8AC /* SignUpTests.swift */; };
+		5561CD3E2791A7CB0087DED6 /* NickNameCheckModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5561CD3D2791A7CB0087DED6 /* NickNameCheckModel.swift */; };
 		558383C626D8AC0C0019977A /* APITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383C526D8AC0C0019977A /* APITarget.swift */; };
 		558383CC26D8B0A00019977A /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383CB26D8B0A00019977A /* APIService.swift */; };
 		558383D026D8B1C60019977A /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558383CF26D8B1C60019977A /* SearchModel.swift */; };
@@ -74,6 +77,11 @@
 		5591489B2722E6620081DCFD /* VinylInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5591489A2722E6620081DCFD /* VinylInformation.swift */; };
 		5591489F2722E9080081DCFD /* GetViynlDetailAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */; };
 		559148A3272591820081DCFD /* AddReviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559148A2272591820081DCFD /* AddReviewModel.swift */; };
+		55920178279BFFFC00E13D12 /* CommonNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55920177279BFFFC00E13D12 /* CommonNetworkManager.swift */; };
+		55932FC027AAC879006B2DFF /* NetworkErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55932FBF27AAC879006B2DFF /* NetworkErrorHandling.swift */; };
+		55932FC627ACB858006B2DFF /* SignInModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55932FC527ACB858006B2DFF /* SignInModel.swift */; };
+		55932FCA27ACC0BD006B2DFF /* SignInTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55932FC927ACC0BD006B2DFF /* SignInTests.swift */; };
+		55932FCF27AED510006B2DFF /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55932FCE27AED510006B2DFF /* UserDefaultsKey.swift */; };
 		5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */; };
 		5599C77A26DCD510008F8FDF /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C77926DCD510008F8FDF /* NSCacheManager.swift */; };
 		5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C78426DCF744008F8FDF /* LevelDesignModel.swift */; };
@@ -83,10 +91,21 @@
 		5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */; };
 		5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */; };
 		5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */; };
-		55A394A1274C77EA0030867F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55A394A0274C77EA0030867F /* GoogleService-Info.plist */; };
 		55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */; };
 		55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */; };
+		55B123E227575D3A00B14C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B123E127575D3A00B14C9B /* GoogleService-Info.plist */; };
+		55B123E62758A56E00B14C9B /* VinylBoxMockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 55B123E52758A56E00B14C9B /* VinylBoxMockData.json */; };
+		55B123EA2758A73800B14C9B /* MyVinylBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B123E92758A73800B14C9B /* MyVinylBoxModel.swift */; };
+		55B123EE2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B123ED2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift */; };
+		55B124172758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */; };
 		55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */; };
+		55DF410327F8921F009973BB /* DeleteVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF410227F8921F009973BB /* DeleteVinylModel.swift */; };
+		55DF410A27FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */; };
+		55DF410B27FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */; };
+		55DF410F27FB2CA3009973BB /* EmptyGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */; };
+		55DF411127FB3309009973BB /* EmptyGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF411027FB3309009973BB /* EmptyGuideView.swift */; };
+		55F5965427DDA13600F120AF /* SaveVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5965327DDA13600F120AF /* SaveVinylModel.swift */; };
+		55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFBAC6279BB58700DB71EC /* ServerHost.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
 /* End PBXBuildFile section */
@@ -105,6 +124,7 @@
 		36D17E3E9541DE181DC65957 /* Pods-Vinyla.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.release.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.release.xcconfig"; sourceTree = "<group>"; };
 		52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VinylaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5536083726E1309A00761CFF /* RequestUserVinylViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewModel.swift; sourceTree = "<group>"; };
+		553AE2B1279ED0FC00A2655B /* NetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerTests.swift; sourceTree = "<group>"; };
 		5541DD36268838FB00970794 /* Vinyla.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vinyla.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5541DD39268838FB00970794 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5541DD3B268838FB00970794 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,7 +146,7 @@
 		5544D57526B13E4E003659C6 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		5544D57926B14538003659C6 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		5544D58526B14B49003659C6 /* VinylaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VinylaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5544D58726B14B49003659C6 /* VinylaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaTests.swift; sourceTree = "<group>"; };
+		5544D58726B14B49003659C6 /* VinylaBoxLevelDesignTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaBoxLevelDesignTests.swift; sourceTree = "<group>"; };
 		5544D58926B14B49003659C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5544D59E26B1BFEF003659C6 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		5544D59F26B1BFEF003659C6 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
@@ -159,6 +179,8 @@
 		55592C2026C4BC0B00F85A9A /* AlbumSongListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlbumSongListTableViewCell.xib; sourceTree = "<group>"; };
 		55592C5026C8D34300F85A9A /* DeleteInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteInformationViewController.swift; sourceTree = "<group>"; };
 		55592C5426C8D34D00F85A9A /* DeleteInformation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DeleteInformation.storyboard; sourceTree = "<group>"; };
+		555995862797BF31002FA8AC /* SignUpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpTests.swift; sourceTree = "<group>"; };
+		5561CD3D2791A7CB0087DED6 /* NickNameCheckModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameCheckModel.swift; sourceTree = "<group>"; };
 		558383C526D8AC0C0019977A /* APITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITarget.swift; sourceTree = "<group>"; };
 		558383CB26D8B0A00019977A /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		558383CF26D8B1C60019977A /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
@@ -175,6 +197,11 @@
 		5591489A2722E6620081DCFD /* VinylInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylInformation.swift; sourceTree = "<group>"; };
 		5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetViynlDetailAPITests.swift; sourceTree = "<group>"; };
 		559148A2272591820081DCFD /* AddReviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewModel.swift; sourceTree = "<group>"; };
+		55920177279BFFFC00E13D12 /* CommonNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonNetworkManager.swift; sourceTree = "<group>"; };
+		55932FBF27AAC879006B2DFF /* NetworkErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorHandling.swift; sourceTree = "<group>"; };
+		55932FC527ACB858006B2DFF /* SignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInModel.swift; sourceTree = "<group>"; };
+		55932FC927ACC0BD006B2DFF /* SignInTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTests.swift; sourceTree = "<group>"; };
+		55932FCE27AED510006B2DFF /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		5599C77526DCD3D8008F8FDF /* ImageView+NSCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+NSCache.swift"; sourceTree = "<group>"; };
 		5599C77926DCD510008F8FDF /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
 		5599C78426DCF744008F8FDF /* LevelDesignModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignModel.swift; sourceTree = "<group>"; };
@@ -184,10 +211,21 @@
 		5599C7B126DD71CB008F8FDF /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		5599C7B826DD77A7008F8FDF /* RequestUserVinyl.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestUserVinyl.storyboard; sourceTree = "<group>"; };
 		5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewController.swift; sourceTree = "<group>"; };
-		55A394A0274C77EA0030867F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInformationViewController.swift; sourceTree = "<group>"; };
 		55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceInformationViewController.xib; sourceTree = "<group>"; };
+		55B123E127575D3A00B14C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		55B123E52758A56E00B14C9B /* VinylBoxMockData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = VinylBoxMockData.json; sourceTree = "<group>"; };
+		55B123E92758A73800B14C9B /* MyVinylBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVinylBoxModel.swift; sourceTree = "<group>"; };
+		55B123ED2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyVinylBoxDataTest.swift; sourceTree = "<group>"; };
+		55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LoadingIndicator.swift"; sourceTree = "<group>"; };
 		55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		55DF410227F8921F009973BB /* DeleteVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVinylModel.swift; sourceTree = "<group>"; };
+		55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGuidanceCollectionViewCell.swift; sourceTree = "<group>"; };
+		55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyGuidanceCollectionViewCell.xib; sourceTree = "<group>"; };
+		55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyGuideView.xib; sourceTree = "<group>"; };
+		55DF411027FB3309009973BB /* EmptyGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGuideView.swift; sourceTree = "<group>"; };
+		55F5965327DDA13600F120AF /* SaveVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveVinylModel.swift; sourceTree = "<group>"; };
+		55FFBAC6279BB58700DB71EC /* ServerHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHost.swift; sourceTree = "<group>"; };
 		B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.release.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.release.xcconfig"; sourceTree = "<group>"; };
 		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.debug.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -237,7 +275,8 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
-				55A394A0274C77EA0030867F /* GoogleService-Info.plist */,
+				55932FCD27AED4FF006B2DFF /* User */,
+				55B123E127575D3A00B14C9B /* GoogleService-Info.plist */,
 				5599C7AA26DD717E008F8FDF /* Font */,
 				5599C77F26DCDB1D008F8FDF /* NSChache */,
 				558383C426D8ABDA0019977A /* NetWork */,
@@ -267,6 +306,11 @@
 				5599C78426DCF744008F8FDF /* LevelDesignModel.swift */,
 				5591489A2722E6620081DCFD /* VinylInformation.swift */,
 				559148A2272591820081DCFD /* AddReviewModel.swift */,
+				55B123E92758A73800B14C9B /* MyVinylBoxModel.swift */,
+				5561CD3D2791A7CB0087DED6 /* NickNameCheckModel.swift */,
+				55932FC527ACB858006B2DFF /* SignInModel.swift */,
+				55F5965327DDA13600F120AF /* SaveVinylModel.swift */,
+				55DF410227F8921F009973BB /* DeleteVinylModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -344,6 +388,10 @@
 				5544D61126BC07DA003659C6 /* VinylBoxViewModel.swift */,
 				55592C0926C2876900F85A9A /* PagingCollectionViewCell.swift */,
 				55592C0A26C2876900F85A9A /* PagingCollectionViewCell.xib */,
+				55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */,
+				55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */,
+				55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */,
+				55DF411027FB3309009973BB /* EmptyGuideView.swift */,
 			);
 			path = VinylBox;
 			sourceTree = "<group>";
@@ -355,6 +403,7 @@
 				5544D64826BEBB9F003659C6 /* DownScaleImage.swift */,
 				55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */,
 				5583840C26DBC1650019977A /* UIView+Gradient.swift */,
+				55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -370,10 +419,14 @@
 		5544D58626B14B49003659C6 /* VinylaTests */ = {
 			isa = PBXGroup;
 			children = (
-				5544D58726B14B49003659C6 /* VinylaTests.swift */,
+				5544D58726B14B49003659C6 /* VinylaBoxLevelDesignTests.swift */,
 				559148702720678D0081DCFD /* VinylaSearchTests.swift */,
 				5544D58926B14B49003659C6 /* Info.plist */,
 				5591489E2722E9080081DCFD /* GetViynlDetailAPITests.swift */,
+				55B123ED2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift */,
+				555995862797BF31002FA8AC /* SignUpTests.swift */,
+				553AE2B1279ED0FC00A2655B /* NetworkManagerTests.swift */,
+				55932FC927ACC0BD006B2DFF /* SignInTests.swift */,
 			);
 			path = VinylaTests;
 			sourceTree = "<group>";
@@ -434,6 +487,9 @@
 				559148762721213E0081DCFD /* MockAPIService */,
 				558383C526D8AC0C0019977A /* APITarget.swift */,
 				558383CB26D8B0A00019977A /* APIService.swift */,
+				55FFBAC6279BB58700DB71EC /* ServerHost.swift */,
+				55920177279BFFFC00E13D12 /* CommonNetworkManager.swift */,
+				55932FBF27AAC879006B2DFF /* NetworkErrorHandling.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -462,8 +518,17 @@
 			children = (
 				5591487E272151EF0081DCFD /* SearchMockData.json */,
 				559148962722E6130081DCFD /* VinylDetailMockData.json */,
+				55B123E52758A56E00B14C9B /* VinylBoxMockData.json */,
 			);
 			path = MockJson;
+			sourceTree = "<group>";
+		};
+		55932FCD27AED4FF006B2DFF /* User */ = {
+			isa = PBXGroup;
+			children = (
+				55932FCE27AED510006B2DFF /* UserDefaultsKey.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		5599C77F26DCDB1D008F8FDF /* NSChache */ = {
@@ -619,7 +684,6 @@
 			files = (
 				5599C7B926DD77A7008F8FDF /* RequestUserVinyl.storyboard in Resources */,
 				559148972722E6130081DCFD /* VinylDetailMockData.json in Resources */,
-				55A394A1274C77EA0030867F /* GoogleService-Info.plist in Resources */,
 				5591487F272151EF0081DCFD /* SearchMockData.json in Resources */,
 				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
 				5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */,
@@ -631,16 +695,20 @@
 				5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				558383F126DB9BB20019977A /* LevelDesign.storyboard in Resources */,
+				55B123E227575D3A00B14C9B /* GoogleService-Info.plist in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
 				5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */,
 				55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
+				55B123E62758A56E00B14C9B /* VinylBoxMockData.json in Resources */,
 				5599C7B326DD71CB008F8FDF /* NotoSansKR-Regular.otf in Resources */,
 				55592C5526C8D34D00F85A9A /* DeleteInformation.storyboard in Resources */,
 				5544D64D26C0347D003659C6 /* BlurCircleView.xib in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
+				55DF410F27FB2CA3009973BB /* EmptyGuideView.xib in Resources */,
+				55DF410B27FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib in Resources */,
 				5599C7AC26DD71A0008F8FDF /* Playball-Regular.ttf in Resources */,
 				5544D5AA26B3038E003659C6 /* VinylBoxCollectionViewCell.xib in Resources */,
 			);
@@ -729,17 +797,23 @@
 				5541DD5326883AF500970794 /* LogInViewController.swift in Sources */,
 				5599C77A26DCD510008F8FDF /* NSCacheManager.swift in Sources */,
 				5544D65126C037C2003659C6 /* BlurCircleView.swift in Sources */,
+				55DF411127FB3309009973BB /* EmptyGuideView.swift in Sources */,
+				55932FC627ACB858006B2DFF /* SignInModel.swift in Sources */,
 				5541DD7126AE955100970794 /* VinylBoxViewController.swift in Sources */,
 				55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */,
+				55B124172758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift in Sources */,
 				558383EB26DB9B9D0019977A /* LevelDesignViewController.swift in Sources */,
 				55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */,
+				55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
 				5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */,
+				55DF410A27FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift in Sources */,
 				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
 				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
 				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
 				55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */,
 				558383D026D8B1C60019977A /* SearchModel.swift in Sources */,
+				55932FC027AAC879006B2DFF /* NetworkErrorHandling.swift in Sources */,
 				5544D60626BBE855003659C6 /* SearchViewModel.swift in Sources */,
 				5541DD7826AF0DFF00970794 /* SignUpModel.swift in Sources */,
 				558383C626D8AC0C0019977A /* APITarget.swift in Sources */,
@@ -760,18 +834,24 @@
 				5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */,
 				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,
 				5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */,
+				55932FCF27AED510006B2DFF /* UserDefaultsKey.swift in Sources */,
 				5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */,
 				5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */,
+				5561CD3E2791A7CB0087DED6 /* NickNameCheckModel.swift in Sources */,
 				559148782721216B0081DCFD /* MockAPIService.swift in Sources */,
+				55F5965427DDA13600F120AF /* SaveVinylModel.swift in Sources */,
 				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */,
+				55DF410327F8921F009973BB /* DeleteVinylModel.swift in Sources */,
+				55B123EA2758A73800B14C9B /* MyVinylBoxModel.swift in Sources */,
 				55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */,
 				5541DD62269AD4E800970794 /* HomeViewController.swift in Sources */,
 				5544D5C526B52D07003659C6 /* AppCoordinator.swift in Sources */,
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
 				5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */,
 				5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */,
+				55920178279BFFFC00E13D12 /* CommonNetworkManager.swift in Sources */,
 				559148A3272591820081DCFD /* AddReviewModel.swift in Sources */,
 				558383CC26D8B0A00019977A /* APIService.swift in Sources */,
 				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,
@@ -782,9 +862,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553AE2B2279ED0FC00A2655B /* NetworkManagerTests.swift in Sources */,
 				559148712720678D0081DCFD /* VinylaSearchTests.swift in Sources */,
+				55B123EE2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift in Sources */,
+				555995872797BF31002FA8AC /* SignUpTests.swift in Sources */,
+				55932FCA27ACC0BD006B2DFF /* SignInTests.swift in Sources */,
 				5591489F2722E9080081DCFD /* GetViynlDetailAPITests.swift in Sources */,
-				5544D58826B14B49003659C6 /* VinylaTests.swift in Sources */,
+				5544D58826B14B49003659C6 /* VinylaBoxLevelDesignTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
