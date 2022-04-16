@@ -14,13 +14,18 @@ final class VinylBoxViewModel {
     var reverseVinylBoxes = [VinylBox]()
 
     var totalPageNumber: Int?
+    var nowPageNumber: Int
     private(set) var isDeletedVinylData = PublishSubject<Bool>()
+    private(set) var vinylTotalCount = PublishSubject<Int>()
     private var disposeBag = DisposeBag()
 
     init() {
         CoreDataManager.shared.isDeletedSpecificVinyl
             .bind(to: isDeletedVinylData)
             .disposed(by: disposeBag)
+
+        self.nowPageNumber = 1
+
     }
 
     func updateVinylBoxesAndReversBoxes() {
@@ -31,6 +36,17 @@ final class VinylBoxViewModel {
             totalPageNumber = vinylBoxes.count/9+1
         }
         reverseVinylBoxes = vinylBoxes.reversed()
+    }
+
+    func updatePageNumber() {
+
+        guard let totalPageNumber = self.totalPageNumber else {
+            return
+        }
+
+        if nowPageNumber > totalPageNumber {
+            self.nowPageNumber -= 1
+        }
     }
 
     func getPagingVinylBoxItems(indexPath: IndexPath) -> [VinylBox] {
@@ -50,5 +66,17 @@ final class VinylBoxViewModel {
     func getTotalVinylBoxCount() -> Int {
         guard let totalVinylCount = CoreDataManager.shared.getCountVinylBoxData() else { return 0 }
         return totalVinylCount
+    }
+
+    func getTotalVinylBoxCountObservable() -> Observable<Int> {
+        guard let totalVinylCount = CoreDataManager.shared.getCountVinylBoxData() else { return Observable<Int>.create() { emiter in
+            emiter.onNext(0)
+            return Disposables.create()
+        } }
+
+        return Observable<Int>.create() { emiter in
+            emiter.onNext(totalVinylCount)
+            return Disposables.create()
+        }
     }
 }
