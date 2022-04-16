@@ -28,6 +28,10 @@ final class VinylBoxViewModel {
 
     }
 
+    var pageString: String {
+        return "다음 서랍 \(self.nowPageNumber)/\(self.totalPageNumber ?? 1)"
+    }
+
     func updateVinylBoxesAndReversBoxes() {
         vinylBoxes = CoreDataManager.shared.fetchVinylBox()
         if vinylBoxes.count%9 == 0 {
