@@ -44,6 +44,9 @@ final class VinylBoxViewController: UIViewController {
         let vinylBoxCellNib = UINib(nibName: "PagingCollectionViewCell", bundle: nil)
         vinylBoxPagingCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "pagingCell")
 
+        let emptyGuidanceCellNib = UINib(nibName: "EmptyGuidanceCollectionViewCell", bundle: nil)
+        vinylBoxPagingCollectionView.register(emptyGuidanceCellNib, forCellWithReuseIdentifier: "emptyGuidanceCell")
+
         self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.coordiNator?.moveToSearchView()
         }).disposed(by: disposebag)
@@ -53,16 +56,15 @@ final class VinylBoxViewController: UIViewController {
         }).disposed(by: disposebag)
 
         viewModel?.isDeletedVinylData
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] isTrue in
                 if isTrue {
-                    DispatchQueue.main.async { [weak self] in
                         print("updateUIBox")
                         if let viewModel = self?.viewModel {
                             self?.vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
                         }
                         self?.viewModel?.updateVinylBoxesAndReversBoxes()
                         self?.vinylBoxPagingCollectionView.reloadData()
-                    }
                     print("isTrue",isTrue)
                     if Thread.isMainThread {
                         print("isTrue MainThread")
@@ -84,14 +86,36 @@ final class VinylBoxViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let viewModel = self.viewModel {
-            vinylCountLabel.text = "\(viewModel.getTotalVinylBoxCount())개"
+        guard let viewModel = self.viewModel else { return }
+        DispatchQueue.main.async { [weak self] in
+            self?.vinylCountLabel.text = "\(self?.viewModel?.getTotalVinylBoxCount() ?? 0)개"
+            self?.configureNextButtonPage()
         }
+
         //ViewModel 로직으로 변경작업중 함수 코드
         print("box viewWillAppear")
-        viewModel?.updateVinylBoxesAndReversBoxes()
+        viewModel.updateVinylBoxesAndReversBoxes()
         vinylBoxPagingCollectionView.reloadData()
-        
+
+        print("getCountVinylBoxData: ",viewModel.getTotalVinylBoxCount())
+
+        if viewModel.getTotalVinylBoxCount() == 0 {
+            //MARK: emptyGuideVIew
+            DispatchQueue.main.async {
+                let emptyGuideView = EmptyGuideView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 510))
+                self.vinylBoxPagingCollectionView.addSubview(emptyGuideView)
+            }
+        }
+
+//        viewModel.getTotalVinylBoxCountObservable()
+//            .asObservable()
+//            .filter{ $0 < 1 }
+//            .bind(to: vinylBoxPagingCollectionView.rx.items(cellIdentifier: "emptyGuidance", cellType: EmptyGuidanceCollectionViewCell.self)) { index, model, cell in
+//
+//
+//            }
+//            .disposed(by: disposebag)
+
     }
     
     
@@ -121,6 +145,17 @@ final class VinylBoxViewController: UIViewController {
     @IBAction func touchUpPreviousButton(_ sender: UIButton) {
         coordiNator?.popToHomeViewController()
     }
+
+    func configureNextButtonPage() {
+        viewModel?.updatePageNumber()
+        let pageInfromationString: String = "다음 서랍 \(self.viewModel?.nowPageNumber ?? 1)/\(self.viewModel?.totalPageNumber ?? 1)"
+        let attributedString = NSMutableAttributedString(string: pageInfromationString)
+        let font = UIFont(name: "NotoSansKR-Regular", size: 15)
+        attributedString.addAttribute(.font, value: font, range: (pageInfromationString as NSString).range(of: pageInfromationString))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.vinylaTextGray(), range: (pageInfromationString as NSString).range(of: "/\(self.viewModel?.totalPageNumber ?? 1)"))
+        self.nextBoxButton.setAttributedTitle(attributedString, for: .normal)
+    }
+
     func scrollToNextCell(){
 
         //get cell size
@@ -133,11 +168,15 @@ final class VinylBoxViewController: UIViewController {
         {
             let r = CGRect(x: 0, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
             vinylBoxPagingCollectionView.scrollRectToVisible(r, animated: true)
+            self.viewModel?.nowPageNumber = 1
 
         } else {
             let r = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
             vinylBoxPagingCollectionView.scrollRectToVisible(r, animated: true);
+            self.viewModel?.nowPageNumber = Int((vinylBoxPagingCollectionView.contentOffset.x + cellSize.width) / cellSize.width) + 1
         }
+
+        self.configureNextButtonPage()
 
 //                //get cell size
 //        let cellSize = CGSize(width: vinylBoxPagingCollectionView.frame.width, height: vinylBoxPagingCollectionView.frame.height)
@@ -165,6 +204,8 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         //        cell.signerLabel.text = vinylBoxes[indexPath.row].signer
         //        cell.songTitleLabel.text = vinylBoxes[indexPath.row].songTitle
         //        return cell
+
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pagingCell", for: indexPath) as? PagingCollectionViewCell else { return UICollectionViewCell() }
         
 //        let odds = reverseVinylBoxes.enumerated().filter {
@@ -188,6 +229,14 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.nineVinylItems = pagingVinylItems
         cell.coordinator = self.coordiNator
 //        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
+
+        if viewModel?.getTotalVinylBoxCount() == 170 {
+            print("17")
+            guard let emptyGuidanceCell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyGuidanceCell", for: indexPath) as? EmptyGuidanceCollectionViewCell else { return UICollectionViewCell() }
+
+            return emptyGuidanceCell
+        }
+        
         return cell
         
     }
@@ -206,15 +255,13 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
 
         // targetContentOff을 이용하여 x좌표가 얼마나 이동했는지 확인
         // 이동한 x좌표 값과 item의 크기를 비교하여 몇 페이징이 될 것인지 값 설정
-        var offset = targetContentOffset.pointee
+        let offset = targetContentOffset.pointee
         let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
-        var roundedIndex = round(index)
-//        DispatchQueue.main.async {
-            self.nextBoxButton.setTitle("다음 서랍 \(Int(roundedIndex+1))", for: .normal)
-        //button title attribute시 적용안됨 => setAttributedTitle 사용
-
-//            self.nextBoxButton.titleLabel?.text = "\(Int(roundedIndex+1))"
-//        }
+        let roundedIndex = round(index)
+        viewModel?.nowPageNumber = Int(round(index))+1
+        DispatchQueue.main.async { [weak self] in
+        self?.configureNextButtonPage()
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0
