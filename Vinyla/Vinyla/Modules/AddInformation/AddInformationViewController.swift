@@ -121,8 +121,12 @@ class AddInformationViewController: UIViewController {
             self.view.addSubview(deleteVinylButton)
             deleteVinylButton.rx.tap
                 .subscribe(onNext: { [weak self] in
-                    self?.viewModel?.deleteVinylBoxData()
-                    self?.coordinator?.popViewController()
+                    let dispatchGroup = DispatchGroup()
+                    dispatchGroup.enter()
+                    self?.viewModel?.deleteVinylBoxData(deleteDispatchGroup: dispatchGroup)
+                    dispatchGroup.notify(queue: .main) {
+                        self?.coordinator?.popViewController()
+                    }
                 })
                 .disposed(by: disposebag)
 
@@ -174,7 +178,7 @@ class AddInformationViewController: UIViewController {
     }
     func bindViynlInformationData() {
         self.viewModel?.vinylInformationData
-            .observeOn(MainScheduler.instance)
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] data in
                 print("bindViynlInformationData",data)
                 guard let vinylInformation = data else {
