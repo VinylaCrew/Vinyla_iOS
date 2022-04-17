@@ -13,6 +13,8 @@ protocol HomeViewModelProtocol {
     //output
     var recentVinylBoxData: [VinylBox]? { get }
     var isSyncVinylBox: BehaviorSubject<Bool> { get }
+//    var myVinyl: (() -> Data?) { get set }
+    
     //func
     func fetchRecentVinylData()
     func getRecentVinylBoxData(indexPathRow: Int) -> Data?
@@ -22,11 +24,23 @@ protocol HomeViewModelProtocol {
     func getLevelGagueWidth(screenSize: CGFloat) -> CGFloat
     func getLevelImageName() -> String
     func requestServerVinylBoxData() -> Void
+    func myVinyl() -> Data?
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
+
     private(set) var recentVinylBoxData: [VinylBox]?
     var isSyncVinylBox: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
+
+//    var myVinyl: Data? {
+//        let myVinylImage = CoreDataManager.shared.fetchImage()
+//        if !myVinylImage.isEmpty {
+//            if let myVinylImageData = myVinylImage[0].favoriteImage {
+//                return myVinylImageData
+//            }
+//        }
+//        return nil
+//    }
 
     var homeAPIService: VinylAPIServiceProtocol?
     var disposeBag = DisposeBag()
@@ -70,7 +84,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
                                     if let data = data, let vinylImage = UIImage(data: data) {
                                         print("데이터 VM 저장 호출(이미지URL ON)",item.title,vinylImage)
-                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(item.vinylIdx), vinylID: Int64(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
+                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int64(item.vinylIdx), vinylID: Int64(item.id), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
                                     }else {//썸네일 URL은 있으나, 이미지 변경 등의 이유로 삭제된 경우
                                         print("thumbnail image doesn't exist error")
                                         dispatchGroup.leave()
@@ -83,7 +97,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                         } else {//썸네일 이미지 없는 경우
                             guard let baseImage = UIImage(named: "my")?.jpegData(compressionQuality: 0.1) else { return }
                             print("데이터 VM 저장 호출(이미지URL OFF)",item.title)
-                            CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int32(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: baseImage)
+                            CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int64(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: baseImage)
                         }
                     }
 
@@ -111,6 +125,17 @@ final class HomeViewModel: HomeViewModelProtocol {
             return nil
         }
     }
+
+    func myVinyl() -> Data? {
+        let myVinylImage = CoreDataManager.shared.fetchImage()
+        if !myVinylImage.isEmpty {
+            if let myVinylImageData = myVinylImage[0].favoriteImage {
+                return myVinylImageData
+            }
+        }
+        return nil
+    }
+
     func getTotalVinylBoxCount() -> Int {
         guard let totalVinylCount = CoreDataManager.shared.getCountVinylBoxData() else { return 0 }
         return totalVinylCount
