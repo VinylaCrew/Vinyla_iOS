@@ -82,8 +82,6 @@ final class HomeViewController: UIViewController {
         print("viewDidLoad()")
         
         homeScrollView.contentInsetAdjustmentBehavior = .never
-//        print("ijoom", homeScrollView.contentInset)
-//        print("ijoom", homeScrollView.adjustedContentInset)
         setHomeButtonMiniImage()
         levelGagueBackGroundView.layer.cornerRadius = 1.5
         levelGagueBackGroundView.layer.masksToBounds = true
@@ -116,6 +114,7 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         print("viewWillAppear()")
         updateUIHomeVinylData()
+        checkMyVinyl()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -213,6 +212,7 @@ final class HomeViewController: UIViewController {
             //iPhone XS Under OK
         }
     }
+
     func updateUIHomeVinylData() {
         if let viewModel = self.viewModel {
             viewModel.fetchRecentVinylData()
@@ -226,6 +226,19 @@ final class HomeViewController: UIViewController {
         }
         self.recentVinylCollectionView.reloadData()
     }
+
+    func checkMyVinyl() {
+        if let myVinylImageData = self.viewModel?.myVinyl() {
+            self.blurCircleView.shownCircleImageView.image = UIImage(data: myVinylImageData)
+            self.blurCircleView.backgroundImageView.image = UIImage(data: myVinylImageData)
+            self.blurCircleView.hideMyVinylGuideItem()
+        } else {
+            self.blurCircleView.shownCircleImageView.image = UIImage(named: "imgHomeMyvinlyDim")
+            self.blurCircleView.showMyVinylGuideItem()
+            self.blurCircleView.backgroundImageView.image = UIImage(named: "imgHomeMyvinlyDim")
+        }
+    }
+
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
         //        coordiNator?.moveToAddInformationView()
         //        coordiNator?.moveToSearchView()
