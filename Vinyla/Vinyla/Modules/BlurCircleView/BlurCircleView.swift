@@ -18,7 +18,9 @@ class BlurCircleView: UIView {
     @IBOutlet weak var popButton: UIButton!
     @IBOutlet weak var setFavoriteImageButton: UIButton!
     @IBOutlet weak var InstagramShareButton: UIButton!
-
+    @IBOutlet weak var myVinylGuideLabel1: UILabel!
+    @IBOutlet weak var myVinylGuideLabel2: UILabel!
+    
     weak var delegate: ButtonTapDelegate?
     /*
      // Only override draw() if you perform custom drawing.
@@ -50,14 +52,16 @@ class BlurCircleView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         xibSetup()
+        self.myVinylGuideLabel1.isHidden = true
+        self.myVinylGuideLabel2.isHidden = true
     }
     
     @IBAction func touchUpsetFavoriteButton(_ sender: UIButton) {
-        if self.setFavoriteImageButton.isSelected {
-            self.setFavoriteImageButton.isSelected = false
-        }else {
-            self.setFavoriteImageButton.isSelected = true
-        }
+//        if self.setFavoriteImageButton.isSelected {
+//            self.setFavoriteImageButton.isSelected = false
+//        }else {
+//            self.setFavoriteImageButton.isSelected = true
+//        }
         self.delegate?.didTapFavoriteButton(sender: self.setFavoriteImageButton)
     }
     @IBAction func touchUpPoPButton(_ sender: UIButton) {
@@ -80,6 +84,16 @@ class BlurCircleView: UIView {
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: nib, bundle: nil)
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
+    }
+
+    func hideMyVinylGuideLabel() {
+        self.myVinylGuideLabel1.isHidden = true
+        self.myVinylGuideLabel2.isHidden = true
+    }
+
+    func showMyVinylGuideLabel() {
+        self.myVinylGuideLabel1.isHidden = false
+        self.myVinylGuideLabel2.isHidden = false
     }
     
 }
