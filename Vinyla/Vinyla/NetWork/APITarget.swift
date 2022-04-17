@@ -18,6 +18,7 @@ enum APITarget: TargetType {
     case getVinylBoxMyData
     case saveVinyl(vinylData: RequestSaveVinylModel)
     case deleteVinyl(vinylID: Int)
+    case registerMyVinyl(vinylData: MyVinylRequest)
 
     var baseURL: URL {
         return URL(string:ServerHost.develop)!
@@ -41,6 +42,8 @@ enum APITarget: TargetType {
             return "/vinyls"
         case let .deleteVinyl(vinylID):
             return "/vinyls/" + String(vinylID)
+        case .registerMyVinyl:
+            return "/vinyls/rep"
         }
     }
 
@@ -62,6 +65,8 @@ enum APITarget: TargetType {
             return .post
         case .deleteVinyl:
             return .delete
+        case .registerMyVinyl:
+            return .post
         }
     }
 
@@ -105,12 +110,15 @@ enum APITarget: TargetType {
             return .requestData(encodedData)
         case .deleteVinyl:
             return .requestPlain
+        case let .registerMyVinyl(vinylData):
+            guard let encodedData = try? JSONEncoder().encode(vinylData) else { return .requestData(Data()) }
+            return .requestData(encodedData)
         }
     }
 
     var headers: [String : String]? {
         switch self {
-        case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl:
+        case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl, .registerMyVinyl:
             return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
         default: return ["Content-Type" : "application/json"]
         }
