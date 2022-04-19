@@ -20,7 +20,8 @@ class BlurCircleView: UIView {
     @IBOutlet weak var InstagramShareButton: UIButton!
     @IBOutlet weak var myVinylGuideLabel1: UILabel!
     @IBOutlet weak var myVinylGuideLabel2: UILabel!
-    
+    @IBOutlet weak var myVinylGuideImageView: UIImageView!
+
     weak var delegate: ButtonTapDelegate?
     /*
      // Only override draw() if you perform custom drawing.
@@ -54,6 +55,7 @@ class BlurCircleView: UIView {
         xibSetup()
         self.myVinylGuideLabel1.isHidden = true
         self.myVinylGuideLabel2.isHidden = true
+        self.myVinylGuideImageView.isHidden = true
     }
     
     @IBAction func touchUpsetFavoriteButton(_ sender: UIButton) {
@@ -86,14 +88,16 @@ class BlurCircleView: UIView {
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 
-    func hideMyVinylGuideLabel() {
+    func hideMyVinylGuideItem() {
         self.myVinylGuideLabel1.isHidden = true
         self.myVinylGuideLabel2.isHidden = true
+        self.myVinylGuideImageView.isHidden = true
     }
 
-    func showMyVinylGuideLabel() {
+    func showMyVinylGuideItem() {
         self.myVinylGuideLabel1.isHidden = false
         self.myVinylGuideLabel2.isHidden = false
+        self.myVinylGuideImageView.isHidden = false
     }
     
 }

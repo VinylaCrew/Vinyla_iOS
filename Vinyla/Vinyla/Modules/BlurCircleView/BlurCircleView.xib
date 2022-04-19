@@ -19,6 +19,7 @@
             <connections>
                 <outlet property="InstagramShareButton" destination="TWb-FL-lj8" id="f8N-ea-lHZ"/>
                 <outlet property="backgroundImageView" destination="pho-VP-tXT" id="VMc-6T-Feb"/>
+                <outlet property="myVinylGuideImageView" destination="bXp-3I-EhE" id="Eaq-q4-exf"/>
                 <outlet property="myVinylGuideLabel1" destination="gcF-Ia-q8N" id="Ybb-5s-Ieh"/>
                 <outlet property="myVinylGuideLabel2" destination="qmE-7X-BqP" id="LE8-LY-8Ev"/>
                 <outlet property="popButton" destination="99k-zd-ToV" id="ByM-Sr-TzX"/>
@@ -43,11 +44,18 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LNf-DT-oGC">
                                 <rect key="frame" x="15" y="15" width="345" height="345"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인생 바이닐 설정하기 &gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcF-Ia-q8N">
-                                <rect key="frame" x="95" y="173.5" width="185" height="28"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icnLevel" translatesAutoresizingMaskIntoConstraints="NO" id="bXp-3I-EhE">
+                                <rect key="frame" x="273.5" y="180" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="CNe-8i-eua"/>
+                                    <constraint firstAttribute="height" constant="18" id="CPl-UF-3eG"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인생 바이닐 설정하기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcF-Ia-q8N">
+                                <rect key="frame" x="103.5" y="173.5" width="168" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="LCK-tr-hY2"/>
-                                    <constraint firstAttribute="width" constant="185" id="x9L-KO-uaa"/>
+                                    <constraint firstAttribute="width" constant="168" id="W5B-Df-lBy"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NotoSansKR-Bold" family="Noto Sans KR" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,12 +79,14 @@
                             <constraint firstItem="gcF-Ia-q8N" firstAttribute="centerY" secondItem="GZQ-Rw-I3V" secondAttribute="centerY" id="13T-Lo-KL4"/>
                             <constraint firstItem="qmE-7X-BqP" firstAttribute="centerX" secondItem="GZQ-Rw-I3V" secondAttribute="centerX" id="4Ke-iJ-lX4"/>
                             <constraint firstAttribute="trailing" secondItem="LNf-DT-oGC" secondAttribute="trailing" constant="15" id="4r9-h8-vzt"/>
+                            <constraint firstItem="bXp-3I-EhE" firstAttribute="leading" secondItem="gcF-Ia-q8N" secondAttribute="trailing" constant="2" id="Ao0-gK-R5W"/>
                             <constraint firstItem="qmE-7X-BqP" firstAttribute="centerY" secondItem="GZQ-Rw-I3V" secondAttribute="centerY" constant="38" id="COT-Da-g9J"/>
                             <constraint firstItem="JsL-kg-NSH" firstAttribute="top" secondItem="GZQ-Rw-I3V" secondAttribute="top" id="Ngt-VN-Bjm"/>
                             <constraint firstItem="gcF-Ia-q8N" firstAttribute="centerX" secondItem="GZQ-Rw-I3V" secondAttribute="centerX" id="OYW-9T-t3A"/>
                             <constraint firstAttribute="trailing" secondItem="JsL-kg-NSH" secondAttribute="trailing" id="PYb-O5-vb4"/>
                             <constraint firstItem="JsL-kg-NSH" firstAttribute="leading" secondItem="GZQ-Rw-I3V" secondAttribute="leading" id="XLv-gX-QFz"/>
                             <constraint firstItem="LNf-DT-oGC" firstAttribute="top" secondItem="GZQ-Rw-I3V" secondAttribute="top" constant="15" id="bq8-RS-aFP"/>
+                            <constraint firstItem="bXp-3I-EhE" firstAttribute="centerY" secondItem="GZQ-Rw-I3V" secondAttribute="centerY" constant="1.5" id="eDt-nc-xzO"/>
                             <constraint firstItem="LNf-DT-oGC" firstAttribute="leading" secondItem="GZQ-Rw-I3V" secondAttribute="leading" constant="15" id="inz-iT-p62"/>
                             <constraint firstAttribute="bottom" secondItem="JsL-kg-NSH" secondAttribute="bottom" id="rHs-7w-c7U"/>
                             <constraint firstAttribute="bottom" secondItem="LNf-DT-oGC" secondAttribute="bottom" constant="15" id="uBK-E2-eWl"/>
@@ -145,5 +155,6 @@
         <image name="icnBtnHeart" width="18" height="18"/>
         <image name="icnBtnHeartOn" width="18" height="18"/>
         <image name="icnBtnInsta" width="20" height="20"/>
+        <image name="icnLevel" width="11" height="16"/>
     </resources>
 </document>
