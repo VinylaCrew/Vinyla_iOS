@@ -14,6 +14,14 @@ final class ServiceInformationViewController: UIViewController {
     @IBOutlet weak var serviceInformationTextView: UITextView!
     var typeCheck: String?
 
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        print("override init")
+    }
+    required init?(coder aCorder: NSCoder) {
+        super.init(coder: aCorder)
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         serviceButton.setTitleColor(.white, for: .selected)
