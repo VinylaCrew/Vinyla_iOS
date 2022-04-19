@@ -59,7 +59,7 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
                             }
 
                             if let data = data, let vinylImage = UIImage(data: data) {
-                                CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int32(vinylIndex), vinylID: Int64((self?.model.id)!), songTitle: self?.model.title ?? "", singer: self?.model.artist ?? "", vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: checkSaveDispatchGroup)
+                                CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int64(vinylIndex), vinylID: Int64((self?.model.id)!), songTitle: self?.model.title ?? "", singer: self?.model.artist ?? "", vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: checkSaveDispatchGroup)
                             }
                         }
 
