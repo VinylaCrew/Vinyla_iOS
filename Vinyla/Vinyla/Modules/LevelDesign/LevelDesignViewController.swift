@@ -26,7 +26,7 @@ final class LevelDesignViewController: UIViewController {
         return viewController
     }
     deinit {
-        print("level vc deinit")
+        print("level vc deinit",CFGetRetainCount(viewModel))
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,7 @@ final class LevelDesignViewController: UIViewController {
             pointView.layer.cornerRadius = pointView.frame.size.height/2
         }
         setLabelTextColor()
+        print("viewdid viewmodel",CFGetRetainCount(viewModel))
     }
     func setLabelTextColor() {
         guard let levelMentLabelText = levelMentLabel.text else { return  }
@@ -66,7 +67,7 @@ extension LevelDesignViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "LevelDesignCell") as? LevelDesignTableViewCell else {
             return UITableViewCell()
         }
-        if indexPath.row == 2 {
+        if indexPath.row == viewModel?.getNowLevelGradient() {
             cell.isGradient = true
         }
         if let levelImageName = viewModel?.levelDesignModel[indexPath.row].levelImageName {
