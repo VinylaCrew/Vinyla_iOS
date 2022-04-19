@@ -234,8 +234,8 @@ final class HomeViewController: UIViewController {
             self.blurCircleView.hideMyVinylGuideItem()
         } else {
             self.blurCircleView.shownCircleImageView.image = UIImage(named: "imgHomeMyvinlyDim")
-            self.blurCircleView.showMyVinylGuideItem()
             self.blurCircleView.backgroundImageView.image = UIImage(named: "imgHomeMyvinlyDim")
+            self.blurCircleView.showMyVinylGuideItem()
         }
     }
 
