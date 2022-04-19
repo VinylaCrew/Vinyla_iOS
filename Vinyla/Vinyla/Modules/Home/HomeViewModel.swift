@@ -14,7 +14,7 @@ protocol HomeViewModelProtocol {
     var recentVinylBoxData: [VinylBox]? { get }
     var isSyncVinylBox: BehaviorSubject<Bool> { get }
 //    var myVinyl: (() -> Data?) { get set }
-    
+
     //func
     func fetchRecentVinylData()
     func getRecentVinylBoxData(indexPathRow: Int) -> Data?
@@ -111,6 +111,8 @@ final class HomeViewModel: HomeViewModelProtocol {
                     self?.isSyncVinylBox.onNext(false)
                 })
                 .disposed(by: disposeBag)
+
+            //MARK: ToDo 최초 로그인시 마이바이닐 및 장르 설정 (홈화면 조회 API)
         }
     }
 
