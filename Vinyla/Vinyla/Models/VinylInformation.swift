@@ -10,13 +10,13 @@ import Foundation
 struct VinylInformation: Codable {
 
     struct Data: Codable {
-        let id: Int?
-        let title, artist: String?
-        let image: String?
-        let year: Int?
-        let genres: [String]?
-        let tracklist: [String]?
-        let rate, rateCount: Int?
+        let id: Int
+        let title, artist: String
+        let image: String
+        let year: Int
+        let genres: [String]
+        let tracklist: [String]
+        let rate, rateCount: Int
     }
 
     let status: Int?
