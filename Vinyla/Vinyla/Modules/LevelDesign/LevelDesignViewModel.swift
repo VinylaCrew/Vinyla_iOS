@@ -23,4 +23,22 @@ final class LevelDesignViewModel {
     deinit {
         print("deinit LevelDesignViewModel")
     }
+
+    func getNowLevelGradient() -> Int {
+        guard let totalVinylCount = CoreDataManager.shared.getCountVinylBoxData() else { return 0 }
+        switch totalVinylCount {
+        case 0...1:
+            return 0
+        case 2...9:
+            return 1
+        case 10...49:
+            return 2
+        case 50...499:
+            return 3
+        case 500...:
+            return 4
+        default:
+            return 0
+        }
+    }
 }
