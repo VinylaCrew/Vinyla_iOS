@@ -13,6 +13,7 @@ protocol POPUPButtonTapDelegate: AnyObject {
 
 final class FavoriteVinylPOPUPViewController: UIViewController {
 
+    @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var guideLabel: UILabel!
     weak var delegate: POPUPButtonTapDelegate?
 
@@ -30,6 +31,7 @@ final class FavoriteVinylPOPUPViewController: UIViewController {
 
         self.guideLabel.numberOfLines = 0
         self.guideLabel.text = "이 바이닐을 대표 바이닐로\n 등록하시겠어요?"
+        self.popupView.layer.cornerRadius = 8
 
     }
 

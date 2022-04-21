@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoriteVinylPOPUPViewController" customModule="Vinyla" customModuleProvider="target">
             <connections>
                 <outlet property="guideLabel" destination="AwE-2r-xAC" id="eX8-Ec-csi"/>
+                <outlet property="popupView" destination="tVO-MJ-9x8" id="kjf-wN-pHH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
