@@ -57,7 +57,8 @@ final class AppCoordinator {
     
     func start() {
         guard let isLogIn = self.isLogIn else { return }
-
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsKey.initIsFirstLogIn)
+        
         //로그인 되지 않은 경우, LogInView로 이동
         if !isLogIn {
             let navigationController = UINavigationController(rootViewController: LogInViewController.instantiate(viewModel: LogInViewModel(), coordiNator: self))
@@ -95,17 +96,36 @@ final class AppCoordinator {
 //        navigationSearchView.modalPresentationStyle = .fullScreen
 //        windowRootViewController.present(navigationSearchView, animated: true, completion: nil)
     }
-    func moveToAddInformationView(vinylID: Int?, vinylImageURL: String?) {
+
+
+    func moveToAddInformationView(vinylID: Int?, vinylImageURL: String?, isDeleteMode: Bool) {
         let addInformationViewModel = AddInformationViewModel()
         addInformationViewModel.model.vinylID = vinylID
         addInformationViewModel.model.vinylImageURL = vinylImageURL
+        addInformationViewModel.isDeleteMode = isDeleteMode
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(addInformationView, animated: true)
     }
-    func moveToAddReview(vinylDataModel: AddReviewModel) {
+
+    func moveToAddInformationViewWithIndex(vinylIndex: Int,vinylID: Int?, vinylImageURL: String?, isDeleteMode: Bool) {
+        let addInformationViewModel = AddInformationViewModel()
+        addInformationViewModel.model.vinylID = vinylID
+        addInformationViewModel.model.vinylIndex = vinylIndex
+        addInformationViewModel.model.vinylImageURL = vinylImageURL
+        addInformationViewModel.isDeleteMode = isDeleteMode
+        let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(addInformationView, animated: true)
+    }
+
+
+    func moveToAddReview(vinylDataModel: RequestSaveVinylModel, thumbnailImage: String, songRate: Int?, songRateCount: Int?) {
         let addReviewViewModel = AddReviewViewModel()
         addReviewViewModel.model = vinylDataModel
+        addReviewViewModel.thumbnailImage = thumbnailImage
+        addReviewViewModel.songRate = songRate
+        addReviewViewModel.songRateCount = songRateCount
         let AddReviewView = AddReviewViewController.instantiate(viewModel: addReviewViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(AddReviewView, animated: true)
@@ -115,16 +135,13 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(vinylBoxView, animated: true)
     }
-    func moveToDeleteInformationView(songTitle: String?) {
+    func moveToDeleteInformationView(vinylID: Int64, songTitle: String?) {
         let deleteInformationViewModel = DeleteInformationViewModel()
-        print("1 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
+        deleteInformationViewModel.vinylID = vinylID
         deleteInformationViewModel.songTitle = songTitle
-        print("coordinator delete", deleteInformationViewModel.songTitle)
         let deleteInformationView = DeleteInformationViewController.instantiate(viewModel: deleteInformationViewModel, coordinator: self)
-        print("2 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(deleteInformationView, animated: true)
-        print("3 Coordinator delete vm count:",CFGetRetainCount(deleteInformationViewModel))
     }
     func moveToLevelDesignView() {
         let levelDesignView = LevelDesignViewController.instantiate(viewModel: LevelDesignViewModel(), coordiNator: self)
