@@ -51,7 +51,7 @@ final class CoreDataManager {
         }
     }
 
-    func saveVinylBoxWithIndex(vinylIndex: Int32, songTitle: String, singer: String, vinylImage: Data) {
+    func saveVinylBoxWithIndex(vinylIndex: Int64, songTitle: String, singer: String, vinylImage: Data) {
 
         backgroundContext.perform { [weak self] in
 
@@ -72,7 +72,7 @@ final class CoreDataManager {
         }
     }
 
-    func saveVinylBoxWithDispatchGroup(vinylIndex: Int32,vinylID: Int64, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
+    func saveVinylBoxWithDispatchGroup(vinylIndex: Int64,vinylID: Int64, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
 
         backgroundContext.perform { [weak self] in
 
@@ -99,16 +99,31 @@ final class CoreDataManager {
     func saveImage(data: Data) {
 
         do {
-            let imageInstance = MyImage(context: context ?? backgroundContext)
+            let imageInstance = MyImage(context: backgroundContext)
             imageInstance.favoriteImage = data
             imageInstance.imageID = "name1"
 
-            try context?.save()
+            try backgroundContext.save()
             print("MyImage is saved")
         } catch {
             print(error.localizedDescription)
         }
     }
+
+    func deleteImage() {
+
+        do {
+            let imageInstance = MyImage(context: backgroundContext)
+            imageInstance.favoriteImage = nil
+            imageInstance.imageID = nil
+
+            try backgroundContext.save()
+            print("MyImage is deleted")
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     func fetchVinylBox() -> [VinylBox] {
         var fetchVinylBox = [VinylBox]()
         
@@ -152,6 +167,7 @@ final class CoreDataManager {
         }
         return recentVinylBox
     }
+    
     func fetchImage() -> [MyImage] {
         var fetchingImage = [MyImage]()
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MyImage")
