@@ -11,6 +11,7 @@ struct AddInformationModel {
     var vinylTitleSong: String?
     var vinylImageURL: String?
     var vinylID: Int?
+    var vinylIndex: Int?
     var vinylTrackList: [String?]
     init() {
         self.vinylTitleSong = ""

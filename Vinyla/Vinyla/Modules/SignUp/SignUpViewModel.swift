@@ -29,7 +29,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     private(set) var validNickNameNumberSubject = PublishSubject<Int>()
     private(set) var isUniqueNickNameSubject = PublishSubject<Int>()
     private(set) var checkNickNameNumberSubject = PublishSubject<Int>()
-    private(set) var isCompletedCreateUserRequest: PublishSubject<Bool> = PublishSubject<Bool>()
+    private(set) var isCompletedCreateUserRequest = PublishSubject<Bool>()
     public private(set) var isValidNickNameNumber: Int? = -1
     private(set) var userNickName: String?
 
@@ -107,6 +107,31 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             })
             .disposed(by: disposeBag)
     }
+    func testStreamMethod() {
+        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let instagramID = try? self.instagramIDText.value() else {
+            return
+        }
+        print("test signup: ",nickName,firebaseUid,instagramID)
+        //        var myStream = signUpAPIService.requestVinylBoxMyData()
+        //            .subscribe{ event in
+        //                switch event {
+        //                case.next(let value):
+        //                    print("next")
+        //                case .error(let errorr):
+        //                    print(errorr)
+        //                case .completed:
+        //                    print("completed")
+        //                }
+        //            }
+        //            .disposed(by: disposeBag)
+
+        //        _ = checkNickNameNumberSubject
+        //            .subscribe(onNext:{ data in
+        //                print(data)
+        //            })
+        //            .disposed(by: disposeBag)
+
+    }
     
     func isValidNickName(_ nickNameText: String) -> Int {
 
@@ -133,6 +158,21 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             isValidNickNameValue = 3
         }else {
             isValidNickNameValue = 1
+        }
+
+        if isValidNickNameValue == 1 {
+            //통신해서 가능한 닉네임인지 아닌지 체크
+            //            let nickNameCheckRequest = NickNameCheckRequest(nickname: nickNameText)
+            //            self.signUpAPIService.checkNickName(requestModel: nickNameCheckRequest)
+            //                .subscribe(onNext:{ [weak self] data in
+            //                    if data == nil {
+            //                        self?.isValidNickNameNumber = 4
+            //                        self?.validNickNameNumberSubject.onNext(4)
+            //                    }
+            //
+            //                })
+            //                .disposed(by: disposeBag)
+
         }
 
         self.isValidNickNameNumber = isValidNickNameValue

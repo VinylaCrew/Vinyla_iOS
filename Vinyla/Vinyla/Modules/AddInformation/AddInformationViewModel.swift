@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class AddInformationViewModel {
+final class AddInformationViewModel {
     var model: AddInformationModel
     var isDeleteMode: Bool?
     //vinyl 상세 데이터 정보 (Server 바이닐 저장 Request에 필요 정보)
@@ -59,5 +59,31 @@ class AddInformationViewModel {
             })
             .disposed(by: disposeBag)
 
+    }
+
+    func requestRegisterMyVinyl(dispatchGroup: DispatchGroup) {
+        guard let vinylIndex = model.vinylIndex else { return }
+        let myVinylData = MyVinylRequest(vinylIdx: vinylIndex)
+        let registerMyVinylAPI = APITarget.registerMyVinyl(vinylData: myVinylData)
+
+        CommonNetworkManager.request(apiType: registerMyVinylAPI)
+            .subscribe(onSuccess: { (response: MyVinylResponse) in
+                print(response)
+                if response.message == "대표 바이닐 설정 성공" {
+                    UserDefaults.standard.setValue(vinylIndex, forKey: UserDefaultsKey.myVinylIndex)
+                }
+                if response.message == "대표 바이닐 취소 성공" {
+                    UserDefaults.standard.setValue(-1, forKey: UserDefaultsKey.myVinylIndex)
+                }
+                dispatchGroup.leave()
+            }, onError: { error in
+                print("Error Log: ",error)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func saveMyVinylCoreData(myVinylData: Data) {
+        CoreDataManager.shared.clearAllObjectEntity("MyImage")
+        CoreDataManager.shared.saveImage(data: myVinylData)
     }
 }

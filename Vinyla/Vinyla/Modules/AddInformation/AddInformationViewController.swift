@@ -163,6 +163,11 @@ class AddInformationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDid",viewModel?.model.vinylTrackList,viewModel?.model.vinylTitleSong)
+        let myVinylIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.myVinylIndex)
+        print("설정된 myVinylIndex" ,myVinylIndex)
+        if viewModel?.model.vinylIndex == myVinylIndex {
+            self.blurCircleView.setFavoriteImageButton.isSelected = true
+        }
     }
     func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
@@ -251,10 +256,45 @@ extension AddInformationViewController: UIScrollViewDelegate {
 
 extension AddInformationViewController: ButtonTapDelegate {
     func didTapFavoriteButton(sender: UIButton) {
+        print("didTapFavoriteButton")
 
+        if self.blurCircleView.setFavoriteImageButton.isSelected {
+            //설정된 바이닐 취소
+            let dispatchGroup = DispatchGroup()
+            dispatchGroup.enter()
+            self.viewModel?.requestRegisterMyVinyl(dispatchGroup: dispatchGroup)
+            dispatchGroup.notify(queue: .main) { [weak self] in
+                self?.blurCircleView.setFavoriteImageButton.isSelected = false
+                CoreDataManager.shared.clearAllObjectEntity("MyImage")
+            }
+        } else {
+            let popupViewController = FavoriteVinylPOPUPViewController(nibName: "FavoriteVinylPOPUPViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+            popupViewController.modalPresentationStyle = .overFullScreen
+            popupViewController.delegate = self
+            self.present(popupViewController, animated: true, completion: nil)
+        }
     }
 
     func didTapPopButton() {
         self.coordinator?.popViewController()
+    }
+}
+
+extension AddInformationViewController: POPUPButtonTapDelegate {
+    //유저가 마이바이닐 등록 요청 완료했을 때
+    func didTapFavoriteButton() {
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        self.viewModel?.requestRegisterMyVinyl(dispatchGroup: dispatchGroup)
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            //MARK: ToDo 아래 코어데이터 관련 ViewModel로 변경, 변경하니깐 코어데이터 operation 에러가 나옴
+            //MARK: 단일 이미지 코어데이터 저장
+            CoreDataManager.shared.clearAllObjectEntity("MyImage")
+            CoreDataManager.shared.saveImage(data: self?.blurCircleView.shownCircleImageView.image?.pngData() ?? Data())
+//            guard let myVinylImageData = self?.blurCircleView.shownCircleImageView.image?.pngData() else { return }
+//            print("myVinylImageData",myVinylImageData)
+//            self?.viewModel?.saveMyVinylCoreData(myVinylData: myVinylImageData)
+            self?.blurCircleView.setFavoriteImageButton.isSelected = true
+        }
     }
 }

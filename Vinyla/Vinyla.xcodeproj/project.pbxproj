@@ -100,10 +100,11 @@
 		55B124172758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */; };
 		55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */; };
 		55DF410327F8921F009973BB /* DeleteVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF410227F8921F009973BB /* DeleteVinylModel.swift */; };
-		55DF410A27FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */; };
-		55DF410B27FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */; };
 		55DF410F27FB2CA3009973BB /* EmptyGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */; };
 		55DF411127FB3309009973BB /* EmptyGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF411027FB3309009973BB /* EmptyGuideView.swift */; };
+		55DF4115280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4113280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift */; };
+		55DF4116280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55DF4114280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib */; };
+		55DF4118280BDFC2009973BB /* MyVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55DF4117280BDFC2009973BB /* MyVinylModel.swift */; };
 		55F5965427DDA13600F120AF /* SaveVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F5965327DDA13600F120AF /* SaveVinylModel.swift */; };
 		55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFBAC6279BB58700DB71EC /* ServerHost.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
@@ -220,10 +221,11 @@
 		55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+LoadingIndicator.swift"; sourceTree = "<group>"; };
 		55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		55DF410227F8921F009973BB /* DeleteVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVinylModel.swift; sourceTree = "<group>"; };
-		55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGuidanceCollectionViewCell.swift; sourceTree = "<group>"; };
-		55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyGuidanceCollectionViewCell.xib; sourceTree = "<group>"; };
 		55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyGuideView.xib; sourceTree = "<group>"; };
 		55DF411027FB3309009973BB /* EmptyGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGuideView.swift; sourceTree = "<group>"; };
+		55DF4113280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVinylPOPUPViewController.swift; sourceTree = "<group>"; };
+		55DF4114280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteVinylPOPUPViewController.xib; sourceTree = "<group>"; };
+		55DF4117280BDFC2009973BB /* MyVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVinylModel.swift; sourceTree = "<group>"; };
 		55F5965327DDA13600F120AF /* SaveVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveVinylModel.swift; sourceTree = "<group>"; };
 		55FFBAC6279BB58700DB71EC /* ServerHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerHost.swift; sourceTree = "<group>"; };
 		B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.release.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				55932FC527ACB858006B2DFF /* SignInModel.swift */,
 				55F5965327DDA13600F120AF /* SaveVinylModel.swift */,
 				55DF410227F8921F009973BB /* DeleteVinylModel.swift */,
+				55DF4117280BDFC2009973BB /* MyVinylModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,8 +391,6 @@
 				5544D61126BC07DA003659C6 /* VinylBoxViewModel.swift */,
 				55592C0926C2876900F85A9A /* PagingCollectionViewCell.swift */,
 				55592C0A26C2876900F85A9A /* PagingCollectionViewCell.xib */,
-				55DF410827FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift */,
-				55DF410927FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib */,
 				55DF410E27FB2CA3009973BB /* EmptyGuideView.xib */,
 				55DF411027FB3309009973BB /* EmptyGuideView.swift */,
 			);
@@ -434,6 +435,7 @@
 		5544D5AD26B30E77003659C6 /* AddInformation */ = {
 			isa = PBXGroup;
 			children = (
+				55DF4112280BD2A4009973BB /* POPUPView */,
 				5544D62426BD1841003659C6 /* AddInformationViewController.swift */,
 				5544D62A26BD184B003659C6 /* AddInformation.storyboard */,
 				5544D62E26BD187C003659C6 /* AddInformationViewModel.swift */,
@@ -579,6 +581,15 @@
 			path = BlurCircleView;
 			sourceTree = "<group>";
 		};
+		55DF4112280BD2A4009973BB /* POPUPView */ = {
+			isa = PBXGroup;
+			children = (
+				55DF4113280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift */,
+				55DF4114280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib */,
+			);
+			path = POPUPView;
+			sourceTree = "<group>";
+		};
 		649E839C7315FE65D2FD9EBB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -688,6 +699,7 @@
 				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
 				5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */,
 				5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */,
+				55DF4116280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib in Resources */,
 				55592C0C26C2876900F85A9A /* PagingCollectionViewCell.xib in Resources */,
 				5544D5B026B30ED0003659C6 /* AddReview.storyboard in Resources */,
 				5544D62B26BD184B003659C6 /* AddInformation.storyboard in Resources */,
@@ -708,7 +720,6 @@
 				5544D64D26C0347D003659C6 /* BlurCircleView.xib in Resources */,
 				5541DD5B269AD35F00970794 /* SignUp.storyboard in Resources */,
 				55DF410F27FB2CA3009973BB /* EmptyGuideView.xib in Resources */,
-				55DF410B27FB2560009973BB /* EmptyGuidanceCollectionViewCell.xib in Resources */,
 				5599C7AC26DD71A0008F8FDF /* Playball-Regular.ttf in Resources */,
 				5544D5AA26B3038E003659C6 /* VinylBoxCollectionViewCell.xib in Resources */,
 			);
@@ -803,11 +814,11 @@
 				55592C1726C409B700F85A9A /* RecentVinylCollectionViewCell.swift in Sources */,
 				55B124172758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift in Sources */,
 				558383EB26DB9B9D0019977A /* LevelDesignViewController.swift in Sources */,
+				55DF4118280BDFC2009973BB /* MyVinylModel.swift in Sources */,
 				55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */,
 				55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
 				5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */,
-				55DF410A27FB2560009973BB /* EmptyGuidanceCollectionViewCell.swift in Sources */,
 				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
 				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
 				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
@@ -830,6 +841,7 @@
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
 				5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */,
 				5544D62526BD1841003659C6 /* AddInformationViewController.swift in Sources */,
+				55DF4115280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift in Sources */,
 				55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */,
 				5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */,
 				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,

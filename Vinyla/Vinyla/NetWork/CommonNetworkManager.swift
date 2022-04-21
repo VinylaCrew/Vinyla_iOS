@@ -42,7 +42,7 @@ class CommonNetworkManager {
     }
 
     private static func printForDebug(_ api: TargetType, _ response: Moya.Response) {
-        #if API_DEBUG
+        #if DEBUG
         guard let mapJSONString = try? response.mapString() else { return }
 
         print("")

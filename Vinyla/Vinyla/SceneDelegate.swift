@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let sceneWindow = UIWindow(windowScene: windowScene)
 
         appCoordinator = AppCoordinator(window: sceneWindow)
-        appCoordinator?.start()
+//        appCoordinator?.start()
+
         if #available(iOS 13.0, *) {
             sceneWindow.overrideUserInterfaceStyle = .light
         }
