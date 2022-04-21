@@ -95,8 +95,7 @@ class DeleteInformationViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         songTitleLabel.text = viewModel?.songTitle
-//        viewModel?.songObservalble.bind(to: songTitleLabel.rx.text)
-//            .disposed(by: disposebag)
+        viewModel?.fetchVinylInformation()
     }
 
     override func viewDidAppear(_ animated: Bool) {
