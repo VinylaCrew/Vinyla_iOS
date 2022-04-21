@@ -44,9 +44,6 @@ final class VinylBoxViewController: UIViewController {
         let vinylBoxCellNib = UINib(nibName: "PagingCollectionViewCell", bundle: nil)
         vinylBoxPagingCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "pagingCell")
 
-        let emptyGuidanceCellNib = UINib(nibName: "EmptyGuidanceCollectionViewCell", bundle: nil)
-        vinylBoxPagingCollectionView.register(emptyGuidanceCellNib, forCellWithReuseIdentifier: "emptyGuidanceCell")
-
         self.addVinylButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.coordiNator?.moveToSearchView()
         }).disposed(by: disposebag)
@@ -107,15 +104,6 @@ final class VinylBoxViewController: UIViewController {
             }
         }
 
-//        viewModel.getTotalVinylBoxCountObservable()
-//            .asObservable()
-//            .filter{ $0 < 1 }
-//            .bind(to: vinylBoxPagingCollectionView.rx.items(cellIdentifier: "emptyGuidance", cellType: EmptyGuidanceCollectionViewCell.self)) { index, model, cell in
-//
-//
-//            }
-//            .disposed(by: disposebag)
-
     }
     
     
@@ -148,7 +136,7 @@ final class VinylBoxViewController: UIViewController {
 
     func configureNextButtonPage() {
         viewModel?.updatePageNumber()
-        let pageInfromationString: String = "다음 서랍 \(self.viewModel?.nowPageNumber ?? 1)/\(self.viewModel?.totalPageNumber ?? 1)"
+        let pageInfromationString: String = viewModel?.pageString ?? "" //"다음 서랍 \(self.viewModel?.nowPageNumber)/\(self.viewModel?.totalPageNumber ?? 1)"
         let attributedString = NSMutableAttributedString(string: pageInfromationString)
         let font = UIFont(name: "NotoSansKR-Regular", size: 15)
         attributedString.addAttribute(.font, value: font, range: (pageInfromationString as NSString).range(of: pageInfromationString))
@@ -229,13 +217,6 @@ extension VinylBoxViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.nineVinylItems = pagingVinylItems
         cell.coordinator = self.coordiNator
 //        cell.vinylBoxCollectionView.reloadData() =>didSet으로 리팩토링
-
-        if viewModel?.getTotalVinylBoxCount() == 170 {
-            print("17")
-            guard let emptyGuidanceCell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyGuidanceCell", for: indexPath) as? EmptyGuidanceCollectionViewCell else { return UICollectionViewCell() }
-
-            return emptyGuidanceCell
-        }
         
         return cell
         
