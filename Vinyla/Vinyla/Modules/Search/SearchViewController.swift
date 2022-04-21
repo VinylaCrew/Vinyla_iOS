@@ -61,13 +61,13 @@ final class SearchViewController: UIViewController {
     @IBOutlet weak var vinylCountLabel: UILabel!
     @IBOutlet weak var userSearchTextLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
+    var lookingForVinylButtonBottomAnchor: NSLayoutConstraint?
 
     var disposeBag = DisposeBag()
-    
+
     private weak var coordiNator: AppCoordinator?
     private var viewModel: SearchViewModelType?
 
-    var vinylSongName: String?
     static func instantiate(viewModel: SearchViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Search", bundle: nil)
         guard let viewController = storyBoard.instantiateViewController(identifier: "Search") as? SearchViewController else {
@@ -83,6 +83,7 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        noSearchInformationView.isHidden = true
         setLookingForVinylButtonUI()
         lookingforVinylButton.rx.tap
             .subscribe({ [weak self] _ in
@@ -135,7 +136,9 @@ final class SearchViewController: UIViewController {
         self.view.addSubview(lookingforVinylButton)
         lookingforVinylButton.translatesAutoresizingMaskIntoConstraints = false
         lookingforVinylButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        lookingforVinylButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28).isActive = true
+//        lookingforVinylButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28).isActive = true
+        lookingForVinylButtonBottomAnchor = lookingforVinylButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -28)
+        lookingForVinylButtonBottomAnchor?.isActive = true
         lookingforVinylButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width-195).isActive = true
         lookingforVinylButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
@@ -231,12 +234,18 @@ final class SearchViewController: UIViewController {
 
         viewModel.vinylsData
             .map{ $0?.count ?? 0 < 1 }
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] isEmpty in
                 //MARK: - TODO 찾는 바이닐 없는 경우, UI 처리
                 guard let self = self else { return }
                 if isEmpty {
                     do {
                         guard let userSearchText = try self.viewModel?.userSearchText.value() else { return }
+                        if userSearchText == "" {
+                            self.noSearchInformationView.isHidden = true
+                            self.lookingForVinylButtonBottomAnchor?.constant = -28
+                            return
+                        }
                         let attributedString = NSMutableAttributedString(string: "\(userSearchText)에 대한 검색 결과가 DB에 없어요.")
                         let font = UIFont(name: "NotoSansKR-Medium", size: 15)
                         attributedString.addAttribute(.font, value: font, range: (userSearchText as NSString).range(of:"\(userSearchText)에 대한 검색 결과가 DB에 없어요."))
@@ -247,7 +256,16 @@ final class SearchViewController: UIViewController {
                     } catch {
                         print(error)
                     }
+                    if self.lookingForVinylButtonBottomAnchor?.constant == -28 {
+                        //MARK: Todo 버튼 높낮이 계산
+                        if UIScreen.main.bounds.height >= 812 {
+                            self.lookingForVinylButtonBottomAnchor?.constant -= floor((UIScreen.main.bounds.height / 3 )) + 35
+                        }else {
+                            self.lookingForVinylButtonBottomAnchor?.constant -= floor((UIScreen.main.bounds.height / 4 )) + 20
+                        }
+                    }
                 }else {
+                    self.lookingForVinylButtonBottomAnchor?.constant = -28
                     self.noSearchInformationView.isHidden = true
                 }
             })
