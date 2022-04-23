@@ -16,15 +16,19 @@ final class FavoriteVinylPOPUPViewController: UIViewController {
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var guideLabel: UILabel!
     weak var delegate: POPUPButtonTapDelegate?
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        print("override init")
+    
+    static func initInstance(delegate: POPUPButtonTapDelegate) -> FavoriteVinylPOPUPViewController {
+        let viewCotnroller = FavoriteVinylPOPUPViewController(nibName: "FavoriteVinylPOPUPViewController", bundle: Bundle(for: FavoriteVinylPOPUPViewController.self))
+        viewCotnroller.delegate = delegate
+        return viewCotnroller
     }
+    
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//    }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    required init?(coder: NSCoder) {
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,7 @@ final class FavoriteVinylPOPUPViewController: UIViewController {
         self.guideLabel.numberOfLines = 0
         self.guideLabel.text = "이 바이닐을 대표 바이닐로\n 등록하시겠어요?"
         self.popupView.layer.cornerRadius = 8
+        self.popupView.layer.cornerCurve = .continuous
 
     }
 
