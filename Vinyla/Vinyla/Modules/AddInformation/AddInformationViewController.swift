@@ -268,10 +268,7 @@ extension AddInformationViewController: ButtonTapDelegate {
                 CoreDataManager.shared.clearAllObjectEntity("MyImage")
             }
         } else {
-            let popupViewController = FavoriteVinylPOPUPViewController(nibName: "FavoriteVinylPOPUPViewController", bundle: Bundle(for: ServiceInformationViewController.self))
-            popupViewController.modalPresentationStyle = .overFullScreen
-            popupViewController.delegate = self
-            self.present(popupViewController, animated: true, completion: nil)
+            self.coordinator?.presentFavoriteVinylPOPUPView(delegate: self)
         }
     }
 
