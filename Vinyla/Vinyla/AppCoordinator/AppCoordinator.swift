@@ -130,11 +130,13 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(AddReviewView, animated: true)
     }
+    
     func moveToVinylBoxView() {
         let vinylBoxView = VinylBoxViewController.instantiate(viewModel: VinylBoxViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(vinylBoxView, animated: true)
     }
+    
     func moveToDeleteInformationView(vinylID: Int64, songTitle: String?) {
         let deleteInformationViewModel = DeleteInformationViewModel()
         deleteInformationViewModel.vinylID = vinylID
@@ -143,17 +145,26 @@ final class AppCoordinator {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(deleteInformationView, animated: true)
     }
+    
     func moveToLevelDesignView() {
         let levelDesignView = LevelDesignViewController.instantiate(viewModel: LevelDesignViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(levelDesignView, animated: true)
     }
+    
+    func presentFavoriteVinylPOPUPView(delegate: POPUPButtonTapDelegate) {
+        let favoriteViewController = FavoriteVinylPOPUPViewController.initInstance(delegate: delegate)
+        favoriteViewController.modalPresentationStyle = .overFullScreen
+        windowRootViewController?.present(favoriteViewController, animated: true, completion: nil)
+    }
+    
     func presentRequestUserVinylView() {
         let requestUserViynlView = RequestUserVinylViewController.instantiate(viewModel: RequestUserVinylViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
         requestUserViynlView.modalPresentationStyle = .fullScreen
         windowRootViewController.present(requestUserViynlView, animated: true, completion: nil)
     }
+    
     func popToVinylBoxView() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         var viewStackVinylBoxView: UIViewController?
@@ -169,18 +180,22 @@ final class AppCoordinator {
             moveToVinylBoxView()
         }
     }
+    
     func popViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popViewController(animated: true)
     }
+    
     func popNoAnimationViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popViewController(animated: false)
     }
+    
     func dismissViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.dismiss(animated: true, completion: nil)
     }
+    
     func popToHomeViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popToRootViewController(animated: true)
