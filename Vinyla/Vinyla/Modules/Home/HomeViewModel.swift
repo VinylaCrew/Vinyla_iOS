@@ -13,6 +13,7 @@ protocol HomeViewModelProtocol {
     //output
     var recentVinylBoxData: [VinylBox]? { get }
     var isSyncVinylBox: BehaviorSubject<Bool> { get }
+    var myVinylSyncData: PublishSubject<Data> { get }
 //    var myVinyl: (() -> Data?) { get set }
 
     //func
@@ -31,6 +32,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 
     private(set) var recentVinylBoxData: [VinylBox]?
     var isSyncVinylBox: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
+    var myVinylSyncData: PublishSubject<Data> = PublishSubject<Data>()
 
 //    var myVinyl: Data? {
 //        let myVinylImage = CoreDataManager.shared.fetchImage()
@@ -56,7 +58,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     func requestServerVinylBoxData() {
         let isFirstLogin = UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn)
         let dispatchGroup = DispatchGroup()
-
+        
         if isFirstLogin {
             _ = self.homeAPIService?.requestVinylBoxMyData()
 //                .do(onNext: { [weak self] _ in
@@ -113,6 +115,38 @@ final class HomeViewModel: HomeViewModelProtocol {
                 .disposed(by: disposeBag)
 
             //MARK: ToDo 최초 로그인시 마이바이닐 및 장르 설정 (홈화면 조회 API)
+            let checkAPITarget = APITarget.checkHomeInformation
+            CommonNetworkManager.request(apiType: checkAPITarget)
+                .subscribe(onSuccess: { (response: CheckHomeInformationResponse) in
+                    
+                    if let user = response.data.userInfo {
+                        print("nickname",user[0].nickname)
+                        UserDefaults.standard.setValue(user[0].nickname, forKey: UserDefaultsKey.userNickName)
+                    }
+                    
+                    if let myVinyl = response.data.myVinyl {
+                        UserDefaults.standard.setValue(myVinyl.vinylIdx, forKey: UserDefaultsKey.myVinylIndex)
+                        DispatchQueue.global().async() {
+                            guard let insideImageURL = URL(string: myVinyl.imageURL) else { return }
+                            let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (imageData, result, error) in
+                                guard let imageData = imageData else { return }
+                                CoreDataManager.shared.clearAllObjectEntity("MyImage")
+                                let dispatchGroup = DispatchGroup()
+                                dispatchGroup.enter()
+                                CoreDataManager.shared.saveImageWithDispatchGroup(data: imageData, dispatchGroup: dispatchGroup)
+                                dispatchGroup.notify(queue: .global()) {
+                                    self.myVinylSyncData.onNext(imageData)
+                                }
+                            }
+                            dataTask.resume()
+                        }
+                    } else {
+                        UserDefaults.standard.setValue(-1, forKey: UserDefaultsKey.myVinylIndex)
+                    }
+                }, onError: { error in
+                    print(error.localizedDescription)
+                })
+                .disposed(by: disposeBag)
         }
     }
 
