@@ -31,7 +31,8 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var mainLevelLabel: UILabel!
     @IBOutlet weak var levelIconImageView: UIImageView!
     @IBOutlet weak var informationLevelLabel: UILabel!
-
+    @IBOutlet weak var homeNickNameLabel: UILabel!
+    
 
     //Constraint
     @IBOutlet weak var homeBottomViewHeight: NSLayoutConstraint!
@@ -164,7 +165,7 @@ final class HomeViewController: UIViewController {
     func setRxIndicator() {
         if UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn) {
             viewModel?.isSyncVinylBox
-                .observeOn(MainScheduler.instance)
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] isLoading in
                     print("isSyncVinylBox",isLoading)
                     if isLoading {
@@ -177,6 +178,16 @@ final class HomeViewController: UIViewController {
                         self?.updateUIHomeVinylData()
                         self?.removeLoadingIndicator()
                     }
+                })
+                .disposed(by: disposebag)
+            
+            viewModel?.myVinylSyncData
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] vinylData in
+                    self?.blurCircleView.shownCircleImageView.image = UIImage(data: vinylData)
+                    self?.blurCircleView.backgroundImageView.image = UIImage(data:vinylData)
+                    self?.homeNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
+                    self?.checkMyVinyl()
                 })
                 .disposed(by: disposebag)
         }
