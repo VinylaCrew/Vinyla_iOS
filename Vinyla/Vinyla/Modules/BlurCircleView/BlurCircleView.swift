@@ -7,11 +7,13 @@
 
 import UIKit
 
-protocol ButtonTapDelegate: class {
+protocol ButtonTapDelegate: AnyObject {
     func didTapFavoriteButton(sender: UIButton)
     func didTapPopButton()
+    func didTapInstagramButton()
 }
-class BlurCircleView: UIView {
+
+final class BlurCircleView: UIView {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var shownCircleImageView: UIImageView!
@@ -70,7 +72,7 @@ class BlurCircleView: UIView {
         self.delegate?.didTapPopButton()
     }
     @IBAction func touchUpInstagramShareButton(_ sender: UIButton) {
-
+        self.delegate?.didTapInstagramButton()
     }
 
     func xibSetup() {

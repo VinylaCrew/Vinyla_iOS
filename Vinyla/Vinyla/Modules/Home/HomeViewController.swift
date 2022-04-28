@@ -32,6 +32,7 @@ final class HomeViewController: UIViewController {
     @IBOutlet weak var levelIconImageView: UIImageView!
     @IBOutlet weak var informationLevelLabel: UILabel!
     @IBOutlet weak var homeNickNameLabel: UILabel!
+    @IBOutlet weak var myPageButton: UIButton!
     
 
     //Constraint
@@ -109,6 +110,18 @@ final class HomeViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.tapInformationLevelLabel))
         informationLevelLabel.isUserInteractionEnabled = true
         informationLevelLabel.addGestureRecognizer(tap)
+        
+        viewModel?.myGenre
+            .subscribe(onNext: { [weak self] genre in
+                self?.myGenreLabel.text = genre
+            })
+            .disposed(by: disposebag)
+        
+        self.myPageButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.coordiNator?.moveMyPageView()
+            })
+            .disposed(by: disposebag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -116,6 +129,8 @@ final class HomeViewController: UIViewController {
         print("viewWillAppear()")
         updateUIHomeVinylData()
         checkMyVinyl()
+        viewModel?.requestMyGenre()
+        self.homeNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -243,10 +258,12 @@ final class HomeViewController: UIViewController {
             self.blurCircleView.shownCircleImageView.image = UIImage(data: myVinylImageData)
             self.blurCircleView.backgroundImageView.image = UIImage(data: myVinylImageData)
             self.blurCircleView.hideMyVinylGuideItem()
+            self.blurCircleView.InstagramShareButton.isHidden = false
         } else {
             self.blurCircleView.shownCircleImageView.image = UIImage(named: "imgHomeMyvinlyDim")
             self.blurCircleView.backgroundImageView.image = UIImage(named: "imgHomeMyvinlyDim")
             self.blurCircleView.showMyVinylGuideItem()
+            self.blurCircleView.InstagramShareButton.isHidden = true
         }
     }
 
@@ -295,12 +312,44 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension HomeViewController: ButtonTapDelegate {
-    func didTapPopButton() {
+    func didTapPopButton() {}
+    
+    func didTapInstagramButton() {
+        
+        print("instagram-stories://share")
+        
+        if let storiesUrl = URL(string: "instagram-stories://share") {
+            if UIApplication.shared.canOpenURL(storiesUrl) {
+                let renderer = UIGraphicsImageRenderer(size: blurCircleView.bounds.size)
+                
+                let renderImage = renderer.image { _ in
+                    blurCircleView.drawHierarchy(in: blurCircleView.bounds, afterScreenUpdates: true)
+                }
+                
+                guard let imageData = renderImage.pngData() else { return }
+                let pasteboardItems: [String: Any] = [
+                    "com.instagram.sharedSticker.stickerImage": imageData,
+                    "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
+                    "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
+                ]
+                let pasteboardOptions = [
+                    UIPasteboard.OptionsKey.expirationDate:
+                        Date().addingTimeInterval(300)
+                ]
+                UIPasteboard.general.setItems([pasteboardItems], options:
+                                                pasteboardOptions)
+                UIApplication.shared.open(storiesUrl, options: [:],
+                                          completionHandler: nil)
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: "알림", message: "인스타그램 설치가 필요합니다", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alert.addAction(ok)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
         
     }
 
-    func didTapFavoriteButton(sender: UIButton) {
-        print("Home VC delegate touch")
-        print(sender.isSelected)
-    }
+    func didTapFavoriteButton(sender: UIButton) {}
 }
