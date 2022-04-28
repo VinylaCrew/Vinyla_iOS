@@ -83,4 +83,36 @@ final class VinylBoxViewModel {
             return Disposables.create()
         }
     }
+    
+    func getLevelName() -> Observable<String?> {
+        let totalVinylCount = self.getTotalVinylBoxCount()
+        switch totalVinylCount {
+        case 0:
+            return Observable.just("닐페이스")
+        case 1...9:
+            return Observable.just("닐리즈")
+        case 10...49:
+            return Observable.just("닐스터")
+        case 50...499:
+            return Observable.just("닐암스트롱")
+        default:
+            return Observable.just("닐라대왕")
+        }
+    }
+    
+    func getLevelImageName() -> String {
+        let totalVinylCount = self.getTotalVinylBoxCount()
+        switch totalVinylCount {
+        case 0:
+            return "icnHomeLv1"
+        case 1...9:
+            return "icnHomeLv2"
+        case 10...49:
+            return "icnHomeLv3"
+        case 50...499:
+            return "icnHomeLv4"
+        default:
+            return "icnHomeLv5"
+        }
+    }
 }
