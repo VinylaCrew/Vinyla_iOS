@@ -14,6 +14,9 @@ final class VinylBoxViewController: UIViewController {
     let storyBoardID = "VinylBox"
     @IBOutlet weak var vinylCountLabel: UILabel!
     @IBOutlet weak var addVinylButton: UIButton!
+    @IBOutlet weak var userNickNameLabel: UILabel!
+    @IBOutlet weak var levelNameLabel: UILabel!
+    @IBOutlet weak var levelImageView: UIImageView!
     @IBOutlet weak var nextBoxButton: UIButton!
     @IBOutlet weak var popVinylBoxViewButton: UIButton!
     @IBOutlet weak var vinylBoxPagingCollectionView: UICollectionView!
@@ -87,6 +90,7 @@ final class VinylBoxViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.vinylCountLabel.text = "\(self?.viewModel?.getTotalVinylBoxCount() ?? 0)개"
             self?.configureNextButtonPage()
+            self?.userNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
         }
 
         //ViewModel 로직으로 변경작업중 함수 코드
@@ -95,6 +99,12 @@ final class VinylBoxViewController: UIViewController {
         vinylBoxPagingCollectionView.reloadData()
 
         print("getCountVinylBoxData: ",viewModel.getTotalVinylBoxCount())
+        
+        viewModel.getLevelName()
+            .bind(to: self.levelNameLabel.rx.text)
+            .disposed(by: disposebag)
+        
+        self.levelImageView.image = UIImage(named: viewModel.getLevelImageName())
 
         if viewModel.getTotalVinylBoxCount() == 0 {
             //MARK: emptyGuideVIew
