@@ -326,9 +326,14 @@ extension HomeViewController: ButtonTapDelegate {
                     blurCircleView.drawHierarchy(in: blurCircleView.bounds, afterScreenUpdates: true)
                 }
                 
+                let textImage: Data = "Shawn Test".image(withAttributes: [.foregroundColor: UIColor.white,
+                                                                          .font: UIFont(name: "Playball-Regular", size: 30)],
+                                                         size: CGSize(width: 300.0, height: 80.0))!.pngData()!
+                
                 guard let imageData = renderImage.pngData() else { return }
                 let pasteboardItems: [String: Any] = [
                     "com.instagram.sharedSticker.stickerImage": imageData,
+                    "com.instagram.sharedSticker.backgroundImage": textImage,
                     "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
                     "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
                 ]
@@ -352,4 +357,24 @@ extension HomeViewController: ButtonTapDelegate {
     }
 
     func didTapFavoriteButton(sender: UIButton) {}
+}
+
+
+extension String {
+    
+    /// Generates a `UIImage` instance from this string using a specified
+    /// attributes and size.
+    ///
+    /// - Parameters:
+    ///     - attributes: to draw this string with. Default is `nil`.
+    ///     - size: of the image to return.
+    /// - Returns: a `UIImage` instance from this string using a specified
+    /// attributes and size, or `nil` if the operation fails.
+    func image(withAttributes attributes: [NSAttributedString.Key: Any]? = nil, size: CGSize? = nil) -> UIImage? {
+        let size = size ?? (self as NSString).size(withAttributes: attributes)
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            (self as NSString).draw(in: CGRect(origin: .zero, size: size),
+                                    withAttributes: attributes)
+        }
+    }
 }
