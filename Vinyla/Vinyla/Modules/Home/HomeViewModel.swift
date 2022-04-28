@@ -14,6 +14,7 @@ protocol HomeViewModelProtocol {
     var recentVinylBoxData: [VinylBox]? { get }
     var isSyncVinylBox: BehaviorSubject<Bool> { get }
     var myVinylSyncData: PublishSubject<Data> { get }
+    var myGenre: PublishSubject<String> { get }
 //    var myVinyl: (() -> Data?) { get set }
 
     //func
@@ -26,6 +27,7 @@ protocol HomeViewModelProtocol {
     func getLevelImageName() -> String
     func requestServerVinylBoxData() -> Void
     func myVinyl() -> Data?
+    func requestMyGenre()
 }
 
 final class HomeViewModel: HomeViewModelProtocol {
@@ -33,7 +35,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     private(set) var recentVinylBoxData: [VinylBox]?
     var isSyncVinylBox: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
     var myVinylSyncData: PublishSubject<Data> = PublishSubject<Data>()
-
+    var myGenre: PublishSubject<String> = PublishSubject<String>()
 //    var myVinyl: Data? {
 //        let myVinylImage = CoreDataManager.shared.fetchImage()
 //        if !myVinylImage.isEmpty {
@@ -148,6 +150,16 @@ final class HomeViewModel: HomeViewModelProtocol {
                 })
                 .disposed(by: disposeBag)
         }
+    }
+    
+    func requestMyGenre() {
+        let checkHomeAPITarget = APITarget.checkHomeInformation
+        CommonNetworkManager.request(apiType: checkHomeAPITarget)
+            .subscribe(onSuccess: { [weak self] (response: CheckHomeInformationResponse) in
+                guard let genre = response.data.genreInfo else { return }
+                self?.myGenre.onNext(genre.first ?? "")
+            })
+            .disposed(by: disposeBag)
     }
 
     func fetchRecentVinylData() {
