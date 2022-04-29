@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
+class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var artistMentLabel: UILabel!
     @IBOutlet weak var albumNameTextField: UITextField!
@@ -19,10 +19,43 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var memoTextCountLabel: UILabel!
     @IBOutlet weak var imageUPLoadView: UIView!
     @IBOutlet weak var selectedUPLoadImageView: UIImageView!
+    @IBOutlet weak var albumNameLabel: UILabel!
+    @IBOutlet weak var albumImageLabel: UILabel!
+    @IBOutlet weak var artistNameLabel: UILabel!
+    @IBOutlet weak var selectedImageCloseButton: UIButton!
+    @IBOutlet weak var imageCountLabel: UILabel!
     //hugging
     @IBOutlet weak var buttonTopConstraint: NSLayoutConstraint!
     var fCurTextfieldBottom: CGFloat?
-
+    
+    lazy var albumImageCircleView: UIView = {
+    let view = UIView()
+        view.frame = CGRect(x: albumImageLabel.frame.size.width, y: 0, width: 5, height: 5)
+        view.backgroundColor = UIColor.vinylaMainOrangeColor()
+        view.layer.cornerRadius = 2.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+    }()
+    
+    lazy var pointCircleView: UIView = {
+    let view = UIView()
+        view.frame = CGRect(x: albumNameLabel.frame.size.width, y: 0, width: 5, height: 5)
+        view.backgroundColor = UIColor.vinylaMainOrangeColor()
+        view.layer.cornerRadius = 2.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+    }()
+    
+    lazy var artistPointCircleView: UIView = {
+    let view = UIView()
+        view.frame = CGRect(x: artistNameLabel.frame.size.width, y: 0, width: 5, height: 5)
+        view.backgroundColor = UIColor.vinylaMainOrangeColor()
+        view.layer.cornerRadius = 2.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+    return view
+    }()
+    
+    let imagePicker = UIImagePickerController()
     private weak var coordiNator: AppCoordinator?
     private var viewModel: RequestUserVinylViewModel?
     var disposeBag = DisposeBag()
@@ -45,7 +78,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         albumNameTextField.delegate = self
         artistNameTextField.delegate = self
         memoTextView.delegate = self
-
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUPTapGesutre(sender:)))
         imageUPLoadView.addGestureRecognizer(tapGesture)
 
@@ -59,9 +92,52 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         toolBarKeyboard.items = [flexSpace, btnDoneBar]
         toolBarKeyboard.tintColor = UIColor.vinylaMainOrangeColor()
         memoTextView.inputAccessoryView = toolBarKeyboard
+        
+        //imagepicker
+        self.imagePicker.sourceType = .photoLibrary
+        self.imagePicker.allowsEditing = true
+        self.imagePicker.delegate = self
+        
+        self.selectedImageCloseButton.isHidden = true
+        self.selectedUPLoadImageView.isHidden = true
+        
+        self.selectedImageCloseButton.rx.tap
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] in
+                self?.selectedImageCloseButton.isHidden = true
+                self?.selectedUPLoadImageView.isHidden = true
+                self?.selectedUPLoadImageView.image = nil
+                self?.imageCountLabel.text = "0"
+            })
+            .disposed(by: disposeBag)
+        
+        
+        guard let viewModel = viewModel else { return }
+        albumNameTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.userAlbumName)
+            .disposed(by: disposeBag)
+            
+        artistNameTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.userArtistName)
+            .disposed(by: disposeBag)
+        
+        memoTextView.rx.text
+            .orEmpty
+            .bind(to: viewModel.userMemo)
+            .disposed(by: disposeBag)
+        
+        viewModel.isUpload
+            .subscribe(onNext: { [weak self] isUpload in
+                if isUpload {
+                    self?.coordiNator?.dismissViewControllerWithAlertMessage()
+                }
+            })
+            .disposed(by: disposeBag)
     }
     @objc func touchUPTapGesutre(sender: UITapGestureRecognizer) {
-        print("touch")
+        self.present(self.imagePicker, animated: true)
     }
     @IBAction func doneBtnClicked (sender: Any) {
         self.view.endEditing(true)
@@ -97,6 +173,10 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
         self.coordiNator?.dismissViewController()
     }
     func setUI() {
+        self.albumNameLabel.addSubview(pointCircleView)
+        self.artistNameLabel.addSubview(artistPointCircleView)
+        self.albumImageLabel.addSubview(albumImageCircleView)
+        
         artistMentLabel.numberOfLines = 2
 
         selectedUPLoadImageView.layer.cornerRadius = 8
@@ -170,6 +250,9 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate{
             })
             .disposed(by: disposeBag)
     }
+    @IBAction func touchUpRequestButton(_ sender: Any) {
+        viewModel?.requestUploadUserVinyl()
+    }
 }
 
 extension RequestUserVinylViewController: UITextViewDelegate {
@@ -201,4 +284,28 @@ extension RequestUserVinylViewController: UITextViewDelegate {
         }
     }
 
+}
+
+extension RequestUserVinylViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        var userImage: UIImage? = nil
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            userImage = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            userImage = originalImage
+        }
+        
+        self.selectedUPLoadImageView.image = userImage
+        
+        self.viewModel?.userImage = userImage?.pngData()
+        
+        self.selectedImageCloseButton.isHidden = false
+        self.selectedUPLoadImageView.isHidden = false
+        self.imageCountLabel.text = "1"
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
 }
