@@ -22,7 +22,7 @@ class VinylaUserManager {
     static var myVInylIndex: Int?
     
     @UserDefault(key: UserDefaultsKey.firebaseUID)
-    static var furebaseUID: String?
+    static var firebaseUID: String?
     
     static var hasToken: Bool {
         return VinylaUserManager.vinylaToken != nil
