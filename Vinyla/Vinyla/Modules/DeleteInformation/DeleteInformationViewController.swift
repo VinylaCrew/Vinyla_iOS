@@ -143,6 +143,8 @@ extension DeleteInformationViewController: ButtonTapDelegate {
     func didTapPopButton() {
         coordinator?.popViewController()
     }
+    
+    func didTapInstagramButton() {}
 
     func didTapFavoriteButton(sender: UIButton) {
         viewModel?.updateMainFavoriteVinylImage(isButtonSelected: sender.isSelected,imageData: Data())

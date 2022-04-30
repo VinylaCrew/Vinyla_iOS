@@ -109,6 +109,13 @@
 		55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFBAC6279BB58700DB71EC /* ServerHost.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
+		DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */; };
+		DF6A37EB281A60B90011E39D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E9281A60B90011E39D /* MyPageViewController.swift */; };
+		DF6A37EC281A60B90011E39D /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF6A37EA281A60B90011E39D /* MyPageViewController.xib */; };
+		DF6A37EE281A6EBC0011E39D /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37ED281A6EBC0011E39D /* MyPageViewModel.swift */; };
+		DF6A37F4281AB6E50011E39D /* UploadUserVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */; };
+		DF6A37F8281D01E20011E39D /* VinylaUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */; };
+		DF6A37FA281D01F90011E39D /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,6 +239,13 @@
 		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.debug.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.debug.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.debug.xcconfig"; sourceTree = "<group>"; };
+		DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckHomeInformation.swift; sourceTree = "<group>"; };
+		DF6A37E9281A60B90011E39D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		DF6A37EA281A60B90011E39D /* MyPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
+		DF6A37ED281A6EBC0011E39D /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUserVinylModel.swift; sourceTree = "<group>"; };
+		DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaUserManager.swift; sourceTree = "<group>"; };
+		DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,6 +328,8 @@
 				55F5965327DDA13600F120AF /* SaveVinylModel.swift */,
 				55DF410227F8921F009973BB /* DeleteVinylModel.swift */,
 				55DF4117280BDFC2009973BB /* MyVinylModel.swift */,
+				DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */,
+				DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +337,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DF6A37E8281A60940011E39D /* MyPage */,
 				55A394D6274CCD990030867F /* ServiceInformation */,
 				5599C7B726DD776F008F8FDF /* RequestUserViynl */,
 				558383E926DB9B5D0019977A /* LevelDesign */,
@@ -529,6 +546,8 @@
 			isa = PBXGroup;
 			children = (
 				55932FCE27AED510006B2DFF /* UserDefaultsKey.swift */,
+				DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */,
+				DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -599,6 +618,16 @@
 				B09779923C11442C10F91434 /* Pods-VinylaTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF6A37E8281A60940011E39D /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				DF6A37E9281A60B90011E39D /* MyPageViewController.swift */,
+				DF6A37EA281A60B90011E39D /* MyPageViewController.xib */,
+				DF6A37ED281A6EBC0011E39D /* MyPageViewModel.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		E76915B2D0D870AF48EB166B /* Frameworks */ = {
@@ -698,6 +727,7 @@
 				5591487F272151EF0081DCFD /* SearchMockData.json in Resources */,
 				5541DD7526AE955B00970794 /* VinylBox.storyboard in Resources */,
 				5599C7B426DD71CB008F8FDF /* NotoSansKR-Bold.otf in Resources */,
+				DF6A37EC281A60B90011E39D /* MyPageViewController.xib in Resources */,
 				5541DD6A26AD5C9100970794 /* Search.storyboard in Resources */,
 				55DF4116280BD3A5009973BB /* FavoriteVinylPOPUPViewController.xib in Resources */,
 				55592C0C26C2876900F85A9A /* PagingCollectionViewCell.xib in Resources */,
@@ -841,10 +871,13 @@
 				5541DD3C268838FB00970794 /* SceneDelegate.swift in Sources */,
 				5544D5A926B3038E003659C6 /* VinylBoxCollectionViewCell.swift in Sources */,
 				5544D62526BD1841003659C6 /* AddInformationViewController.swift in Sources */,
+				DF6A37F8281D01E20011E39D /* VinylaUserManager.swift in Sources */,
 				55DF4115280BD3A5009973BB /* FavoriteVinylPOPUPViewController.swift in Sources */,
 				55DE859426CEB81600E1C8DD /* UIColor+Extension.swift in Sources */,
+				DF6A37F4281AB6E50011E39D /* UploadUserVinylModel.swift in Sources */,
 				5599C77626DCD3D8008F8FDF /* ImageView+NSCache.swift in Sources */,
 				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,
+				DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */,
 				5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */,
 				55932FCF27AED510006B2DFF /* UserDefaultsKey.swift in Sources */,
 				5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */,
@@ -855,6 +888,7 @@
 				5544D5A026B1BFEF003659C6 /* SearchTableViewCell.swift in Sources */,
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */,
+				DF6A37EE281A6EBC0011E39D /* MyPageViewModel.swift in Sources */,
 				55DF410327F8921F009973BB /* DeleteVinylModel.swift in Sources */,
 				55B123EA2758A73800B14C9B /* MyVinylBoxModel.swift in Sources */,
 				55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */,
@@ -863,7 +897,9 @@
 				5544D57626B13E4E003659C6 /* SignUpViewModel.swift in Sources */,
 				5544D61226BC07DA003659C6 /* VinylBoxViewModel.swift in Sources */,
 				5544D60C26BBF227003659C6 /* AddReviewViewModel.swift in Sources */,
+				DF6A37EB281A60B90011E39D /* MyPageViewController.swift in Sources */,
 				55920178279BFFFC00E13D12 /* CommonNetworkManager.swift in Sources */,
+				DF6A37FA281D01F90011E39D /* UserDefaultWrapper.swift in Sources */,
 				559148A3272591820081DCFD /* AddReviewModel.swift in Sources */,
 				558383CC26D8B0A00019977A /* APIService.swift in Sources */,
 				5541DD7C26AF113700970794 /* TextFieldPadding.swift in Sources */,

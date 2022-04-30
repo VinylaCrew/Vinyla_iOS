@@ -20,9 +20,9 @@ final class FavoriteVinylPOPUPViewController: UIViewController {
     weak var delegate: POPUPButtonTapDelegate?
     
     static func initInstance(delegate: POPUPButtonTapDelegate) -> FavoriteVinylPOPUPViewController {
-        let viewCotnroller = FavoriteVinylPOPUPViewController(nibName: "FavoriteVinylPOPUPViewController", bundle: Bundle(for: FavoriteVinylPOPUPViewController.self))
-        viewCotnroller.delegate = delegate
-        return viewCotnroller
+        let viewController = FavoriteVinylPOPUPViewController(nibName: "FavoriteVinylPOPUPViewController", bundle: Bundle(for: FavoriteVinylPOPUPViewController.self))
+        viewController.delegate = delegate
+        return viewController
     }
     
     deinit {
