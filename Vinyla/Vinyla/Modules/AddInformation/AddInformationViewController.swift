@@ -163,9 +163,8 @@ class AddInformationViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDid",viewModel?.model.vinylTrackList,viewModel?.model.vinylTitleSong)
-        let myVinylIndex = UserDefaults.standard.integer(forKey: UserDefaultsKey.myVinylIndex)
-        print("설정된 myVinylIndex" ,myVinylIndex)
-        if viewModel?.model.vinylIndex == myVinylIndex {
+        
+        if viewModel?.model.vinylIndex == VinylaUserManager.myVInylIndex {
             self.blurCircleView.setFavoriteImageButton.isSelected = true
         }
     }
@@ -265,12 +264,13 @@ extension AddInformationViewController: ButtonTapDelegate {
             self.viewModel?.requestRegisterMyVinyl(dispatchGroup: dispatchGroup)
             dispatchGroup.notify(queue: .main) { [weak self] in
                 self?.blurCircleView.setFavoriteImageButton.isSelected = false
-                CoreDataManager.shared.clearAllObjectEntity("MyImage")
             }
         } else {
             self.coordinator?.presentFavoriteVinylPOPUPView(delegate: self)
         }
     }
+    
+    func didTapInstagramButton() { }
 
     func didTapPopButton() {
         self.coordinator?.popViewController()
@@ -286,11 +286,11 @@ extension AddInformationViewController: POPUPButtonTapDelegate {
         dispatchGroup.notify(queue: .main) { [weak self] in
             //MARK: ToDo 아래 코어데이터 관련 ViewModel로 변경, 변경하니깐 코어데이터 operation 에러가 나옴
             //MARK: 단일 이미지 코어데이터 저장
-            CoreDataManager.shared.clearAllObjectEntity("MyImage")
-            CoreDataManager.shared.saveImage(data: self?.blurCircleView.shownCircleImageView.image?.pngData() ?? Data())
-//            guard let myVinylImageData = self?.blurCircleView.shownCircleImageView.image?.pngData() else { return }
-//            print("myVinylImageData",myVinylImageData)
-//            self?.viewModel?.saveMyVinylCoreData(myVinylData: myVinylImageData)
+//            CoreDataManager.shared.clearAllObjectEntity("MyImage")
+//            CoreDataManager.shared.saveImage(data: self?.blurCircleView.shownCircleImageView.image?.pngData() ?? Data())
+            
+            guard let myVinylImageData = self?.blurCircleView.shownCircleImageView.image?.pngData() else { return }
+            self?.viewModel?.saveMyVinylCoreData(myVinylData: myVinylImageData)
             self?.blurCircleView.setFavoriteImageButton.isSelected = true
         }
     }
