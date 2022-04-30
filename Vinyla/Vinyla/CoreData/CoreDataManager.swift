@@ -97,17 +97,51 @@ final class CoreDataManager {
     }
     
     func saveImage(data: Data) {
+        //마이 바이닐 저장
+        backgroundContext.perform { [weak self] in
+            do {
+                guard let self = self else { return }
+                if Thread.isMainThread {
+                    print("saveImage: MainThread")
+                }else {
+                    print("saveImage: BackgroundThread")
+                }
+                let imageInstance = MyImage(context: self.backgroundContext)
+                imageInstance.favoriteImage = data
+                imageInstance.imageID = "name1"
 
-        do {
-            let imageInstance = MyImage(context: backgroundContext)
-            imageInstance.favoriteImage = data
-            imageInstance.imageID = "name1"
-
-            try backgroundContext.save()
-            print("MyImage is saved")
-        } catch {
-            print(error.localizedDescription)
+                try self.backgroundContext.save()
+                print("MyImage is saved")
+            } catch {
+                print("saveImage Error")
+                print(error.localizedDescription)
+            }
         }
+
+    }
+    
+    func saveImageWithDispatchGroup(data: Data, dispatchGroup: DispatchGroup) {
+        //마이 바이닐 저장
+        backgroundContext.perform { [weak self] in
+            do {
+                guard let self = self else { return }
+                
+                let imageInstance = MyImage(context: self.backgroundContext)
+                imageInstance.favoriteImage = data
+                imageInstance.imageID = "name1"
+                
+                if self.backgroundContext.hasChanges {
+                    try self.backgroundContext.save()
+                    dispatchGroup.leave()
+                }
+                
+            } catch {
+                print("saveImage Error")
+                dispatchGroup.leave()
+                print(error.localizedDescription)
+            }
+        }
+
     }
 
     func deleteImage() {
@@ -279,18 +313,27 @@ final class CoreDataManager {
     }
 
     func clearAllObjectEntity(_ entity: String) {
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+//        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
 
         backgroundContext.perform { [weak self] in
             do {
+                guard let self = self else { return }
                 if Thread.isMainThread {
                     print("clearAllObjectEntity: MainThread")
                 }else {
                     print("clearAllObjectEntity: BackgroundThread")
                 }
-                try self?.backgroundContext.execute(deleteRequest)
-                try self?.backgroundContext.save()
+                let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+                let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+                
+                try self.backgroundContext.execute(deleteRequest)
+                self.backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                
+                if self.backgroundContext.hasChanges {
+                    try self.backgroundContext.save()
+                }
+//                try self.backgroundContext.save()
             } catch {
                 print("clearallobject error")
                 print(error.localizedDescription)
