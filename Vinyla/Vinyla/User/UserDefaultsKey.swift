@@ -13,4 +13,5 @@ struct UserDefaultsKey {
     static let userNickName = "UserNickName"
     static let firebaseAccessToken = "FirebaseAccessToken"
     static let myVinylIndex = "MyVinylIndex"
+    static let firebaseUID = "firebaseUID"
 }
