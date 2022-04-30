@@ -84,6 +84,9 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         noSearchInformationView.isHidden = true
+        //검색 결과보다 더 스크롤 되는 것을 막기 위해서 size height 조절
+        noSearchInformationView.frame.size.height = 50
+        
         setLookingForVinylButtonUI()
         lookingforVinylButton.rx.tap
             .subscribe({ [weak self] _ in
@@ -224,6 +227,7 @@ final class SearchViewController: UIViewController {
 //            }
             .bind(to: searchTableView.rx.items) { tableView, index, element in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchTableViewCell") as? SearchTableViewCell else { return UITableViewCell()}
+                
                 cell.songTitleLabel.text = element.title
                 cell.singerNameLabel.text = element.artist
                 if let imageURLString = element.thumb {
@@ -330,6 +334,7 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.lookingforVinylButton.alpha = 0.4
+        
     }
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.lookingforVinylButton.alpha = 1.0
