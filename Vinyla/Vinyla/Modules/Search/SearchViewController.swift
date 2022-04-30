@@ -243,6 +243,7 @@ final class SearchViewController: UIViewController {
                         guard let userSearchText = try self.viewModel?.userSearchText.value() else { return }
                         if userSearchText == "" {
                             self.noSearchInformationView.isHidden = true
+                            self.searchTableView.isScrollEnabled = true
                             self.lookingForVinylButtonBottomAnchor?.constant = -28
                             return
                         }
@@ -252,6 +253,7 @@ final class SearchViewController: UIViewController {
                         attributedString.addAttribute(.foregroundColor, value: UIColor.vinylaMainOrangeColor(), range: (userSearchText as NSString).range(of:"\(userSearchText)"))
                         self.userSearchTextLabel.attributedText = attributedString
                         self.noSearchInformationView.isHidden = false
+                        self.searchTableView.isScrollEnabled = false
 
                     } catch {
                         print(error)
@@ -267,6 +269,7 @@ final class SearchViewController: UIViewController {
                 }else {
                     self.lookingForVinylButtonBottomAnchor?.constant = -28
                     self.noSearchInformationView.isHidden = true
+                    self.searchTableView.isScrollEnabled = true
                 }
             })
             .disposed(by: disposeBag)
