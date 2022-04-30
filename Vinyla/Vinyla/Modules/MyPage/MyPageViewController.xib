@@ -39,6 +39,9 @@
                         <constraint firstAttribute="width" constant="11" id="pUZ-pV-TE0"/>
                     </constraints>
                     <state key="normal" image="icnBtnBack"/>
+                    <connections>
+                        <action selector="touchupPOPButton:" destination="-1" eventType="touchUpInside" id="F09-3c-Cj3"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJd-7H-GRc">
                     <rect key="frame" x="34" y="52.666666666666657" width="24" height="25"/>

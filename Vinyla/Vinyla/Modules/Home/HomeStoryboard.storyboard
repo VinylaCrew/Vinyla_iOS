@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4NH-7v-5oD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4NH-7v-5oD">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -281,6 +281,7 @@
                         <outlet property="homeBottomViewHeight" destination="3TR-Vb-8fQ" id="BMG-Eb-e5t"/>
                         <outlet property="homeButton" destination="hon-AO-Jhd" id="VLl-4M-Wh0"/>
                         <outlet property="homeMiniButtonView" destination="fo8-T5-rNO" id="Vqx-Ud-S4G"/>
+                        <outlet property="homeNickNameLabel" destination="l7Y-N0-DV8" id="WsM-px-93H"/>
                         <outlet property="homeScrollContentView" destination="auJ-Kr-ogC" id="ACL-Ka-Oup"/>
                         <outlet property="homeScrollView" destination="qOL-lw-hDe" id="Pis-Jd-Luo"/>
                         <outlet property="informationLevelLabel" destination="3vI-D9-Pdi" id="9op-JI-j0V"/>
@@ -288,6 +289,7 @@
                         <outlet property="levelIconImageView" destination="ySa-xb-Bq8" id="uIq-e4-ERX"/>
                         <outlet property="mainLevelLabel" destination="cJ6-VO-bYm" id="c1Z-Q7-oYP"/>
                         <outlet property="myGenreLabel" destination="SSj-Qy-ZhL" id="juD-VS-fAD"/>
+                        <outlet property="myPageButton" destination="Dkm-1Z-a9g" id="Qcs-ny-6PN"/>
                         <outlet property="recentCollectionViewHeight" destination="7NI-9m-3j1" id="D2l-yu-ZKJ"/>
                         <outlet property="recentVinylCollectionView" destination="cxm-vI-SBo" id="nbD-eA-TRf"/>
                         <outlet property="vinylCountLabel" destination="sBp-4L-Dai" id="8uy-f5-guV"/>
