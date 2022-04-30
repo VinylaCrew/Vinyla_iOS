@@ -20,6 +20,9 @@ enum APITarget: TargetType {
     case deleteVinyl(vinylID: Int)
     case registerMyVinyl(vinylData: MyVinylRequest)
     case checkHomeInformation
+    //MARK: - UPload User Vinyl
+    case uploadUserVinyl(userVinylData: UploadUserVinylModel)
+    
 
     var baseURL: URL {
         return URL(string:ServerHost.develop)!
@@ -47,6 +50,8 @@ enum APITarget: TargetType {
             return "/vinyls/rep"
         case .checkHomeInformation:
             return "/vinyls/home"
+        case .uploadUserVinyl:
+            return "/requests"
         }
     }
 
@@ -72,6 +77,8 @@ enum APITarget: TargetType {
             return .post
         case .checkHomeInformation:
             return .get
+        case .uploadUserVinyl:
+            return .post
         }
     }
 
@@ -120,6 +127,16 @@ enum APITarget: TargetType {
             return .requestData(encodedData)
         case .checkHomeInformation:
             return .requestPlain
+        case let .uploadUserVinyl(userVinylData):
+            let imageData = userVinylData.image
+            let artistData = "\(userVinylData.artist)".data(using: String.Encoding.utf8) ?? Data()
+            let titleData = "\(userVinylData.title)".data(using: String.Encoding.utf8) ?? Data()
+            let memoData = "\(userVinylData.memo)".data(using: String.Encoding.utf8) ?? Data()
+            var formData: [Moya.MultipartFormData] = [Moya.MultipartFormData(provider: .data(imageData), name: "image", fileName: "user_vinyl.png", mimeType: "image/jpeg")]
+            formData.append(Moya.MultipartFormData(provider: .data(artistData), name: "artist"))
+            formData.append(Moya.MultipartFormData(provider: .data(titleData), name: "title"))
+            formData.append(Moya.MultipartFormData(provider: .data(memoData), name: "memo"))
+            return .uploadMultipart(formData)
         }
     }
 
@@ -127,6 +144,8 @@ enum APITarget: TargetType {
         switch self {
         case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl, .registerMyVinyl, .checkHomeInformation:
             return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
+        case .uploadUserVinyl:
+            return ["Content-Type" : "multipart/form-data", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
         default: return ["Content-Type" : "application/json"]
         }
     }
