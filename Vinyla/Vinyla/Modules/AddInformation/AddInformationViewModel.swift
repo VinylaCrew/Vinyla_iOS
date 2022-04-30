@@ -70,10 +70,11 @@ final class AddInformationViewModel {
             .subscribe(onSuccess: { (response: MyVinylResponse) in
                 print(response)
                 if response.message == "대표 바이닐 설정 성공" {
-                    UserDefaults.standard.setValue(vinylIndex, forKey: UserDefaultsKey.myVinylIndex)
+                    VinylaUserManager.myVInylIndex = vinylIndex
                 }
                 if response.message == "대표 바이닐 취소 성공" {
-                    UserDefaults.standard.setValue(-1, forKey: UserDefaultsKey.myVinylIndex)
+                    VinylaUserManager.myVInylIndex = -1
+                    CoreDataManager.shared.clearAllObjectEntity("MyImage")
                 }
                 dispatchGroup.leave()
             }, onError: { error in
@@ -84,6 +85,6 @@ final class AddInformationViewModel {
 
     func saveMyVinylCoreData(myVinylData: Data) {
         CoreDataManager.shared.clearAllObjectEntity("MyImage")
-        CoreDataManager.shared.saveImage(data: myVinylData)
+        CoreDataManager.shared.saveImage(data: myVinylData) 
     }
 }

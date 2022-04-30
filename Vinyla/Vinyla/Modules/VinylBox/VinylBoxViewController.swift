@@ -90,7 +90,7 @@ final class VinylBoxViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             self?.vinylCountLabel.text = "\(self?.viewModel?.getTotalVinylBoxCount() ?? 0)개"
             self?.configureNextButtonPage()
-            self?.userNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
+            self?.userNickNameLabel.text = VinylaUserManager.nickname
         }
 
         //ViewModel 로직으로 변경작업중 함수 코드

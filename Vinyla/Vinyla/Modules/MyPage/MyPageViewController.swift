@@ -43,6 +43,9 @@ final class MyPageViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
+        self.userNickNameLabel.text = VinylaUserManager.nickname
+    }
+    @IBAction func touchupPOPButton(_ sender: Any) {
+        self.coordinator?.popViewController()
     }
 }

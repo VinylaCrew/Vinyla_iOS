@@ -37,8 +37,8 @@ final class AppCoordinator {
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
                 .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                     print(model)
-                    UserDefaults.standard.setValue(model.data?.token, forKey: UserDefaultsKey.vinylaToken)
-                    UserDefaults.standard.setValue(model.data?.nickname, forKey: UserDefaultsKey.userNickName)
+                    VinylaUserManager.vinylaToken = model.data?.token
+                    VinylaUserManager.nickname = model.data?.nickname
                     self?.isLogIn = true
                     self?.start()
                 }, onError: { [weak self] error in
@@ -57,7 +57,7 @@ final class AppCoordinator {
     
     func start() {
         guard let isLogIn = self.isLogIn else { return }
-        UserDefaults.standard.setValue(true, forKey: UserDefaultsKey.initIsFirstLogIn)
+        VinylaUserManager.isFirstLogin = true
         
         //로그인 되지 않은 경우, LogInView로 이동
         if !isLogIn {
@@ -89,14 +89,15 @@ final class AppCoordinator {
     
     func moveToSearchView() {
         let searchView = SearchViewController.instantiate(viewModel: SearchViewModel(), coordiNator: self)
-//        let navigationSearchView = UINavigationController(rootViewController: searchView)
-//        navigationSearchView.navigationBar.isHidden = true
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.pushViewController(searchView, animated: false)
-//        navigationSearchView.modalPresentationStyle = .fullScreen
-//        windowRootViewController.present(navigationSearchView, animated: true, completion: nil)
     }
 
+    func moveMyPageView() {
+        let myPageViewController = MyPageViewController.instantiate(viewModel: MyPageViewModel(), coordinator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(myPageViewController, animated: true)
+    }
 
     func moveToAddInformationView(vinylID: Int?, vinylImageURL: String?, isDeleteMode: Bool) {
         let addInformationViewModel = AddInformationViewModel()
@@ -160,9 +161,8 @@ final class AppCoordinator {
     
     func presentRequestUserVinylView() {
         let requestUserViynlView = RequestUserVinylViewController.instantiate(viewModel: RequestUserVinylViewModel(), coordiNator: self)
-        guard let windowRootViewController = self.windowRootViewController else { return }
         requestUserViynlView.modalPresentationStyle = .fullScreen
-        windowRootViewController.present(requestUserViynlView, animated: true, completion: nil)
+        windowRootViewController?.present(requestUserViynlView, animated: true, completion: nil)
     }
     
     func popToVinylBoxView() {
@@ -199,6 +199,17 @@ final class AppCoordinator {
     func popToHomeViewController() {
         guard let windowRootViewController = self.windowRootViewController else { return }
         windowRootViewController.popToRootViewController(animated: true)
+    }
+    
+    func dismissViewControllerWithAlertMessage() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.dismiss(animated: true) {
+            let alert = UIAlertController(title: nil, message: "찾는 바이닐 요청이 정상적으로 요청되었습니다.", preferredStyle: .alert)
+            alert.view.tintColor = UIColor.vinylaMainOrangeColor()
+            let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alert.addAction(ok)
+            windowRootViewController.present(alert, animated: true, completion: nil)
+        }
     }
     
 }

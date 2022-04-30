@@ -40,7 +40,7 @@ final class LogInViewController: UIViewController {
         print("viewDidLoad()")
 
         setUI()
-        UserDefaults.standard.setValue(true, forKey: UserDefaultsKey.initIsFirstLogIn)
+        VinylaUserManager.isFirstLogin = true
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -66,8 +66,8 @@ final class LogInViewController: UIViewController {
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
                 .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                     print(model)
-                    UserDefaults.standard.setValue(model.data?.token, forKey: UserDefaultsKey.vinylaToken)
-                    UserDefaults.standard.setValue(model.data?.nickname, forKey: UserDefaultsKey.userNickName)
+                    VinylaUserManager.vinylaToken = model.data?.token
+                    VinylaUserManager.nickname = model.data?.nickname
                     self?.coordiNator?.moveAndSetHomeView()
                 }, onError: { [weak self] error in
                     if error as? NetworkError == NetworkError.nonExistentVinylaUser {

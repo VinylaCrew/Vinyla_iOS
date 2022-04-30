@@ -130,7 +130,7 @@ final class HomeViewController: UIViewController {
         updateUIHomeVinylData()
         checkMyVinyl()
         viewModel?.requestMyGenre()
-        self.homeNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
+        self.homeNickNameLabel.text = VinylaUserManager.nickname
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -178,7 +178,8 @@ final class HomeViewController: UIViewController {
 
     }
     func setRxIndicator() {
-        if UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn) {
+        guard let isFirstLogin = VinylaUserManager.isFirstLogin else { return }
+        if isFirstLogin {
             viewModel?.isSyncVinylBox
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] isLoading in
@@ -201,7 +202,7 @@ final class HomeViewController: UIViewController {
                 .subscribe(onNext: { [weak self] vinylData in
                     self?.blurCircleView.shownCircleImageView.image = UIImage(data: vinylData)
                     self?.blurCircleView.backgroundImageView.image = UIImage(data:vinylData)
-                    self?.homeNickNameLabel.text = UserDefaults.standard.string(forKey: UserDefaultsKey.userNickName)
+                    self?.homeNickNameLabel.text = VinylaUserManager.nickname
                     self?.checkMyVinyl()
                 })
                 .disposed(by: disposebag)

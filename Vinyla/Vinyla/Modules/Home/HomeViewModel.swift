@@ -58,7 +58,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
 
     func requestServerVinylBoxData() {
-        let isFirstLogin = UserDefaults.standard.bool(forKey: UserDefaultsKey.initIsFirstLogIn)
+        guard let isFirstLogin = VinylaUserManager.isFirstLogin else { return }
         let dispatchGroup = DispatchGroup()
         
         if isFirstLogin {
@@ -108,7 +108,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                     dispatchGroup.notify(queue: .global()) {
                         print("홈 VM SyncVinylBox: false 호출")
                         self?.isSyncVinylBox.onNext(false)
-                        UserDefaults.standard.setValue(false, forKey: UserDefaultsKey.initIsFirstLogIn)
+                        VinylaUserManager.isFirstLogin = false
                     }
 
                 }, onError: { [weak self] error in
@@ -123,11 +123,11 @@ final class HomeViewModel: HomeViewModelProtocol {
                     
                     if let user = response.data.userInfo {
                         print("nickname",user[0].nickname)
-                        UserDefaults.standard.setValue(user[0].nickname, forKey: UserDefaultsKey.userNickName)
+                        VinylaUserManager.nickname = user[0].nickname
                     }
                     
                     if let myVinyl = response.data.myVinyl {
-                        UserDefaults.standard.setValue(myVinyl.vinylIdx, forKey: UserDefaultsKey.myVinylIndex)
+                        VinylaUserManager.myVInylIndex = myVinyl.vinylIdx
                         DispatchQueue.global().async() {
                             guard let insideImageURL = URL(string: myVinyl.imageURL) else { return }
                             let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (imageData, result, error) in
@@ -143,7 +143,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                             dataTask.resume()
                         }
                     } else {
-                        UserDefaults.standard.setValue(-1, forKey: UserDefaultsKey.myVinylIndex)
+                        VinylaUserManager.myVInylIndex = -1
                     }
                 }, onError: { error in
                     print(error.localizedDescription)
