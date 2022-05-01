@@ -24,7 +24,19 @@ class VinylaUserManager {
     @UserDefault(key: UserDefaultsKey.firebaseUID)
     static var firebaseUID: String?
     
+    @UserDefault(key: UserDefaultsKey.loginCase)
+    static var loginSNSCase: String?
+    
     static var hasToken: Bool {
         return VinylaUserManager.vinylaToken != nil
+    }
+    
+    static func clearAllUserSetting() {
+        self.vinylaToken = nil
+        self.nickname = nil
+        self.isFirstLogin = nil
+        self.myVInylIndex = nil
+        self.firebaseUID = nil
+        self.loginSNSCase = nil
     }
 }
