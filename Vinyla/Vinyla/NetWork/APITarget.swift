@@ -143,9 +143,9 @@ enum APITarget: TargetType {
     var headers: [String : String]? {
         switch self {
         case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl, .registerMyVinyl, .checkHomeInformation:
-            return ["Content-Type" : "application/json", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
+            return ["Content-Type" : "application/json", "token" : VinylaUserManager.vinylaToken ?? ""]
         case .uploadUserVinyl:
-            return ["Content-Type" : "multipart/form-data", "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjIyLCJmdWlkIjoiYXNkZnRlc3QxMTExMjIyMiIsImlhdCI6MTY0MzAyNzMzMywiZXhwIjoxNjc0NTYzMzMzLCJpc3MiOiJoYWVseSJ9.7KbvuO3GmVlPqqMokkHzmDPDr8dpJ8gBYEy4ONVfvX4"]
+            return ["Content-Type" : "multipart/form-data", "token" : VinylaUserManager.vinylaToken ?? ""]
         default: return ["Content-Type" : "application/json"]
         }
     }
