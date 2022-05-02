@@ -40,12 +40,13 @@ final class LogInViewController: UIViewController {
         print("viewDidLoad()")
 
         setUI()
-        VinylaUserManager.isFirstLogin = true
+        
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        VinylaUserManager.isFirstLogin = true
+        
         if let currentUser = Auth.auth().currentUser {
             print("current user uid:",currentUser.uid)
         }
@@ -57,11 +58,13 @@ final class LogInViewController: UIViewController {
         appleLogInButton.layer.cornerRadius = 28
     }
     @IBAction func touchUPGoogleButton(_ sender: UIButton) {
+        VinylaUserManager.loginSNSCase = "Google"
+        
         if let currentUser = Auth.auth().currentUser {
             guard let userID = Auth.auth().currentUser?.uid else { return }
             print("coordinator userID:",currentUser.uid)
-//            guard let vinylaUserToken = UserDefaults.standard.string(forKey: UserDefaultsKey.vinylaToken) else { return }
-            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: "nousertest", fcmToken: "12"))
+            VinylaUserManager.firebaseUID = currentUser.uid
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: userID, fcmToken: "12"))
 
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
                 .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
@@ -99,8 +102,20 @@ final class LogInViewController: UIViewController {
                     }else {
                         guard let userID = Auth.auth().currentUser?.uid else { return }
                         guard let userEmail = Auth.auth().currentUser?.email else { return }
-
-                        self.coordiNator?.moveToSignUPView()
+                        VinylaUserManager.firebaseUID = userID
+                        
+                        let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: "12"))
+                        
+                        _ = CommonNetworkManager.request(apiType: logInAPITarget)
+                            .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                                VinylaUserManager.vinylaToken = model.data?.token
+                                VinylaUserManager.nickname = model.data?.nickname
+                                self?.coordiNator?.moveAndSetHomeView()
+                            }, onError: { [weak self] error in
+                                self?.coordiNator?.moveToSignUPView()
+                            })
+                            .disposed(by: self.disposeBag)
+                        
                     }
                 }
             }
@@ -109,6 +124,7 @@ final class LogInViewController: UIViewController {
     }
     
     @IBAction func touchUPAppleLogInButton(_ sender: Any) {
+        VinylaUserManager.loginSNSCase = "Apple"
 //AuthProvider 이용하여 reauth (No PoP UP)
         let user = Auth.auth().currentUser
 //        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: "email", password: "pass")
