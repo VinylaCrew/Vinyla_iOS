@@ -21,6 +21,11 @@ final class VinylBoxViewController: UIViewController {
     @IBOutlet weak var popVinylBoxViewButton: UIButton!
     @IBOutlet weak var vinylBoxPagingCollectionView: UICollectionView!
     
+    lazy private var emptyGuideView: UIView = {
+       let view = EmptyGuideView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 510))
+        return view
+    }()
+    
     private weak var coordiNator: AppCoordinator?
     private var viewModel: VinylBoxViewModel?
 
@@ -54,6 +59,12 @@ final class VinylBoxViewController: UIViewController {
         self.nextBoxButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.scrollToNextCell()
         }).disposed(by: disposebag)
+        
+        self.vinylBoxPagingCollectionView.addSubview(emptyGuideView)
+        emptyGuideView.translatesAutoresizingMaskIntoConstraints = false
+        emptyGuideView.leftAnchor.constraint(equalTo: vinylBoxPagingCollectionView.leftAnchor, constant: round((self.view.bounds.width-375)/2) ).isActive = true
+        emptyGuideView.isHidden = true
+        
 
         viewModel?.isDeletedVinylData
             .observeOn(MainScheduler.asyncInstance)
@@ -87,16 +98,18 @@ final class VinylBoxViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let viewModel = self.viewModel else { return }
+        
+        //ViewModel 로직으로 변경작업중 함수 코드
+        print("box viewWillAppear")
+        viewModel.updateVinylBoxesAndReversBoxes()
+        vinylBoxPagingCollectionView.reloadData()
+        
+        
         DispatchQueue.main.async { [weak self] in
             self?.vinylCountLabel.text = "\(self?.viewModel?.getTotalVinylBoxCount() ?? 0)개"
             self?.configureNextButtonPage()
             self?.userNickNameLabel.text = VinylaUserManager.nickname
         }
-
-        //ViewModel 로직으로 변경작업중 함수 코드
-        print("box viewWillAppear")
-        viewModel.updateVinylBoxesAndReversBoxes()
-        vinylBoxPagingCollectionView.reloadData()
 
         print("getCountVinylBoxData: ",viewModel.getTotalVinylBoxCount())
         
@@ -108,9 +121,12 @@ final class VinylBoxViewController: UIViewController {
 
         if viewModel.getTotalVinylBoxCount() == 0 {
             //MARK: emptyGuideVIew
-            DispatchQueue.main.async {
-                let emptyGuideView = EmptyGuideView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 510))
-                self.vinylBoxPagingCollectionView.addSubview(emptyGuideView)
+            DispatchQueue.main.async { [weak self] in
+                self?.emptyGuideView.isHidden = false
+            }
+        }else {
+            DispatchQueue.main.async { [weak self] in
+                self?.emptyGuideView.isHidden = true
             }
         }
 
