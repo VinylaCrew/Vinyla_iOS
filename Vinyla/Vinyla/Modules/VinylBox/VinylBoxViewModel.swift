@@ -47,9 +47,14 @@ final class VinylBoxViewModel {
         guard let totalPageNumber = self.totalPageNumber else {
             return
         }
-
+        
         if nowPageNumber > totalPageNumber {
             self.nowPageNumber -= 1
+        }
+        
+        //완전히 바이닐 삭제 후, 바이닐 추가 되는 케이스
+        if nowPageNumber == 0 && totalPageNumber == 1 {
+            self.nowPageNumber = 1
         }
     }
 
