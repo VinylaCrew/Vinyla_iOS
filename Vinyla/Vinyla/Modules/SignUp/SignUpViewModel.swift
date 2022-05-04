@@ -16,6 +16,8 @@ protocol SignUpViewModelProtocol {
     var isValidNickNameNumber: Int? { get }
     var checkNickNameNumberSubject: PublishSubject<Int> { get }
     var isCompletedCreateUserRequest: PublishSubject<Bool> { get }
+    var isAllowMarketing: BehaviorSubject<Int> { get }
+    
     func isValidNickName(_ nickNameText: String) -> Int
     func testStreamMethod() -> Void
     func requestCreateUser() -> Void
@@ -25,6 +27,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     //input
     private(set) var nicknameText: PublishSubject<String> = PublishSubject<String>()
     private(set) var instagramIDText: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
+    private(set) var isAllowMarketing: BehaviorSubject<Int> = BehaviorSubject<Int>(value: -1)
     //output
     private(set) var validNickNameNumberSubject = PublishSubject<Int>()
     private(set) var isUniqueNickNameSubject = PublishSubject<Int>()
@@ -89,18 +92,24 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     func requestCreateUser() {
-        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let instagramID = try? self.instagramIDText.value() else {
+        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let isAllowMarketing = try? self.isAllowMarketing.value() else {
             return
         }
-
-        let userData = SignUpRequest(fuid: "test111", sns: "google", nickname: nickName, instaId: instagramID, fcmToken: "testfcmtoken", subscribeAgreed: 1)
+        
+        let userData = SignUpRequest(fuid: firebaseUid,
+                                     sns: VinylaUserManager.loginSNSCase ?? "",
+                                     nickname: nickName,
+                                     instaId: "",
+                                     fcmToken: "testfcmtoken",
+                                     subscribeAgreed: isAllowMarketing)
 
         let createUserAPI = APITarget.createUser(userData: userData)
         _ = CommonNetworkManager.request(apiType: createUserAPI)
             .subscribe(onSuccess: { [weak self] (response: SignUpResponse) in
                 print(response)
                 //MARK: TODO 바닐라 토큰 유저 디폴트 저장
-                UserDefaults.standard.setValue(response.data?.token, forKey: UserDefaultsKey.vinylaToken)
+//                UserDefaults.standard.setValue(response.data?.token, forKey: UserDefaultsKey.vinylaToken)
+                VinylaUserManager.vinylaToken = response.data?.token
                 self?.isCompletedCreateUserRequest.onNext(true)
             }, onError: { error in
                 print(error)
