@@ -56,15 +56,14 @@
             <viewLayoutGuide key="safeArea" id="y4d-ex-KRh"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="nSt-GP-JEn" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="139" id="3kv-aw-tbU"/>
+                <constraint firstItem="nSt-GP-JEn" firstAttribute="leading" secondItem="VAg-To-dsn" secondAttribute="leading" constant="139" id="3kv-aw-tbU"/>
                 <constraint firstItem="eGV-eE-kkX" firstAttribute="top" secondItem="nSt-GP-JEn" secondAttribute="bottom" constant="20" id="4Zw-2C-uaE"/>
-                <constraint firstItem="9sV-Ue-ISo" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="48" id="9be-Ps-eWw"/>
+                <constraint firstItem="9sV-Ue-ISo" firstAttribute="leading" secondItem="VAg-To-dsn" secondAttribute="leading" constant="48" id="9be-Ps-eWw"/>
                 <constraint firstItem="9sV-Ue-ISo" firstAttribute="top" secondItem="eGV-eE-kkX" secondAttribute="bottom" constant="10" id="Ity-cu-pjA"/>
-                <constraint firstItem="nSt-GP-JEn" firstAttribute="top" secondItem="y4d-ex-KRh" secondAttribute="top" constant="103" id="afo-1f-qOZ"/>
+                <constraint firstItem="nSt-GP-JEn" firstAttribute="top" secondItem="VAg-To-dsn" secondAttribute="top" constant="147" id="afo-1f-qOZ"/>
                 <constraint firstItem="dtN-oe-ZIh" firstAttribute="trailing" secondItem="nSt-GP-JEn" secondAttribute="trailing" id="cac-zZ-npJ"/>
                 <constraint firstItem="dtN-oe-ZIh" firstAttribute="bottom" secondItem="nSt-GP-JEn" secondAttribute="bottom" id="dex-PJ-zae"/>
-                <constraint firstItem="y4d-ex-KRh" firstAttribute="trailing" secondItem="nSt-GP-JEn" secondAttribute="trailing" constant="136" id="gIZ-cF-Kyc"/>
-                <constraint firstItem="eGV-eE-kkX" firstAttribute="leading" secondItem="y4d-ex-KRh" secondAttribute="leading" constant="67" id="mQH-hp-YBE"/>
+                <constraint firstItem="eGV-eE-kkX" firstAttribute="leading" secondItem="VAg-To-dsn" secondAttribute="leading" constant="67" id="mQH-hp-YBE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="51.449275362318843" y="56.919642857142854"/>
