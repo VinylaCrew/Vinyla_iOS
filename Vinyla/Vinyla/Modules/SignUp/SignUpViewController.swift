@@ -198,8 +198,10 @@ final class SignUpViewController: UIViewController {
             if let marketingButton = self?.allowMarketingButton {
                 if marketingButton.isSelected {
                     marketingButton.isSelected = false
+                    self?.viewModel?.isAllowMarketing.onNext(0)
                 }else {
                     marketingButton.isSelected = true
+                    self?.viewModel?.isAllowMarketing.onNext(1)
                 }
                 self?.isCheckingEveryAgreeButton()
             }
@@ -248,6 +250,7 @@ final class SignUpViewController: UIViewController {
                 buttons.isSelected = true
             }
         }
+        self.viewModel?.isAllowMarketing.onNext(1)
         isCheckLogInButtonLogic()
     }
     @IBAction func touchUpTestButton(_ sender: UIButton) {
