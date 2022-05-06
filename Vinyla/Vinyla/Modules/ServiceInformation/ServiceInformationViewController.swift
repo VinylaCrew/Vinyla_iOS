@@ -12,6 +12,7 @@ final class ServiceInformationViewController: UIViewController {
     @IBOutlet weak var serviceButton: UIButton!
     @IBOutlet weak var privacyInformationButton: UIButton!
     @IBOutlet weak var serviceInformationTextView: UITextView!
+    @IBOutlet weak var marketingButton: UIButton!
     var typeCheck: String?
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
