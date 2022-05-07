@@ -109,7 +109,7 @@ class AddReviewViewController: UIViewController {
     @IBOutlet weak var userReviewCommentCountLabel: UILabel!
     @IBOutlet weak var recommendMentLabel: UILabel!
 
-    private weak var coordiNator: AppCoordinator?
+    private weak var coordinator: AppCoordinator?
     private var viewModel: AddReviewViewModel?
 
     var disposeBag = DisposeBag()
@@ -120,7 +120,7 @@ class AddReviewViewController: UIViewController {
             return UIViewController()
         }
         viewController.viewModel = viewModel
-        viewController.coordiNator = coordiNator
+        viewController.coordinator = coordiNator
         return viewController
     }
     
@@ -150,7 +150,8 @@ class AddReviewViewController: UIViewController {
         limitReviewTextCount()
         setKeyboardDoneItem()
         setKeyboardDisapperResetOriginalFrame()
-        framControlDidBeginEditing()
+        frameControlDidBeginEditing()
+        setupBindError()
     }
 
     func setStarUI() {
@@ -249,7 +250,7 @@ class AddReviewViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    func framControlDidBeginEditing() {
+    func frameControlDidBeginEditing() {
         reviewTextView.rx.didBeginEditing
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext:{ [weak self] in
@@ -260,9 +261,19 @@ class AddReviewViewController: UIViewController {
             })
             .disposed(by: disposeBag)
     }
+    
+    func setupBindError() {
+        self.viewModel?.apiError
+            .subscribe(onNext:{ [weak self] error in
+                if error == NetworkError.requestDataError {
+                    self?.coordinator?.setupToast(message: "   필수항목(추천지수)을 입력해 주세요.   ", title: nil)
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 
     @IBAction func touchUpBackButton(_ sender: Any) {
-        coordiNator?.popViewController()
+        coordinator?.popViewController()
     }
     
     @IBAction func touchUpSaveBoxButton(_ sender: Any) {
@@ -276,7 +287,8 @@ class AddReviewViewController: UIViewController {
         chekedCompletedispatchGroup.enter()
         viewModel?.requestSaveVinylData(dispatchGroup: chekedCompletedispatchGroup)
         chekedCompletedispatchGroup.notify(queue: .main){ [weak self] in
-            self?.coordiNator?.popToVinylBoxView()
+            self?.coordinator?.popToVinylBoxView()
+            self?.coordinator?.setupToast(message: "   바이닐이 저장되었습니다.   ", title: nil)
         }
     }
 }

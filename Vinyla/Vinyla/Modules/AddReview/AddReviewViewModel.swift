@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 protocol AddReviewViewModelProtocol {
     //input
@@ -21,6 +22,7 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
     var userRate: PublishSubject<Int> = PublishSubject<Int>()
     var userCommnet: PublishSubject<String> = PublishSubject<String>()
     //output
+    var apiError = PublishRelay<NetworkError>()
 
     //model
     var model: RequestSaveVinylModel
@@ -70,6 +72,9 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
                 checkSaveDispatchGroup.notify(queue: .global()) {
                     dispatchGroup.leave()
                 }
+            },onError: { [weak self] error in
+                guard let vinylNetworkError = error as? NetworkError else { return }
+                self?.apiError.accept(vinylNetworkError)
             })
             .disposed(by: disposeBag)
     }
