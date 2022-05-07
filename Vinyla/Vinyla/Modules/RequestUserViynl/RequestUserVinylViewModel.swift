@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 
 final class RequestUserVinylViewModel {
@@ -18,7 +19,7 @@ final class RequestUserVinylViewModel {
     var userImage: Data?
     
     //output
-    var errorMessage = PublishSubject<String>()
+    var apiError = PublishRelay<NetworkError>()
     var isUpload = BehaviorSubject<Bool>(value: false)
     
     var disposeBag = DisposeBag()
@@ -29,17 +30,27 @@ final class RequestUserVinylViewModel {
     
     func requestUploadUserVinyl() {
         
-        guard let title = try? userAlbumName.value(), let artist = try? userArtistName.value(), let memo = try? userMemo.value() else { return }
-        guard let userVinylImage = self.userImage else { return }
+        guard let title = try? userAlbumName.value(), let artist = try? userArtistName.value(), let memo = try? userMemo.value() else {
+            self.apiError.accept(NetworkError.requestDataError)
+            return
+        }
+        
+        guard let userVinylImage = self.userImage else {
+            self.apiError.accept(NetworkError.requestDataError)
+            return
+        }
+        
         let userVinylData = UploadUserVinylModel(title: title, artist: artist, memo: memo, image: userVinylImage)
         let uploadVinylAPITarget = APITarget.uploadUserVinyl(userVinylData: userVinylData)
+        
         CommonNetworkManager.request(apiType: uploadVinylAPITarget)
             .subscribe(onSuccess: { [weak self] (response: UploadUserVinylResponse) in
                 if let _ = response.data {
                     self?.isUpload.onNext(true)
                 }
             },onError:{ [weak self] error in
-                self?.errorMessage.onNext(error.localizedDescription)
+                guard let vinylNetworkError = error as? NetworkError else { return }
+                self?.apiError.accept(vinylNetworkError)
             })
             .disposed(by: disposeBag)
         
