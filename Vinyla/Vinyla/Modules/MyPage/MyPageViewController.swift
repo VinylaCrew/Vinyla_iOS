@@ -8,14 +8,20 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Firebase
 
 final class MyPageViewController: UIViewController {
     
-    private var viewModel: MyPageViewModel?
-    private weak var coordinator: AppCoordinator?
     @IBOutlet weak var userNickNameLabel: UILabel!
     @IBOutlet weak var pushTextLabel: UILabel!
     @IBOutlet weak var serviceInformationButton: UIButton!
+    @IBOutlet weak var popButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var withdrawButton: UIButton!
+    @IBOutlet weak var marketingSwitch: UISwitch!
+    
+    private var viewModel: MyPageViewModel?
+    private weak var coordinator: AppCoordinator?
     
     var disposeBag = DisposeBag()
     
@@ -29,8 +35,31 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pushTextLabel.numberOfLines = 0
-        pushTextLabel.text = "신규 바이닐 업데이트 알림 주요 공지 등\n서비스관련 푸시 알림을 받습니다"
+        setupUI()
+        
+        self.logoutButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                    print(firebaseAuth.currentUser?.uid)
+                    self?.viewModel?.clearUserData()
+                    self?.coordinator?.moveAndSetLogInView()
+                    self?.coordinator?.setupToast(message: "   로그아웃 되었습니다.   ", title: nil)
+                } catch let signOutError as NSError {
+                    print("Error signing out: %@", signOutError)
+                }
+            })
+            .disposed(by: disposeBag)
+            
+        
+        self.withdrawButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.coordinator?.moveToWithdrawViewController()
+            })
+            .disposed(by: disposeBag)
+                    
+        
         self.serviceInformationButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
@@ -39,12 +68,28 @@ final class MyPageViewController: UIViewController {
                 self?.present(serviceInformationViewController, animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
+        
+        self.marketingSwitch.rx.value
+            .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext:{ isTrue in
+                print(isTrue)
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.userNickNameLabel.text = VinylaUserManager.nickname
     }
+    
+    func setupUI() {
+        logoutButton.setupUnderline()
+        withdrawButton.setupUnderline()
+        
+        pushTextLabel.numberOfLines = 0
+        pushTextLabel.text = "신규 바이닐 업데이트 알림 주요 공지 등\n서비스관련 푸시 알림을 받습니다"
+    }
+    
     @IBAction func touchupPOPButton(_ sender: Any) {
         self.coordinator?.popViewController()
     }
