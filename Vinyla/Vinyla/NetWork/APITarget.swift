@@ -12,6 +12,7 @@ enum APITarget: TargetType {
     case signinUser(userToken: SignInRequest)
     case createUser(userData: SignUpRequest)
     case checkNickName(body: NickNameCheckRequest)
+    case changeMarketingSubscribed(subscribed: MarketingSubscribedRequest)
     //MARK: - Vinyla APP Logic API
     case vinylSearch(urlParameters: String?)
     case getVinylDetail(pathVinylID: Int?)
@@ -36,6 +37,8 @@ enum APITarget: TargetType {
             return "/users/signup"
         case .checkNickName:
             return "/users/check"
+        case .changeMarketingSubscribed:
+            return "/users/mypage/notice"
         case .vinylSearch:
             return "/vinyls/search"
         case let .getVinylDetail(pathVinylID): //Path Variable
@@ -63,6 +66,8 @@ enum APITarget: TargetType {
             return .post
         case .checkNickName:
             return .post
+        case .changeMarketingSubscribed:
+            return .patch
         case .vinylSearch:
             return .get
         case .getVinylDetail:
@@ -107,6 +112,9 @@ enum APITarget: TargetType {
         case let .checkNickName(nickName):
             guard let encodedData = try? JSONEncoder().encode(nickName) else { return .requestData(Data()) }
             return .requestData(encodedData)
+        case let .changeMarketingSubscribed(subscribed):
+            guard let encodedData = try? JSONEncoder().encode(subscribed) else { return .requestData(Data())}
+            return .requestData(encodedData)
         case let .vinylSearch(urlParameters):
             if let vinylName = urlParameters {
                 return .requestParameters(parameters: ["q" : vinylName], encoding: URLEncoding.default)
@@ -142,7 +150,7 @@ enum APITarget: TargetType {
 
     var headers: [String : String]? {
         switch self {
-        case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl, .registerMyVinyl, .checkHomeInformation:
+        case .vinylSearch(_), .getVinylDetail(_), .getVinylBoxMyData, .saveVinyl, .deleteVinyl, .registerMyVinyl, .checkHomeInformation, .changeMarketingSubscribed:
             return ["Content-Type" : "application/json", "token" : VinylaUserManager.vinylaToken ?? ""]
         case .uploadUserVinyl:
             return ["Content-Type" : "multipart/form-data", "token" : VinylaUserManager.vinylaToken ?? ""]
