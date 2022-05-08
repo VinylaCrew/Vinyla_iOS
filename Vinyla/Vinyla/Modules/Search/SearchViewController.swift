@@ -100,7 +100,7 @@ final class SearchViewController: UIViewController {
         bindCountLabel()
         bindTableView()
         didSelectCell()
-        setInputSongTitleRx()
+        setupInputSongTitleBind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -154,10 +154,17 @@ final class SearchViewController: UIViewController {
     @IBAction func touchUpViewPopButton(_ sender: UIButton) {
         coordiNator?.popNoAnimationViewController()
     }
-    func setInputSongTitleRx() {
+    func setupInputSongTitleBind() {
         guard let viewModel = self.viewModel else {
             return
         }
+        
+        searchButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let searchText = self?.vinylSearchBar.text else { return }
+                viewModel.vinylName.onNext(searchText)
+            })
+            .disposed(by: disposeBag)
         
         vinylSearchBar.rx.text
             .orEmpty
