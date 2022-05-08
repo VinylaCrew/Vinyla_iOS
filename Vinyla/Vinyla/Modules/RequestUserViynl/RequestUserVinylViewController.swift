@@ -56,7 +56,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
     }()
     
     let imagePicker = UIImagePickerController()
-    private weak var coordiNator: AppCoordinator?
+    private weak var coordinator: AppCoordinator?
     private var viewModel: RequestUserVinylViewModel?
     var disposeBag = DisposeBag()
 
@@ -66,7 +66,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
             return UIViewController()
         }
         viewController.viewModel = viewModel
-        viewController.coordiNator = coordiNator
+        viewController.coordinator = coordiNator
         return viewController
     }
 
@@ -131,14 +131,25 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         viewModel.isUpload
             .subscribe(onNext: { [weak self] isUpload in
                 if isUpload {
-                    self?.coordiNator?.dismissViewControllerWithAlertMessage()
+                    self?.coordinator?.dismissViewControllerWithAlertMessage()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.apiError
+            .subscribe(onNext: { [weak self] error in
+                print("ViewModel error", error)
+                if error == .requestDataError {
+                    self?.coordinator?.setupToastPresentViewController(message: "   앨범 이름과 이미지, 아티스트명 을 입력해 주세요.   ", title: nil)
                 }
             })
             .disposed(by: disposeBag)
     }
+    
     @objc func touchUPTapGesutre(sender: UITapGestureRecognizer) {
         self.present(self.imagePicker, animated: true)
     }
+    
     @IBAction func doneBtnClicked (sender: Any) {
         self.view.endEditing(true)
     }
@@ -170,7 +181,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         self.view.endEditing(true)
     }
     @IBAction func touchUpPopButton(_ sender: Any) {
-        self.coordiNator?.dismissViewController()
+        self.coordinator?.dismissViewController()
     }
     func setUI() {
         self.albumNameLabel.addSubview(pointCircleView)
