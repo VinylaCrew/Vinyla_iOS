@@ -38,4 +38,7 @@ extension UIColor {
     static func deleteOKPopupColor() -> UIColor {
         return UIColor(red: 145/255, green: 50/255, blue: 255/255, alpha: 1)
     }
+    static func withdrawBackgroundColor() -> UIColor {
+        return UIColor(red: 35/255, green: 35/255, blue: 36/255, alpha: 1)
+    }
 }
