@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast
 import Firebase
 import RxSwift
 
@@ -15,6 +16,14 @@ final class AppCoordinator {
     }
     private let window: UIWindow
     private var isLogIn: Bool?
+    private let toastStyle: ToastStyle = {
+        var toastStyle = ToastStyle()
+        toastStyle.messageFont = UIFont(name: "NotoSansKR-Regular", size: 14)!
+        toastStyle.backgroundColor = .white
+        toastStyle.messageColor = .black
+        toastStyle.cornerRadius = 21
+        return toastStyle
+    }()
     var songNameCD: String!
     var disposeBag = DisposeBag()
 
@@ -161,8 +170,14 @@ final class AppCoordinator {
         windowRootViewController.pushViewController(levelDesignView, animated: true)
     }
     
-    func presentFavoriteVinylPOPUPView(delegate: POPUPButtonTapDelegate) {
-        let favoriteViewController = FavoriteVinylPOPUPViewController.initInstance(delegate: delegate)
+    func moveToWithdrawViewController() {
+        let withdrawView = WithdrawViewController.instantiate(viewModel: WithdrawViewModel(), coordinator: self)
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        windowRootViewController.pushViewController(withdrawView, animated: true)
+    }
+    
+    func presentFavoriteVinylPOPUPView(delegate: POPUPButtonTapDelegate, mode: String) {
+        let favoriteViewController = FavoriteVinylPOPUPViewController.initInstance(delegate: delegate, mode: mode)
         favoriteViewController.modalPresentationStyle = .overFullScreen
         windowRootViewController?.present(favoriteViewController, animated: true, completion: nil)
     }
@@ -218,6 +233,25 @@ final class AppCoordinator {
             alert.addAction(ok)
             windowRootViewController.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func setupToast(message: String, title: String?) {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        
+        windowRootViewController.view.makeToast(message, duration: 1.5, position: .bottom, title: title, style: self.toastStyle)
+        
+//        let customView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 400.0))
+//        customView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+//        customView.backgroundColor = .blue
+//        windowRootViewController.view.showToast(customView, duration: 2.0, position: .center)
+    }
+    
+    func setupToastPresentViewController(message: String, title: String?) {
+        print(self.windowRootViewController?.presentationController,self.windowRootViewController?.presentationController,self.windowRootViewController?.presentedViewController)
+        
+        guard let presentedViewController = self.windowRootViewController?.presentedViewController else { return }
+        
+        presentedViewController.view.makeToast(message, duration: 1.5, position: .bottom, title: title, style: self.toastStyle)
     }
     
 }
