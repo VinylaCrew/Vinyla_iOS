@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -116,6 +116,12 @@
 		DF6A37F4281AB6E50011E39D /* UploadUserVinylModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */; };
 		DF6A37F8281D01E20011E39D /* VinylaUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */; };
 		DF6A37FA281D01F90011E39D /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */; };
+		DF6A37FC281D3C250011E39D /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37FB281D3C240011E39D /* UIButton+.swift */; };
+		DF6F4F9728241AB8007316C8 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DF6F4F9628241AB8007316C8 /* Toast */; };
+		DF6F4F9E2826A4EB007316C8 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4F9C2826A4EB007316C8 /* WithdrawViewController.swift */; };
+		DF6F4F9F2826A4EB007316C8 /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF6F4F9D2826A4EB007316C8 /* WithdrawViewController.xib */; };
+		DF6F4FA12826A529007316C8 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4FA02826A529007316C8 /* WithdrawViewModel.swift */; };
+		DF6F4FA52826C242007316C8 /* MarketingSubscribedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4FA42826C242007316C8 /* MarketingSubscribedModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,6 +252,11 @@
 		DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadUserVinylModel.swift; sourceTree = "<group>"; };
 		DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VinylaUserManager.swift; sourceTree = "<group>"; };
 		DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
+		DF6A37FB281D3C240011E39D /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		DF6F4F9C2826A4EB007316C8 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		DF6F4F9D2826A4EB007316C8 /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
+		DF6F4FA02826A529007316C8 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
+		DF6F4FA42826C242007316C8 /* MarketingSubscribedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingSubscribedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +264,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF6F4F9728241AB8007316C8 /* Toast in Frameworks */,
 				8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +342,7 @@
 				55DF4117280BDFC2009973BB /* MyVinylModel.swift */,
 				DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */,
 				DF6A37F3281AB6E50011E39D /* UploadUserVinylModel.swift */,
+				DF6F4FA42826C242007316C8 /* MarketingSubscribedModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -337,6 +350,7 @@
 		5541DD572688438100970794 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				DF6F4F9B2826A4DE007316C8 /* Withdraw */,
 				DF6A37E8281A60940011E39D /* MyPage */,
 				55A394D6274CCD990030867F /* ServiceInformation */,
 				5599C7B726DD776F008F8FDF /* RequestUserViynl */,
@@ -422,6 +436,7 @@
 				55DE859326CEB81600E1C8DD /* UIColor+Extension.swift */,
 				5583840C26DBC1650019977A /* UIView+Gradient.swift */,
 				55B124162758C4FC00B14C9B /* UIViewController+LoadingIndicator.swift */,
+				DF6A37FB281D3C240011E39D /* UIButton+.swift */,
 			);
 			path = UIExtension;
 			sourceTree = "<group>";
@@ -630,6 +645,16 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		DF6F4F9B2826A4DE007316C8 /* Withdraw */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F4F9C2826A4EB007316C8 /* WithdrawViewController.swift */,
+				DF6F4F9D2826A4EB007316C8 /* WithdrawViewController.xib */,
+				DF6F4FA02826A529007316C8 /* WithdrawViewModel.swift */,
+			);
+			path = Withdraw;
+			sourceTree = "<group>";
+		};
 		E76915B2D0D870AF48EB166B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +682,9 @@
 			dependencies = (
 			);
 			name = Vinyla;
+			packageProductDependencies = (
+				DF6F4F9628241AB8007316C8 /* Toast */,
+			);
 			productName = Vinyla;
 			productReference = 5541DD36268838FB00970794 /* Vinyla.app */;
 			productType = "com.apple.product-type.application";
@@ -707,6 +735,9 @@
 				Base,
 			);
 			mainGroup = 5541DD2D268838FB00970794;
+			packageReferences = (
+				DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 5541DD37268838FB00970794 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -741,6 +772,7 @@
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
 				5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */,
+				DF6F4F9F2826A4EB007316C8 /* WithdrawViewController.xib in Resources */,
 				55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */,
 				5541DD66269AD4F000970794 /* HomeStoryboard.storyboard in Resources */,
 				5541DD5026883A6800970794 /* LogInViewStoryBoard.storyboard in Resources */,
@@ -849,8 +881,11 @@
 				55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */,
 				5541DD6D26AD5CDA00970794 /* SearchViewController.swift in Sources */,
 				5599C78526DCF744008F8FDF /* LevelDesignModel.swift in Sources */,
+				DF6F4F9E2826A4EB007316C8 /* WithdrawViewController.swift in Sources */,
 				5544D63926BD4517003659C6 /* MainFavoriteModel.xcdatamodeld in Sources */,
 				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
+				DF6A37FC281D3C250011E39D /* UIButton+.swift in Sources */,
+				DF6F4FA52826C242007316C8 /* MarketingSubscribedModel.swift in Sources */,
 				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
 				55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */,
 				558383D026D8B1C60019977A /* SearchModel.swift in Sources */,
@@ -879,6 +914,7 @@
 				5555A00A26CAB7A900477DBE /* AddInformationModel.swift in Sources */,
 				DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */,
 				5583840D26DBC1650019977A /* UIView+Gradient.swift in Sources */,
+				DF6F4FA12826A529007316C8 /* WithdrawViewModel.swift in Sources */,
 				55932FCF27AED510006B2DFF /* UserDefaultsKey.swift in Sources */,
 				5583840326DBA2610019977A /* LevelDesignTableViewCell.swift in Sources */,
 				5544D64926BEBB9F003659C6 /* DownScaleImage.swift in Sources */,
@@ -1173,6 +1209,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF6F4F9628241AB8007316C8 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */ = {
