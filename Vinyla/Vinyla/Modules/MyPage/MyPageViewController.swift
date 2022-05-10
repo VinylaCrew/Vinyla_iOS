@@ -47,7 +47,7 @@ final class MyPageViewController: UIViewController {
                     self?.coordinator?.moveAndSetLogInView()
                     self?.coordinator?.setupToast(message: "   로그아웃 되었습니다.   ", title: nil)
                 } catch let signOutError as NSError {
-                    print("Error signing out: %@", signOutError)
+                    print("Error signing out:", signOutError)
                 }
             })
             .disposed(by: disposeBag)
@@ -69,10 +69,26 @@ final class MyPageViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
+        guard let viewModel = viewModel else { return }
+        
         self.marketingSwitch.rx.value
-            .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext:{ isTrue in
-                print(isTrue)
+            .skip(1)
+//            .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .do(onNext: { _ in
+                self.marketingSwitch.isUserInteractionEnabled = false
+                Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { [weak self] _ in
+                    self?.marketingSwitch.isUserInteractionEnabled = true
+                })
+            })
+            .bind(to: viewModel.marketingSubscribed)
+            .disposed(by: disposeBag)
+        
+        Observable.zip(viewModel.marketingCompleteSubject, viewModel.marketingSubscribed)
+            .subscribe(onNext: { [weak self] apiIsSuccessed, value in
+                if apiIsSuccessed {
+                    let toastMessage = value ? "동의 완료" : "거절 완료"
+                    self?.coordinator?.setupToast(message: "   마케팅 수신 \(toastMessage)   ", title: nil)
+                }
             })
             .disposed(by: disposeBag)
     }
