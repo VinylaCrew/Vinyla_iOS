@@ -54,8 +54,8 @@ final class AppCoordinator {
                     self?.isLogIn = true
                     self?.start()
                 }, onError: { [weak self] error in
-                    self?.isLogIn = false
-                    self?.start()
+                    self?.confirmLoginProcessError(error: error)
+                    
                 })
                 .disposed(by: disposeBag)
             
@@ -65,6 +65,7 @@ final class AppCoordinator {
         }
     }
     
+    //MARK: setting window rootvc logic
     func start() {
         guard let isLogIn = self.isLogIn else { return }
         //MARK: isFirstLogin test code임, 추후 제거
@@ -86,6 +87,39 @@ final class AppCoordinator {
         window.makeKeyAndVisible()
     }
     
+    func confirmLoginProcessError(error: Error) {
+        let isInternetConnectedError = "\(error)".contains("-1009")
+        
+        if isInternetConnectedError {
+            self.setupInternetConnectAlertView()
+        }else {
+            self.isLogIn = false
+            self.start()
+        }
+    }
+    
+    func setupInternetConnectAlertView() {
+        let alert = UIAlertController(title: nil, message: "인터넷 연결을 확인해주세요.", preferredStyle: .alert)
+
+        let defaultAction =  UIAlertAction(title: "재시도", style: UIAlertAction.Style.default) { [weak self] _ in
+            self?.autoLogIn()
+        }
+        
+        let cancelAction = UIAlertAction(title: "로그인화면 이동", style: UIAlertAction.Style.cancel) { [weak self] _ in
+            self?.isLogIn = false
+            self?.start()
+        }
+
+        alert.addAction(cancelAction)
+        alert.addAction(defaultAction)
+        
+        self.window.rootViewController = UIViewController()
+        self.window.makeKeyAndVisible()
+        
+        self.window.rootViewController?.present(alert, animated: false)
+    }
+    
+    //MARK: Move ViewControllers
     func moveAndSetLogInView() {
         let loginView = LogInViewController.instantiate(viewModel: LogInViewModel(), coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
