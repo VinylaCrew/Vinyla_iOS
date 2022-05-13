@@ -9,7 +9,7 @@ import Foundation
 import Moya
 import RxSwift
 
-class CommonNetworkManager {
+final class CommonNetworkManager {
 
     static func request<T: Decodable, U: TargetType>(provider: MoyaProvider<U> = MoyaProvider(),
                                                      apiType: U) -> Single<T> {
@@ -25,7 +25,9 @@ class CommonNetworkManager {
                     }
                     do {
                         guard let responseJsonDecodedData = try? JSONDecoder().decode(T.self, from: response.data) else {
+                            #if DEBUG
                             throw NSError(domain: "JSON Parsing Error", code: -1, userInfo: nil)
+                            #endif
                         }
 
                         single(.success(responseJsonDecodedData))
