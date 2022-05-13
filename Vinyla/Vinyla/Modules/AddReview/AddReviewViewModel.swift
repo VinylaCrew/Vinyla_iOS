@@ -43,6 +43,10 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
     }
 
     func requestSaveVinylData(dispatchGroup: DispatchGroup) {
+        if self.model.comment == "이 음반에 대해 감상평을 솔직하게 남겨주세요." {
+            self.model.comment = nil
+        }
+        
         let saveViynlAPI = APITarget.saveVinyl(vinylData: self.model)
 
         CommonNetworkManager.request(apiType: saveViynlAPI)
