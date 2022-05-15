@@ -22,6 +22,7 @@ class RecentVinylCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = .white
         view.layer.masksToBounds = true
         view.layer.cornerRadius = view.frame.height/2
+        view.layer.cornerCurve = .continuous
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0.6
         
@@ -55,6 +56,7 @@ class RecentVinylCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.layer.cornerRadius = self.contentView.frame.height/2
+        self.contentView.layer.cornerCurve = .continuous
 //        self.recentVinylImageView.layer.cornerRadius = self.recentVinylImageView.frame.height/2
     }
     func setAutoLayoutWhiteCircleView() {
