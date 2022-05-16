@@ -65,7 +65,7 @@ final class HomeViewController: UIViewController {
 
     let storyBoardID = "Home"
     
-    private weak var coordiNator: AppCoordinator?
+    private weak var coordinator: AppCoordinator?
     private var viewModel: HomeViewModelProtocol?
     
     static func instantiate(viewModel: HomeViewModelProtocol, coordiNator: AppCoordinator) -> UIViewController {
@@ -74,7 +74,7 @@ final class HomeViewController: UIViewController {
             return UIViewController()
         }
         viewController.viewModel = viewModel //weak이면 return 전에 viewController.viewModel 이 deinit 되며 nil상태가 되어짐
-        viewController.coordiNator = coordiNator
+        viewController.coordinator = coordiNator
         //print("static func return 하기 전") 여기서 weak viewModel deinit
         return viewController
     }
@@ -119,14 +119,15 @@ final class HomeViewController: UIViewController {
         
         self.myPageButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.coordiNator?.moveMyPageView()
+                self?.coordinator?.moveMyPageView()
             })
             .disposed(by: disposebag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear()")
+        print("viewWillAppear()",VinylaUserManager.vinylaToken)
+        
         updateUIHomeVinylData()
         checkMyVinyl()
         viewModel?.requestMyGenre()
@@ -201,7 +202,7 @@ final class HomeViewController: UIViewController {
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] vinylData in
                     self?.blurCircleView.shownCircleImageView.image = UIImage(data: vinylData)
-                    self?.blurCircleView.backgroundImageView.image = UIImage(data:vinylData)
+                    self?.blurCircleView.backgroundImageView.image = UIImage(data: vinylData)
                     self?.homeNickNameLabel.text = VinylaUserManager.nickname
                     self?.checkMyVinyl()
                 })
@@ -220,24 +221,6 @@ final class HomeViewController: UIViewController {
         self.homeMiniButtonView.bringSubviewToFront(collectedTextLabel)
         self.homeMiniButtonView.bringSubviewToFront(genreTextLabel)
         self.homeMiniButtonView.layer.cornerRadius = 8
-    }
-
-    func bottomViewSetUI() {
-        let deviceHeight = UIScreen.main.bounds.size.height
-        print("deviceHeight")
-        print(deviceHeight)
-        //12 max 428 926
-        //12 390 844
-        if deviceHeight > 925 {
-            homeBottomViewHeight.constant = CGFloat(258+61)
-        } else if deviceHeight > 844 { // iPhone 11 Pro Max
-            homeBottomViewHeight.constant = CGFloat(258+48) //11pro max ok
-            
-        } else if deviceHeight > 812 { //iPhone 12
-            homeBottomViewHeight.constant = CGFloat(258+13)
-        } else {
-            //iPhone XS Under OK
-        }
     }
 
     func updateUIHomeVinylData() {
@@ -269,12 +252,49 @@ final class HomeViewController: UIViewController {
     }
 
     @IBAction func touchUpHomeButton(_ sender: UIButton) {
-        //        coordiNator?.moveToAddInformationView()
-        //        coordiNator?.moveToSearchView()
-        coordiNator?.moveToVinylBoxView()
+        coordinator?.moveToVinylBoxView()
     }
     @IBAction func tapInformationLevelLabel() {
-        coordiNator?.moveToLevelDesignView()
+        coordinator?.moveToLevelDesignView()
+    }
+    
+    func textToImage(drawText text: String, inImage image: UIImage, atPoint point: CGPoint) -> UIImage {
+        let textColor = UIColor.white
+        let textFont = UIFont(name: "Playball-Regular", size: 40)!
+        
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+        
+        let textFontAttributes = [
+            NSAttributedString.Key.font: textFont,
+            NSAttributedString.Key.foregroundColor: textColor
+        ] as [NSAttributedString.Key : Any]
+        image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+        
+        let rect = CGRect(origin: point, size: image.size)
+        text.draw(in: rect, withAttributes: textFontAttributes)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    func imageWith(name: String?) -> UIImage? {
+         let frame = CGRect(x: 0, y: -200, width: 100, height: 100)
+         let nameLabel = UILabel(frame: frame)
+         nameLabel.textAlignment = .center
+         nameLabel.backgroundColor = .lightGray
+         nameLabel.textColor = .white
+         nameLabel.font = UIFont.boldSystemFont(ofSize: 40)
+         nameLabel.text = name
+         UIGraphicsBeginImageContext(frame.size)
+          if let currentContext = UIGraphicsGetCurrentContext() {
+             nameLabel.layer.render(in: currentContext)
+             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+             return nameImage
+          }
+          return nil
     }
     
 }
@@ -303,6 +323,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = floor((UIScreen.main.bounds.size.width - 66)/4)
+        
         // width/4
         return CGSize(width: cellSize, height: cellSize)
     }
@@ -317,24 +338,36 @@ extension HomeViewController: ButtonTapDelegate {
     
     func didTapInstagramButton() {
         
-        print("instagram-stories://share")
-        
         if let storiesUrl = URL(string: "instagram-stories://share") {
             if UIApplication.shared.canOpenURL(storiesUrl) {
+                self.blurCircleView.InstagramShareButton.isHidden = true
                 let renderer = UIGraphicsImageRenderer(size: blurCircleView.bounds.size)
                 
                 let renderImage = renderer.image { _ in
                     blurCircleView.drawHierarchy(in: blurCircleView.bounds, afterScreenUpdates: true)
                 }
                 
-                let textImage: Data = "Shawn Test".image(withAttributes: [.foregroundColor: UIColor.white,
-                                                                          .font: UIFont(name: "Playball-Regular", size: 30)],
-                                                         size: CGSize(width: 300.0, height: 80.0))!.pngData()!
+//                let textImage: Data = "Shawn Test".image(withAttributes: [.foregroundColor: UIColor.white,
+//                                                                          .font: UIFont(name: "Playball-Regular", size: 30)],
+//                                                         size: CGSize(width: 300.0, height: 150.0))!.pngData()!
                 
-                guard let imageData = renderImage.pngData() else { return }
+                let textImage: Data = """
+                Shawn Test
+                
+                
+                
+                
+                1
+                """
+                    .image(withAttributes: [.foregroundColor: UIColor.white,.backgroundColor: UIColor.vinylaMainOrangeColor()
+                                            , .font: UIFont(name: "Playball-Regular", size: 13)])!.pngData()!
+                
+                let textWithImage = textToImage(drawText: "Vinyla", inImage: renderImage, atPoint: CGPoint(x: 150, y: 340))
+                
+                guard let imageData = textWithImage.pngData() else { return }
                 let pasteboardItems: [String: Any] = [
-                    "com.instagram.sharedSticker.stickerImage": imageData,
-                    "com.instagram.sharedSticker.backgroundImage": textImage,
+//                    "com.instagram.sharedSticker.stickerImage": textImage,
+                    "com.instagram.sharedSticker.backgroundImage": imageData,
                     "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
                     "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
                 ]
@@ -346,7 +379,9 @@ extension HomeViewController: ButtonTapDelegate {
                                                 pasteboardOptions)
                 UIApplication.shared.open(storiesUrl, options: [:],
                                           completionHandler: nil)
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true) { [weak self] in
+                    self?.blurCircleView.InstagramShareButton.isHidden = false
+                }
             } else {
                 let alert = UIAlertController(title: "알림", message: "인스타그램 설치가 필요합니다", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
@@ -374,7 +409,7 @@ extension String {
     func image(withAttributes attributes: [NSAttributedString.Key: Any]? = nil, size: CGSize? = nil) -> UIImage? {
         let size = size ?? (self as NSString).size(withAttributes: attributes)
         return UIGraphicsImageRenderer(size: size).image { _ in
-            (self as NSString).draw(in: CGRect(origin: .zero, size: size),
+            (self as NSString).draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: size),
                                     withAttributes: attributes)
         }
     }
