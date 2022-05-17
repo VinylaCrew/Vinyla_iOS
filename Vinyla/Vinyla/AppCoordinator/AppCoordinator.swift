@@ -88,14 +88,17 @@ final class AppCoordinator {
     }
     
     func confirmLoginProcessError(error: Error) {
-        let isInternetConnectedError = "\(error)".contains("-1009")
         
-        if isInternetConnectedError {
-            self.setupInternetConnectAlertView()
-        }else {
-            self.isLogIn = false
-            self.start()
-        }
+        self.setupInternetConnectAlertView()
+        
+//        let isInternetConnectedError = "\(error)".contains("-1009")
+//
+//        if isInternetConnectedError {
+//            self.setupInternetConnectAlertView()
+//        }else {
+//            self.isLogIn = false
+//            self.start()
+//        }
     }
     
     func setupInternetConnectAlertView() {
@@ -272,7 +275,7 @@ final class AppCoordinator {
     func setupToast(message: String, title: String?) {
         guard let windowRootViewController = self.windowRootViewController else { return }
         
-        windowRootViewController.view.makeToast(message, duration: 1.5, position: .bottom, title: title, style: self.toastStyle)
+        windowRootViewController.view.makeToast(message, duration: 1.5, position: .littleBottom, title: title, style: self.toastStyle)
         
 //        let customView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 400.0))
 //        customView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
