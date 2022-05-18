@@ -14,14 +14,14 @@
             <objects>
                 <viewController storyboardIdentifier="AddInformation" id="Q7F-7Y-uKC" customClass="AddInformationViewController" customModule="Vinyla" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ve8-yv-1Cz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="916"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gU9-1b-fkF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="916"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YCo-ou-4w8">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="916"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wZI-7k-GO1">
                                                 <rect key="frame" x="0.0" y="620" width="375" height="95"/>
@@ -87,7 +87,7 @@
                                                 <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Chainsmokers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lS1-eh-YIE">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lS1-eh-YIE">
                                                 <rect key="frame" x="96" y="443" width="262" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19" id="Z9C-Et-eJn"/>
@@ -96,7 +96,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2021.08.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-Jt-aM2">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNt-Jt-aM2">
                                                 <rect key="frame" x="96" y="467" width="261" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19" id="znh-Fc-Fhg"/>
@@ -105,7 +105,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="랩/힙합" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDa-T2-Zg9">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDa-T2-Zg9">
                                                 <rect key="frame" x="96.333333333333343" y="491" width="263.66666666666663" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19" id="cpk-ff-kvR"/>
@@ -114,7 +114,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7.81(3918건)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSU-nj-CLj">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSU-nj-CLj">
                                                 <rect key="frame" x="112" y="515" width="248" height="19"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="19" id="xtf-Qm-yJo"/>
@@ -140,7 +140,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18A-pc-sJq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18A-pc-sJq">
                                                 <rect key="frame" x="68" y="575" width="292" height="28"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="28" id="038-so-1Am"/>
@@ -206,7 +206,7 @@
                                             <constraint firstAttribute="trailing" secondItem="bE0-4C-389" secondAttribute="trailing" constant="15" id="tHj-a0-I7F"/>
                                             <constraint firstAttribute="trailing" secondItem="85f-kd-KOg" secondAttribute="trailing" constant="15" id="wWn-wc-HVh"/>
                                             <constraint firstItem="fNt-Jt-aM2" firstAttribute="top" secondItem="lS1-eh-YIE" secondAttribute="bottom" constant="5" id="wXI-S9-vQV"/>
-                                            <constraint firstAttribute="bottom" secondItem="Xkb-Uf-NMz" secondAttribute="bottom" constant="183" id="xOz-hb-uXk"/>
+                                            <constraint firstAttribute="bottom" secondItem="Xkb-Uf-NMz" secondAttribute="bottom" constant="79" id="xOz-hb-uXk"/>
                                             <constraint firstItem="SFc-Cw-PWS" firstAttribute="leading" secondItem="YCo-ou-4w8" secondAttribute="leading" constant="15" id="xtO-JV-AR2"/>
                                             <constraint firstAttribute="trailing" secondItem="lTk-4W-6tI" secondAttribute="trailing" id="ycP-w8-7na"/>
                                             <constraint firstAttribute="trailing" secondItem="cSU-nj-CLj" secondAttribute="trailing" constant="15" id="yk8-Dv-jLh"/>
@@ -231,7 +231,7 @@
                             <constraint firstAttribute="bottom" secondItem="gU9-1b-fkF" secondAttribute="bottom" id="vXm-XD-Jo4"/>
                         </constraints>
                     </view>
-                    <size key="freeformSize" width="375" height="916"/>
+                    <size key="freeformSize" width="375" height="812"/>
                     <connections>
                         <outlet property="albumSongListTableView" destination="wZI-7k-GO1" id="E70-4z-Ylc"/>
                         <outlet property="albumSongListTableViewHeight" destination="d07-x1-KPi" id="YgF-9y-J7j"/>
