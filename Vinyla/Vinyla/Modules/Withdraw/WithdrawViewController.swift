@@ -64,7 +64,7 @@ final class WithdrawViewController: UIViewController {
     
     func setupUI() {
         for item in circlePointView {
-            item.layer.cornerRadius = item.frame.size.height
+            item.layer.cornerRadius = item.frame.size.height/2
         }
         
         self.wiithdrawLabel1.numberOfLines = 0
