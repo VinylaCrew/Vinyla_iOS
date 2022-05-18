@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Toast
 import Firebase
 import RxSwift
 
@@ -102,13 +101,13 @@ final class AppCoordinator {
     }
     
     func setupInternetConnectAlertView() {
-        let alert = UIAlertController(title: nil, message: "인터넷 연결을 확인해주세요.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "로그인 실패", message: "인터넷 연결을 확인해주세요.", preferredStyle: .alert)
 
         let defaultAction =  UIAlertAction(title: "재시도", style: UIAlertAction.Style.default) { [weak self] _ in
             self?.autoLogIn()
         }
         
-        let cancelAction = UIAlertAction(title: "로그인화면 이동", style: UIAlertAction.Style.cancel) { [weak self] _ in
+        let cancelAction = UIAlertAction(title: "로그인화면 이동", style: UIAlertAction.Style.default) { [weak self] _ in
             self?.isLogIn = false
             self?.start()
         }
@@ -275,7 +274,7 @@ final class AppCoordinator {
     func setupToast(message: String, title: String?) {
         guard let windowRootViewController = self.windowRootViewController else { return }
         
-        windowRootViewController.view.makeToast(message, duration: 1.5, position: .littleBottom, title: title, style: self.toastStyle)
+        windowRootViewController.view.makeToast(message, duration: 1.5, position: .littleupBottom, title: title, style: self.toastStyle)
         
 //        let customView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 400.0))
 //        customView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
@@ -288,7 +287,7 @@ final class AppCoordinator {
         
         guard let presentedViewController = self.windowRootViewController?.presentedViewController else { return }
         
-        presentedViewController.view.makeToast(message, duration: 1.5, position: .bottom, title: title, style: self.toastStyle)
+        presentedViewController.view.makeToast(message, duration: 1.5, position: .littleupBottom, title: title, style: self.toastStyle)
     }
     
 }
