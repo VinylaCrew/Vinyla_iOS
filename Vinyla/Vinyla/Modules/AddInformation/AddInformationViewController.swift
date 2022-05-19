@@ -211,7 +211,7 @@ class AddInformationViewController: UIViewController {
                 self?.songGenresLabel.text = vinylInformation.genres[0]
                 self?.songCountLabel.text = String(vinylInformation.tracklist.count)
                 self?.songReleaseDataLabel.text = String(vinylInformation.year ?? 0)
-                self?.songStarCountLabel.text = String(vinylInformation.rate) + " (\(vinylInformation.rateCount)건)"
+                self?.songStarCountLabel.text = String(round(vinylInformation.rate)) + " (\(vinylInformation.rateCount)건)"
 
                 //save button enabled setting
                 self?.saveInformationButton.isEnabled = true
