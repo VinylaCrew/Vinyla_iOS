@@ -57,40 +57,10 @@
                         <fragment content="주의사항">
                             <attributes>
                                 <color key="NSColor" red="1" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <font key="NSFont" size="19" name=".AppleSDGothicNeoI-Regular"/>
-                            </attributes>
-                        </fragment>
-                        <fragment content="을">
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <font key="NSFont" size="19" name=".AppleSDGothicNeoI-Regular"/>
-                            </attributes>
-                        </fragment>
-                        <fragment content=" ">
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <font key="NSFont" metaFont="system" size="19"/>
                             </attributes>
                         </fragment>
-                        <fragment content="꼭">
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <font key="NSFont" size="19" name=".AppleSDGothicNeoI-Regular"/>
-                            </attributes>
-                        </fragment>
-                        <fragment content=" ">
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <font key="NSFont" metaFont="system" size="19"/>
-                            </attributes>
-                        </fragment>
-                        <fragment content="읽어주세요">
-                            <attributes>
-                                <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <font key="NSFont" size="19" name=".AppleSDGothicNeoI-Regular"/>
-                            </attributes>
-                        </fragment>
-                        <fragment content=".">
+                        <fragment content="을 꼭 읽어주세요.">
                             <attributes>
                                 <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <font key="NSFont" metaFont="system" size="19"/>
@@ -99,14 +69,14 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-8y-ZgQ">
-                    <rect key="frame" x="15" y="160" width="360" height="111"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-8y-ZgQ">
+                    <rect key="frame" x="15" y="160" width="360" height="101"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-mB-k1a">
                             <rect key="frame" x="0.0" y="0.0" width="360" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mgd-wp-v6H" userLabel="PointView">
-                                    <rect key="frame" x="0.0" y="7" width="5" height="5"/>
+                                    <rect key="frame" x="0.0" y="8" width="5" height="5"/>
                                     <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="5" id="FFx-0F-pmr"/>
@@ -114,10 +84,10 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="바닐라에 수집된 바이닐 정보 및 계정이용 정보는 모두 삭제되며 복구 할 수 없습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofb-aK-wja">
-                                    <rect key="frame" x="7" y="0.0" width="323" height="40"/>
+                                    <rect key="frame" x="9" y="0.0" width="350" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="OpQ-lu-EdE"/>
-                                        <constraint firstAttribute="width" constant="323" id="zTS-fg-3Ay"/>
+                                        <constraint firstAttribute="width" constant="350" id="zTS-fg-3Ay"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                     <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -129,15 +99,15 @@
                                 <constraint firstItem="mgd-wp-v6H" firstAttribute="leading" secondItem="fB0-mB-k1a" secondAttribute="leading" id="A1Y-5x-4ws"/>
                                 <constraint firstItem="Ofb-aK-wja" firstAttribute="top" secondItem="fB0-mB-k1a" secondAttribute="top" id="Rxq-at-hvr"/>
                                 <constraint firstAttribute="height" constant="48" id="com-Ba-VHY"/>
-                                <constraint firstItem="Ofb-aK-wja" firstAttribute="leading" secondItem="mgd-wp-v6H" secondAttribute="trailing" constant="2" id="d13-1a-E8G"/>
-                                <constraint firstItem="mgd-wp-v6H" firstAttribute="top" secondItem="fB0-mB-k1a" secondAttribute="top" constant="7" id="oPp-61-kZ5"/>
+                                <constraint firstItem="Ofb-aK-wja" firstAttribute="leading" secondItem="mgd-wp-v6H" secondAttribute="trailing" constant="4" id="d13-1a-E8G"/>
+                                <constraint firstItem="mgd-wp-v6H" firstAttribute="top" secondItem="fB0-mB-k1a" secondAttribute="top" constant="8" id="oPp-61-kZ5"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FC3-ME-7HJ">
-                            <rect key="frame" x="0.0" y="63" width="360" height="48"/>
+                            <rect key="frame" x="0.0" y="53" width="360" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRN-ps-Xgl" userLabel="PointView">
-                                    <rect key="frame" x="0.0" y="7" width="5" height="5"/>
+                                    <rect key="frame" x="0.0" y="8" width="5" height="5"/>
                                     <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="5" id="1fW-gJ-JMD"/>
@@ -145,10 +115,10 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google / Facebook / Apple계정 정보는 연동되어 모두 탈퇴 처리됩니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35o-Kf-bH1">
-                                    <rect key="frame" x="7" y="0.0" width="323" height="40"/>
+                                    <rect key="frame" x="9" y="0.0" width="350" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="8zS-TN-Hnv"/>
-                                        <constraint firstAttribute="width" constant="323" id="n50-y4-ek3"/>
+                                        <constraint firstAttribute="width" constant="350" id="n50-y4-ek3"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                                     <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,15 +129,15 @@
                             <constraints>
                                 <constraint firstItem="35o-Kf-bH1" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" id="Pv4-Z8-dbQ"/>
                                 <constraint firstItem="rRN-ps-Xgl" firstAttribute="leading" secondItem="FC3-ME-7HJ" secondAttribute="leading" id="Rrv-8y-Bcm"/>
-                                <constraint firstItem="35o-Kf-bH1" firstAttribute="leading" secondItem="rRN-ps-Xgl" secondAttribute="trailing" constant="2" id="bYo-Gf-aY8"/>
-                                <constraint firstItem="rRN-ps-Xgl" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" constant="7" id="iGr-qO-hIk"/>
+                                <constraint firstItem="35o-Kf-bH1" firstAttribute="leading" secondItem="rRN-ps-Xgl" secondAttribute="trailing" constant="4" id="bYo-Gf-aY8"/>
+                                <constraint firstItem="rRN-ps-Xgl" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" constant="8" id="iGr-qO-hIk"/>
                                 <constraint firstAttribute="height" constant="48" id="r5i-jC-gcF"/>
                             </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="111" id="SZ8-Ia-VLY"/>
+                        <constraint firstAttribute="height" constant="101" id="SZ8-Ia-VLY"/>
                     </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDJ-Sy-G18">
