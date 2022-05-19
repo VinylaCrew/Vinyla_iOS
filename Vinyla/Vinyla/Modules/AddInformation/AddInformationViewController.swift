@@ -95,12 +95,9 @@ class AddInformationViewController: UIViewController {
     @IBOutlet weak var albumSongListTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var blurCircleView: BlurCircleView!
 
-
     private weak var coordinator: AppCoordinator?
     private var viewModel: AddInformationViewModel?
     var disposebag = DisposeBag()
-    
-    var dataCount: Int = 5
     
     static func instantiate(viewModel: AddInformationViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "AddInformation", bundle: nil)
@@ -121,12 +118,8 @@ class AddInformationViewController: UIViewController {
             self.view.addSubview(deleteVinylButton)
             deleteVinylButton.rx.tap
                 .subscribe(onNext: { [weak self] in
-                    let dispatchGroup = DispatchGroup()
-                    dispatchGroup.enter()
-                    self?.viewModel?.deleteVinylBoxData(deleteDispatchGroup: dispatchGroup)
-                    dispatchGroup.notify(queue: .main) {
-                        self?.coordinator?.popViewController()
-                    }
+                    guard let self = self else { return }
+                    self.coordinator?.presentFavoriteVinylPOPUPView(delegate: self, mode: "delete")
                 })
                 .disposed(by: disposebag)
 
@@ -139,14 +132,26 @@ class AddInformationViewController: UIViewController {
             guard let vinylInformationModel = self?.viewModel?.vinylInformationDataModel else { return }
 //            let vinylDetailData = AddReviewModel.init(vinylImageURL: self?.viewModel?.model.vinylImageURL, songTitle: vinylInformationModel.title, songArtist: vinylInformationModel.artist, rate: vinylInformationModel.rate, rateCount: vinylInformationModel.rateCount)
 
-            let vinylDetailData = RequestSaveVinylModel.init(id: vinylInformationModel.id, title: vinylInformationModel.title, artist: vinylInformationModel.artist, image: vinylInformationModel.image, year: vinylInformationModel.year, genres: vinylInformationModel.genres, tracklist: vinylInformationModel.tracklist, rate: nil, comment: nil)
+            let vinylDetailData = RequestSaveVinylModel.init(id: vinylInformationModel.id,
+                                                             title: vinylInformationModel.title,
+                                                             artist: vinylInformationModel.artist,
+                                                             image: vinylInformationModel.image,
+                                                             year: vinylInformationModel.year,
+                                                             genres: vinylInformationModel.genres,
+                                                             tracklist: vinylInformationModel.tracklist,
+                                                             rate: nil,
+                                                             comment: nil)
 
             guard let thumbnail = self?.viewModel?.model.vinylImageURL else { return }
-            self?.coordinator?.moveToAddReview(vinylDataModel: vinylDetailData, thumbnailImage: thumbnail,songRate: vinylInformationModel.rate ,songRateCount: vinylInformationModel.rateCount)
+            self?.coordinator?.moveToAddReview(vinylDataModel: vinylDetailData,
+                                               thumbnailImage: thumbnail,
+                                               songRate: vinylInformationModel.rate ,
+                                               songRateCount: vinylInformationModel.rateCount)
         }).disposed(by: disposebag)
         
         informationScrollView.delegate = self
         blurCircleView.delegate = self
+        blurCircleView.InstagramShareButton.isHidden = true
 
 
         guard let vinylImageURL = viewModel?.model.vinylImageURL else { return }
@@ -264,9 +269,10 @@ extension AddInformationViewController: ButtonTapDelegate {
             self.viewModel?.requestRegisterMyVinyl(dispatchGroup: dispatchGroup)
             dispatchGroup.notify(queue: .main) { [weak self] in
                 self?.blurCircleView.setFavoriteImageButton.isSelected = false
+                self?.coordinator?.setupToast(message: "   마이바이닐이 해제되었습니다.   ", title: nil)
             }
         } else {
-            self.coordinator?.presentFavoriteVinylPOPUPView(delegate: self)
+            self.coordinator?.presentFavoriteVinylPOPUPView(delegate: self, mode: "vinyl")
         }
     }
     
@@ -278,6 +284,16 @@ extension AddInformationViewController: ButtonTapDelegate {
 }
 
 extension AddInformationViewController: POPUPButtonTapDelegate {
+    func didTapDeleteButton() {
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        self.viewModel?.deleteVinylBoxData(deleteDispatchGroup: dispatchGroup)
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.coordinator?.popViewController()
+            self?.coordinator?.setupToast(message: "   바이닐이 삭제되었습니다.   ", title: nil)
+        }
+    }
+    
     //유저가 마이바이닐 등록 요청 완료했을 때
     func didTapFavoriteButton() {
         let dispatchGroup = DispatchGroup()
@@ -292,6 +308,7 @@ extension AddInformationViewController: POPUPButtonTapDelegate {
             guard let myVinylImageData = self?.blurCircleView.shownCircleImageView.image?.pngData() else { return }
             self?.viewModel?.saveMyVinylCoreData(myVinylData: myVinylImageData)
             self?.blurCircleView.setFavoriteImageButton.isSelected = true
+            self?.coordinator?.setupToast(message: "   마이바이닐이 등록되었습니다.   ", title: nil)
         }
     }
 }
