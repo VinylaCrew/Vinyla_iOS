@@ -34,7 +34,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="375" id="Es1-Qt-lVw"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="375" id="Es1-Qt-lVw"/>
                                                     <constraint firstAttribute="width" secondItem="lTk-4W-6tI" secondAttribute="height" multiplier="1:1" id="llP-yM-H0T"/>
                                                 </constraints>
                                             </view>
