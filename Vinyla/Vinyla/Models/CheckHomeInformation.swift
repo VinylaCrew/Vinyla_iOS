@@ -24,7 +24,8 @@ struct Vinyl: Codable {
     let title: String
     let imageURL: String
     let artist: String
-    let rate, rateCount, id, year: Int
+    let rate: Double
+    let rateCount, id, year: Int
 
     enum CodingKeys: String, CodingKey {
         case vinylIdx, title
