@@ -16,7 +16,8 @@ struct VinylInformation: Codable {
         let year: Int
         let genres: [String]
         let tracklist: [String]
-        let rate, rateCount: Int
+        let rate: Double
+        let rateCount: Int
     }
 
     let status: Int?
