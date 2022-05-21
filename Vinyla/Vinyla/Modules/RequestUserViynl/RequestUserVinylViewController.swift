@@ -75,6 +75,8 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         setUI()
         setPlaceholderTextView()
         setCountTextViewInLabel()
+        limitCommentTextCount()
+        
         albumNameTextField.delegate = self
         artistNameTextField.delegate = self
         memoTextView.delegate = self
@@ -159,7 +161,9 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         print("touches Began")
         self.view.endEditing(true)
     }
-    @objc func keyboardWillAppear(notification: NSNotification) {
+    
+    @objc
+    func keyboardWillAppear(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
 
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -171,18 +175,22 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
             }
         }
     }
-    @objc func keyboardWillDisappear(notification: NSNotification) {
+    @objc
+    func keyboardWillDisappear(notification: NSNotification) {
         print("keyboardwillDisappear")
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
     }
+    
     @IBAction func touchUpPopButton(_ sender: Any) {
         self.coordinator?.dismissViewController()
     }
+    
     func setUI() {
         self.albumNameLabel.addSubview(pointCircleView)
         self.artistNameLabel.addSubview(artistPointCircleView)
@@ -226,6 +234,18 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
             buttonTopConstraint.constant += CGFloat(UIScreen.main.bounds.height - 811)
         }
     }
+    
+    func limitCommentTextCount() {
+        memoTextView.rx.text.orEmpty
+            .map{ $0.count <= 100 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext:{ [weak self] isEditable in
+                if !isEditable {
+                    self?.memoTextView.text = String(self?.memoTextView.text?.dropLast() ?? "")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
 
     func setCountTextViewInLabel() {
         memoTextView.rx.text.orEmpty
@@ -261,9 +281,11 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
             })
             .disposed(by: disposeBag)
     }
+    
     @IBAction func touchUpRequestButton(_ sender: Any) {
         viewModel?.requestUploadUserVinyl()
     }
+    
 }
 
 extension RequestUserVinylViewController: UITextViewDelegate {
