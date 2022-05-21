@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -117,11 +117,11 @@
 		DF6A37F8281D01E20011E39D /* VinylaUserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F7281D01E20011E39D /* VinylaUserManager.swift */; };
 		DF6A37FA281D01F90011E39D /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37F9281D01F90011E39D /* UserDefaultWrapper.swift */; };
 		DF6A37FC281D3C250011E39D /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37FB281D3C240011E39D /* UIButton+.swift */; };
-		DF6F4F9728241AB8007316C8 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = DF6F4F9628241AB8007316C8 /* Toast */; };
 		DF6F4F9E2826A4EB007316C8 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4F9C2826A4EB007316C8 /* WithdrawViewController.swift */; };
 		DF6F4F9F2826A4EB007316C8 /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF6F4F9D2826A4EB007316C8 /* WithdrawViewController.xib */; };
 		DF6F4FA12826A529007316C8 /* WithdrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4FA02826A529007316C8 /* WithdrawViewModel.swift */; };
 		DF6F4FA52826C242007316C8 /* MarketingSubscribedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4FA42826C242007316C8 /* MarketingSubscribedModel.swift */; };
+		DF6F4FBA283370CC007316C8 /* SwiftToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6F4FB9283370CC007316C8 /* SwiftToast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -245,6 +245,7 @@
 		B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vinyla.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.debug.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.debug.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.debug.xcconfig"; sourceTree = "<group>"; };
+		DF5736BA2838EA5800970B6C /* Vinyla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vinyla.entitlements; sourceTree = "<group>"; };
 		DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckHomeInformation.swift; sourceTree = "<group>"; };
 		DF6A37E9281A60B90011E39D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		DF6A37EA281A60B90011E39D /* MyPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
@@ -257,6 +258,7 @@
 		DF6F4F9D2826A4EB007316C8 /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
 		DF6F4FA02826A529007316C8 /* WithdrawViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewModel.swift; sourceTree = "<group>"; };
 		DF6F4FA42826C242007316C8 /* MarketingSubscribedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingSubscribedModel.swift; sourceTree = "<group>"; };
+		DF6F4FB9283370CC007316C8 /* SwiftToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,7 +266,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF6F4F9728241AB8007316C8 /* Toast in Frameworks */,
 				8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +304,8 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				DF5736BA2838EA5800970B6C /* Vinyla.entitlements */,
+				DF6F4FB8283370C2007316C8 /* Toast */,
 				55932FCD27AED4FF006B2DFF /* User */,
 				55B123E127575D3A00B14C9B /* GoogleService-Info.plist */,
 				5599C7AA26DD717E008F8FDF /* Font */,
@@ -655,6 +658,14 @@
 			path = Withdraw;
 			sourceTree = "<group>";
 		};
+		DF6F4FB8283370C2007316C8 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				DF6F4FB9283370CC007316C8 /* SwiftToast.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		E76915B2D0D870AF48EB166B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -683,7 +694,6 @@
 			);
 			name = Vinyla;
 			packageProductDependencies = (
-				DF6F4F9628241AB8007316C8 /* Toast */,
 			);
 			productName = Vinyla;
 			productReference = 5541DD36268838FB00970794 /* Vinyla.app */;
@@ -736,7 +746,6 @@
 			);
 			mainGroup = 5541DD2D268838FB00970794;
 			packageReferences = (
-				DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 5541DD37268838FB00970794 /* Products */;
 			projectDirPath = "";
@@ -886,6 +895,7 @@
 				5544D5B626B30EE7003659C6 /* AddReviewViewController.swift in Sources */,
 				DF6A37FC281D3C250011E39D /* UIButton+.swift in Sources */,
 				DF6F4FA52826C242007316C8 /* MarketingSubscribedModel.swift in Sources */,
+				DF6F4FBA283370CC007316C8 /* SwiftToast.swift in Sources */,
 				5544D5FC26BBDE13003659C6 /* LogInViewModel.swift in Sources */,
 				55592C2126C4BC0B00F85A9A /* AlbumSongListTableViewCell.swift in Sources */,
 				558383D026D8B1C60019977A /* SearchModel.swift in Sources */,
@@ -1100,6 +1110,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vinyla/Vinyla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PMD54H53GA;
 				INFOPLIST_FILE = Vinyla/Info.plist;
@@ -1108,7 +1119,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gamsung.Vinyla;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ij.vinyla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1121,6 +1132,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vinyla/Vinyla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PMD54H53GA;
 				INFOPLIST_FILE = Vinyla/Info.plist;
@@ -1129,7 +1141,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = gamsung.Vinyla;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ij.vinyla;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1209,25 +1221,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DF6F4F9628241AB8007316C8 /* Toast */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF6F4F9528241AB8007316C8 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
-			productName = Toast;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */ = {
