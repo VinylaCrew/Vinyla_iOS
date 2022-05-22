@@ -62,8 +62,6 @@ final class HomeViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    let storyBoardID = "Home"
     
     private weak var coordinator: AppCoordinator?
     private var viewModel: HomeViewModelProtocol?
@@ -122,6 +120,8 @@ final class HomeViewController: UIViewController {
                 self?.coordinator?.moveMyPageView()
             })
             .disposed(by: disposebag)
+        
+        setupMyPageTapGesuture()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -136,7 +136,7 @@ final class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear()")
-        setRxIndicator()
+        setupRxBindFirstLoginSyncData()
         viewModel?.requestServerVinylBoxData()
     }
 
@@ -178,7 +178,7 @@ final class HomeViewController: UIViewController {
         //        homeScrollView.setContentOffset(CGPoint(x: 0, y: -view.safeAreaInsets.top), animated: false)
 
     }
-    func setRxIndicator() {
+    func setupRxBindFirstLoginSyncData() {
         guard let isFirstLogin = VinylaUserManager.isFirstLogin else { return }
         if isFirstLogin {
             viewModel?.isSyncVinylBox
@@ -203,12 +203,39 @@ final class HomeViewController: UIViewController {
                 .subscribe(onNext: { [weak self] vinylData in
                     self?.blurCircleView.shownCircleImageView.image = UIImage(data: vinylData)
                     self?.blurCircleView.backgroundImageView.image = UIImage(data: vinylData)
-                    self?.homeNickNameLabel.text = VinylaUserManager.nickname
                     self?.checkMyVinyl()
+                })
+                .disposed(by: disposebag)
+            
+            viewModel?.myUserSyncData
+                .asDriver(onErrorJustReturn: "")
+                .drive(onNext: { [weak self] _ in
+                    self?.homeNickNameLabel.text = VinylaUserManager.nickname
                 })
                 .disposed(by: disposebag)
         }
     }
+    
+    func setupMyPageTapGesuture() {
+        let moveMyPageTapGesture = UITapGestureRecognizer()
+        let moveMyPageTapGesture2 = UITapGestureRecognizer()
+
+        self.homeNickNameLabel.isUserInteractionEnabled = true
+        self.mainLevelLabel.isUserInteractionEnabled = true
+        self.homeNickNameLabel.addGestureRecognizer(moveMyPageTapGesture)
+        self.mainLevelLabel.addGestureRecognizer(moveMyPageTapGesture2)
+
+        moveMyPageTapGesture.rx.event.bind (onNext: { [weak self] recognizer in
+            self?.coordinator?.moveMyPageView()
+        })
+        .disposed(by: disposebag)
+        
+        moveMyPageTapGesture2.rx.event.bind (onNext: { [weak self] recognizer in
+            self?.coordinator?.moveMyPageView()
+        })
+        .disposed(by: disposebag)
+    }
+    
     func setHomeButtonMiniImage() {
         self.homeMiniButtonView.addSubview(homeMiniButtonImageView)
         let homeBottomMiniViewHorizontal = homeMiniButtonImageView.leadingAnchor.constraint(equalTo: homeMiniButtonView.leadingAnchor)
