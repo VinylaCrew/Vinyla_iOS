@@ -14,6 +14,7 @@ protocol HomeViewModelProtocol {
     var recentVinylBoxData: [VinylBox]? { get }
     var isSyncVinylBox: BehaviorSubject<Bool> { get }
     var myVinylSyncData: PublishSubject<Data> { get }
+    var myUserSyncData: PublishSubject<String> { get }
     var myGenre: PublishSubject<String> { get }
 //    var myVinyl: (() -> Data?) { get set }
 
@@ -35,6 +36,7 @@ final class HomeViewModel: HomeViewModelProtocol {
     private(set) var recentVinylBoxData: [VinylBox]?
     var isSyncVinylBox: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
     var myVinylSyncData: PublishSubject<Data> = PublishSubject<Data>()
+    var myUserSyncData: PublishSubject<String> = PublishSubject<String>()
     var myGenre: PublishSubject<String> = PublishSubject<String>()
 //    var myVinyl: Data? {
 //        let myVinylImage = CoreDataManager.shared.fetchImage()
@@ -120,10 +122,11 @@ final class HomeViewModel: HomeViewModelProtocol {
             let checkAPITarget = APITarget.checkHomeInformation
             CommonNetworkManager.request(apiType: checkAPITarget)
                 .subscribe(onSuccess: { (response: CheckHomeInformationResponse) in
-                    
+                    print(response)
                     if let user = response.data.userInfo {
                         print("nickname",user[0].nickname)
                         VinylaUserManager.nickname = user[0].nickname
+                        self.myUserSyncData.onNext(user[0].nickname)
                     }
                     
                     if let myVinyl = response.data.myVinyl {
@@ -144,6 +147,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                         }
                     } else {
                         VinylaUserManager.myVInylIndex = -1
+                        CoreDataManager.shared.clearAllObjectEntity("MyImage")
                     }
                 }, onError: { error in
                     print(error.localizedDescription)
