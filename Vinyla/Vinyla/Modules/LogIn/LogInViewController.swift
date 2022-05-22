@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import AuthenticationServices
 import RxSwift
 
 final class LogInViewController: UIViewController {
@@ -61,24 +62,8 @@ final class LogInViewController: UIViewController {
         VinylaUserManager.loginSNSCase = "Google"
         
         if let currentUser = Auth.auth().currentUser {
-            guard let userID = Auth.auth().currentUser?.uid else { return }
-            print("coordinator userID:",currentUser.uid)
-            VinylaUserManager.firebaseUID = currentUser.uid
-            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: userID, fcmToken: "12"))
-
-            _ = CommonNetworkManager.request(apiType: logInAPITarget)
-                .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
-                    print(model)
-                    VinylaUserManager.vinylaToken = model.data?.token
-                    VinylaUserManager.nickname = model.data?.nickname
-                    self?.coordiNator?.moveAndSetHomeView()
-                }, onError: { [weak self] error in
-                    if error as? NetworkError == NetworkError.nonExistentVinylaUser {
-                        print(error)
-                        self?.coordiNator?.moveToSignUPView()
-                    }
-                })
-                .disposed(by: disposeBag)
+            self.confirmWithoutRegisterVinylaUser()
+            
         }else {
             guard let clientID = FirebaseApp.app()?.options.clientID else { return }
             print("clientID",clientID)
@@ -98,7 +83,8 @@ final class LogInViewController: UIViewController {
                 Auth.auth().signIn(with: credential) { result , error in
                     // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                     if let error = error {
-                        print(error)
+                        print ("Error Google sign in: %@", error)
+                        return
                     }else {
                         guard let userID = Auth.auth().currentUser?.uid else { return }
                         guard let userEmail = Auth.auth().currentUser?.email else { return }
@@ -125,27 +111,38 @@ final class LogInViewController: UIViewController {
     
     @IBAction func touchUPAppleLogInButton(_ sender: Any) {
         VinylaUserManager.loginSNSCase = "Apple"
-//AuthProvider 이용하여 reauth (No PoP UP)
-        let user = Auth.auth().currentUser
-//        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: "email", password: "pass")
-        guard let googleIdToken = UserDefaults.standard.string(forKey: "IdToken") else { return }
-        guard let googleAccessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return }
-        let credentialGoogle: AuthCredential = GoogleAuthProvider.credential(withIDToken: googleIdToken, accessToken: googleAccessToken)
-
-        user?.reauthenticate(with: credentialGoogle) { result, error  in
-          if let error = error {
-            // An error happened.
-          } else {
-            // User re-authenticated.
-            user?.delete{ error in
-                if let error = error {
-                    print(error)
-                }else {
-                    print("user 삭제완료")
-                }
-            }
-          }
+        
+        if let currentUser = Auth.auth().currentUser {
+            self.confirmWithoutRegisterVinylaUser()
+        } else {
+            print("self.startSignInWithAppleFlow()")
+            self.startSignInWithAppleFlow()
         }
+        
+        
+//AuthProvider 이용하여 reauth (No PoP UP)
+//        let user = Auth.auth().currentUser
+////        let credential: AuthCredential = EmailAuthProvider.credential(withEmail: "email", password: "pass")
+//        guard let googleIdToken = UserDefaults.standard.string(forKey: "IdToken") else { return }
+//        guard let googleAccessToken = UserDefaults.standard.string(forKey: "AccessToken") else { return }
+//        let credentialGoogle: AuthCredential = GoogleAuthProvider.credential(withIDToken: googleIdToken, accessToken: googleAccessToken)
+//
+//        user?.reauthenticate(with: credentialGoogle) { result, error  in
+//          if let error = error {
+//            // An error happened.
+//          } else {
+//            // User re-authenticated.
+//            user?.delete{ error in
+//                if let error = error {
+//                    print(error)
+//                }else {
+//                    print("user 삭제완료")
+//                }
+//            }
+//          }
+//        }
+        
+        
 //  재로그인하여 firebase reauth 탈퇴
 //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
 //        let signInConfig = GIDConfiguration.init(clientID: clientID)
@@ -172,4 +169,108 @@ final class LogInViewController: UIViewController {
 
     }
     
+    func confirmWithoutRegisterVinylaUser() {
+        //애플로그인 fb 가입 후, 바닐라 회원가입하지 않고 홈으로 오는경우
+        if let currentUser = Auth.auth().currentUser {
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            print("coordinator userID:",currentUser.uid)
+            VinylaUserManager.firebaseUID = currentUser.uid
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: userID, fcmToken: "12"))
+            
+            _ = CommonNetworkManager.request(apiType: logInAPITarget)
+                .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                    print(model)
+                    VinylaUserManager.vinylaToken = model.data?.token
+                    VinylaUserManager.nickname = model.data?.nickname
+                    self?.coordiNator?.moveAndSetHomeView()
+                }, onError: { [weak self] error in
+                    if error as? NetworkError == NetworkError.nonExistentVinylaUser {
+                        print(error)
+                        self?.coordiNator?.moveToSignUPView()
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
+        
+    }
+    
+}
+
+extension LogInViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            /*
+             Nonce 란?
+             - 암호화된 임의의 난수
+             - 단 한번만 사용할 수 있는 값
+             - 주로 암호화 통신을 할 때 활용
+             - 동일한 요청을 짧은 시간에 여러번 보내는 릴레이 공격 방지
+             - 정보 탈취 없이 안전하게 인증 정보 전달을 위한 안전장치
+             */
+            guard let nonce = viewModel?.currentNonce else {
+                print("Error: Invalid state: A login callback was received, but no login request was sent.")
+                return
+            }
+            
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            
+            Auth.auth().signIn(with: credential) { authResult, error in
+                // User is signed in to Firebase with Apple.
+                // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
+                if let error = error {
+                    print ("Error Apple sign in: %@", error)
+                    return
+                }else {
+                    guard let userID = Auth.auth().currentUser?.uid else { return }
+                    guard let userEmail = Auth.auth().currentUser?.email else { return }
+                    VinylaUserManager.firebaseUID = userID
+                    
+                    let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: "12"))
+                    
+                    _ = CommonNetworkManager.request(apiType: logInAPITarget)
+                        .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                            VinylaUserManager.vinylaToken = model.data?.token
+                            VinylaUserManager.nickname = model.data?.nickname
+                            self?.coordiNator?.moveAndSetHomeView()
+                        }, onError: { [weak self] error in
+                            self?.coordiNator?.moveToSignUPView()
+                        })
+                        .disposed(by: self.disposeBag)
+                    
+                }
+                
+            }
+        }
+    }
+}
+
+extension LogInViewController {
+    func startSignInWithAppleFlow() {
+        guard let nonce = viewModel?.randomNonceString() else { return }
+        viewModel?.currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = viewModel?.sha256(nonce)
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+}
+
+extension LogInViewController : ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
 }
