@@ -8,7 +8,7 @@
 import Foundation
 
 final class LevelDesignViewModel {
-    var levelDesignCellID: String = "LevelDesignCell"
+    private var levelDesignCellID: String = "LevelDesignCell"
     var levelDesignModel: [LevelDesignModel] = [LevelDesignModel]()
 
     init() {
