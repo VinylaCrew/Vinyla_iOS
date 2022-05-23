@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Cosmos
 
-class AddReviewViewController: UIViewController {
+final class AddReviewViewController: UIViewController {
     
     //화면위 고정되는 저장 버튼
     lazy var saveVinylButton: UIButton = {
@@ -129,7 +129,7 @@ class AddReviewViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         songTitleNameLabel.text = viewModel.model.title
         songArtistLabel.text = viewModel.model.artist
-        songRateLabel.text = String(viewModel.songRate ?? 0) + "(\(viewModel.songRateCount ?? 0)건)"
+        songRateLabel.text = String(viewModel.songRate ?? 0) + " (\(viewModel.songRateCount ?? 0)건)"
         vinylImageView.setImageChache(imageURL: (viewModel.model.image))
 
         reviewTextView.rx.text
@@ -268,6 +268,7 @@ class AddReviewViewController: UIViewController {
                 if error == NetworkError.requestDataError {
                     self?.coordinator?.setupToast(message: "   필수항목(추천지수)을 입력해 주세요.   ", title: nil)
                 }
+                
             })
             .disposed(by: disposeBag)
     }
