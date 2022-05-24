@@ -59,9 +59,6 @@
                                 <state key="normal" title="Facebook으로 로그인" image="facebook">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <connections>
-                                    <action selector="touchUPAppleLogInButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="4d6-cj-q2X"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-54-Os8">
                                 <rect key="frame" x="38" y="683" width="300" height="56"/>
@@ -75,7 +72,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ftm-qt-knE" kind="show" id="BP8-HR-A6V"/>
+                                    <action selector="touchUPAppleLogInButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="tWN-nt-by2"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work, Life, Vinyl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-xb-zac">
@@ -131,16 +128,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcw-W5-SHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3007.1999999999998" y="157.38916256157637"/>
-        </scene>
-        <!--RequestUserVinyl-->
-        <scene sceneID="X34-vh-Y1e">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="RequestUserVinyl" storyboardName="RequestUserVinyl" id="ftm-qt-knE" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="eKE-8t-wWr"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kHl-HN-W8M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3810" y="242"/>
         </scene>
     </scenes>
     <resources>
