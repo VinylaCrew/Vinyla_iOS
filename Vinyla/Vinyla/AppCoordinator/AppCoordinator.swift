@@ -20,7 +20,7 @@ final class AppCoordinator {
         toastStyle.messageFont = UIFont(name: "NotoSansKR-Regular", size: 14)!
         toastStyle.backgroundColor = .white
         toastStyle.messageColor = .black
-        toastStyle.cornerRadius = 21
+        toastStyle.cornerRadius = 20
         return toastStyle
     }()
     var songNameCD: String!
@@ -38,7 +38,7 @@ final class AppCoordinator {
     }
 
     func autoLogIn() {
-        if let currentUser = Auth.auth().currentUser {
+        if let currentUser = Auth.auth().currentUser, VinylaUserManager.isFirstLogin == false {
             
             guard let firebaseID = Auth.auth().currentUser?.uid else { return }
             print("coordinator userID:",currentUser.uid)
@@ -174,7 +174,7 @@ final class AppCoordinator {
     }
 
 
-    func moveToAddReview(vinylDataModel: RequestSaveVinylModel, thumbnailImage: String, songRate: Int?, songRateCount: Int?) {
+    func moveToAddReview(vinylDataModel: RequestSaveVinylModel, thumbnailImage: String, songRate: Double?, songRateCount: Int?) {
         let addReviewViewModel = AddReviewViewModel()
         addReviewViewModel.model = vinylDataModel
         addReviewViewModel.thumbnailImage = thumbnailImage
