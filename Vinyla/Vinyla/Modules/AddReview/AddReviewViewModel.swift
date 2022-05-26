@@ -16,7 +16,7 @@ protocol AddReviewViewModelProtocol {
 }
 
 final class AddReviewViewModel: AddReviewViewModelProtocol {
-    var songRate: Int?
+    var songRate: Double?
     var songRateCount: Int?
     //input
     var userRate: PublishSubject<Int> = PublishSubject<Int>()
