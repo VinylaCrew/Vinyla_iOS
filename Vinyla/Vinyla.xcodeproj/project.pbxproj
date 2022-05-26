@@ -93,7 +93,6 @@
 		5599C7BD26DD77D1008F8FDF /* RequestUserVinylViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */; };
 		55A394DD274CCE1D0030867F /* ServiceInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */; };
 		55A394DE274CCE1D0030867F /* ServiceInformationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */; };
-		55B123E227575D3A00B14C9B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55B123E127575D3A00B14C9B /* GoogleService-Info.plist */; };
 		55B123E62758A56E00B14C9B /* VinylBoxMockData.json in Resources */ = {isa = PBXBuildFile; fileRef = 55B123E52758A56E00B14C9B /* VinylBoxMockData.json */; };
 		55B123EA2758A73800B14C9B /* MyVinylBoxModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B123E92758A73800B14C9B /* MyVinylBoxModel.swift */; };
 		55B123EE2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B123ED2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift */; };
@@ -109,6 +108,7 @@
 		55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFBAC6279BB58700DB71EC /* ServerHost.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
+		DF5736BC2839CCA300970B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */; };
 		DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */; };
 		DF6A37EB281A60B90011E39D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E9281A60B90011E39D /* MyPageViewController.swift */; };
 		DF6A37EC281A60B90011E39D /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF6A37EA281A60B90011E39D /* MyPageViewController.xib */; };
@@ -227,7 +227,6 @@
 		5599C7BC26DD77D1008F8FDF /* RequestUserVinylViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestUserVinylViewController.swift; sourceTree = "<group>"; };
 		55A394DB274CCE1D0030867F /* ServiceInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInformationViewController.swift; sourceTree = "<group>"; };
 		55A394DC274CCE1D0030867F /* ServiceInformationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ServiceInformationViewController.xib; sourceTree = "<group>"; };
-		55B123E127575D3A00B14C9B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		55B123E52758A56E00B14C9B /* VinylBoxMockData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = VinylBoxMockData.json; sourceTree = "<group>"; };
 		55B123E92758A73800B14C9B /* MyVinylBoxModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVinylBoxModel.swift; sourceTree = "<group>"; };
 		55B123ED2758AC3300B14C9B /* GetMyVinylBoxDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMyVinylBoxDataTest.swift; sourceTree = "<group>"; };
@@ -246,6 +245,7 @@
 		B2783404AFAA911197F635AE /* Pods-VinylaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VinylaTests.debug.xcconfig"; path = "Target Support Files/Pods-VinylaTests/Pods-VinylaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.debug.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.debug.xcconfig"; sourceTree = "<group>"; };
 		DF5736BA2838EA5800970B6C /* Vinyla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vinyla.entitlements; sourceTree = "<group>"; };
+		DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckHomeInformation.swift; sourceTree = "<group>"; };
 		DF6A37E9281A60B90011E39D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		DF6A37EA281A60B90011E39D /* MyPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
@@ -307,7 +307,6 @@
 				DF5736BA2838EA5800970B6C /* Vinyla.entitlements */,
 				DF6F4FB8283370C2007316C8 /* Toast */,
 				55932FCD27AED4FF006B2DFF /* User */,
-				55B123E127575D3A00B14C9B /* GoogleService-Info.plist */,
 				5599C7AA26DD717E008F8FDF /* Font */,
 				5599C77F26DCDB1D008F8FDF /* NSChache */,
 				558383C426D8ABDA0019977A /* NetWork */,
@@ -322,6 +321,7 @@
 				5541DD422688390800970794 /* Assets.xcassets */,
 				5541DD442688390800970794 /* LaunchScreen.storyboard */,
 				5541DD472688390800970794 /* Info.plist */,
+				DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */,
 			);
 			path = Vinyla;
 			sourceTree = "<group>";
@@ -777,7 +777,7 @@
 				5544D5A126B1BFEF003659C6 /* SearchTableViewCell.xib in Resources */,
 				5541DD462688390800970794 /* LaunchScreen.storyboard in Resources */,
 				558383F126DB9BB20019977A /* LevelDesign.storyboard in Resources */,
-				55B123E227575D3A00B14C9B /* GoogleService-Info.plist in Resources */,
+				DF5736BC2839CCA300970B6C /* GoogleService-Info.plist in Resources */,
 				5541DD432688390800970794 /* Assets.xcassets in Resources */,
 				55592C1826C409B700F85A9A /* RecentVinylCollectionViewCell.xib in Resources */,
 				5599C7B226DD71CB008F8FDF /* NotoSansKR-Medium.otf in Resources */,
