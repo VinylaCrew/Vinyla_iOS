@@ -19,6 +19,8 @@ final class MyPageViewController: UIViewController {
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var withdrawButton: UIButton!
     @IBOutlet weak var marketingSwitch: UISwitch!
+    @IBOutlet weak var loginUserLabel: UILabel!
+    @IBOutlet weak var loginUserImageView: UIImageView!
     
     private var viewModel: MyPageViewModel?
     private weak var coordinator: AppCoordinator?
@@ -36,6 +38,20 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        
+        self.viewModel?.loginUserText
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { loginCaseText in
+                self.loginUserLabel.text = loginCaseText
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.loginUserImageName
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { loginImageName in
+                self.loginUserImageView.image = UIImage(named: loginImageName)
+            })
+            .disposed(by: disposeBag)
         
         self.logoutButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -96,6 +112,7 @@ final class MyPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.userNickNameLabel.text = VinylaUserManager.nickname
+        viewModel?.updateUserLoginSNSCase()
     }
     
     func setupUI() {
