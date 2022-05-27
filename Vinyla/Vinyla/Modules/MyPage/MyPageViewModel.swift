@@ -14,6 +14,8 @@ final class MyPageViewModel {
     let marketingSubscribed = PublishSubject<Bool>()
     //output
     let marketingCompleteSubject = PublishSubject<Bool>()
+    let loginUserText = PublishSubject<String>()
+    let loginUserImageName = PublishSubject<String>()
     
     let disposeBag = DisposeBag()
     
@@ -44,5 +46,15 @@ final class MyPageViewModel {
                 }
             })
             .disposed(by: self.disposeBag)
+    }
+    
+    func updateUserLoginSNSCase() {
+        if VinylaUserManager.loginSNSCase == "Google" {
+            self.loginUserText.onNext("Google로 로그인")
+            self.loginUserImageName.onNext("icnGoogle")
+        }else if VinylaUserManager.loginSNSCase == "Apple" {
+            self.loginUserText.onNext("Apple로 로그인")
+            self.loginUserImageName.onNext("icnApple")
+        }
     }
 }
