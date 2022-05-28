@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceInformationViewController" customModule="Vinyla" customModuleProvider="target">
             <connections>
+                <outlet property="marketingButton" destination="rgq-Ko-yo1" id="n5I-Ue-oia"/>
                 <outlet property="privacyInformationButton" destination="ycq-AM-EzN" id="dld-Sp-CLa"/>
                 <outlet property="serviceButton" destination="5ce-cR-aRd" id="4wM-5o-qTC"/>
                 <outlet property="serviceInformationTextView" destination="ezJ-Qg-xuh" id="YTi-uI-INh"/>
@@ -37,16 +38,15 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="서비스 약관" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aib-l8-KuJ">
-                    <rect key="frame" x="34" y="51" width="83" height="24.666666666666671"/>
+                    <rect key="frame" x="33.999999999999993" y="51" width="78.333333333333314" height="20"/>
                     <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ce-cR-aRd">
-                    <rect key="frame" x="15" y="107" width="109" height="28"/>
+                    <rect key="frame" x="15" y="107" width="102" height="28"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="28" id="77f-ti-Hxq"/>
-                        <constraint firstAttribute="width" constant="109" id="osB-BD-HLf"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="16"/>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -58,7 +58,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gkx-Vb-4yV">
-                    <rect key="frame" x="134" y="114" width="1" height="16"/>
+                    <rect key="frame" x="127" y="114" width="1" height="16"/>
                     <color key="backgroundColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="L4N-e1-p07"/>
@@ -66,7 +66,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJA-cY-HCQ">
-                    <rect key="frame" x="301" y="114" width="1" height="16"/>
+                    <rect key="frame" x="286" y="114" width="1" height="16"/>
                     <color key="backgroundColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="8yE-mV-wlz"/>
@@ -74,9 +74,8 @@
                     </constraints>
                 </view>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ycq-AM-EzN">
-                    <rect key="frame" x="145" y="107" width="146" height="28"/>
+                    <rect key="frame" x="138" y="107" width="138" height="28"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="146" id="HJS-Xr-Xm3"/>
                         <constraint firstAttribute="height" constant="28" id="qcI-hd-5Tz"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="16"/>
@@ -96,9 +95,8 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgq-Ko-yo1">
-                    <rect key="frame" x="312" y="107" width="45" height="28"/>
+                    <rect key="frame" x="297" y="107" width="42" height="28"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="45" id="eCD-gG-u2m"/>
                         <constraint firstAttribute="height" constant="28" id="eNs-e6-b0A"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="16"/>
@@ -116,12 +114,11 @@
             <constraints>
                 <constraint firstItem="Gkx-Vb-4yV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="70" id="1mN-Ri-L4O"/>
                 <constraint firstItem="aib-l8-KuJ" firstAttribute="leading" secondItem="SfC-Ty-ztd" secondAttribute="trailing" constant="8" symbolic="YES" id="28Q-zE-qeR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rgq-Ko-yo1" secondAttribute="trailing" constant="18" id="5un-6B-U4n"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rgq-Ko-yo1" secondAttribute="trailing" constant="18" id="5un-6B-U4n"/>
                 <constraint firstItem="5ce-cR-aRd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="B7I-wu-tRq"/>
                 <constraint firstItem="UJA-cY-HCQ" firstAttribute="leading" secondItem="ycq-AM-EzN" secondAttribute="trailing" constant="10" id="D1i-Ee-3Be"/>
                 <constraint firstItem="ezJ-Qg-xuh" firstAttribute="top" secondItem="rgq-Ko-yo1" secondAttribute="bottom" constant="25" id="DZv-YV-A9d"/>
                 <constraint firstItem="5ce-cR-aRd" firstAttribute="top" secondItem="SfC-Ty-ztd" secondAttribute="bottom" constant="31" id="HBL-vu-yBC"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aib-l8-KuJ" secondAttribute="trailing" constant="258" id="Ij4-io-H8H"/>
                 <constraint firstItem="rgq-Ko-yo1" firstAttribute="leading" secondItem="UJA-cY-HCQ" secondAttribute="trailing" constant="10" id="LX2-nS-cSh"/>
                 <constraint firstItem="UJA-cY-HCQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="70" id="MdL-lr-lIa"/>
                 <constraint firstItem="SfC-Ty-ztd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="QfU-12-sTJ"/>
