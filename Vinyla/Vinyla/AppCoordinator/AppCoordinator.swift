@@ -28,6 +28,7 @@ final class AppCoordinator {
 
     init(window: UIWindow) {
         self.window = window
+        self.window.overrideUserInterfaceStyle = .light
 //        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
         
 //        self.isLogIn = true
@@ -41,9 +42,11 @@ final class AppCoordinator {
         if let currentUser = Auth.auth().currentUser, VinylaUserManager.isFirstLogin == false {
             
             guard let firebaseID = Auth.auth().currentUser?.uid else { return }
+            guard let fcmToken = VinylaUserManager.fcmToken else { print("fcmToken guard let error",VinylaUserManager.fcmToken)
+                return }
             print("coordinator userID:",currentUser.uid)
             //            guard let vinylaUserToken = UserDefaults.standard.string(forKey: UserDefaultsKey.vinylaToken) else { return }
-            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: "12"))
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: fcmToken))
             
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
                 .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
