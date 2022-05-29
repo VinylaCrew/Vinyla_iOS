@@ -12,6 +12,9 @@ class VinylaUserManager {
     @UserDefault(key: UserDefaultsKey.vinylaToken)
     static var vinylaToken: String?
     
+    @UserDefault(key: UserDefaultsKey.fcmToken)
+    static var fcmToken: String?
+    
     @UserDefault(key: UserDefaultsKey.userNickName)
     static var nickname: String?
     
@@ -32,6 +35,7 @@ class VinylaUserManager {
     }
     
     static func clearAllUserSetting() {
+        //fcmToken은 nil 처리하면 안됨, 앱실행시 한번 호출 되므로
         self.vinylaToken = nil
         self.nickname = nil
         self.isFirstLogin = nil
