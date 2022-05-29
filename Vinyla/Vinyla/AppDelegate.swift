@@ -8,6 +8,8 @@
 import UIKit
 import CoreData
 import Firebase
+import FirebaseMessaging
+import UserNotifications
 import GoogleSignIn
 
 @main
@@ -20,8 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DIContainer.shared.register(SignUpViewModel())
         UIApplication.shared.statusBarStyle = .lightContent
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
-
+        
+        ///Firebase Setting
         FirebaseApp.configure()
+        
+        ///UserNotifications + FirbaseMessage Setting
+        UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
 
         return true
     }
@@ -95,3 +102,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("Firebase registration token: \(String(describing: fcmToken))")
+        if VinylaUserManager.fcmToken != fcmToken {
+            VinylaUserManager.fcmToken = fcmToken
+        }
+
+        let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        NotificationCenter.default.post(
+          name: Notification.Name("FCMToken"),
+          object: nil,
+          userInfo: dataDict
+        )
+        // TODO: If necessary send token to application server.
+        // Note: This callback is fired at each app startup and whenever a new token is generated.
+      }
+}
+
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,willPresent notification: UNNotification,withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,didReceive response: UNNotificationResponse,withCompletionHandler completionHandler: @escaping () -> Void) { completionHandler()
+    }
+    
+}
