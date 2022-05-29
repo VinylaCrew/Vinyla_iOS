@@ -11,7 +11,7 @@ import RxSwift
 
 final class SignUpViewController: UIViewController {
     
-    static let storyBoardID = "SignUp"
+    private static let storyBoardID = "SignUp"
     
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var nickNameTextField: UITextField!
@@ -51,8 +51,6 @@ final class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        overrideUserInterfaceStyle = .light
         
         nickNameTextField.delegate = self
         instagramIDTextField.delegate = self
