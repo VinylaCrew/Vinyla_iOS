@@ -52,6 +52,8 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .light
+        
         nickNameTextField.delegate = self
         instagramIDTextField.delegate = self
         setUI()
