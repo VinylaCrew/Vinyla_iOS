@@ -28,6 +28,7 @@ final class CommonNetworkManager {
                             #if DEBUG
                             throw NSError(domain: "JSON Parsing Error", code: -1, userInfo: nil)
                             #endif
+                            return
                         }
 
                         single(.success(responseJsonDecodedData))
