@@ -15,12 +15,11 @@ import GoogleSignIn
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         DIContainer.shared.register(SignUpViewModel())
         UIApplication.shared.statusBarStyle = .lightContent
+        
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
         
         ///Firebase Setting
@@ -32,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         var handled: Bool
 
@@ -110,6 +110,7 @@ extension AppDelegate: MessagingDelegate {
         }
 
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
+        
         NotificationCenter.default.post(
           name: Notification.Name("FCMToken"),
           object: nil,
