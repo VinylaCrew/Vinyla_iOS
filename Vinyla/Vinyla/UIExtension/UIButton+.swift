@@ -21,6 +21,12 @@ extension UIButton {
             marginHeight = 44 - self.bounds.size.height
         }
         
+        if self.bounds.size.width == 24 && self.bounds.size.height == 24 {
+            /// 회원 가입 버튼은 마진 주지 않도록 설계
+            marginWidth = 0
+            marginHeight = 0
+        }
+        
         let hitArea = self.bounds.insetBy(dx: -marginWidth, dy: -marginHeight)
         return hitArea.contains(point)
     }
