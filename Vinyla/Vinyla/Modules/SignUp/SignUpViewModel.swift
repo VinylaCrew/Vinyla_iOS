@@ -96,11 +96,16 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             return
         }
         
+        guard let fcmToken = VinylaUserManager.fcmToken else {
+            print("fcmToken guard let error",VinylaUserManager.fcmToken)
+            return
+        }
+        
         let userData = SignUpRequest(fuid: firebaseUid,
                                      sns: VinylaUserManager.loginSNSCase ?? "",
                                      nickname: nickName,
                                      instaId: "",
-                                     fcmToken: "testfcmtoken",
+                                     fcmToken: fcmToken,
                                      subscribeAgreed: isAllowMarketing)
 
         let createUserAPI = APITarget.createUser(userData: userData)
@@ -188,4 +193,5 @@ final class SignUpViewModel: SignUpViewModelProtocol {
 
         return isValidNickNameValue
     }
+    
 }
