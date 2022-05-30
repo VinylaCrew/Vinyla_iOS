@@ -16,9 +16,7 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        DIContainer.shared.register(SignUpViewModel())
-        UIApplication.shared.statusBarStyle = .lightContent
+//        DIContainer.shared.register(SignUpViewModel())
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first ?? "Not Found")
         
