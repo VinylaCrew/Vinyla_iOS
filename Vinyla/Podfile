@@ -7,6 +7,7 @@ target 'Vinyla' do
    pod 'Cosmos', '~> 23.0'
    pod 'Moya/RxSwift', '~> 14.0'
    pod 'Firebase/Auth'
+   pod 'Firebase/Messaging'
    pod 'GoogleSignIn'
 
  # Comment the next line if you don't want to use dynamic frameworks
