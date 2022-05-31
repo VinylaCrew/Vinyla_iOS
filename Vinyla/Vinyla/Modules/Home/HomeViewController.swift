@@ -138,6 +138,8 @@ final class HomeViewController: UIViewController {
         print("viewDidAppear()")
         setupRxBindFirstLoginSyncData()
         viewModel?.requestServerVinylBoxData()
+        
+        NotificationCenterManager().pushNotificationsSettings()
     }
 
     override func viewWillLayoutSubviews() {
@@ -388,7 +390,7 @@ extension HomeViewController: ButtonTapDelegate {
                 """
                     .image(withAttributes: [.foregroundColor: UIColor.white,.backgroundColor: UIColor.vinylaMainOrangeColor()
                                             , .font: UIFont(name: "Playball-Regular", size: 13)])!.pngData()!
-                
+                /// X 좌표가 390 기준이므로, width 커지거나 짧아진만큼만 x 더하거나 빼줌
                 let textWithImage = textToImage(drawText: "Vinyla", inImage: renderImage, atPoint: CGPoint(x: 150, y: 340))
                 
                 guard let imageData = textWithImage.pngData() else { return }
