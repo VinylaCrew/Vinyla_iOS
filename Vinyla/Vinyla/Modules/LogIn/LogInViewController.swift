@@ -17,9 +17,7 @@ final class LogInViewController: UIViewController {
     @IBOutlet weak var facebookLogInButton: UIButton!
     @IBOutlet weak var appleLogInButton: UIButton!
     
-    let storyBoardID = "LogInViewController"
-    
-    private weak var coordiNator: AppCoordinator?
+    private weak var coordinator: AppCoordinator?
     private var viewModel: LogInViewModel?
     var disposeBag = DisposeBag()
 
@@ -29,7 +27,7 @@ final class LogInViewController: UIViewController {
             return UIViewController()
         }
         viewController.viewModel = viewModel
-        viewController.coordiNator = coordiNator
+        viewController.coordinator = coordiNator
         return viewController
     }
     required init?(coder aDecoder: NSCoder) {
@@ -40,10 +38,25 @@ final class LogInViewController: UIViewController {
         super.viewDidLoad()
         print("viewDidLoad()")
 
-        setUI()
+        setupUI()
         
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let firebaseAuth = Auth.auth()
+        
+        do {
+            try firebaseAuth.signOut()
+            VinylaUserManager.clearAllUserSetting()
+        } catch let signOutError as NSError {
+            print("Firebase Error signing out:", signOutError)
+        }
+        
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         VinylaUserManager.isFirstLogin = true
@@ -53,7 +66,7 @@ final class LogInViewController: UIViewController {
         }
     }
     
-    func setUI() {
+    func setupUI() {
         googleLogInButton.layer.cornerRadius = 28
         facebookLogInButton.layer.cornerRadius = 28
         appleLogInButton.layer.cornerRadius = 28
@@ -88,17 +101,18 @@ final class LogInViewController: UIViewController {
                     }else {
                         guard let userID = Auth.auth().currentUser?.uid else { return }
                         guard let userEmail = Auth.auth().currentUser?.email else { return }
+                        let fcmToken = VinylaUserManager.fcmToken ?? ""
                         VinylaUserManager.firebaseUID = userID
                         
-                        let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: "12"))
+                        let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: fcmToken))
                         
                         _ = CommonNetworkManager.request(apiType: logInAPITarget)
                             .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                                 VinylaUserManager.vinylaToken = model.data?.token
                                 VinylaUserManager.nickname = model.data?.nickname
-                                self?.coordiNator?.moveAndSetHomeView()
+                                self?.coordinator?.moveAndSetHomeView()
                             }, onError: { [weak self] error in
-                                self?.coordiNator?.moveToSignUPView()
+                                self?.coordinator?.moveToSignUPView()
                             })
                             .disposed(by: self.disposeBag)
                         
@@ -173,20 +187,22 @@ final class LogInViewController: UIViewController {
         //애플로그인 fb 가입 후, 바닐라 회원가입하지 않고 홈으로 오는경우
         if let currentUser = Auth.auth().currentUser {
             guard let userID = Auth.auth().currentUser?.uid else { return }
+            let fcmToken = VinylaUserManager.fcmToken ?? ""
+            
             print("coordinator userID:",currentUser.uid)
             VinylaUserManager.firebaseUID = currentUser.uid
-            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: userID, fcmToken: "12"))
+            let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: userID, fcmToken: fcmToken))
             
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
                 .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                     print(model)
                     VinylaUserManager.vinylaToken = model.data?.token
                     VinylaUserManager.nickname = model.data?.nickname
-                    self?.coordiNator?.moveAndSetHomeView()
+                    self?.coordinator?.moveAndSetHomeView()
                 }, onError: { [weak self] error in
                     if error as? NetworkError == NetworkError.nonExistentVinylaUser {
                         print(error)
-                        self?.coordiNator?.moveToSignUPView()
+                        self?.coordinator?.moveToSignUPView()
                     }
                 })
                 .disposed(by: disposeBag)
@@ -232,17 +248,19 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                 }else {
                     guard let userID = Auth.auth().currentUser?.uid else { return }
                     guard let userEmail = Auth.auth().currentUser?.email else { return }
+                    let fcmToken = VinylaUserManager.fcmToken ?? ""
+                    
                     VinylaUserManager.firebaseUID = userID
                     
-                    let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: "12"))
+                    let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: fcmToken))
                     
                     _ = CommonNetworkManager.request(apiType: logInAPITarget)
                         .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                             VinylaUserManager.vinylaToken = model.data?.token
                             VinylaUserManager.nickname = model.data?.nickname
-                            self?.coordiNator?.moveAndSetHomeView()
+                            self?.coordinator?.moveAndSetHomeView()
                         }, onError: { [weak self] error in
-                            self?.coordiNator?.moveToSignUPView()
+                            self?.coordinator?.moveToSignUPView()
                         })
                         .disposed(by: self.disposeBag)
                     
