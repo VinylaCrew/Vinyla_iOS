@@ -19,20 +19,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        if #available(iOS 13.0, *) {
 //            window?.overrideUserInterfaceStyle = .light
 //        }
+        
         let sceneWindow = UIWindow(windowScene: windowScene)
 
         appCoordinator = AppCoordinator(window: sceneWindow)
-//        appCoordinator?.start()
-
-        if #available(iOS 13.0, *) {
-            sceneWindow.overrideUserInterfaceStyle = .light
-        }
+        
         window = sceneWindow
         //window초기화 이후 사용이므로 적용 OK
-//        if #available(iOS 13.0, *) {
-//                    window?.overrideUserInterfaceStyle = .light
-//                }
-        
+//        window?.overrideUserInterfaceStyle = .light
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
