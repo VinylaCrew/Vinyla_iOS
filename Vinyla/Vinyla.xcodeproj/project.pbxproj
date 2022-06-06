@@ -109,6 +109,7 @@
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
 		DF5736BC2839CCA300970B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */; };
+		DF5736BF284325BF00970B6C /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5736BE284325BF00970B6C /* NotificationCenterManager.swift */; };
 		DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */; };
 		DF6A37EB281A60B90011E39D /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E9281A60B90011E39D /* MyPageViewController.swift */; };
 		DF6A37EC281A60B90011E39D /* MyPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF6A37EA281A60B90011E39D /* MyPageViewController.xib */; };
@@ -246,6 +247,7 @@
 		CA52B686E1BC593B06669BEF /* Pods-Vinyla.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vinyla.debug.xcconfig"; path = "Target Support Files/Pods-Vinyla/Pods-Vinyla.debug.xcconfig"; sourceTree = "<group>"; };
 		DF5736BA2838EA5800970B6C /* Vinyla.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vinyla.entitlements; sourceTree = "<group>"; };
 		DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DF5736BE284325BF00970B6C /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckHomeInformation.swift; sourceTree = "<group>"; };
 		DF6A37E9281A60B90011E39D /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		DF6A37EA281A60B90011E39D /* MyPageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPageViewController.xib; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		5541DD38268838FB00970794 /* Vinyla */ = {
 			isa = PBXGroup;
 			children = (
+				DF5736BD2843259B00970B6C /* Notifications */,
 				DF5736BA2838EA5800970B6C /* Vinyla.entitlements */,
 				DF6F4FB8283370C2007316C8 /* Toast */,
 				55932FCD27AED4FF006B2DFF /* User */,
@@ -638,6 +641,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DF5736BD2843259B00970B6C /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				DF5736BE284325BF00970B6C /* NotificationCenterManager.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		DF6A37E8281A60940011E39D /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -935,6 +946,7 @@
 				5541DD5E269AD36800970794 /* SignUpViewController.swift in Sources */,
 				5544D62F26BD187C003659C6 /* AddInformationViewModel.swift in Sources */,
 				DF6A37EE281A6EBC0011E39D /* MyPageViewModel.swift in Sources */,
+				DF5736BF284325BF00970B6C /* NotificationCenterManager.swift in Sources */,
 				55DF410327F8921F009973BB /* DeleteVinylModel.swift in Sources */,
 				55B123EA2758A73800B14C9B /* MyVinylBoxModel.swift in Sources */,
 				55592C5126C8D34300F85A9A /* DeleteInformationViewController.swift in Sources */,
@@ -1112,6 +1124,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Vinyla/Vinyla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = PMD54H53GA;
 				INFOPLIST_FILE = Vinyla/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1135,6 +1148,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Vinyla/Vinyla.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = PMD54H53GA;
 				INFOPLIST_FILE = Vinyla/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
