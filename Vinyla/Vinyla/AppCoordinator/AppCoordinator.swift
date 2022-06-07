@@ -23,22 +23,16 @@ final class AppCoordinator {
         toastStyle.cornerRadius = 20
         return toastStyle
     }()
-    var songNameCD: String!
-    var disposeBag = DisposeBag()
+    private var disposeBag = DisposeBag()
 
     init(window: UIWindow) {
         self.window = window
         self.window.overrideUserInterfaceStyle = .light
-//        Coordinator에서 UID로 로그인 시도해서 성공하면 홈화면, 안되면 로그인 뷰컨으로 이동
-        
-//        self.isLogIn = true
-//        start()
-        
-//        2.
+
         autoLogIn()
     }
 
-    func autoLogIn() {
+    private func autoLogIn() {
         if let currentUser = Auth.auth().currentUser, VinylaUserManager.isFirstLogin == false {
             
             guard let firebaseID = Auth.auth().currentUser?.uid else { return }
@@ -68,10 +62,10 @@ final class AppCoordinator {
     }
     
     //MARK: setting window rootvc logic
-    func start() {
+    private func start() {
         guard let isLogIn = self.isLogIn else { return }
         //MARK: isFirstLogin test code임, 추후 제거
-        VinylaUserManager.isFirstLogin = true
+//        VinylaUserManager.isFirstLogin = true
         
         //로그인 되지 않은 경우, LogInView로 이동
         if !isLogIn {
@@ -112,6 +106,9 @@ final class AppCoordinator {
         
         let cancelAction = UIAlertAction(title: "로그인화면 이동", style: UIAlertAction.Style.default) { [weak self] _ in
             self?.isLogIn = false
+            VinylaUserManager.myVInylIndex = -1
+            CoreDataManager.shared.clearAllObjectEntity("MyImage")
+            CoreDataManager.shared.clearAllObjectEntity("VinylBox")
             self?.start()
         }
 
