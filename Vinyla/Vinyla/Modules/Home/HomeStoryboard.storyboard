@@ -133,7 +133,7 @@
                                                             <constraint firstAttribute="height" constant="18" id="vti-FR-eBG"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dkm-1Z-a9g">
+                                                    <button opaque="NO" contentMode="right" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dkm-1Z-a9g">
                                                         <rect key="frame" x="352" y="31" width="10" height="22"/>
                                                         <state key="normal" image="icnBtnMy"/>
                                                     </button>
