@@ -10,7 +10,7 @@ import UIKit
 extension UIButton {
     //버튼 터치 영역 늘리기
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        //        print(self.bounds.size)
+        
         var marginWidth: CGFloat = 0
         var marginHeight: CGFloat = 0
         if self.bounds.size.width < 44 {
