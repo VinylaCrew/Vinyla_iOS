@@ -33,13 +33,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVO-MJ-9x8">
                     <rect key="frame" x="55" y="338" width="265" height="136"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwE-2r-xAC">
-                            <rect key="frame" x="46" y="28" width="176" height="48"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="바이닐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwE-2r-xAC">
+                            <rect key="frame" x="111.66666666666667" y="28" width="41.666666666666671" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="ord-LC-i0X"/>
                             </constraints>
-                            <string key="text">이 바이닐을 대표 바이닐로\n
-등록하시겠어요?</string>
                             <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -83,7 +81,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="AwE-2r-xAC" firstAttribute="leading" secondItem="tVO-MJ-9x8" secondAttribute="leading" constant="46" id="0Px-2x-1sj"/>
                         <constraint firstAttribute="bottom" secondItem="HyG-U4-n8k" secondAttribute="bottom" constant="16" id="2zQ-wg-zg8"/>
                         <constraint firstAttribute="height" constant="136" id="4ZB-cv-Lfg"/>
                         <constraint firstAttribute="bottom" secondItem="zPe-Oy-18B" secondAttribute="bottom" constant="8" id="CtL-CO-2BW"/>
@@ -94,7 +91,7 @@
                         <constraint firstItem="HyG-U4-n8k" firstAttribute="leading" secondItem="Y8D-A0-131" secondAttribute="trailing" constant="16" id="cQo-ei-5ci"/>
                         <constraint firstAttribute="bottom" secondItem="Y8D-A0-131" secondAttribute="bottom" constant="8" id="l2a-HW-d2N"/>
                         <constraint firstItem="zPe-Oy-18B" firstAttribute="leading" secondItem="HyG-U4-n8k" secondAttribute="trailing" constant="18" id="lGT-CL-fpN"/>
-                        <constraint firstAttribute="trailing" secondItem="AwE-2r-xAC" secondAttribute="trailing" constant="43" id="mDl-Ea-YbE"/>
+                        <constraint firstItem="AwE-2r-xAC" firstAttribute="centerX" secondItem="tVO-MJ-9x8" secondAttribute="centerX" id="yBx-6G-lnM"/>
                     </constraints>
                 </view>
             </subviews>
