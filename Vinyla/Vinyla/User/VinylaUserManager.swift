@@ -7,7 +7,7 @@
 
 import Foundation
 
-class VinylaUserManager {
+final class VinylaUserManager {
     
     @UserDefault(key: UserDefaultsKey.vinylaToken)
     static var vinylaToken: String?
@@ -29,6 +29,15 @@ class VinylaUserManager {
     
     @UserDefault(key: UserDefaultsKey.loginCase)
     static var loginSNSCase: String?
+    
+    @UserDefault(key: UserDefaultsKey.appVersionOfLastRun)
+    static var appVersion: String?
+    
+    @UserDefault(key: UserDefaultsKey.explainHomeButton)
+    static var explainHomeButton: Bool?
+    
+    @UserDefault(key: UserDefaultsKey.explainInstagramShare)
+    static var explainInstagramShare: Bool?
     
     static var hasToken: Bool {
         return VinylaUserManager.vinylaToken != nil

@@ -16,4 +16,8 @@ struct UserDefaultsKey {
     static let firebaseUID = "firebaseUID"
     static let loginCase = "loginCase"
     static let fcmToken = "FCMToken"
+    static let appVersionOfLastRun = "AppVersionOfLastRun"
+    static let explainHomeButton = "ExplainHomeButton"
+    static let explainInstagramShare = "ExplainInstagramShare"
+    static let bundleShortVersionString = "CFBundleShortVersionString"
 }
