@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ///UserNotifications + FirbaseMessage Setting
         UNUserNotificationCenter.current().delegate = self
         Messaging.messaging().delegate = self
+        
+        /// First App Launch Check
+        checkAppFirstrunOrUpdateStatus()
 
         return true
     }
@@ -127,4 +130,27 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,didReceive response: UNNotificationResponse,withCompletionHandler completionHandler: @escaping () -> Void) { completionHandler()
     }
     
+}
+
+extension AppDelegate {
+    func checkAppFirstrunOrUpdateStatus() {
+        let bundleShortVersionString = "CFBundleShortVersionString"
+        let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: bundleShortVersionString) as? String
+        let versionOfLastRun = UserDefaults.standard.object(forKey: UserDefaultsKey.appVersionOfLastRun) as? String
+        
+        print("currentVersion",currentAppVersion)
+//         print(#function, currentVersion ?? "", versionOfLastRun ?? "")
+        
+        if versionOfLastRun == nil {
+//            firstrun
+            VinylaUserManager.explainInstagramShare = false
+            VinylaUserManager.explainHomeButton = false
+        } else if versionOfLastRun != currentAppVersion {
+//            updated
+        } else {
+//            nothingChanged
+        }
+        
+        UserDefaults.standard.set(currentAppVersion, forKey: UserDefaultsKey.appVersionOfLastRun)
+    }
 }
