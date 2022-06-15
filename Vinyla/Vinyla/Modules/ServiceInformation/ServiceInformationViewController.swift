@@ -28,6 +28,7 @@ final class ServiceInformationViewController: UIViewController {
         serviceButton.setTitleColor(.white, for: .selected)
         serviceButton.setBackgroundColor(.black, for: .selected)
         serviceButton.setBackgroundColor(.black, for: .normal)
+        
         privacyInformationButton.setTitleColor(.white, for: .selected)
         privacyInformationButton.setBackgroundColor(.black, for: .selected)
         privacyInformationButton.setBackgroundColor(.black, for: .normal)

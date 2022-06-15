@@ -312,7 +312,7 @@
 				55932FCD27AED4FF006B2DFF /* User */,
 				5599C7AA26DD717E008F8FDF /* Font */,
 				5599C77F26DCDB1D008F8FDF /* NSChache */,
-				558383C426D8ABDA0019977A /* NetWork */,
+				558383C426D8ABDA0019977A /* Network */,
 				55592C2526C4C45400F85A9A /* AppCoordinator */,
 				5544D63226BD43A5003659C6 /* CoreData */,
 				5544D57826B144D2003659C6 /* DIContainer */,
@@ -520,7 +520,7 @@
 			path = AppCoordinator;
 			sourceTree = "<group>";
 		};
-		558383C426D8ABDA0019977A /* NetWork */ = {
+		558383C426D8ABDA0019977A /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				5591487D272151D40081DCFD /* MockJson */,
@@ -531,7 +531,7 @@
 				55920177279BFFFC00E13D12 /* CommonNetworkManager.swift */,
 				55932FBF27AAC879006B2DFF /* NetworkErrorHandling.swift */,
 			);
-			path = NetWork;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		558383E926DB9B5D0019977A /* LevelDesign */ = {
