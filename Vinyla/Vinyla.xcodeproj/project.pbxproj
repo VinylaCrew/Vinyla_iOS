@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -108,6 +108,7 @@
 		55FFBAC7279BB58700DB71EC /* ServerHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FFBAC6279BB58700DB71EC /* ServerHost.swift */; };
 		66444E43DC1F6D3754936E7F /* Pods_VinylaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A0A3360911239F5AD9A90C /* Pods_VinylaTests.framework */; };
 		8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BE351CE732228BCB69A279 /* Pods_Vinyla.framework */; };
+		DF4B64D0285A124D00FD79E4 /* Instructions in Frameworks */ = {isa = PBXBuildFile; productRef = DF4B64CF285A124D00FD79E4 /* Instructions */; };
 		DF5736BC2839CCA300970B6C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF5736BB2839CCA300970B6C /* GoogleService-Info.plist */; };
 		DF5736BF284325BF00970B6C /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF5736BE284325BF00970B6C /* NotificationCenterManager.swift */; };
 		DF6A37E72813CBA50011E39D /* CheckHomeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF6A37E62813CBA50011E39D /* CheckHomeInformation.swift */; };
@@ -269,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DCBCA00EFDDD8A29AA73174 /* Pods_Vinyla.framework in Frameworks */,
+				DF4B64D0285A124D00FD79E4 /* Instructions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -705,6 +707,7 @@
 			);
 			name = Vinyla;
 			packageProductDependencies = (
+				DF4B64CF285A124D00FD79E4 /* Instructions */,
 			);
 			productName = Vinyla;
 			productReference = 5541DD36268838FB00970794 /* Vinyla.app */;
@@ -757,6 +760,7 @@
 			);
 			mainGroup = 5541DD2D268838FB00970794;
 			packageReferences = (
+				DF4B64CE285A124D00FD79E4 /* XCRemoteSwiftPackageReference "Instructions" */,
 			);
 			productRefGroup = 5541DD37268838FB00970794 /* Products */;
 			projectDirPath = "";
@@ -1237,6 +1241,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DF4B64CE285A124D00FD79E4 /* XCRemoteSwiftPackageReference "Instructions" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ephread/Instructions";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DF4B64CF285A124D00FD79E4 /* Instructions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DF4B64CE285A124D00FD79E4 /* XCRemoteSwiftPackageReference "Instructions" */;
+			productName = Instructions;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		5544D63726BD4517003659C6 /* MainFavoriteModel.xcdatamodeld */ = {
