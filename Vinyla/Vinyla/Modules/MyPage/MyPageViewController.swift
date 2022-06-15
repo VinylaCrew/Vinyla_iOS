@@ -21,6 +21,7 @@ final class MyPageViewController: UIViewController {
     @IBOutlet weak var marketingSwitch: UISwitch!
     @IBOutlet weak var loginUserLabel: UILabel!
     @IBOutlet weak var loginUserImageView: UIImageView!
+    @IBOutlet weak var appVersionLabel: UILabel!
     
     private var viewModel: MyPageViewModel?
     private weak var coordinator: AppCoordinator?
@@ -38,6 +39,8 @@ final class MyPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        
+        self.appVersionLabel.text =  self.viewModel?.appVersion
         
         self.viewModel?.loginUserText
             .asDriver(onErrorJustReturn: "")
