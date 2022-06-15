@@ -16,6 +16,9 @@ final class MyPageViewModel {
     let marketingCompleteSubject = PublishSubject<Bool>()
     let loginUserText = PublishSubject<String>()
     let loginUserImageName = PublishSubject<String>()
+    let appVersion: String? = {
+        return VinylaUserManager.appVersion
+    }()
     
     let disposeBag = DisposeBag()
     
