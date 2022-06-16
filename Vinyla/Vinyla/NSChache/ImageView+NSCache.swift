@@ -8,6 +8,8 @@
 import UIKit
 
 extension UIImageView {
+    
+    @available(*, deprecated, message: "use setImageURLAndChaching func")
     func setImageChache(imageURL: String) {
         if let cachedImage = NSCacheManager.shared.object(forKey: imageURL as NSString) {
             self.image = cachedImage
@@ -56,6 +58,7 @@ extension UIImageView {
             guard let url = URL(string: imageURL) else { return }
 
             let dataTask = URLSession.shared.dataTask(with: url) { (data, result, error) in
+                
                 guard error == nil else {
                     DispatchQueue.main.async { [weak self] in
                         self?.image = UIImage()
@@ -65,8 +68,7 @@ extension UIImageView {
 
                 DispatchQueue.main.async { [weak self] in
                     if let data = data, let image = UIImage(data: data) {
-
-                        /// 캐싱
+                        /// 이미지 캐싱
                         NSCacheManager.shared.setObject(image, forKey: cachedKey)
                         self?.image = image
                     }
