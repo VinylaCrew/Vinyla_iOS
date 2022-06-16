@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Firebase
+import Instructions
 
 final class HomeViewController: UIViewController {
     
@@ -62,6 +63,7 @@ final class HomeViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    let coachMarksController = CoachMarksController()
     
     private weak var coordinator: AppCoordinator?
     private var viewModel: HomeViewModelProtocol?
@@ -79,7 +81,10 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad()")
+        /// Coach Mark
+        self.coachMarksController.dataSource = self
+        self.coachMarksController.overlay.isUserInteractionEnabled = true
+        self.coachMarksController.overlay.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         
         homeScrollView.contentInsetAdjustmentBehavior = .never
         setHomeButtonMiniImage()
@@ -133,6 +138,7 @@ final class HomeViewController: UIViewController {
         viewModel?.requestMyGenre()
         self.homeNickNameLabel.text = VinylaUserManager.nickname
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear()")
@@ -140,6 +146,12 @@ final class HomeViewController: UIViewController {
         viewModel?.requestServerVinylBoxData()
         
         NotificationCenterManager().pushNotificationsSettings()
+        
+        /// CoachMark
+        if VinylaUserManager.explainHomeButton == false {
+            VinylaUserManager.explainHomeButton = true
+            self.coachMarksController.start(in: .window(over: self))
+        }
     }
 
     override func viewWillLayoutSubviews() {
@@ -352,7 +364,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = floor((UIScreen.main.bounds.size.width - 66)/4)
-        
+        print("cell size: ",cellSize)
         // width/4
         return CGSize(width: cellSize, height: cellSize)
     }
@@ -442,4 +454,55 @@ extension String {
                                     withAttributes: attributes)
         }
     }
+}
+
+extension HomeViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        2
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(
+            withArrow: true,
+            arrowOrientation: coachMark.arrowOrientation,
+            hintText: "",
+            nextText: nil
+        )
+        
+        coachViews.bodyView.background.innerColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        coachViews.bodyView.background.borderColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        coachViews.bodyView.background.highlightedInnerColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        coachViews.arrowView?.background.innerColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        coachViews.arrowView?.background.borderColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
+        
+        coachViews.bodyView.hintLabel.textColor = .white
+//        coachViews.bodyView.hintLabel.font = .systemFont(ofSize: 16)
+        switch index {
+        case 0:
+            coachViews.bodyView.hintLabel.text = "보관함에 바이닐을 등록해 보세요"
+        case 1:
+            coachViews.bodyView.hintLabel.text = "인생 바이닐을 설정하고 나면\n인스타그램에 공유할 수 있어요"
+        default: break
+        }
+        
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        
+        var coachMark: CoachMark
+        
+        switch index {
+        case 0:
+            coachMark = coachMarksController.helper.makeCoachMark(for: self.homeButton)
+        case 1:
+            coachMark = coachMarksController.helper.makeCoachMark(for: self.blurCircleView)
+        default:
+            coachMark = coachMarksController.helper.makeCoachMark()
+        }
+        
+        return coachMark
+    }
+
 }
