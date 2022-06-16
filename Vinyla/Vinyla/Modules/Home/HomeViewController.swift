@@ -348,13 +348,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recentCell", for: indexPath) as? RecentVinylCollectionViewCell else { return UICollectionViewCell() }
 
-//        if let check = viewModel?.recentVinylBoxData, indexPath.row < check.count {
-//            cell.recentVinylImageView.image = UIImage(data: check[indexPath.row].vinylImage!)
-//        }else {
-//            print("cell else", viewModel?.recentVinylBoxData, indexPath.row)
-//            cell.recentVinylImageView.image = nil
-//        }
-// viewmodel로 리팩토링
         if let recentVinylImageData = viewModel?.getRecentVinylBoxData(indexPathRow: indexPath.row) {
             cell.recentVinylImageView.image = UIImage(data: recentVinylImageData)
         }else {
@@ -364,8 +357,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = floor((UIScreen.main.bounds.size.width - 66)/4)
-        print("cell size: ",cellSize)
-        // width/4
+        
+        /// width/4
         return CGSize(width: cellSize, height: cellSize)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -477,7 +470,7 @@ extension HomeViewController: CoachMarksControllerDataSource, CoachMarksControll
         coachViews.arrowView?.background.borderColor = UIColor(red: 255/255, green: 80/255, blue: 0/255, alpha: 1)
         
         coachViews.bodyView.hintLabel.textColor = .white
-//        coachViews.bodyView.hintLabel.font = .systemFont(ofSize: 16)
+        
         switch index {
         case 0:
             coachViews.bodyView.hintLabel.text = "보관함에 바이닐을 등록해 보세요"
