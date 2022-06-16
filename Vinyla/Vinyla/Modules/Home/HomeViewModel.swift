@@ -196,9 +196,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     func getLevelGague() -> String {
         let totalVinylCount = self.getTotalVinylBoxCount()
         switch totalVinylCount {
-        case 0:
+        case 0...1:
             return "\(totalVinylCount)/1"
-        case 1...9:
+        case 2...9:
             return "\(totalVinylCount)/9"
         case 10...49:
             return "\(totalVinylCount)/49"
@@ -212,9 +212,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     func getLevelName() -> Observable<String?> {
         let totalVinylCount = self.getTotalVinylBoxCount()
         switch totalVinylCount {
-        case 0:
+        case 0...1:
             return Observable.just("닐페이스")
-        case 1...9:
+        case 2...9:
             return Observable.just("닐리즈")
         case 10...49:
             return Observable.just("닐스터")
@@ -231,7 +231,7 @@ final class HomeViewModel: HomeViewModelProtocol {
         switch totalVinylCount {
         case 0:
             return CGFloat(0)
-        case 1...9:
+        case 2...9:
             return CGFloat((widthSize/9.0) * CGFloat(totalVinylCount))
         case 10...49:
             return CGFloat((widthSize/49.0) * CGFloat(totalVinylCount))
@@ -245,9 +245,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     func getLevelImageName() -> String {
         let totalVinylCount = self.getTotalVinylBoxCount()
         switch totalVinylCount {
-        case 0:
+        case 0...1:
             return "icnHomeLv1"
-        case 1...9:
+        case 2...9:
             return "icnHomeLv2"
         case 10...49:
             return "icnHomeLv3"
