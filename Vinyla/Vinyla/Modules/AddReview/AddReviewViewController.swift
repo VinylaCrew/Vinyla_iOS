@@ -129,7 +129,7 @@ final class AddReviewViewController: UIViewController {
         guard let viewModel = viewModel else { return }
         songTitleNameLabel.text = viewModel.model.title
         songArtistLabel.text = viewModel.model.artist
-        songRateLabel.text = String(viewModel.songRate ?? 0) + " (\(viewModel.songRateCount ?? 0)건)"
+        songRateLabel.text = String(round(viewModel.songRate ?? 0)) + " (\(viewModel.songRateCount ?? 0)건)"
         vinylImageView.setImageChache(imageURL: (viewModel.model.image))
 
         reviewTextView.rx.text
