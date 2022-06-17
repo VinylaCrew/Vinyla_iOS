@@ -21,6 +21,7 @@ final class PagingCollectionViewCell: UICollectionViewCell {
     }
     weak var coordinator: AppCoordinator?
     var disposebag = DisposeBag()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -29,12 +30,14 @@ final class PagingCollectionViewCell: UICollectionViewCell {
         let vinylBoxCellNib = UINib(nibName: "VinylBoxCollectionViewCell", bundle: nil)
         vinylBoxCollectionView.register(vinylBoxCellNib, forCellWithReuseIdentifier: "VinylBoxCell")
     }
+    
     func setRxVinylBoxCollectionView() {
         //아직 모델이 옵저버블이 아니기에 작동되지않음
         vinylBoxCollectionView.rx.modelSelected(VinylBox.self).subscribe(onNext: { item in
             print(item)
         }).disposed(by: disposebag)
     }
+    
     func downScaleImage(imageData: Data, for size: CGSize, scale:CGFloat) -> UIImage {
         // dataBuffer가 즉각적으로 decoding되는 것을 막아줍니다.
         let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
@@ -88,7 +91,13 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        self.coordinator?.moveToAddInformationView(vinylID: Int(nineVinylItems[indexPath.row].vinylID), vinylImageURL: "", isDeleteMode: true)
 
-        self.coordinator?.moveToAddInformationViewWithIndex(vinylIndex: Int(nineVinylItems[indexPath.row].index), vinylID: Int(nineVinylItems[indexPath.row].vinylID), vinylImageURL: "", isDeleteMode: true)
+        /// 썸네일 이미지 추가
+        self.coordinator?.moveToAddInformationViewWithIndex(
+            vinylIndex: Int(nineVinylItems[indexPath.row].index),
+            vinylID: Int(nineVinylItems[indexPath.row].vinylID),
+            vinylImage: nineVinylItems[indexPath.row].vinylImage,
+            isDeleteMode: true
+        )
         
     }
 }
