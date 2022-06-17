@@ -99,7 +99,7 @@ final class SearchViewController: UIViewController {
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindCountLabel()
         bindTableView()
-        didSelectCell()
+        setupDidSelectCell()
         setupInputSongTitleBind()
     }
 
@@ -247,7 +247,7 @@ final class SearchViewController: UIViewController {
             .map{ $0?.count ?? 0 < 1 }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] isEmpty in
-                //MARK: - TODO 찾는 바이닐 없는 경우, UI 처리
+                //MARK: - 찾는 바이닐 없는 경우, UI 처리
                 guard let self = self else { return }
                 if isEmpty {
                     do {
@@ -287,7 +287,7 @@ final class SearchViewController: UIViewController {
 
     }
     
-    func didSelectCell() {
+    func setupDidSelectCell() {
         //        searchTableView.rx.modelSelected(String.self)
         //            .subscribe(onNext: { [weak self] model in
         //                print("seletecd \(model)")
@@ -300,18 +300,33 @@ final class SearchViewController: UIViewController {
         //                print("pushAddInformationView")
         //            })
         //            .disposed(by: disposeBag)
+        
         searchTableView.rx.modelSelected(SearchModel.Data.self)
             .subscribe(onNext: { [weak self] model in
-                self?.coordiNator?.moveToAddInformationView(vinylID: model.id, vinylImageURL: model.thumb, isDeleteMode: false)
+                self?.coordiNator?.moveToAddInformationView(
+                    vinylID: model.id,
+                    vinylImageURL: model.thumb,
+                    isDeleteMode: false
+                )
             })
             .disposed(by: disposeBag)
         
         searchTableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
                 print("selected \(indexPath)")
-
+                let cell = self.searchTableView.cellForRow(at: indexPath) as? SearchTableViewCell
+                print(cell?.searchVinylImageView)
             })
             .disposed(by: disposeBag)
+        
+        /// Zip 이용해서, model 과 indexPath 같이 다루도록
+//        Observable
+//            .Zip(tableView.rx.itemSelected, tableView.rx.modelSelected(String.self))
+//            .bind { [unowned self] indexPath, model in
+//                self.tableView.deselectRow(at: indexPath, animated: true)
+//                print("Selected " + model + " at \(indexPath)")
+//            }
+//            .disposed(by: disposeBag)
     }
     
 }
@@ -333,6 +348,7 @@ extension SearchViewController: UITableViewDelegate {
         
 //        cell.searchVinylImageView.kf.cancelDownloadTask()
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(107)
     }
