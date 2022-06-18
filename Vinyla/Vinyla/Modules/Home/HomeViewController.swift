@@ -381,30 +381,19 @@ extension HomeViewController: ButtonTapDelegate {
                     blurCircleView.drawHierarchy(in: blurCircleView.bounds, afterScreenUpdates: true)
                 }
                 
-//                let textImage: Data = "Shawn Test".image(withAttributes: [.foregroundColor: UIColor.white,
-//                                                                          .font: UIFont(name: "Playball-Regular", size: 30)],
-//                                                         size: CGSize(width: 300.0, height: 150.0))!.pngData()!
+                let flexibleXPoint = (UIScreen.main.bounds.width/2) - 45
+                let flexibleYPoint = UIScreen.main.bounds.width - 50
+
+                let textWithImage = textToImage(drawText: "Vinyla", inImage: renderImage, atPoint: CGPoint(x: flexibleXPoint, y: flexibleYPoint))
                 
-                let textImage: Data = """
-                Shawn Test
+                guard let shareImageData = textWithImage.pngData() else { return }
                 
-                
-                
-                
-                1
-                """
-                    .image(withAttributes: [.foregroundColor: UIColor.white,.backgroundColor: UIColor.vinylaMainOrangeColor()
-                                            , .font: UIFont(name: "Playball-Regular", size: 13)])!.pngData()!
-                /// X 좌표가 390 기준이므로, width 커지거나 짧아진만큼만 x 더하거나 빼줌
-                let textWithImage = textToImage(drawText: "Vinyla", inImage: renderImage, atPoint: CGPoint(x: 150, y: 340))
-                
-                guard let imageData = textWithImage.pngData() else { return }
                 let pasteboardItems: [String: Any] = [
-//                    "com.instagram.sharedSticker.stickerImage": textImage,
-                    "com.instagram.sharedSticker.backgroundImage": imageData,
+                    "com.instagram.sharedSticker.backgroundImage": shareImageData,
                     "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
                     "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
                 ]
+                
                 let pasteboardOptions = [
                     UIPasteboard.OptionsKey.expirationDate:
                         Date().addingTimeInterval(300)
@@ -427,26 +416,6 @@ extension HomeViewController: ButtonTapDelegate {
     }
 
     func didTapFavoriteButton(sender: UIButton) {}
-}
-
-
-extension String {
-    
-    /// Generates a `UIImage` instance from this string using a specified
-    /// attributes and size.
-    ///
-    /// - Parameters:
-    ///     - attributes: to draw this string with. Default is `nil`.
-    ///     - size: of the image to return.
-    /// - Returns: a `UIImage` instance from this string using a specified
-    /// attributes and size, or `nil` if the operation fails.
-    func image(withAttributes attributes: [NSAttributedString.Key: Any]? = nil, size: CGSize? = nil) -> UIImage? {
-        let size = size ?? (self as NSString).size(withAttributes: attributes)
-        return UIGraphicsImageRenderer(size: size).image { _ in
-            (self as NSString).draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: size),
-                                    withAttributes: attributes)
-        }
-    }
 }
 
 extension HomeViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
