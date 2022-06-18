@@ -19,7 +19,6 @@ protocol SignUpViewModelProtocol {
     var isAllowMarketing: BehaviorSubject<Int> { get }
     
     func isValidNickName(_ nickNameText: String) -> Int
-    func testStreamMethod() -> Void
     func requestCreateUser() -> Void
 }
 
@@ -111,40 +110,18 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         let createUserAPI = APITarget.createUser(userData: userData)
         _ = CommonNetworkManager.request(apiType: createUserAPI)
             .subscribe(onSuccess: { [weak self] (response: SignUpResponse) in
-                print(response)
-                //MARK: TODO 바닐라 토큰 유저 디폴트 저장
-//                UserDefaults.standard.setValue(response.data?.token, forKey: UserDefaultsKey.vinylaToken)
                 VinylaUserManager.vinylaToken = response.data?.token
+                if let eventAgree = response.data?.subscribeAgreed, eventAgree == 1 {
+                    VinylaUserManager.eventSubscribeAgreed = true
+                } else {
+                    VinylaUserManager.eventSubscribeAgreed = false
+                }
+                
                 self?.isCompletedCreateUserRequest.onNext(true)
             }, onError: { error in
                 print(error)
             })
             .disposed(by: disposeBag)
-    }
-    func testStreamMethod() {
-        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let instagramID = try? self.instagramIDText.value() else {
-            return
-        }
-        print("test signup: ",nickName,firebaseUid,instagramID)
-        //        var myStream = signUpAPIService.requestVinylBoxMyData()
-        //            .subscribe{ event in
-        //                switch event {
-        //                case.next(let value):
-        //                    print("next")
-        //                case .error(let errorr):
-        //                    print(errorr)
-        //                case .completed:
-        //                    print("completed")
-        //                }
-        //            }
-        //            .disposed(by: disposeBag)
-
-        //        _ = checkNickNameNumberSubject
-        //            .subscribe(onNext:{ data in
-        //                print(data)
-        //            })
-        //            .disposed(by: disposeBag)
-
     }
     
     func isValidNickName(_ nickNameText: String) -> Int {
