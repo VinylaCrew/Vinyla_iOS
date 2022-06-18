@@ -39,6 +39,9 @@ final class VinylaUserManager {
     @UserDefault(key: UserDefaultsKey.explainInstagramShare)
     static var explainInstagramShare: Bool?
     
+    @UserDefault(key: UserDefaultsKey.eventSubscribeAgreed)
+    static var eventSubscribeAgreed: Bool?
+    
     static var hasToken: Bool {
         return VinylaUserManager.vinylaToken != nil
     }
@@ -51,5 +54,6 @@ final class VinylaUserManager {
         self.myVInylIndex = nil
         self.firebaseUID = nil
         self.loginSNSCase = nil
+        self.eventSubscribeAgreed = nil
     }
 }

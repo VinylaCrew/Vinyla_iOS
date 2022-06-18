@@ -20,4 +20,5 @@ struct UserDefaultsKey {
     static let explainHomeButton = "ExplainHomeButton"
     static let explainInstagramShare = "ExplainInstagramShare"
     static let bundleShortVersionString = "CFBundleShortVersionString"
+    static let eventSubscribeAgreed = "EventSubscribeAgreed"
 }
