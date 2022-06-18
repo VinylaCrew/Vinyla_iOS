@@ -112,6 +112,7 @@ final class VinylAPIService: VinylAPIServiceProtocol {
                     } catch {
                         print("get Vinyl Detail decode error")
                         print(error.localizedDescription)
+                        emitter.onError(error)
                     }
                 case .failure(let error):
                     emitter.onError(error)
