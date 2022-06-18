@@ -63,6 +63,7 @@ final class MockAPIService: VinylAPIServiceProtocol {
                     } catch {
                         print("decode error")
                         print(error.localizedDescription)
+                        emitter.onError(error)
                     }
                 case .failure(let error):
                     emitter.onError(error)
