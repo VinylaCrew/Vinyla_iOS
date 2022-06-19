@@ -16,6 +16,8 @@ final class MyPageViewModel {
     let marketingCompleteSubject = PublishSubject<Bool>()
     let loginUserText = PublishSubject<String>()
     let loginUserImageName = PublishSubject<String>()
+    let eventSubscribeAgreed = PublishSubject<Bool>()
+    
     let appVersion: String? = {
         return VinylaUserManager.appVersion
     }()
@@ -42,10 +44,14 @@ final class MyPageViewModel {
     func requestMarketingSubscribed(isSubscribeAgreed: Bool) {
         let subscribedData = MarketingSubscribedRequest(subscribeAgreed: isSubscribeAgreed)
         let marketingAPITarget = APITarget.changeMarketingSubscribed(subscribed: subscribedData)
+        
+        
+        
         CommonNetworkManager.request(apiType: marketingAPITarget)
-            .subscribe(onSuccess: { (response: VinylaErrorModel) in
+            .subscribe(onSuccess: { [weak self] (response: VinylaErrorModel) in
                 if response.success {
-                    self.marketingCompleteSubject.onNext(true)
+                    self?.marketingCompleteSubject.onNext(true)
+                    VinylaUserManager.eventSubscribeAgreed = isSubscribeAgreed
                 }
             })
             .disposed(by: self.disposeBag)
@@ -58,6 +64,14 @@ final class MyPageViewModel {
         }else if VinylaUserManager.loginSNSCase == "Apple" {
             self.loginUserText.onNext("Apple로 로그인")
             self.loginUserImageName.onNext("icnApple")
+        }
+    }
+    
+    func updateEventSubscribeAgreed() {
+        if VinylaUserManager.eventSubscribeAgreed == true {
+            self.eventSubscribeAgreed.onNext(true)
+        } else {
+            self.eventSubscribeAgreed.onNext(false)
         }
     }
 }

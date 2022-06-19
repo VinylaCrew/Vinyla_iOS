@@ -42,6 +42,13 @@ final class MyPageViewController: UIViewController {
         
         self.appVersionLabel.text =  self.viewModel?.appVersion
         
+        self.viewModel?.eventSubscribeAgreed
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { isAgreed in
+                self.marketingSwitch.setOn(isAgreed, animated: false)
+            })
+            .disposed(by: disposeBag)
+        
         self.viewModel?.loginUserText
             .asDriver(onErrorJustReturn: "")
             .drive(onNext: { loginCaseText in
@@ -82,7 +89,6 @@ final class MyPageViewController: UIViewController {
         self.serviceInformationButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
-                serviceInformationViewController.typeCheck = "Privacy"
                 serviceInformationViewController.modalPresentationStyle = .pageSheet
                 self?.present(serviceInformationViewController, animated: true, completion: nil)
             })
@@ -116,6 +122,7 @@ final class MyPageViewController: UIViewController {
         super.viewWillAppear(animated)
         self.userNickNameLabel.text = VinylaUserManager.nickname
         viewModel?.updateUserLoginSNSCase()
+        viewModel?.updateEventSubscribeAgreed()
     }
     
     func setupUI() {
