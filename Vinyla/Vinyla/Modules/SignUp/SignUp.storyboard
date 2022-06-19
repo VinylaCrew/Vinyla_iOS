@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GqD-Sg-nwf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GqD-Sg-nwf">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -81,10 +81,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인스타그램 ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujW-8Y-KZ7">
-                                <rect key="frame" x="15" y="232" width="88" height="22"/>
+                                <rect key="frame" x="15" y="232" width="85" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="E9l-um-CWH"/>
-                                    <constraint firstAttribute="width" constant="88" id="ZVJ-2X-ODt"/>
+                                    <constraint firstAttribute="width" constant="85" id="ZVJ-2X-ODt"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -259,17 +259,15 @@
                                     <constraint firstAttribute="width" constant="139" id="eJ8-u7-r9c"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MIW-BK-3n8">
-                                <rect key="frame" x="216" y="559" width="50" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCW-Ue-DQ1">
+                                <rect key="frame" x="100" y="236" width="27.666666666666671" height="15"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="SAm-ua-eXD"/>
-                                    <constraint firstAttribute="width" constant="50" id="hyW-CG-5ym"/>
+                                    <constraint firstAttribute="height" constant="15" id="9kO-Kr-JRj"/>
                                 </constraints>
-                                <state key="normal" title="Test"/>
-                                <connections>
-                                    <action selector="touchUpTestButton:" destination="GqD-Sg-nwf" eventType="touchUpInside" id="Ljc-vi-Nyb"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ilY-A5-tgL"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -290,6 +288,7 @@
                             <constraint firstItem="Pke-xb-slq" firstAttribute="leading" secondItem="shV-wn-drZ" secondAttribute="trailing" constant="8" symbolic="YES" id="BF7-uu-uh8"/>
                             <constraint firstItem="Au4-m5-e1m" firstAttribute="top" secondItem="bWQ-Q3-hUJ" secondAttribute="bottom" constant="10" id="BgQ-U6-uhk"/>
                             <constraint firstItem="3UL-Fm-Amd" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="EVw-Ct-IKl"/>
+                            <constraint firstItem="OCW-Ue-DQ1" firstAttribute="leading" secondItem="ujW-8Y-KZ7" secondAttribute="trailing" id="FEv-l3-ABC"/>
                             <constraint firstItem="RS0-4n-Da9" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="47" id="GE4-Fo-B9j"/>
                             <constraint firstItem="T7E-Ki-82B" firstAttribute="leading" secondItem="Au4-m5-e1m" secondAttribute="trailing" constant="8" symbolic="YES" id="Gnj-vM-218"/>
                             <constraint firstItem="XYe-7G-0Sb" firstAttribute="leading" secondItem="81R-ah-0tf" secondAttribute="trailing" constant="8" symbolic="YES" id="IWm-yY-gTP"/>
@@ -313,28 +312,30 @@
                             <constraint firstItem="T7E-Ki-82B" firstAttribute="top" secondItem="1Qh-1k-Ly2" secondAttribute="bottom" constant="16" id="egn-au-mUL"/>
                             <constraint firstItem="bWQ-Q3-hUJ" firstAttribute="top" secondItem="3UL-Fm-Amd" secondAttribute="bottom" constant="10" id="eqA-DB-JoN"/>
                             <constraint firstItem="a9E-Kv-rYQ" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="fmh-1Z-ggg"/>
-                            <constraint firstItem="ilY-A5-tgL" firstAttribute="trailing" secondItem="MIW-BK-3n8" secondAttribute="trailing" constant="109" id="hjb-nW-HO4"/>
                             <constraint firstItem="At7-RR-Y7w" firstAttribute="top" secondItem="T7E-Ki-82B" secondAttribute="bottom" id="i6R-oP-YVi"/>
                             <constraint firstItem="81R-ah-0tf" firstAttribute="top" secondItem="Au4-m5-e1m" secondAttribute="bottom" constant="10" id="j5N-Pj-Gbi"/>
                             <constraint firstItem="RS0-4n-Da9" firstAttribute="top" secondItem="1Qh-1k-Ly2" secondAttribute="bottom" constant="-1" id="j7N-OL-JGq"/>
                             <constraint firstItem="oow-lg-1vJ" firstAttribute="leading" secondItem="ilY-A5-tgL" secondAttribute="leading" constant="15" id="kCW-bA-JS7"/>
                             <constraint firstItem="ilY-A5-tgL" firstAttribute="bottom" secondItem="4To-N7-7qD" secondAttribute="bottom" constant="7" id="mVH-Lw-dJr"/>
+                            <constraint firstItem="oow-lg-1vJ" firstAttribute="top" secondItem="OCW-Ue-DQ1" secondAttribute="bottom" constant="8" symbolic="YES" id="p9r-aI-Rfb"/>
                             <constraint firstItem="8Ia-V3-APp" firstAttribute="leading" secondItem="3UL-Fm-Amd" secondAttribute="trailing" constant="8" symbolic="YES" id="ph3-YL-gSJ"/>
                             <constraint firstItem="8Ia-V3-APp" firstAttribute="top" secondItem="oow-lg-1vJ" secondAttribute="bottom" constant="24" id="qbF-Nr-gW9"/>
                             <constraint firstItem="aJB-Bo-DCg" firstAttribute="leading" secondItem="a9E-Kv-rYQ" secondAttribute="trailing" constant="5" id="sji-U0-lAT"/>
                             <constraint firstItem="ccr-ay-vrX" firstAttribute="top" secondItem="shV-wn-drZ" secondAttribute="bottom" constant="37" id="u3I-vX-I8z"/>
                             <constraint firstItem="1Qh-1k-Ly2" firstAttribute="top" secondItem="oow-lg-1vJ" secondAttribute="bottom" constant="61" id="yIV-Ms-wjC"/>
                             <constraint firstItem="pKV-eI-VgZ" firstAttribute="leading" secondItem="8Ia-V3-APp" secondAttribute="trailing" id="yOE-7S-5ut"/>
-                            <constraint firstItem="4To-N7-7qD" firstAttribute="top" secondItem="MIW-BK-3n8" secondAttribute="bottom" constant="100" id="yfb-oG-UF4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="allowMarketingButton" destination="81R-ah-0tf" id="BtX-h3-Jdn"/>
                         <outlet property="allowMarketingLabel" destination="XYe-7G-0Sb" id="fva-R0-YXZ"/>
                         <outlet property="allowPrivacyButton" destination="Au4-m5-e1m" id="dxp-49-Eop"/>
+                        <outlet property="allowPrivacyLabel" destination="T7E-Ki-82B" id="Cus-eF-Pjv"/>
+                        <outlet property="allowServicLabel" destination="Xcl-aJ-fOk" id="zKD-UG-WIC"/>
                         <outlet property="allowServiceButton" destination="bWQ-Q3-hUJ" id="9Wg-fq-P49"/>
                         <outlet property="everyAgreeButton" destination="3UL-Fm-Amd" id="KsX-yg-Egs"/>
                         <outlet property="instagramIDTextField" destination="oow-lg-1vJ" id="TQg-8l-U8H"/>
+                        <outlet property="instagramLabel" destination="ujW-8Y-KZ7" id="n1z-Gw-5Lr"/>
                         <outlet property="logInButton" destination="4To-N7-7qD" id="hBy-zr-aUh"/>
                         <outlet property="nickNameCheckButton" destination="aJB-Bo-DCg" id="UhZ-cL-aYP"/>
                         <outlet property="nickNameLabel" destination="ccr-ay-vrX" id="uLS-zd-Dmz"/>

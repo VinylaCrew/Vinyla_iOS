@@ -15,6 +15,7 @@ final class SignUpViewController: UIViewController {
     
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var nickNameTextField: UITextField!
+    @IBOutlet weak var instagramLabel: UILabel!
     @IBOutlet weak var instagramIDTextField: UITextField!
     @IBOutlet weak var nickNameStateLabel: UILabel!
     @IBOutlet weak var nickNameCheckButton: UIButton!
@@ -22,19 +23,21 @@ final class SignUpViewController: UIViewController {
     @IBOutlet weak var allowServiceButton: UIButton!
     @IBOutlet weak var allowPrivacyButton: UIButton!
     @IBOutlet weak var allowMarketingButton: UIButton?
+    @IBOutlet weak var allowServicLabel: UILabel!
+    @IBOutlet weak var allowPrivacyLabel: UILabel!
     @IBOutlet weak var allowMarketingLabel: UILabel?
     @IBOutlet weak var everyAgreeButton: UIButton!
     @IBOutlet weak var nickNameLabel: UILabel!
-
+    
     lazy var pointCircleView: UIView = {
-    let view = UIView()
+        let view = UIView()
         view.frame = CGRect(x: nickNameLabel.frame.size.width, y: -2, width: 5, height: 5)
         view.backgroundColor = UIColor.vinylaMainOrangeColor()
         view.layer.cornerRadius = 2.5
         view.translatesAutoresizingMaskIntoConstraints = false
-    return view
+        return view
     }()
-
+    
     private weak var coordiNator: AppCoordinator?
     private var viewModel: SignUpViewModelProtocol?
     var disposeBag = DisposeBag()
@@ -56,8 +59,9 @@ final class SignUpViewController: UIViewController {
         instagramIDTextField.delegate = self
         setUI()
         setTapButtonsIsSelected()
+        setupSignUpServiceInformationTapGesuture()
         logInButton.isEnabled = false
-
+        
         guard let viewModel = self.viewModel else { return }
         //Instagram ID TextFiedl Bind
         instagramIDTextField.rx.text
@@ -65,7 +69,7 @@ final class SignUpViewController: UIViewController {
             .distinctUntilChanged()
             .bind(to: viewModel.instagramIDText)
             .disposed(by: disposeBag)
-
+        
         //Nickname TextField Bind
         nickNameTextField.rx.text
             .orEmpty
@@ -74,7 +78,7 @@ final class SignUpViewController: UIViewController {
             .debounce(.milliseconds(600), scheduler: MainScheduler.instance)
             .bind(to: viewModel.nicknameText)
             .disposed(by: disposeBag)
-
+        
         //Request Create User Bind
         viewModel.isCompletedCreateUserRequest
             .observeOn(MainScheduler.instance)
@@ -82,10 +86,10 @@ final class SignUpViewController: UIViewController {
             .subscribe(onNext:{ [weak self] data in
                 self?.coordiNator?.moveAndSetHomeView()
             })
-
+        
         //이 부분으로 NickName 안내문구 작동
         //MARK: Refactoring
-//        viewModel.validNickNameNumberSubject
+        //        viewModel.validNickNameNumberSubject
         viewModel.checkNickNameNumberSubject
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] isValidNickNameNumber in
@@ -102,7 +106,7 @@ final class SignUpViewController: UIViewController {
                     nickNameStateLabel.sizeToFit()
                     nickNameStateLabel.textColor = UIColor.vinylaMainOrangeColor()
                     isCheckLogInButtonLogic()
-
+                    
                 } else if isValidNickNameNumber == 2 || isValidNickNameNumber == 3 || isValidNickNameNumber == 4{
                     var nickNameText: String = ""
                     if isValidNickNameNumber == 2 {
@@ -128,14 +132,14 @@ final class SignUpViewController: UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-
+        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-         self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     func setUI() {
         nickNameLabel.addSubview(pointCircleView)
-
+        
         //border
         nickNameTextField.layer.borderWidth = 1
         nickNameTextField.layer.cornerRadius = 10
@@ -164,7 +168,7 @@ final class SignUpViewController: UIViewController {
             buttons.clipsToBounds = true
         }
     }
-
+    
     func setTapButtonsIsSelected() {
         allowServiceButton.rx.tap.subscribe(onNext: { [weak self] in
             if let serviceButton = self?.allowServiceButton {
@@ -177,23 +181,23 @@ final class SignUpViewController: UIViewController {
                 self?.isCheckLogInButtonLogic()
             }
         }).disposed(by: disposeBag)
-
+        
         allowPrivacyButton.rx.tap.subscribe(onNext: { [weak self] in
             if let privacyButton = self?.allowPrivacyButton {
                 if privacyButton.isSelected {
                     privacyButton.isSelected = false
                 }else {
                     privacyButton.isSelected = true
-//                    let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
-//                    serviceInformationViewController.typeCheck = "Privacy"
-//                    serviceInformationViewController.modalPresentationStyle = .pageSheet
-//                    self?.present(serviceInformationViewController, animated: true, completion: nil)
+                    //                    let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+                    //                    serviceInformationViewController.typeCheck = "Privacy"
+                    //                    serviceInformationViewController.modalPresentationStyle = .pageSheet
+                    //                    self?.present(serviceInformationViewController, animated: true, completion: nil)
                 }
                 self?.isCheckingEveryAgreeButton()
                 self?.isCheckLogInButtonLogic()
             }
         }).disposed(by: disposeBag)
-
+        
         allowMarketingButton?.rx.tap.subscribe(onNext: { [weak self] in
             if let marketingButton = self?.allowMarketingButton {
                 if marketingButton.isSelected {
@@ -207,24 +211,65 @@ final class SignUpViewController: UIViewController {
             }
         }).disposed(by: disposeBag)
     }
+    
+    func setupSignUpServiceInformationTapGesuture() {
+        let servicTapGesture = UITapGestureRecognizer()
+        let privacyTapGesture = UITapGestureRecognizer()
+        let marketingTapGesture = UITapGestureRecognizer()
+        
+        self.allowServicLabel.isUserInteractionEnabled = true
+        self.allowPrivacyLabel.isUserInteractionEnabled = true
+        self.allowMarketingLabel?.isUserInteractionEnabled = true
+        
+        self.allowServicLabel.addGestureRecognizer(servicTapGesture)
+        self.allowPrivacyLabel.addGestureRecognizer(privacyTapGesture)
+        self.allowMarketingLabel?.addGestureRecognizer(marketingTapGesture)
+        
+        servicTapGesture.rx.event.bind (onNext: { [weak self] recognizer in
+            let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+            serviceInformationViewController.typeCheck = "Service"
+            serviceInformationViewController.modalPresentationStyle = .pageSheet
+            self?.present(serviceInformationViewController, animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+        
+        privacyTapGesture.rx.event.bind (onNext: { [weak self] recognizer in
+            let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+            serviceInformationViewController.typeCheck = "Privacy"
+            serviceInformationViewController.modalPresentationStyle = .pageSheet
+            self?.present(serviceInformationViewController, animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+        
+        marketingTapGesture.rx.event.bind (onNext: { [weak self] recognizer in
+            let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+            serviceInformationViewController.typeCheck = "Marketing"
+            serviceInformationViewController.modalPresentationStyle = .pageSheet
+            self?.present(serviceInformationViewController, animated: true, completion: nil)
+        })
+        .disposed(by: disposeBag)
+    }
+    
     func presentServiceInformationView() {
         let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: nil)
         serviceInformationViewController.typeCheck = "Service"
         serviceInformationViewController.modalPresentationStyle = .pageSheet
         self.present(serviceInformationViewController, animated: true, completion: nil)
     }
+    
     @IBAction func touchUpPopButton(_ sender: Any) {
         coordiNator?.popViewController()
     }
-
+    
     func isCheckingEveryAgreeButton() {
         if allowServiceButton.isSelected == false || allowPrivacyButton.isSelected == false || allowMarketingButton?.isSelected == false {
             self.everyAgreeButton.isSelected = false
         }
     }
+    
     func isCheckLogInButtonLogic() {
         let nickNameCheckValue: Int? = viewModel?.isValidNickNameNumber
-
+        
         if allowServiceButton.isSelected && allowPrivacyButton.isSelected && nickNameCheckValue == 1 {
             logInButton.isEnabled = true
             logInButton.backgroundColor = UIColor.vinylaMainOrangeColor()
@@ -235,11 +280,11 @@ final class SignUpViewController: UIViewController {
             logInButton.setTitleColor(.white, for: .normal)
         }
     }
-
+    
     @IBAction func touchUpNickNameCheckButton() {
         print("touchUpNickNameCheckButton")
     }
-
+    
     @IBAction func touchUpLogInButton(_ sender: Any) {
         self.viewModel?.requestCreateUser()
     }
@@ -253,16 +298,13 @@ final class SignUpViewController: UIViewController {
         self.viewModel?.isAllowMarketing.onNext(1)
         isCheckLogInButtonLogic()
     }
-    @IBAction func touchUpTestButton(_ sender: UIButton) {
-        viewModel?.testStreamMethod()
-    }
-
+    
 }
 
 
 extension SignUpViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
+        
         guard let text = nickNameTextField.text else { return false }
         //키보드 delete버튼 활성화
         if string.isEmpty {
@@ -271,10 +313,10 @@ extension SignUpViewController: UITextFieldDelegate {
         if text.count >= 20 {
             return false
         }
-
+        
         let invalidCharacters =
-            CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted
-          return (string.rangeOfCharacter(from: invalidCharacters) == nil)
+        CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅃㅆㅉㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢ").inverted
+        return (string.rangeOfCharacter(from: invalidCharacters) == nil)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.nickNameTextField.resignFirstResponder()
