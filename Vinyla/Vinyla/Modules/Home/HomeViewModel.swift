@@ -70,6 +70,7 @@ final class HomeViewModel: HomeViewModelProtocol {
 //                        self?.isSyncVinylBox.onNext(true)
 //                })
 //                .delay(.seconds(1), scheduler: MainScheduler.instance)
+                .retry(3)
                 .subscribe(onNext:{ [weak self] data in
                     CoreDataManager.shared.clearAllObjectEntity("VinylBox")
                     print("내부데이터 전체 삭제 + Thread",Thread.isMainThread)
