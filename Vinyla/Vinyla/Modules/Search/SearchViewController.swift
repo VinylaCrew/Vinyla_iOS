@@ -305,7 +305,7 @@ final class SearchViewController: UIViewController {
             .subscribe(onNext: { [weak self] model in
                 self?.coordiNator?.moveToAddInformationView(
                     vinylID: model.id,
-                    vinylImageURL: model.thumb,
+                    vinylTthumbURL: model.thumb,
                     isDeleteMode: false
                 )
             })
