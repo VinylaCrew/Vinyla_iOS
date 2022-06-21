@@ -130,7 +130,7 @@ final class AddReviewViewController: UIViewController {
         songTitleNameLabel.text = viewModel.model.title
         songArtistLabel.text = viewModel.model.artist
         songRateLabel.text = String(round(viewModel.songRate ?? 0)) + " (\(viewModel.songRateCount ?? 0)건)"
-        vinylImageView.setImageChache(imageURL: (viewModel.model.image))
+        vinylImageView.setImageURLAndChaching((viewModel.thumbnailImage ?? ""))
 
         reviewTextView.rx.text
             .orEmpty
@@ -269,6 +269,10 @@ final class AddReviewViewController: UIViewController {
                     self?.coordinator?.setupToast(message: "   필수항목(추천지수)을 입력해 주세요.   ", title: nil)
                 }
                 
+                if error == NetworkError.alreadyExistedVinylError {
+                    self?.coordinator?.setupToast(message: "   이미 저장된 바이닐입니다.   ", title: nil)
+                }
+                
             })
             .disposed(by: disposeBag)
     }
@@ -283,14 +287,24 @@ final class AddReviewViewController: UIViewController {
 //            print("vinyl image error")
 //            return
 //        }
+        
+        guard let tthumnailVinylImageData = vinylImageView.image?.jpegData(compressionQuality: 1) else {
+            self.coordinator?.setupToast(message: "   바이닐 저장 실패, 다시 시도해 주세요.   ", title: nil)
+            return
+        }
 
         let chekedCompletedispatchGroup = DispatchGroup()
         chekedCompletedispatchGroup.enter()
-        viewModel?.requestSaveVinylData(dispatchGroup: chekedCompletedispatchGroup)
+        viewModel?.requestSaveVinylData(tthumbailVinylImageData: tthumnailVinylImageData, reviewVCDispatchGroup: chekedCompletedispatchGroup)
         chekedCompletedispatchGroup.notify(queue: .main){ [weak self] in
-            self?.coordinator?.popToVinylBoxView()
-            self?.coordinator?.setupToast(message: "   바이닐이 저장되었습니다.   ", title: nil)
+            if CoreDataManager.shared.isSavedSpecificVinyl {
+                self?.coordinator?.popToVinylBoxView()
+                self?.coordinator?.setupToast(message: "   바이닐이 저장되었습니다.   ", title: nil)
+            } else {
+                self?.coordinator?.setupToast(message: "   바이닐 저장 실패, 다시 시도해 주세요.   ", title: nil)
+            }
         }
+        
     }
 }
 
