@@ -17,11 +17,12 @@ final class ServiceInformationViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        typeCheck = "Service"
     }
     
     required init?(coder aCorder: NSCoder) {
         super.init(coder: aCorder)
-
+        print("Not Used required init")
     }
     
     override func viewDidLoad() {
@@ -33,16 +34,23 @@ final class ServiceInformationViewController: UIViewController {
         privacyInformationButton.setTitleColor(.white, for: .selected)
         privacyInformationButton.setBackgroundColor(.black, for: .selected)
         privacyInformationButton.setBackgroundColor(.black, for: .normal)
+        
+        marketingButton.setTitleColor(.white, for: .selected)
+        marketingButton.setBackgroundColor(.black, for: .selected)
+        marketingButton.setBackgroundColor(.black, for: .normal)
+        
         serviceInformationTextView.isEditable = false
-
+        
         if typeCheck == "Service" {
             serviceButton.isSelected = true
             self.serviceInformationTextView.text = "Service 약관"
-        }else {
+        }else if typeCheck == "Privacy" {
             privacyInformationButton.isSelected = true
             self.serviceInformationTextView.text = "Privacy 약관"
+        }else {
+            marketingButton.isSelected = true
+            self.serviceInformationTextView.text = "Marketing 약관"
         }
-        
 
     }
     
@@ -51,6 +59,7 @@ final class ServiceInformationViewController: UIViewController {
         if serviceButton.isSelected == false {
             serviceButton.isSelected = true
             privacyInformationButton.isSelected = false
+            marketingButton.isSelected = false
         }
 
         self.serviceInformationTextView.text = """
@@ -207,13 +216,27 @@ final class ServiceInformationViewController: UIViewController {
         - 이 약관은 2021년 9월 1일 부터 적용됩니다.
         """
     }
+    
     @IBAction func touchUPPrivacyButton(_ sender: Any) {
         if privacyInformationButton.isSelected == false {
             privacyInformationButton.isSelected = true
             serviceButton.isSelected = false
+            marketingButton.isSelected = false
         }
+        
+        self.serviceInformationTextView.text = "개인 정보"
     }
-
+    
+    @IBAction func touchupMarketingButton(_ sender: Any) {
+        if marketingButton.isSelected == false {
+            marketingButton.isSelected = true
+            serviceButton.isSelected = false
+            privacyInformationButton.isSelected = false
+        }
+        
+        self.serviceInformationTextView.text = "마케팅 동의"
+    }
+    
     @IBAction func touchUPDismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
