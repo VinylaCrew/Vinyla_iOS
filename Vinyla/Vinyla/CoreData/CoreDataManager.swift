@@ -27,6 +27,7 @@ final class CoreDataManager {
         return newbackgroundContext
     }()
     private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
+    private(set) var isSavedSpecificVinyl: Bool = false
 
     func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
         backgroundContext.perform { [weak self] in
@@ -86,14 +87,19 @@ final class CoreDataManager {
                 vinylBoxInstance.songTitle = songTitle
                 vinylBoxInstance.vinylImage = vinylImage
                 vinylBoxInstance.vinylID = vinylID
-
-                try self?.backgroundContext.save()
-                dispatchGroup.leave()
+                
+                if myBackgroundContext.hasChanges {
+                    try self?.backgroundContext.save()
+                    self?.isSavedSpecificVinyl = true
+                    dispatchGroup.leave()
+                }
             } catch {
                 print("CoreData Error:",error.localizedDescription)
+                self?.isSavedSpecificVinyl = false
                 dispatchGroup.leave()
             }
         }
+        
     }
     
     func saveImage(data: Data) {
