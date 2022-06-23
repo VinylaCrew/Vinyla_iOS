@@ -47,6 +47,12 @@ final class AppCoordinator {
                     print(model)
                     VinylaUserManager.vinylaToken = model.data?.token
                     VinylaUserManager.nickname = model.data?.nickname
+                    if let eventAgree = model.data?.subscribeAgreed, eventAgree == 1 {
+                        VinylaUserManager.eventSubscribeAgreed = true
+                    } else {
+                        VinylaUserManager.eventSubscribeAgreed = false
+                    }
+                    
                     self?.isLogIn = true
                     self?.start()
                 }, onError: { [weak self] error in
@@ -152,10 +158,10 @@ final class AppCoordinator {
         windowRootViewController.pushViewController(myPageViewController, animated: true)
     }
 
-    func moveToAddInformationView(vinylID: Int?, vinylImageURL: String?, isDeleteMode: Bool) {
+    func moveToAddInformationView(vinylID: Int?, vinylTthumbURL: String?, isDeleteMode: Bool) {
         let addInformationViewModel = AddInformationViewModel()
         addInformationViewModel.model.vinylID = vinylID
-        addInformationViewModel.model.vinylImageURL = vinylImageURL
+        addInformationViewModel.model.vinylImageURL = vinylTthumbURL
         addInformationViewModel.isDeleteMode = isDeleteMode
         let addInformationView = AddInformationViewController.instantiate(viewModel: addInformationViewModel, coordiNator: self)
         guard let windowRootViewController = self.windowRootViewController else { return }
