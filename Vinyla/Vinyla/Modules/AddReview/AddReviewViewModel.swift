@@ -42,40 +42,45 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
         .disposed(by: disposeBag)
     }
 
-    func requestSaveVinylData(dispatchGroup: DispatchGroup) {
+    func requestSaveVinylData(tthumbailVinylImageData: Data, reviewVCDispatchGroup: DispatchGroup) {
         if self.model.comment == "이 음반에 대해 감상평을 솔직하게 남겨주세요." {
             self.model.comment = nil
         }
         
         let saveViynlAPI = APITarget.saveVinyl(vinylData: self.model)
-
+        
         CommonNetworkManager.request(apiType: saveViynlAPI)
             .subscribe(onSuccess: { [weak self] (response: ResponseSaveVinylModel) in
                 print(response)
-                let checkSaveDispatchGroup = DispatchGroup()
 
                 if let vinylIndex = response.data?.vinylIdx {
                     DispatchQueue.global().async() {
-                        checkSaveDispatchGroup.enter()
-                        guard let thumbnailImageURL = self?.thumbnailImage else { return }
-                        guard let insideImageURL = URL(string: thumbnailImageURL) else { return }
-                        let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (data, result, error) in
-                            guard error == nil else {
-                                return
-                            }
-
-                            if let data = data, let vinylImage = UIImage(data: data) {
-                                CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int64(vinylIndex), vinylID: Int64((self?.model.id)!), songTitle: self?.model.title ?? "", singer: self?.model.artist ?? "", vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: checkSaveDispatchGroup)
-                            }
-                        }
-
-                        dataTask.resume()
+                        /// 썸네일 이미지 비동기 통신 삭제
+                        /// 로드된 이미지 데이터 넘겨서 코어데이터에 저장 하도록 변경, 비동기 통신 1개라도 더 줄이기 위해
+                        ///
+//                        guard let thumbnailImageURL = self?.thumbnailImage else { return }
+//                        guard let insideImageURL = URL(string: thumbnailImageURL) else { return }
+//                        let dataTask = URLSession.shared.dataTask(with: insideImageURL) { (data, result, error) in
+//                            guard error == nil else {
+//                                return
+//                            }
+//
+//                            if let data = data, let vinylImage = UIImage(data: data) {
+                                CoreDataManager.shared.saveVinylBoxWithDispatchGroup(
+                                    vinylIndex: Int64(vinylIndex),
+                                    vinylID: Int64((self?.model.id)!),
+                                    songTitle: self?.model.title ?? "",
+                                    singer: self?.model.artist ?? "",
+                                    vinylImage: tthumbailVinylImageData,//vinylImage.jpegData(compressionQuality: 1)!,
+                                    dispatchGroup: reviewVCDispatchGroup
+                                )
+//                            }
+//                        }
+//
+//                        dataTask.resume()
                     }
                 }
 
-                checkSaveDispatchGroup.notify(queue: .global()) {
-                    dispatchGroup.leave()
-                }
             },onError: { [weak self] error in
                 guard let vinylNetworkError = error as? NetworkError else { return }
                 self?.apiError.accept(vinylNetworkError)
