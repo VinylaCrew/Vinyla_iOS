@@ -152,6 +152,7 @@ final class HomeViewController: UIViewController {
             VinylaUserManager.explainHomeButton = true
             self.coachMarksController.start(in: .window(over: self))
         }
+        
     }
 
     override func viewWillLayoutSubviews() {
