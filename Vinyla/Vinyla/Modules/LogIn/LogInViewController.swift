@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Firebase
 import GoogleSignIn
 import AuthenticationServices
@@ -30,14 +31,14 @@ final class LogInViewController: UIViewController {
         viewController.coordinator = coordiNator
         return viewController
     }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        print("required init")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDidLoad()")
-
+        self.facebookLogInButton.isHidden = true
         setupUI()
         
         //self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
@@ -64,6 +65,7 @@ final class LogInViewController: UIViewController {
         if let currentUser = Auth.auth().currentUser {
             print("current user uid:",currentUser.uid)
         }
+        
     }
     
     func setupUI() {
@@ -110,6 +112,11 @@ final class LogInViewController: UIViewController {
                             .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                                 VinylaUserManager.vinylaToken = model.data?.token
                                 VinylaUserManager.nickname = model.data?.nickname
+                                if let eventAgree = model.data?.subscribeAgreed, eventAgree == 1 {
+                                    VinylaUserManager.eventSubscribeAgreed = true
+                                } else {
+                                    VinylaUserManager.eventSubscribeAgreed = false
+                                }
                                 self?.coordinator?.moveAndSetHomeView()
                             }, onError: { [weak self] error in
                                 self?.coordinator?.moveToSignUPView()
@@ -258,6 +265,11 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                         .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
                             VinylaUserManager.vinylaToken = model.data?.token
                             VinylaUserManager.nickname = model.data?.nickname
+                            if let eventAgree = model.data?.subscribeAgreed, eventAgree == 1 {
+                                VinylaUserManager.eventSubscribeAgreed = true
+                            } else {
+                                VinylaUserManager.eventSubscribeAgreed = false
+                            }
                             self?.coordinator?.moveAndSetHomeView()
                         }, onError: { [weak self] error in
                             self?.coordinator?.moveToSignUPView()
@@ -287,7 +299,7 @@ extension LogInViewController {
     }
 }
 
-extension LogInViewController : ASAuthorizationControllerPresentationContextProviding {
+extension LogInViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
