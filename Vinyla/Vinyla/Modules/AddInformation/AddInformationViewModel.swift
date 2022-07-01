@@ -12,7 +12,7 @@ final class AddInformationViewModel {
     var model: AddInformationModel
     var isDeleteMode: Bool?
     //vinyl 상세 데이터 정보 (Server 바이닐 저장 Request에 필요 정보)
-    var vinylInformationDataModel: VinylInformation.Data?
+    var vinylStoredDataModel: VinylInformation.Data?
     var vinylInformationData: PublishSubject<VinylInformation.Data?> = PublishSubject<VinylInformation.Data?>()
     var vinylInformationService: VinylAPIServiceProtocol
 
@@ -27,15 +27,20 @@ final class AddInformationViewModel {
 //            .disposed(by: disposeBag)
     }
 
-    func fetchVinylInformation() {
+    func requestVinylInformation() {
         print("model.viynlID: ",self.model.vinylID)
         
         self.vinylInformationService.requestVinylDetail(vinylID: model.vinylID)
-            .do(onNext:{ [weak self] data in
-                self?.vinylInformationDataModel = data
-            })
-            .bind(to: vinylInformationData)
-            .disposed(by: disposeBag)
+                .subscribe(onNext: { [weak self] data in
+                    /// vinyl data 저장을 위한 모델
+                    self?.vinylStoredDataModel = data
+                    /// subscribe vinyl data
+                    self?.vinylInformationData.onNext(data)
+                }, onError: { error in
+                    self.vinylInformationData.onNext(nil)
+                })
+           .disposed(by: disposeBag)
+
     }
 
     func deleteVinylBoxData(deleteDispatchGroup: DispatchGroup) {
@@ -55,7 +60,6 @@ final class AddInformationViewModel {
                 CoreDataManager.shared.deleteVinyl(vinylID: Int64(vinylID), dispatchGroup: deleteDispatchGroup)
             }, onError: { error in
                 print(error)
-                deleteDispatchGroup.leave()
             })
             .disposed(by: disposeBag)
 
