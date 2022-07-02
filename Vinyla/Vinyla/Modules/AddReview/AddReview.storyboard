@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="something" translatesAutoresizingMaskIntoConstraints="NO" id="jEN-0x-qAb">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jEN-0x-qAb">
                                 <rect key="frame" x="15" y="116" width="77" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="6Mb-qp-2RQ"/>
@@ -399,7 +399,6 @@
     <resources>
         <image name="icnBtnBack" width="11" height="16"/>
         <image name="icnStar" width="14" height="13"/>
-        <image name="something" width="350" height="350"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
