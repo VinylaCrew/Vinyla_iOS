@@ -88,7 +88,12 @@ final class MyPageViewController: UIViewController {
         
         self.serviceInformationButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                let serviceInformationViewController = ServiceInformationViewController(nibName: "ServiceInformationViewController", bundle: Bundle(for: ServiceInformationViewController.self))
+                
+                let serviceInformationViewController = ServiceInformationViewController(
+                    nibName: "ServiceInformationViewController",
+                    bundle: Bundle(for: ServiceInformationViewController.self)
+                )
+                
                 serviceInformationViewController.modalPresentationStyle = .pageSheet
                 self?.present(serviceInformationViewController, animated: true, completion: nil)
             })
