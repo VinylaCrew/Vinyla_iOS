@@ -36,10 +36,12 @@ final class AppCoordinator {
         if let currentUser = Auth.auth().currentUser, VinylaUserManager.isFirstLogin == false {
             
             guard let firebaseID = Auth.auth().currentUser?.uid else { return }
-            guard let fcmToken = VinylaUserManager.fcmToken else { print("fcmToken guard let error",VinylaUserManager.fcmToken)
-                return }
+            guard let fcmToken = VinylaUserManager.fcmToken else {
+                print("fcmToken guard let error",VinylaUserManager.fcmToken)
+                return
+            }
             print("coordinator userID:",currentUser.uid)
-            //            guard let vinylaUserToken = UserDefaults.standard.string(forKey: UserDefaultsKey.vinylaToken) else { return }
+            
             let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: fcmToken))
             
             _ = CommonNetworkManager.request(apiType: logInAPITarget)
@@ -61,7 +63,7 @@ final class AppCoordinator {
                 })
                 .disposed(by: disposeBag)
             
-        }else {
+        } else {
             self.isLogIn = false
             self.start()
         }
