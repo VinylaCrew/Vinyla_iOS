@@ -78,6 +78,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                     print(myVinylData)
 
                     for item in myVinylData {//역순으로오면 , 여기서 역순으로 코어데이터에 저장하면 기존 로직 변경하지않아도됨
+                        
                         if let myVinylImageURL = item.imageURL {
 
                             dispatchGroup.enter()
@@ -91,7 +92,14 @@ final class HomeViewModel: HomeViewModelProtocol {
 
                                     if let data = data, let vinylImage = UIImage(data: data) {
                                         print("데이터 VM 저장 호출(이미지URL ON)",item.title,vinylImage)
-                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(vinylIndex: Int64(item.vinylIdx), vinylID: Int64(item.id), songTitle: item.title, singer: item.artist, vinylImage: vinylImage.jpegData(compressionQuality: 1)!, dispatchGroup: dispatchGroup)
+                                        CoreDataManager.shared.saveVinylBoxWithDispatchGroup(
+                                            vinylIndex: Int64(item.timestampIdx),
+                                            vinylID: Int64(item.id),
+                                            songTitle: item.title,
+                                            singer: item.artist,
+                                            vinylImage: vinylImage.jpegData(compressionQuality: 1)!,
+                                            dispatchGroup: dispatchGroup
+                                        )
                                     }else {//썸네일 URL은 있으나, 이미지 변경 등의 이유로 삭제된 경우
                                         print("thumbnail image doesn't exist error")
                                         dispatchGroup.leave()
@@ -106,6 +114,10 @@ final class HomeViewModel: HomeViewModelProtocol {
                             print("데이터 VM 저장 호출(이미지URL OFF)",item.title)
                             CoreDataManager.shared.saveVinylBoxWithIndex(vinylIndex: Int64(item.vinylIdx), songTitle: item.title, singer: item.artist, vinylImage: baseImage)
                         }
+                        
+                        /// 바이닐 저장시 다음 저장 인덱스 계산을 위해서 필요
+                        VinylaUserManager.userVinylIndex = max(VinylaUserManager.userVinylIndex ?? 0, item.timestampIdx)
+                        
                     }
 
                     dispatchGroup.notify(queue: .global()) {
