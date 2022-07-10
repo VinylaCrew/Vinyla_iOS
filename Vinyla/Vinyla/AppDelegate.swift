@@ -145,6 +145,7 @@ extension AppDelegate {
 //            firstrun
             VinylaUserManager.explainInstagramShare = false
             VinylaUserManager.explainHomeButton = false
+            VinylaUserManager.userVinylIndex = 0
         } else if versionOfLastRun != currentAppVersion {
 //            updated
         } else {
