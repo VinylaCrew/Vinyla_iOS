@@ -42,9 +42,25 @@ final class VinylaUserManager {
     @UserDefault(key: UserDefaultsKey.eventSubscribeAgreed)
     static var eventSubscribeAgreed: Bool?
     
+    @UserDefault(key: UserDefaultsKey.userVinylIndex)
+    static var userVinylIndex: Int?
+    
     static var hasToken: Bool {
         return VinylaUserManager.vinylaToken != nil
     }
+    
+    /// Firebase Auth
+    @UserDefault(key: UserDefaultsKey.googleAccessToken)
+    static var googleAccessToken: String?
+    
+    @UserDefault(key: UserDefaultsKey.googleIdToken)
+    static var googleIdToken: String?
+    
+    @UserDefault(key: UserDefaultsKey.appleIdToken)
+    static var appleIdToken: String?
+    
+    @UserDefault(key: UserDefaultsKey.appleNonce)
+    static var appleNonce: String?
     
     static func clearAllUserSetting() {
         //fcmToken은 nil 처리하면 안됨, 앱실행시 한번 호출 되므로
@@ -55,5 +71,11 @@ final class VinylaUserManager {
         self.firebaseUID = nil
         self.loginSNSCase = nil
         self.eventSubscribeAgreed = nil
+        self.userVinylIndex = 0
+        
+        self.googleAccessToken = nil
+        self.googleIdToken = nil
+        self.appleIdToken = nil
+        self.appleNonce = nil
     }
 }

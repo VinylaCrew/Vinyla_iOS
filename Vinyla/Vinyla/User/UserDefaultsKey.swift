@@ -11,7 +11,6 @@ struct UserDefaultsKey {
     static let vinylaToken = "VinylaToken"
     static let initIsFirstLogIn = "IsFirstLogin"
     static let userNickName = "UserNickName"
-    static let firebaseAccessToken = "FirebaseAccessToken"
     static let myVinylIndex = "MyVinylIndex"
     static let firebaseUID = "firebaseUID"
     static let loginCase = "loginCase"
@@ -21,4 +20,11 @@ struct UserDefaultsKey {
     static let explainInstagramShare = "ExplainInstagramShare"
     static let bundleShortVersionString = "CFBundleShortVersionString"
     static let eventSubscribeAgreed = "EventSubscribeAgreed"
+    static let userVinylIndex = "UserVinylIndex"
+    
+    /// Firebase Auth Key
+    static let googleAccessToken = "GoogleAccessToken"
+    static let googleIdToken = "GoogleIdToken"
+    static let appleIdToken = "AppleIdToekn"
+    static let appleNonce = "AppleNonce"
 }
