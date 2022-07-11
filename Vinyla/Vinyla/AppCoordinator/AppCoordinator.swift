@@ -170,9 +170,10 @@ final class AppCoordinator {
         windowRootViewController.pushViewController(addInformationView, animated: true)
     }
 
-    func moveToAddInformationViewWithIndex(vinylIndex: Int,vinylID: Int?, vinylImage: Data?, isDeleteMode: Bool) {
+    func moveToAddInformationViewWithIndex(uniqueIndex: Int, vinylIndex: Int,vinylID: Int?, vinylImage: Data?, isDeleteMode: Bool) {
         let addInformationViewModel = AddInformationViewModel()
         addInformationViewModel.model.vinylID = vinylID
+        addInformationViewModel.model.uniqueIndex = uniqueIndex
         addInformationViewModel.model.vinylIndex = vinylIndex
         addInformationViewModel.model.vinylThumbnailImage = vinylImage
         addInformationViewModel.isDeleteMode = isDeleteMode
