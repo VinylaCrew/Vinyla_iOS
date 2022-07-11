@@ -13,6 +13,7 @@ struct AddInformationModel {
     var vinylThumbnailImage: Data?
     var vinylID: Int?
     var vinylIndex: Int?
+    var uniqueIndex: Int?
     var vinylTrackList: [String?]
     
     init() {
