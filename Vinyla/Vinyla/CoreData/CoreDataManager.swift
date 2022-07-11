@@ -29,29 +29,6 @@ final class CoreDataManager {
     private(set) var isDeletedSpecificVinyl: BehaviorSubject<Bool> = BehaviorSubject(value: false)
     private(set) var isSavedSpecificVinyl: Bool = false
 
-    func saveVinylBox(songTitle: String, singer: String, vinylImage: Data) {
-        backgroundContext.perform { [weak self] in
-
-            do {
-                guard let myBackgroundContext = self?.backgroundContext else {
-                    return
-                }
-                let vinylBoxInstance = VinylBox(context: myBackgroundContext)
-                vinylBoxInstance.singer = singer
-                vinylBoxInstance.songTitle = songTitle
-                vinylBoxInstance.vinylImage = vinylImage
-                if Thread.isMainThread {
-                    print("Save: MainThread")
-                }else {
-                    print("Save: BackgroundThread")
-                }
-                try self?.backgroundContext.save()
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
-
     func saveVinylBoxWithIndex(vinylIndex: Int64, songTitle: String, singer: String, vinylImage: Data) {
 
         backgroundContext.perform { [weak self] in
@@ -73,7 +50,7 @@ final class CoreDataManager {
         }
     }
 
-    func saveVinylBoxWithDispatchGroup(vinylIndex: Int64,vinylID: Int64, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
+    func saveVinylBoxWithDispatchGroup(uniqueIndex: Int64, vinylIndex: Int64, vinylID: Int64, songTitle: String, singer: String, vinylImage: Data, dispatchGroup: DispatchGroup) {
 
         backgroundContext.perform { [weak self] in
 
@@ -82,6 +59,9 @@ final class CoreDataManager {
                     return
                 }
                 let vinylBoxInstance = VinylBox(context: myBackgroundContext)
+                /// 바이닐 서버에 저장된 고유한 Index
+                vinylBoxInstance.uniqueIndex = uniqueIndex
+                /// 내부 바이닐 데이터 저장된 Index 순서
                 vinylBoxInstance.index = vinylIndex
                 vinylBoxInstance.singer = singer
                 vinylBoxInstance.songTitle = songTitle
