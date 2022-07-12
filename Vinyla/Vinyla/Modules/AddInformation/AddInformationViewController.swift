@@ -189,7 +189,7 @@ final class AddInformationViewController: UIViewController {
         super.viewDidAppear(animated)
         print("viewDidAppear",viewModel?.model.vinylTrackList,viewModel?.model.vinylTitleSong)
         
-        if viewModel?.model.vinylIndex == VinylaUserManager.myVInylIndex {
+        if viewModel?.model.uniqueIndex == VinylaUserManager.myVInylIndex {
             self.blurCircleView.setFavoriteImageButton.isSelected = true
         }
     }
