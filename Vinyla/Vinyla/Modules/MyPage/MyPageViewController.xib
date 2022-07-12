@@ -22,6 +22,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyPageViewController" customModule="Vinyla" customModuleProvider="target">
             <connections>
                 <outlet property="appVersionLabel" destination="dO0-Cd-JOH" id="pwp-wc-JoZ"/>
+                <outlet property="contactButton" destination="SDg-ug-jmZ" id="0aw-qV-8Yk"/>
                 <outlet property="loginUserImageView" destination="riQ-Wt-GWD" id="3Qg-bm-FNn"/>
                 <outlet property="loginUserLabel" destination="DWQ-n3-yoI" id="Ocw-TZ-g4S"/>
                 <outlet property="logoutButton" destination="cdM-fu-UTm" id="sqB-TX-sH1"/>
