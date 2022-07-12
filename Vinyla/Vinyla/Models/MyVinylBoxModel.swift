@@ -26,10 +26,12 @@ struct MyVinyl: Codable {
     let imageURL: String?
     let artist: String
     let id: Int
+    let timestampIdx: Int
 
     enum CodingKeys: String, CodingKey {
         case vinylIdx, title
         case imageURL = "imageUrl"
         case artist, id
+        case timestampIdx
     }
 }
