@@ -12,7 +12,7 @@ final class AddInformationViewModel {
     var model: AddInformationModel
     var isDeleteMode: Bool?
     //vinyl 상세 데이터 정보 (Server 바이닐 저장 Request에 필요 정보)
-    var vinylStoredDataModel: VinylInformation.Data?
+    private(set) var vinylStoredDataModel: VinylInformation.Data?
     var vinylInformationData: PublishSubject<VinylInformation.Data?> = PublishSubject<VinylInformation.Data?>()
     var vinylInformationService: VinylAPIServiceProtocol
 
@@ -66,15 +66,15 @@ final class AddInformationViewModel {
     }
 
     func requestRegisterMyVinyl(dispatchGroup: DispatchGroup) {
-        guard let vinylIndex = model.vinylIndex else { return }
-        let myVinylData = MyVinylRequest(vinylIdx: vinylIndex)
+        guard let uniqueIndex = model.uniqueIndex else { return }
+        let myVinylData = MyVinylRequest(vinylIdx: uniqueIndex)
         let registerMyVinylAPI = APITarget.registerMyVinyl(vinylData: myVinylData)
 
         CommonNetworkManager.request(apiType: registerMyVinylAPI)
             .subscribe(onSuccess: { (response: MyVinylResponse) in
                 print(response)
                 if response.message == "대표 바이닐 설정 성공" {
-                    VinylaUserManager.myVInylIndex = vinylIndex
+                    VinylaUserManager.myVInylIndex = uniqueIndex
                 }
                 if response.message == "대표 바이닐 취소 성공" {
                     VinylaUserManager.myVInylIndex = -1
