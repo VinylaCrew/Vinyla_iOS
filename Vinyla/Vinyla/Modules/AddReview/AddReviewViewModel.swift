@@ -66,8 +66,14 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
 //                            }
 //
 //                            if let data = data, let vinylImage = UIImage(data: data) {
+                        
+                        /// 로컬 VinylIndex +1 로직과정
+                        guard let localVinylIndex = VinylaUserManager.userVinylIndex else { return }
+                        VinylaUserManager.userVinylIndex = localVinylIndex + 1
+                        
                                 CoreDataManager.shared.saveVinylBoxWithDispatchGroup(
-                                    vinylIndex: Int64(vinylIndex),
+                                    uniqueIndex: Int64(vinylIndex),
+                                    vinylIndex: Int64(localVinylIndex + 1),
                                     vinylID: Int64((self?.model.id)!),
                                     songTitle: self?.model.title ?? "",
                                     singer: self?.model.artist ?? "",
