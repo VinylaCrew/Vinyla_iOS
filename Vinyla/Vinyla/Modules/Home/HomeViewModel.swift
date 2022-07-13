@@ -93,6 +93,7 @@ final class HomeViewModel: HomeViewModelProtocol {
                                     if let data = data, let vinylImage = UIImage(data: data) {
                                         print("데이터 VM 저장 호출(이미지URL ON)",item.title,vinylImage)
                                         CoreDataManager.shared.saveVinylBoxWithDispatchGroup(
+                                            uniqueIndex: Int64(item.vinylIdx),
                                             vinylIndex: Int64(item.timestampIdx),
                                             vinylID: Int64(item.id),
                                             songTitle: item.title,
