@@ -22,6 +22,9 @@ struct UserDefaultsKey {
     static let eventSubscribeAgreed = "EventSubscribeAgreed"
     static let userVinylIndex = "UserVinylIndex"
     
+    /// AppStore Review
+    static let appStoreReviewDate = "AppStoreReviewDate"
+    
     /// Firebase Auth Key
     static let googleAccessToken = "GoogleAccessToken"
     static let googleIdToken = "GoogleIdToken"

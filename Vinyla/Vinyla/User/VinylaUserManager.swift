@@ -49,6 +49,10 @@ final class VinylaUserManager {
         return VinylaUserManager.vinylaToken != nil
     }
     
+    /// AppStore Review
+    @UserDefault(key: UserDefaultsKey.appStoreReviewDate)
+    static var appStoreReviewDate: String?
+    
     /// Firebase Auth
     @UserDefault(key: UserDefaultsKey.googleAccessToken)
     static var googleAccessToken: String?
@@ -72,6 +76,9 @@ final class VinylaUserManager {
         self.loginSNSCase = nil
         self.eventSubscribeAgreed = nil
         self.userVinylIndex = 0
+        
+//        의도적으로 ReviewDate는 nil 하지 않음
+//        self.appStoreReviewDate
         
         self.googleAccessToken = nil
         self.googleIdToken = nil
