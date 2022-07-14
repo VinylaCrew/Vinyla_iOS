@@ -93,6 +93,7 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
 
         /// 썸네일 이미지 추가
         self.coordinator?.moveToAddInformationViewWithIndex(
+            uniqueIndex: Int(nineVinylItems[indexPath.row].uniqueIndex),
             vinylIndex: Int(nineVinylItems[indexPath.row].index),
             vinylID: Int(nineVinylItems[indexPath.row].vinylID),
             vinylImage: nineVinylItems[indexPath.row].vinylImage,
