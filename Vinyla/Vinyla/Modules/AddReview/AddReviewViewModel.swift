@@ -54,6 +54,11 @@ final class AddReviewViewModel: AddReviewViewModelProtocol {
                 print(response)
 
                 if let vinylIndex = response.data?.vinylIdx {
+                    
+                    if self?.model.rate == 10 {
+                        UIApplication.requestAppStoreReviewIfNeed()
+                    }
+                    
                     DispatchQueue.global().async() {
                         /// 썸네일 이미지 비동기 통신 삭제
                         /// 로드된 이미지 데이터 넘겨서 코어데이터에 저장 하도록 변경, 비동기 통신 1개라도 더 줄이기 위해
