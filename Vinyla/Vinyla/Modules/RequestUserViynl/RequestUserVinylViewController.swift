@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Photos
+
 import RxSwift
 import RxCocoa
 
@@ -146,6 +148,50 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
                 }
             })
             .disposed(by: disposeBag)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.requestPhotoAuthorization()
+    }
+    
+    func requestPhotoAuthorization() {
+        
+        if #available(iOS 13, *) {
+            PHPhotoLibrary.requestAuthorization( { status in
+                switch status{
+                case .authorized:
+                    print("Album: 권한 허용")
+                case .denied:
+                    print("Album: 권한 거부")
+                case .restricted, .notDetermined:
+                    print("Album: 선택하지 않음")
+                default:
+                    break
+                }
+            })
+        } else {
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { authorizationStatus in
+                switch authorizationStatus {
+                case .authorized:
+                    print("Album: 권한 허용")
+                    break
+                case .denied:
+                    print("Album: 권한 거부")
+                    break
+                case .limited:
+                    break
+                case .notDetermined:
+                    break
+                case .restricted:
+                    print("user restricted")
+                @unknown default:
+                    print("unknown requestAuthorization")
+                }
+            }
+        }
+        
     }
     
     @objc func touchUPTapGesutre(sender: UITapGestureRecognizer) {
