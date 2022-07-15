@@ -75,30 +75,37 @@ final class LogInViewController: UIViewController {
     }
     @IBAction func touchUPGoogleButton(_ sender: UIButton) {
         VinylaUserManager.loginSNSCase = "Google"
+        self.ShowLoadingIndicator()
         
         if let currentUser = Auth.auth().currentUser {
             self.confirmWithoutRegisterVinylaUser()
             
         }else {
-            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-            print("clientID",clientID)
+            guard let clientID = FirebaseApp.app()?.options.clientID else {
+                self.removeLoadingIndicator()
+                return
+            }
+            
             let signInConfig = GIDConfiguration.init(clientID: clientID)
-            print("signInConfig",signInConfig)
             GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
-                guard error == nil else { return }
+                guard error == nil else {
+                    self.removeLoadingIndicator()
+                    return
+                }
 
                 guard let authentication = user?.authentication else { return }
                 let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken!, accessToken: authentication.accessToken)
                 // access token 부여 받음
 
-                UserDefaults.standard.setValue(authentication.idToken!, forKey: "IdToken")
-                UserDefaults.standard.setValue(authentication.accessToken, forKey: UserDefaultsKey.firebaseAccessToken)
+                VinylaUserManager.googleIdToken = authentication.idToken ?? ""
+                VinylaUserManager.googleAccessToken = authentication.accessToken
 
                 // 파베 인증정보 등록
                 Auth.auth().signIn(with: credential) { result , error in
                     // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                     if let error = error {
                         print ("Error Google sign in: %@", error)
+                        self.removeLoadingIndicator()
                         return
                     }else {
                         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -117,8 +124,11 @@ final class LogInViewController: UIViewController {
                                 } else {
                                     VinylaUserManager.eventSubscribeAgreed = false
                                 }
+                                self?.removeLoadingIndicator()
                                 self?.coordinator?.moveAndSetHomeView()
+                                
                             }, onError: { [weak self] error in
+                                self?.removeLoadingIndicator()
                                 self?.coordinator?.moveToSignUPView()
                             })
                             .disposed(by: self.disposeBag)
@@ -244,9 +254,17 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                 return
             }
             
+            VinylaUserManager.appleNonce = nonce
+//            VinylaUserManager.appleIdToken = appleIDCredential.user
+            
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             
+            
+            
             Auth.auth().signIn(with: credential) { authResult, error in
+                
+                VinylaUserManager.appleIdToken = credential.idToken
+                
                 // User is signed in to Firebase with Apple.
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
@@ -303,4 +321,5 @@ extension LogInViewController: ASAuthorizationControllerPresentationContextProvi
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
     }
+    
 }
