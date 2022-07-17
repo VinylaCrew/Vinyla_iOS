@@ -62,6 +62,13 @@ final class SignUpViewController: UIViewController {
         setupSignUpServiceInformationTapGesuture()
         logInButton.isEnabled = false
         
+        self.logInButton.rx.tap
+            .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] in
+                self?.viewModel?.requestCreateUser()
+            })
+            .disposed(by: disposeBag)
+        
         guard let viewModel = self.viewModel else { return }
         //Instagram ID TextFiedl Bind
         instagramIDTextField.rx.text
@@ -283,10 +290,6 @@ final class SignUpViewController: UIViewController {
     
     @IBAction func touchUpNickNameCheckButton() {
         print("touchUpNickNameCheckButton")
-    }
-    
-    @IBAction func touchUpLogInButton(_ sender: Any) {
-        self.viewModel?.requestCreateUser()
     }
     
     @IBAction func touchUpAllowEveryServiceButton(_ sender: UIButton) {
