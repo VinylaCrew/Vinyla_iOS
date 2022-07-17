@@ -91,7 +91,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     func requestCreateUser() {
-        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let isAllowMarketing = try? self.isAllowMarketing.value() else {
+        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let isAllowMarketing = try? self.isAllowMarketing.value(), let instagramID = try? self.instagramIDText.value() else {
             return
         }
         
@@ -103,7 +103,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         let userData = SignUpRequest(fuid: firebaseUid,
                                      sns: VinylaUserManager.loginSNSCase ?? "",
                                      nickname: nickName,
-                                     instaId: "",
+                                     instaId: instagramID,
                                      fcmToken: fcmToken,
                                      subscribeAgreed: isAllowMarketing)
 
@@ -125,9 +125,6 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
     
     func isValidNickName(_ nickNameText: String) -> Int {
-
-        let validDispatchGroup = DispatchGroup()
-        let myQueue = DispatchQueue(label: "com.io.serial")
 
         let checkArray = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ","ㄲ","ㄸ","ㅃ","ㅆ","ㅉ","ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅐ","ㅒ","ㅔ","ㅖ","ㅘ","ㅙ","ㅚ","ㅝ","ㅞ","ㅟ","ㅢ"]
         var isValidNickName: Bool = true
