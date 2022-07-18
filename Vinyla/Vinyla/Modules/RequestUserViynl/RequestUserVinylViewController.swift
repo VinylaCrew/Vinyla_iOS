@@ -11,7 +11,7 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate{
+class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var artistMentLabel: UILabel!
     @IBOutlet weak var albumNameTextField: UITextField!
@@ -86,7 +86,6 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUPTapGesutre(sender:)))
         imageUPLoadView.addGestureRecognizer(tapGesture)
 
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         let toolBarKeyboard = UIToolbar()
@@ -105,9 +104,16 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         self.selectedImageCloseButton.isHidden = true
         self.selectedUPLoadImageView.isHidden = true
         
+        self.requestUserVinylButton.rx.tap
+            .do(onNext: { [weak self] in self?.ShowLoadingIndicator() })
+            .bind(onNext: { [weak self] in
+                self?.viewModel?.requestUploadUserVinyl()
+            })
+            .disposed(by: disposeBag)
+        
         self.selectedImageCloseButton.rx.tap
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] in
+            .bind(onNext: { [weak self] in
                 self?.selectedImageCloseButton.isHidden = true
                 self?.selectedUPLoadImageView.isHidden = true
                 self?.selectedUPLoadImageView.image = nil
@@ -134,6 +140,8 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         
         viewModel.isUpload
             .subscribe(onNext: { [weak self] isUpload in
+                self?.removeLoadingIndicator()
+                
                 if isUpload {
                     self?.coordinator?.dismissViewControllerWithAlertMessage()
                 }
@@ -142,6 +150,8 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         
         viewModel.apiError
             .subscribe(onNext: { [weak self] error in
+                self?.removeLoadingIndicator()
+                
                 print("ViewModel error", error)
                 if error == .requestDataError {
                     self?.coordinator?.setupToastPresentViewController(message: "   앨범 이름과 이미지, 아티스트명 을 입력해 주세요.   ", title: nil)
@@ -326,10 +336,6 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
                 }
             })
             .disposed(by: disposeBag)
-    }
-    
-    @IBAction func touchUpRequestButton(_ sender: Any) {
-        viewModel?.requestUploadUserVinyl()
     }
     
 }
