@@ -299,4 +299,15 @@ final class AppCoordinator {
         presentedViewController.view.makeToast(message, duration: 1.5, position: .littleupBottom, title: title, style: self.toastStyle)
     }
     
+    func setupToastIndicator() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        
+        windowRootViewController.view.makeToastActivity(.center)
+    }
+    
+    func dismissToastIndicaotr() {
+        guard let windowRootViewController = self.windowRootViewController else { return }
+        
+        windowRootViewController.view.hideAllToasts(includeActivity: true, clearQueue: true)
+    }
 }
