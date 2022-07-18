@@ -52,7 +52,7 @@ final class AddReviewViewController: UIViewController {
         button.tag = 1
         
         // Add an event
-        button.addTarget(self, action: #selector(touchUpSaveBoxButton(_:)), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(touchUpSaveBoxButton(_:)), for: .touchUpInside)
         
         return button
     }()
@@ -144,6 +144,7 @@ final class AddReviewViewController: UIViewController {
         recommendMentLabel.addSubview(pointCircleView)
         setAutoLayoutWhiteCircleView()
         reviewScrollView.delegate = self
+        setupAboutSaveVinylBind()
         setStarUI()
         setCountTextViewInLabel()
         setPlaceholderTextView()
@@ -152,6 +153,40 @@ final class AddReviewViewController: UIViewController {
         setKeyboardDisapperResetOriginalFrame()
         frameControlDidBeginEditing()
         setupBindError()
+    }
+    
+    func setupAboutSaveVinylBind() {
+        self.saveVinylButton.rx.tap
+            .do(onNext: { [weak self] in self?.showLoadingIndicator() })
+            .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] in
+                self?.saveVinylLogic()
+            })
+            .disposed(by: disposeBag)
+                
+        self.viewModel?.isShowLoadingIndicator
+            .subscribe(onNext: { [weak self] isShow in
+                    
+            if isShow {
+                self?.showLoadingIndicator()
+            } else {
+                self?.removeLoadingIndicator()
+            }
+                    
+            })
+            .disposed(by: disposeBag)
+                
+                self.viewModel?.isSavedVinyl
+                .subscribe(onNext: { [weak self] isSaved in
+                    
+                    if isSaved {
+                        self?.coordinator?.popToVinylBoxView()
+                        self?.coordinator?.setupToast(message: "   바이닐이 저장되었습니다.   ", title: nil)
+                    } else {
+                        self?.coordinator?.setupToast(message: "   바이닐 저장 실패, 다시 시도해 주세요.   ", title: nil)
+                    }
+                })
+                .disposed(by: disposeBag)
     }
 
     func setStarUI() {
@@ -265,6 +300,7 @@ final class AddReviewViewController: UIViewController {
     func setupBindError() {
         self.viewModel?.apiError
             .subscribe(onNext:{ [weak self] error in
+                
                 if error == NetworkError.requestDataError {
                     self?.coordinator?.setupToast(message: "   필수항목(추천지수)을 입력해 주세요.   ", title: nil)
                 }
@@ -281,30 +317,14 @@ final class AddReviewViewController: UIViewController {
         coordinator?.popViewController()
     }
     
-    @IBAction func touchUpSaveBoxButton(_ sender: Any) {
-
-//        guard let insideImageURL = URL(string: (viewModel?.model.image)!), let imageData = try? Data(contentsOf: insideImageURL), let vinylImage = UIImage(data: imageData) else {
-//            print("vinyl image error")
-//            return
-//        }
-        
+    func saveVinylLogic() {
         guard let tthumnailVinylImageData = vinylImageView.image?.jpegData(compressionQuality: 1) else {
             self.coordinator?.setupToast(message: "   바이닐 저장 실패, 다시 시도해 주세요.   ", title: nil)
+            self.viewModel?.isShowLoadingIndicator.accept(false)
             return
         }
 
-        let chekedCompletedispatchGroup = DispatchGroup()
-        chekedCompletedispatchGroup.enter()
-        viewModel?.requestSaveVinylData(tthumbailVinylImageData: tthumnailVinylImageData, reviewVCDispatchGroup: chekedCompletedispatchGroup)
-        chekedCompletedispatchGroup.notify(queue: .main){ [weak self] in
-            if CoreDataManager.shared.isSavedSpecificVinyl {
-                self?.coordinator?.popToVinylBoxView()
-                self?.coordinator?.setupToast(message: "   바이닐이 저장되었습니다.   ", title: nil)
-            } else {
-                self?.coordinator?.setupToast(message: "   바이닐 저장 실패, 다시 시도해 주세요.   ", title: nil)
-            }
-        }
-        
+        viewModel?.requestSaveVinylData2(tthumbailVinylImageData: tthumnailVinylImageData)
     }
 }
 
