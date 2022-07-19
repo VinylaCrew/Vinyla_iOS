@@ -202,7 +202,7 @@ final class HomeViewController: UIViewController {
                     print("isSyncVinylBox",isLoading)
                     if isLoading {
                         print("isLoading in VC")
-                        self?.ShowLoadingIndicator()
+                        self?.showLoadingIndicator()
                     }else {
                         print("done Loading in VC")
                         CoreDataManager.shared.printVinylBoxData()
