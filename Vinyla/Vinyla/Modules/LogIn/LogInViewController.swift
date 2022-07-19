@@ -75,7 +75,7 @@ final class LogInViewController: UIViewController {
     }
     @IBAction func touchUPGoogleButton(_ sender: UIButton) {
         VinylaUserManager.loginSNSCase = "Google"
-        self.ShowLoadingIndicator()
+        self.showLoadingIndicator()
         
         if let currentUser = Auth.auth().currentUser {
             self.confirmWithoutRegisterVinylaUser()
@@ -142,6 +142,8 @@ final class LogInViewController: UIViewController {
     
     @IBAction func touchUPAppleLogInButton(_ sender: Any) {
         VinylaUserManager.loginSNSCase = "Apple"
+        
+        self.showLoadingIndicator()
         
         if let currentUser = Auth.auth().currentUser {
             self.confirmWithoutRegisterVinylaUser()
@@ -261,7 +263,9 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
             
             
             
-            Auth.auth().signIn(with: credential) { authResult, error in
+            Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+                
+                guard let self = self else { return }
                 
                 VinylaUserManager.appleIdToken = credential.idToken
                 
@@ -269,10 +273,11 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                 // token을 넘겨주면, 성공했는지 안했는지에 대한 result값과 error값을 넘겨줌
                 if let error = error {
                     print ("Error Apple sign in: %@", error)
+                    self.removeLoadingIndicator()
                     return
                 }else {
-                    guard let userID = Auth.auth().currentUser?.uid else { return }
-                    guard let userEmail = Auth.auth().currentUser?.email else { return }
+                    guard let userID = Auth.auth().currentUser?.uid else { self.removeLoadingIndicator(); return }
+                    guard let userEmail = Auth.auth().currentUser?.email else { self.removeLoadingIndicator(); return }
                     let fcmToken = VinylaUserManager.fcmToken ?? ""
                     
                     VinylaUserManager.firebaseUID = userID
@@ -280,7 +285,7 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                     let logInAPITarget = APITarget.signinUser(userToken: SignInRequest(fuid: VinylaUserManager.firebaseUID ?? "", fcmToken: fcmToken))
                     
                     _ = CommonNetworkManager.request(apiType: logInAPITarget)
-                        .subscribe(onSuccess: { [weak self] (model: SignInResponse) in
+                        .subscribe(onSuccess: { (model: SignInResponse) in
                             VinylaUserManager.vinylaToken = model.data?.token
                             VinylaUserManager.nickname = model.data?.nickname
                             if let eventAgree = model.data?.subscribeAgreed, eventAgree == 1 {
@@ -288,9 +293,13 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
                             } else {
                                 VinylaUserManager.eventSubscribeAgreed = false
                             }
-                            self?.coordinator?.moveAndSetHomeView()
-                        }, onError: { [weak self] error in
-                            self?.coordinator?.moveToSignUPView()
+                            
+                            self.removeLoadingIndicator()
+                            self.coordinator?.moveAndSetHomeView()
+                        }, onError: { error in
+                            
+                            self.removeLoadingIndicator()
+                            self.coordinator?.moveToSignUPView()
                         })
                         .disposed(by: self.disposeBag)
                     
@@ -299,6 +308,36 @@ extension LogInViewController: ASAuthorizationControllerDelegate {
             }
         }
     }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        self.removeLoadingIndicator()
+        
+        guard let error = error as? ASAuthorizationError else {
+            return
+        }
+        
+        switch error.code {
+        case .canceled:
+            // user press "cancel" during the login prompt
+            print("Canceled")
+        case .unknown:
+            // user didn't login their Apple ID on the device
+            print("Unknown")
+        case .invalidResponse:
+            // invalid response received from the login
+            print("Invalid Respone")
+        case .notHandled:
+            // authorization request not handled, maybe internet failure during login
+            print("Not handled")
+        case .failed:
+            // authorization failed
+            print("Failed")
+        @unknown default:
+            print("Default")
+        }
+        
+    }
+    
 }
 
 extension LogInViewController {
