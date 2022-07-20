@@ -10,8 +10,8 @@ import RxSwift
 
 final class VinylBoxViewModel {
 
-    var vinylBoxes = [VinylBox]()
-    var reverseVinylBoxes = [VinylBox]()
+    private var vinylBoxes = [VinylBox]()
+    private var reverseVinylBoxes = [VinylBox]()
 
     var totalPageNumber: Int?
     var nowPageNumber: Int
@@ -92,9 +92,9 @@ final class VinylBoxViewModel {
     func getLevelName() -> Observable<String?> {
         let totalVinylCount = self.getTotalVinylBoxCount()
         switch totalVinylCount {
-        case 0:
+        case 0...1:
             return Observable.just("닐페이스")
-        case 1...9:
+        case 2...9:
             return Observable.just("닐리즈")
         case 10...49:
             return Observable.just("닐스터")
@@ -108,9 +108,9 @@ final class VinylBoxViewModel {
     func getLevelImageName() -> String {
         let totalVinylCount = self.getTotalVinylBoxCount()
         switch totalVinylCount {
-        case 0:
+        case 0...1:
             return "icnHomeLv1"
-        case 1...9:
+        case 2...9:
             return "icnHomeLv2"
         case 10...49:
             return "icnHomeLv3"
