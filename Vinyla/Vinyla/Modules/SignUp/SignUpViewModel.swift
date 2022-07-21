@@ -17,6 +17,7 @@ protocol SignUpViewModelProtocol {
     var checkNickNameNumberSubject: PublishSubject<Int> { get }
     var isCompletedCreateUserRequest: PublishSubject<Bool> { get }
     var isAllowMarketing: BehaviorSubject<Int> { get }
+    var isShowLoadingIndicator: PublishSubject<Bool> { get }
     
     func isValidNickName(_ nickNameText: String) -> Int
     func requestCreateUser() -> Void
@@ -32,6 +33,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     private(set) var isUniqueNickNameSubject = PublishSubject<Int>()
     private(set) var checkNickNameNumberSubject = PublishSubject<Int>()
     private(set) var isCompletedCreateUserRequest = PublishSubject<Bool>()
+    private(set) var isShowLoadingIndicator = PublishSubject<Bool>()
     public private(set) var isValidNickNameNumber: Int? = -1
     private(set) var userNickName: String?
 
@@ -52,11 +54,13 @@ final class SignUpViewModel: SignUpViewModelProtocol {
         _ = self.nicknameText
             //            .filter{ $0.count >= 2}
             //            .filter{ self.isValidNickName($0) == 1}
+            .do(onNext: { [weak self] _ in self?.isShowLoadingIndicator.onNext(true) })
             .flatMapLatest{ [unowned self] userNickname -> Observable<NickNameCheckResponse.Data?> in
                 let nickNameCheckRequest = NickNameCheckRequest(nickname: userNickname)
                 print("signUpAPIService.checkNickName")
                 return self.signUpAPIService.requestCheckNickName(requestModel: nickNameCheckRequest)
             }
+//            .do(onNext: { [weak self] _ in self?.isShowLoadingIndicator.onNext(false) })
             .subscribe(onNext:{ [weak self] data in
                 if let data = data {
                     print(data)
@@ -72,6 +76,7 @@ final class SignUpViewModel: SignUpViewModelProtocol {
             .disposed(by: disposeBag)
 
         _ = Observable.zip(validNickNameNumberSubject,isUniqueNickNameSubject)
+            .do(onNext: { [weak self] _ in self?.isShowLoadingIndicator.onNext(false) })
             .subscribe(onNext:{ [weak self] (a,b) in
                 print("zip test: validNickNameNumberSubject\(a) 서버통신Subject \(b)")
                 if a == 2 {
@@ -91,12 +96,18 @@ final class SignUpViewModel: SignUpViewModelProtocol {
     }
 
     func requestCreateUser() {
-        guard let nickName = self.userNickName, let firebaseUid = Auth.auth().currentUser?.uid, let isAllowMarketing = try? self.isAllowMarketing.value(), let instagramID = try? self.instagramIDText.value() else {
+        guard let nickName = self.userNickName,
+                let firebaseUid = Auth.auth().currentUser?.uid,
+                let isAllowMarketing = try? self.isAllowMarketing.value(),
+                let instagramID = try? self.instagramIDText.value()
+        else {
+            self.isCompletedCreateUserRequest.onNext(false)
             return
         }
         
         guard let fcmToken = VinylaUserManager.fcmToken else {
             print("fcmToken guard let error",VinylaUserManager.fcmToken)
+            self.isCompletedCreateUserRequest.onNext(false)
             return
         }
         
@@ -118,8 +129,9 @@ final class SignUpViewModel: SignUpViewModelProtocol {
                 }
                 
                 self?.isCompletedCreateUserRequest.onNext(true)
-            }, onError: { error in
+            }, onError: { [weak self] error in
                 print(error)
+                self?.isCompletedCreateUserRequest.onNext(false)
             })
             .disposed(by: disposeBag)
     }
