@@ -99,6 +99,7 @@ final class SearchViewController: UIViewController {
         setTableViewCellXib() //rxcocoa도 그대로 사용
         bindCountLabel()
         bindTableView()
+        bindShowIndicator()
         setupDidSelectCell()
         setupInputSongTitleBind()
     }
@@ -149,6 +150,8 @@ final class SearchViewController: UIViewController {
     func setTableViewCellXib() {
         let searchNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
         searchTableView.register(searchNib, forCellReuseIdentifier: "searchTableViewCell")
+        
+        searchTableView.keyboardDismissMode = .onDrag
     }
     
     @IBAction func touchUpViewPopButton(_ sender: UIButton) {
@@ -182,6 +185,23 @@ final class SearchViewController: UIViewController {
         //                }
         //            })
     }
+    
+    func bindShowIndicator() {
+        viewModel?.isSearch
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isShow in
+                switch isShow {
+                case true:
+                    self?.showLoadingIndicator()
+                case false:
+                    self?.removeLoadingIndicator()
+            }
+                
+            })
+            .disposed(by: disposeBag)
+                
+    }
+    
     func bindCountLabel() {
         guard let viewModel = self.viewModel else {
             print("ViewModel error")
@@ -196,6 +216,7 @@ final class SearchViewController: UIViewController {
             .bind(to: vinylCountLabel.rx.text)
             .disposed(by: disposeBag)
     }
+    
     func bindTableView() {
         //        let cities = Observable.of(["Lisbon", "Copenhagen", "London", "Madrid", "Vienna", "Seoul"])
         //        cities.observeOn(MainScheduler.instance)
