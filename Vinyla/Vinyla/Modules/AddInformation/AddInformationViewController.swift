@@ -11,7 +11,7 @@ import RxSwift
 
 final class AddInformationViewController: UIViewController {
     
-    lazy var deleteVinylButton: UIButton = {
+    private lazy var deleteVinylButton: UIButton = {
         let button = UIButton()
         
         let width: CGFloat = self.view.bounds.width-30
@@ -41,7 +41,7 @@ final class AddInformationViewController: UIViewController {
         return button
     }()
     
-    lazy var saveInformationButton: UIButton = {
+    private lazy var saveInformationButton: UIButton = {
         let button = UIButton()
         
         // Define the size of the button
@@ -97,7 +97,7 @@ final class AddInformationViewController: UIViewController {
     
     private weak var coordinator: AppCoordinator?
     private var viewModel: AddInformationViewModel?
-    var disposebag = DisposeBag()
+    private var disposebag = DisposeBag()
     
     static func instantiate(viewModel: AddInformationViewModel, coordiNator: AppCoordinator) -> UIViewController {
         let storyBoard = UIStoryboard(name: "AddInformation", bundle: nil)
@@ -180,20 +180,26 @@ final class AddInformationViewController: UIViewController {
         
         bindViynlInformationData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will",viewModel!.model.vinylID,viewModel?.model.vinylTrackList.count)
+        print("view will",viewModel?.model.vinylID, viewModel?.model.vinylTrackList.count)
+        confirmFavoriteVinyl()
         viewModel?.requestVinylInformation()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         print("viewDidAppear",viewModel?.model.vinylTrackList,viewModel?.model.vinylTitleSong)
-        
+    }
+    
+    private func confirmFavoriteVinyl() {
         if viewModel?.model.uniqueIndex == VinylaUserManager.myVInylIndex {
             self.blurCircleView.setFavoriteImageButton.isSelected = true
         }
     }
-    func setAlbumListTableViewUI() {
+    
+    private func setAlbumListTableViewUI() {
         albumSongListTableView.delegate = self
         albumSongListTableView.dataSource = self
         let albumSongListCellNib = UINib(nibName: "AlbumSongListTableViewCell", bundle: nil)
@@ -205,7 +211,8 @@ final class AddInformationViewController: UIViewController {
         albumSongListTableViewHeight.constant = CGFloat(21) // 21size가 추가셀 생성되지 않음
         albumSongListTableView.isScrollEnabled = false
     }
-    func bindViynlInformationData() {
+    
+    private func bindViynlInformationData() {
         self.viewModel?.vinylInformationData
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] data in
@@ -240,11 +247,6 @@ final class AddInformationViewController: UIViewController {
             })
             .disposed(by: disposebag)
         
-    }
-    @IBAction func touchUpHomeFavoriteButton(_ sender: Any) {
-        //home 대표 이미지 변경
-        //vinly box 체크버튼 표시되고, 정렬 되는 로직
-        //isFavorite = true
     }
     
 }
