@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N7D-h6-WPT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N7D-h6-WPT">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -186,9 +186,10 @@
                                                         <constraint firstAttribute="width" constant="40" id="Zfx-Sa-TZ5"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LV.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu9-Zq-kTy">
-                                                    <rect key="frame" x="66" y="16" width="22" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LV.4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu9-Zq-kTy">
+                                                    <rect key="frame" x="66" y="16" width="25" height="18"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="DJz-LL-Do6"/>
                                                         <constraint firstAttribute="height" constant="18" id="SFe-bw-a8d"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Playball-Regular" family="Playball" pointSize="15"/>
@@ -196,9 +197,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="닐페이스 (0~1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="juj-Dm-lHp">
-                                                    <rect key="frame" x="97" y="15" width="250" height="18"/>
+                                                    <rect key="frame" x="98" y="15" width="249" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="250" id="IAo-Ij-tbN"/>
                                                         <constraint firstAttribute="height" constant="18" id="mtf-qA-8zl"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
@@ -240,7 +240,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="juj-Dm-lHp" secondAttribute="trailing" constant="12" id="USN-Pp-QYg"/>
                                                 <constraint firstItem="juj-Dm-lHp" firstAttribute="top" secondItem="ukv-m6-OJ0" secondAttribute="top" constant="15" id="acI-rf-hlz"/>
                                                 <constraint firstItem="vGc-DU-1fA" firstAttribute="leading" secondItem="ngA-rT-ugt" secondAttribute="trailing" constant="13" id="dCG-8x-JT8"/>
-                                                <constraint firstItem="juj-Dm-lHp" firstAttribute="leading" secondItem="yu9-Zq-kTy" secondAttribute="trailing" constant="9" id="j3b-i3-WE2"/>
+                                                <constraint firstItem="juj-Dm-lHp" firstAttribute="leading" secondItem="yu9-Zq-kTy" secondAttribute="trailing" constant="7" id="j3b-i3-WE2"/>
                                                 <constraint firstItem="yu9-Zq-kTy" firstAttribute="leading" secondItem="ngA-rT-ugt" secondAttribute="trailing" constant="11" id="lWa-nX-7wx"/>
                                                 <constraint firstItem="sg4-AH-U8X" firstAttribute="leading" secondItem="ukv-m6-OJ0" secondAttribute="leading" constant="15" id="nuA-HS-2yU"/>
                                                 <constraint firstItem="ngA-rT-ugt" firstAttribute="leading" secondItem="ukv-m6-OJ0" secondAttribute="leading" constant="15" id="o2a-ES-NUc"/>
