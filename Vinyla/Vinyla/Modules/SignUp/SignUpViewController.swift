@@ -56,16 +56,28 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         nickNameTextField.delegate = self
-        instagramIDTextField.delegate = self
         setUI()
         setTapButtonsIsSelected()
         setupSignUpServiceInformationTapGesuture()
         logInButton.isEnabled = false
         
         self.logInButton.rx.tap
+            .do(onNext: { [weak self] _ in self?.showLoadingIndicator() })
             .throttle(.seconds(2), scheduler: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] in
                 self?.viewModel?.requestCreateUser()
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.isShowLoadingIndicator
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] isShow in
+                switch isShow {
+                case true:
+                    self?.coordiNator?.setupToastIndicator()
+                case false:
+                    self?.coordiNator?.dismissToastIndicaotr()
+                }
             })
             .disposed(by: disposeBag)
         
@@ -82,13 +94,26 @@ final class SignUpViewController: UIViewController {
             .orEmpty
             .distinctUntilChanged()
             .skip(1)
-            .debounce(.milliseconds(600), scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
             .bind(to: viewModel.nicknameText)
             .disposed(by: disposeBag)
         
+        /// Limit text count
+        instagramIDTextField.rx.text.orEmpty
+            .map({ $0.count <= 30 })
+            .observeOn(MainScheduler.asyncInstance)
+            .asDriver(onErrorJustReturn: true)
+            .drive(onNext: { [weak self] isEditable in
+                if !isEditable {
+                    self?.instagramIDTextField.text = String(self?.instagramIDTextField.text?.dropLast() ?? "")
+                }
+            })
+            .disposed(by: disposeBag)
+                
         //Request Create User Bind
         viewModel.isCompletedCreateUserRequest
-            .observeOn(MainScheduler.instance)
+            .do(onNext: { [weak self] _ in self?.removeLoadingIndicator() })
+            .observeOn(MainScheduler.asyncInstance)
             .filter({ $0 == true })
             .subscribe(onNext:{ [weak self] data in
                 self?.coordiNator?.moveAndSetHomeView()
@@ -313,6 +338,7 @@ extension SignUpViewController: UITextFieldDelegate {
         if string.isEmpty {
             return true
         }
+        
         if text.count >= 20 {
             return false
         }
