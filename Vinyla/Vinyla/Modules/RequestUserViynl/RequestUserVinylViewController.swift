@@ -324,13 +324,11 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
     }
 
     func setPlaceholderTextView() {
-        let placeholder = "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요."
         memoTextView.rx.didBeginEditing
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                if self.memoTextView.text == "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요." {
-                    print("memoTextView")
+                if self.memoTextView.text == self.viewModel?.placeholder {
                     self.memoTextView.text = nil
                     self.memoTextView.textColor = .white
                 }
@@ -355,11 +353,7 @@ extension RequestUserVinylViewController: UITextViewDelegate {
 
         return true
     }
-//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-//        print("should end edit")
-//        self.view.endEditing(true)
-//        return true
-//    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if(memoTextView.text == nil || memoTextView.text == ""){
             self.memoTextView.text = "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요."
