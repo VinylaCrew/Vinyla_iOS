@@ -12,15 +12,18 @@ import RxRelay
 
 final class RequestUserVinylViewModel {
     
-    //input
+    /// input
     var userAlbumName = BehaviorSubject<String>(value: "")
     var userArtistName = BehaviorSubject<String>(value: "")
     var userMemo = BehaviorSubject<String>(value: "")
     var userImage: Data?
     
-    //output
+    /// output
     var apiError = PublishRelay<NetworkError>()
     var isUpload = BehaviorSubject<Bool>(value: false)
+    
+    /// Model
+    let placeholder = "발매일자, 수록곡, 장르 등 찾으시는 바이닐의 자세한 정보를 남겨주세요."
     
     var disposeBag = DisposeBag()
     
