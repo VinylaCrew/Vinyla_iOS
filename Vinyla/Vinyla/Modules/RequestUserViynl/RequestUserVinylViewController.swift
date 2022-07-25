@@ -105,7 +105,7 @@ class RequestUserVinylViewController: UIViewController, UITextFieldDelegate, UIN
         self.selectedUPLoadImageView.isHidden = true
         
         self.requestUserVinylButton.rx.tap
-            .do(onNext: { [weak self] in self?.ShowLoadingIndicator() })
+            .do(onNext: { [weak self] in self?.showLoadingIndicator() })
             .bind(onNext: { [weak self] in
                 self?.viewModel?.requestUploadUserVinyl()
             })

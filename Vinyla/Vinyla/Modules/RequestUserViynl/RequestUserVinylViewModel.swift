@@ -49,7 +49,11 @@ final class RequestUserVinylViewModel {
                     self?.isUpload.onNext(true)
                 }
             },onError:{ [weak self] error in
-                guard let vinylNetworkError = error as? NetworkError else { return }
+                
+                guard let vinylNetworkError = error as? NetworkError else {
+                    self?.apiError.accept(NetworkError.unexpectedError)
+                    return
+                }
                 self?.apiError.accept(vinylNetworkError)
             })
             .disposed(by: disposeBag)
