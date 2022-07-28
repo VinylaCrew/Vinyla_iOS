@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="wiithdrawLabel1" destination="Ofb-aK-wja" id="mxQ-xg-Mi6"/>
                 <outlet property="wiithdrawLabel2" destination="35o-Kf-bH1" id="tiC-mb-wrA"/>
-                <outlet property="withdrawButton" destination="gDJ-Sy-G18" id="6gw-XD-zVR"/>
+                <outlet property="withdrawButton" destination="gDJ-Sy-G18" id="O4E-Fr-mFg"/>
                 <outletCollection property="circlePointView" destination="mgd-wp-v6H" collectionClass="NSMutableArray" id="szy-Fw-J5M"/>
                 <outletCollection property="circlePointView" destination="rRN-ps-Xgl" collectionClass="NSMutableArray" id="0I9-qR-5hl"/>
             </connections>
@@ -69,8 +69,8 @@
                     </attributedString>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-8y-ZgQ">
-                    <rect key="frame" x="15" y="160" width="360" height="101"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Yqx-8y-ZgQ">
+                    <rect key="frame" x="15" y="160" width="360" height="96"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fB0-mB-k1a">
                             <rect key="frame" x="0.0" y="0.0" width="360" height="48"/>
@@ -104,20 +104,20 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FC3-ME-7HJ">
-                            <rect key="frame" x="0.0" y="53" width="360" height="48"/>
+                            <rect key="frame" x="0.0" y="48" width="360" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rRN-ps-Xgl" userLabel="PointView">
-                                    <rect key="frame" x="0.0" y="8" width="5" height="5"/>
+                                    <rect key="frame" x="0.0" y="10" width="5" height="5"/>
                                     <color key="backgroundColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="5" id="1fW-gJ-JMD"/>
                                         <constraint firstAttribute="height" constant="5" id="KE1-Hc-GOy"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google / Facebook / Apple계정 정보는 연동되어 모두 탈퇴 처리됩니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35o-Kf-bH1">
-                                    <rect key="frame" x="9" y="0.0" width="350" height="40"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google / Apple계정 정보는 연동되어 모두 탈퇴 처리됩니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35o-Kf-bH1">
+                                    <rect key="frame" x="9" y="0.0" width="350" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="8zS-TN-Hnv"/>
+                                        <constraint firstAttribute="height" constant="25" id="8zS-TN-Hnv"/>
                                         <constraint firstAttribute="width" constant="350" id="n50-y4-ek3"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
@@ -130,15 +130,12 @@
                                 <constraint firstItem="35o-Kf-bH1" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" id="Pv4-Z8-dbQ"/>
                                 <constraint firstItem="rRN-ps-Xgl" firstAttribute="leading" secondItem="FC3-ME-7HJ" secondAttribute="leading" id="Rrv-8y-Bcm"/>
                                 <constraint firstItem="35o-Kf-bH1" firstAttribute="leading" secondItem="rRN-ps-Xgl" secondAttribute="trailing" constant="4" id="bYo-Gf-aY8"/>
-                                <constraint firstItem="rRN-ps-Xgl" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" constant="8" id="iGr-qO-hIk"/>
+                                <constraint firstItem="rRN-ps-Xgl" firstAttribute="top" secondItem="FC3-ME-7HJ" secondAttribute="top" constant="10" id="iGr-qO-hIk"/>
                                 <constraint firstAttribute="height" constant="48" id="r5i-jC-gcF"/>
                             </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="101" id="SZ8-Ia-VLY"/>
-                    </constraints>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gDJ-Sy-G18">
                     <rect key="frame" x="15" y="709" width="345" height="62"/>
