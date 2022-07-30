@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uoo-Wx-mi6">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+        <array key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
+        </array>
+        <array key="Playball-Regular.ttf">
+            <string>Playball-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Log In View Controller-->
+        <scene sceneID="2Rj-B0-idV">
+            <objects>
+                <viewController storyboardIdentifier="LogInViewController" id="uoo-Wx-mi6" customClass="LogInViewController" customModule="Vinyla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XrE-4Q-tyk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="6ZY-pe-22Z">
+                                <rect key="frame" x="135" y="187" width="105" height="124"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="6ZY-pe-22Z" secondAttribute="height" multiplier="105:124" id="hKU-IF-jvV"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12l-Kj-XuC">
+                                <rect key="frame" x="38" y="570" width="300" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="kcG-C9-WTJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                <state key="normal" title="Google로 로그인" image="google">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchUPGoogleButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="pxu-0l-Pat"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHJ-g9-4ZL">
+                                <rect key="frame" x="38" y="641" width="300" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="g2M-tn-uuu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="9" maxY="0.0"/>
+                                <state key="normal" title="Apple로 로그인" image="apple">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchUPAppleLogInButton:" destination="uoo-Wx-mi6" eventType="touchUpInside" id="5Ga-zj-pn9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqE-54-Os8">
+                                <rect key="frame" x="38" y="712" width="300" height="27"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="SYR-f4-7o9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                <state key="normal" title="1" image="apple">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work, Life, Vinyl" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vkh-xb-zac">
+                                <rect key="frame" x="38" y="372" width="300" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="ue4-aR-CYX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans KR" pointSize="15"/>
+                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vinyla" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnw-JC-E3F">
+                                <rect key="frame" x="142.66666666666666" y="321" width="90" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="oNN-HZ-fc7"/>
+                                    <constraint firstAttribute="height" constant="50" id="odO-qS-ffZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Playball-Regular" family="Playball" pointSize="40"/>
+                                <color key="textColor" red="1" green="0.31372549019607843" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="kDi-Fy-4Qi"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="HqE-54-Os8" secondAttribute="trailing" constant="37" id="1R9-6R-hSx"/>
+                            <constraint firstItem="6ZY-pe-22Z" firstAttribute="top" secondItem="kDi-Fy-4Qi" secondAttribute="top" constant="143" id="3Jj-2A-8eq"/>
+                            <constraint firstItem="Vkh-xb-zac" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="5rA-b0-nj6"/>
+                            <constraint firstItem="Vkh-xb-zac" firstAttribute="top" secondItem="6ZY-pe-22Z" secondAttribute="bottom" constant="61" id="9XS-Ik-e2l"/>
+                            <constraint firstItem="6ZY-pe-22Z" firstAttribute="centerX" secondItem="kDi-Fy-4Qi" secondAttribute="centerX" id="ALd-Is-0JX"/>
+                            <constraint firstItem="vHJ-g9-4ZL" firstAttribute="top" secondItem="12l-Kj-XuC" secondAttribute="bottom" constant="15" id="CZP-Hj-kVa"/>
+                            <constraint firstAttribute="trailing" secondItem="6ZY-pe-22Z" secondAttribute="trailing" constant="135" id="JiJ-3C-ezB"/>
+                            <constraint firstItem="Rnw-JC-E3F" firstAttribute="centerX" secondItem="XrE-4Q-tyk" secondAttribute="centerX" id="NHN-Z3-rv4"/>
+                            <constraint firstItem="6ZY-pe-22Z" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="135" id="OpP-M5-387"/>
+                            <constraint firstItem="Rnw-JC-E3F" firstAttribute="top" secondItem="6ZY-pe-22Z" secondAttribute="bottom" constant="10" id="T9a-9e-MC6"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="vHJ-g9-4ZL" secondAttribute="trailing" constant="37" id="Twc-7z-swQ"/>
+                            <constraint firstItem="HqE-54-Os8" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="XCJ-Dd-uaj"/>
+                            <constraint firstItem="HqE-54-Os8" firstAttribute="top" secondItem="vHJ-g9-4ZL" secondAttribute="bottom" constant="15" id="bD9-zg-GtY"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="bottom" secondItem="HqE-54-Os8" secondAttribute="bottom" constant="39" id="dUF-rs-kR4"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="12l-Kj-XuC" secondAttribute="trailing" constant="37" id="gCB-2x-rQc"/>
+                            <constraint firstItem="vHJ-g9-4ZL" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="hFe-QV-ZaS"/>
+                            <constraint firstItem="kDi-Fy-4Qi" firstAttribute="trailing" secondItem="Vkh-xb-zac" secondAttribute="trailing" constant="37" id="nN6-5I-UbG"/>
+                            <constraint firstItem="12l-Kj-XuC" firstAttribute="leading" secondItem="kDi-Fy-4Qi" secondAttribute="leading" constant="38" id="yrr-0M-lHX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="t6H-Ez-CYK"/>
+                    <connections>
+                        <outlet property="appleLogInButton" destination="vHJ-g9-4ZL" id="v36-dd-mmh"/>
+                        <outlet property="facebookLogInButton" destination="HqE-54-Os8" id="FAz-au-kMg"/>
+                        <outlet property="googleLogInButton" destination="12l-Kj-XuC" id="02F-oI-Yhi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qcw-W5-SHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3007.1999999999998" y="157.38916256157637"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="apple" width="12" height="14"/>
+        <image name="google" width="14" height="14"/>
+        <image name="logo" width="105" height="124"/>
+    </resources>
+</document>

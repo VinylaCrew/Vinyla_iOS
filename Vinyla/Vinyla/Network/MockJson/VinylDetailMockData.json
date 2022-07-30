@@ -1,0 +1,27 @@
+{
+    "status": 200,
+    "success": true,
+    "message": "바이닐 상세 조회 성공",
+    "data": {
+        "id": 2865072,
+        "title": "Iu...Im (2nd Mini Album)",
+        "artist": "IU (3)",
+        "image": "https://img.discogs.com/tgn3muIhHGSMx_ZUKrIcWUT7V0c=/fit-in/500x441/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-2865072-1304627023.jpeg.jpg",
+        "year": 2009,
+        "genres": [
+            "Blues",
+            "Pop"
+        ],
+        "tracklist": [
+            "Love Attack",
+            "기차를 타고",
+            "마쉬멜로우",
+            "아침 눈물",
+            "두근두근 데이트",
+            "기차를 타고 (Inst.)",
+            "아침 눈물 (Inst.)"
+        ],
+        "rate": 0,
+        "rateCount": 0
+    }
+}

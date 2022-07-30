@@ -1,0 +1,26 @@
+
+{
+    "status": 200,
+    "success": true,
+    "message": "바이닐 검색 성공",
+    "data": [
+        {
+            "id": 3132421,
+            "thumb": "https://img.discogs.com/Lt-lw3xKFx75FVbVusjznm2RkJk=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-3132421-1368297908-5082.jpeg.jpg",
+            "title": "Amy Winehouse",
+            "artist": "The Best Of Amy Winehouse"
+        },
+        {
+            "id": 11876567,
+            "thumb": "https://img.discogs.com/OU6xez1sfnhTF-OMxaAm_-l7p_8=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-11876567-1531030053-3860.jpeg.jpg",
+            "title": "Amy (54)",
+            "artist": "Amy"
+        },
+        {
+            "id": 8300760,
+            "thumb": "https://img.discogs.com/rNU6nBKqrVhuWwRntVLSEqXiAqs=/fit-in/150x150/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-8300760-1458925482-4606.jpeg.jpg",
+            "title": "Amy Winehouse, Antonio Pinto",
+            "artist": "Amy (The Original Soundtrack)"
+        }
+    ]
+}

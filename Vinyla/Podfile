@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Vinyla' do
+   pod 'RxSwift'
+   pod 'RxCocoa' 
+   pod 'Cosmos', '~> 23.0'
+   pod 'Moya/RxSwift', '~> 14.0'
+   pod 'Firebase/Auth'
+   pod 'Firebase/Analytics'
+   pod 'Firebase/Crashlytics'
+   pod 'Firebase/Messaging'
+   pod 'GoogleSignIn'
+
+ # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Vinyla
+
+  target 'VinylaTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

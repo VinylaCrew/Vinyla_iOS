@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VinylBoxCell" id="gTV-IL-0wX" customClass="VinylBoxCollectionViewCell" customModule="Vinyla" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="145"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="145"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufF-Vc-h5j">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="145"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iPd-KF-ZiH">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="iPd-KF-ZiH" secondAttribute="height" multiplier="1:1" id="FeO-Un-T2k"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="song title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Chf-mT-bqd">
+                                <rect key="frame" x="0.0" y="110" width="100" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="dlc-se-q3D"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="signer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N36-UT-Nql">
+                                <rect key="frame" x="0.0" y="127" width="100" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="1Jf-mz-ccC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Chf-mT-bqd" secondAttribute="trailing" id="9H0-Dx-P7h"/>
+                            <constraint firstItem="iPd-KF-ZiH" firstAttribute="top" secondItem="ufF-Vc-h5j" secondAttribute="top" id="GRd-KJ-tJt"/>
+                            <constraint firstItem="N36-UT-Nql" firstAttribute="top" secondItem="Chf-mT-bqd" secondAttribute="bottom" id="MWv-K4-ob5"/>
+                            <constraint firstItem="N36-UT-Nql" firstAttribute="leading" secondItem="ufF-Vc-h5j" secondAttribute="leading" id="WcC-RR-Jtq"/>
+                            <constraint firstAttribute="trailing" secondItem="iPd-KF-ZiH" secondAttribute="trailing" id="X7B-QC-WKc"/>
+                            <constraint firstItem="iPd-KF-ZiH" firstAttribute="leading" secondItem="ufF-Vc-h5j" secondAttribute="leading" id="XBx-Na-duE"/>
+                            <constraint firstAttribute="trailing" secondItem="N36-UT-Nql" secondAttribute="trailing" id="iwq-co-cX2"/>
+                            <constraint firstItem="Chf-mT-bqd" firstAttribute="top" secondItem="iPd-KF-ZiH" secondAttribute="bottom" constant="10" id="yrn-LY-Jqn"/>
+                            <constraint firstItem="Chf-mT-bqd" firstAttribute="leading" secondItem="ufF-Vc-h5j" secondAttribute="leading" id="zI0-GX-Bnt"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="ufF-Vc-h5j" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="2QR-PE-VA9"/>
+                <constraint firstAttribute="bottom" secondItem="ufF-Vc-h5j" secondAttribute="bottom" id="Eut-1J-Vhr"/>
+                <constraint firstAttribute="trailing" secondItem="ufF-Vc-h5j" secondAttribute="trailing" id="a29-hd-6OP"/>
+                <constraint firstItem="ufF-Vc-h5j" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="omt-wL-g95"/>
+            </constraints>
+            <connections>
+                <outlet property="signerLabel" destination="N36-UT-Nql" id="QXL-xG-wAo"/>
+                <outlet property="songTitleLabel" destination="Chf-mT-bqd" id="t4g-zZ-xNT"/>
+                <outlet property="vinylBoxImageView" destination="iPd-KF-ZiH" id="rUD-u3-1QD"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="131.58482142857142"/>
+        </collectionViewCell>
+    </objects>
+</document>

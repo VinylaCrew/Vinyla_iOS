@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSansKR-Medium.otf">
+            <string>NotoSansKR-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Search View Controller-->
+        <scene sceneID="KPS-yz-oCf">
+            <objects>
+                <viewController storyboardIdentifier="Search" id="JCS-KK-iJg" customClass="SearchViewController" customModule="Vinyla" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KHM-1w-54b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r09-Ck-9SA">
+                                <rect key="frame" x="10" y="59" width="30" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="2jm-1s-6ej"/>
+                                    <constraint firstAttribute="height" constant="35" id="mBN-Fj-30W"/>
+                                </constraints>
+                                <state key="normal" image="icnBtnBack"/>
+                                <connections>
+                                    <action selector="touchUpViewPopButton:" destination="JCS-KK-iJg" eventType="touchUpInside" id="Eaf-Ic-lw7"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" insetsLayoutMarginsFromSafeArea="NO" placeholder="앨범명/아티스트를 입력해주세요." translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HPv-ha-BAn">
+                                <rect key="frame" x="41" y="54" width="291" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="9Uk-ve-pcK"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0개의 검색 결과가 있습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhD-Ui-1vJ">
+                                <rect key="frame" x="15" y="116" width="146.33333333333334" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="Av9-5B-h7k"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ny-7J-RQf">
+                                <rect key="frame" x="0.0" y="140" width="375" height="672"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="akX-GQ-u5L">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대한 검색 결과가 DB에 없어요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cz7-2T-6UH">
+                                            <rect key="frame" x="20" y="232" width="335" height="22"/>
+                                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="찾는 바이닐에 대한 정보를 알려주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kTv-zi-dPE">
+                                            <rect key="frame" x="20" y="254" width="335" height="22"/>
+                                            <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="kTv-zi-dPE" firstAttribute="leading" secondItem="akX-GQ-u5L" secondAttribute="leading" constant="20" symbolic="YES" id="9D7-Eo-m2n"/>
+                                        <constraint firstItem="Cz7-2T-6UH" firstAttribute="top" secondItem="akX-GQ-u5L" secondAttribute="top" constant="232" id="E5T-gj-zFT"/>
+                                        <constraint firstAttribute="trailing" secondItem="kTv-zi-dPE" secondAttribute="trailing" constant="20" symbolic="YES" id="PA1-xI-kku"/>
+                                        <constraint firstItem="Cz7-2T-6UH" firstAttribute="leading" secondItem="akX-GQ-u5L" secondAttribute="leading" constant="20" id="iVO-qn-bH1"/>
+                                        <constraint firstItem="kTv-zi-dPE" firstAttribute="top" secondItem="Cz7-2T-6UH" secondAttribute="bottom" id="oU3-5Y-D3A"/>
+                                        <constraint firstAttribute="trailing" secondItem="Cz7-2T-6UH" secondAttribute="trailing" constant="20" id="w6k-He-Dhv"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-Lr-ZN2">
+                                <rect key="frame" x="334" y="66" width="28" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="JUE-2A-3QU"/>
+                                    <constraint firstAttribute="width" constant="28" id="eMO-ph-KN6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans KR" pointSize="15"/>
+                                <state key="normal" title="검색">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="to3-Mi-QPH"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="Dhg-Lr-ZN2" secondAttribute="trailing" constant="13" id="3kH-wI-lKr"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="bottom" secondItem="to3-Mi-QPH" secondAttribute="bottom" constant="34" id="9ok-yz-RHN"/>
+                            <constraint firstItem="r09-Ck-9SA" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="10" id="BTx-Oq-5IQ"/>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="leading" secondItem="r09-Ck-9SA" secondAttribute="trailing" constant="1" id="BeX-7g-inu"/>
+                            <constraint firstItem="r09-Ck-9SA" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="15" id="D93-ef-yyH"/>
+                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="top" secondItem="HPv-ha-BAn" secondAttribute="bottom" constant="14" id="DnE-0d-r9A"/>
+                            <constraint firstItem="HPv-ha-BAn" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="10" id="H3s-zs-vdp"/>
+                            <constraint firstItem="to3-Mi-QPH" firstAttribute="trailing" secondItem="0ny-7J-RQf" secondAttribute="trailing" id="WkY-Xm-2b1"/>
+                            <constraint firstItem="PhD-Ui-1vJ" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" constant="15" id="cld-KK-reP"/>
+                            <constraint firstItem="Dhg-Lr-ZN2" firstAttribute="top" secondItem="to3-Mi-QPH" secondAttribute="top" constant="22" id="enf-Pm-5rD"/>
+                            <constraint firstItem="Dhg-Lr-ZN2" firstAttribute="leading" secondItem="HPv-ha-BAn" secondAttribute="trailing" constant="2" id="gwb-Hg-4w6"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="leading" secondItem="to3-Mi-QPH" secondAttribute="leading" id="p07-vb-ONH"/>
+                            <constraint firstItem="0ny-7J-RQf" firstAttribute="top" secondItem="PhD-Ui-1vJ" secondAttribute="bottom" constant="5" id="zie-lj-6Qk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="noSearchInformationView" destination="akX-GQ-u5L" id="YX0-cC-X90"/>
+                        <outlet property="searchButton" destination="Dhg-Lr-ZN2" id="v6q-Hk-Dkz"/>
+                        <outlet property="searchTableView" destination="0ny-7J-RQf" id="pck-16-0JK"/>
+                        <outlet property="userSearchTextLabel" destination="Cz7-2T-6UH" id="Jxc-ec-ovq"/>
+                        <outlet property="vinylCountLabel" destination="PhD-Ui-1vJ" id="QyF-NO-zjZ"/>
+                        <outlet property="vinylSearchBar" destination="HPv-ha-BAn" id="avT-3d-Gmo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FPS-uT-ohp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-423.19999999999999" y="234.97536945812809"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icnBtnBack" width="11" height="16"/>
+    </resources>
+</document>
