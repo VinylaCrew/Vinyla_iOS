@@ -31,9 +31,10 @@ final class SearchViewModel: SearchViewModelType {
     public private(set) var vinylsData: PublishSubject<[SearchModel.Data]?> = PublishSubject<[SearchModel.Data]?>()
     public internal(set) var userSearchText: BehaviorSubject<String> = BehaviorSubject<String>(value: "")
     var vinylsCount: BehaviorSubject<String?> = BehaviorSubject<String?>(value: "0")
-    var searchAPIService: VinylAPIServiceProtocol
     var isSearch: PublishSubject<Bool> = PublishSubject<Bool>()
-    var disposeBag = DisposeBag()
+    
+    var searchAPIService: VinylAPIServiceProtocol
+    private var disposeBag = DisposeBag()
 
     init(searchAPIService: VinylAPIServiceProtocol = VinylAPIService()) {
         self.searchAPIService = searchAPIService
@@ -72,9 +73,11 @@ final class SearchViewModel: SearchViewModelType {
                 .disposed(by: disposeBag)
 
     }
+    
     deinit {
         print("search viewmodel deinit")
     }
+    
     func printCellIndexPath(cell: SearchTableViewCell) {
         print(cell)
     }
