@@ -95,8 +95,8 @@ final class SearchViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         vinylSearchBar.searchTextField.delegate = self
-        setUI()
-        setTableViewCellXib() //rxcocoa도 그대로 사용
+        setupUI()
+        setupTableViewCellXib() //rxcocoa도 그대로 사용
         bindCountLabel()
         bindTableView()
         bindShowIndicator()
@@ -115,7 +115,7 @@ final class SearchViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    func setUI() {
+    func setupUI() {
         //search bar color custom
         vinylSearchBar.searchBarStyle = .minimal
         vinylSearchBar.searchTextField.textColor = UIColor.white
@@ -147,10 +147,9 @@ final class SearchViewController: UIViewController {
         lookingforVinylButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
     }
     
-    func setTableViewCellXib() {
+    func setupTableViewCellXib() {
         let searchNib = UINib(nibName: "SearchTableViewCell", bundle: nil)
         searchTableView.register(searchNib, forCellReuseIdentifier: "searchTableViewCell")
-        
         searchTableView.keyboardDismissMode = .onDrag
     }
     
@@ -177,13 +176,6 @@ final class SearchViewController: UIViewController {
             .bind(to: viewModel.vinylName)
             .disposed(by: disposeBag)
 
-        //        viewModel.isSearch
-        //            .subscribe(onNext: { [weak self] item in
-        //                print(item)
-        //                if item == false {
-        //                    self?.view.endEditing(true)
-        //                }
-        //            })
     }
     
     func bindShowIndicator() {
