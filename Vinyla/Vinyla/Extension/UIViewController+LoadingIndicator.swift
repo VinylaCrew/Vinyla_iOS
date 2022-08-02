@@ -11,6 +11,7 @@ fileprivate var loadingGreyView : UIView?
 
 extension UIViewController {
     func showLoadingIndicator() {
+        self.removeLoadingIndicator()
         loadingGreyView = UIView(frame: self.view.bounds)
         loadingGreyView?.backgroundColor = UIColor.init(red: 0.1, green: 0.1, blue: 0.1, alpha: 0.4)
         let activityIndicator = UIActivityIndicatorView(style: .large)
