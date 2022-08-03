@@ -202,7 +202,7 @@ final class SearchViewController: UIViewController {
         viewModel.vinylsCount
             .observeOn(MainScheduler.instance)
             .catchErrorJustReturn("0")
-            .map{ item in
+            .map { item in
                 return item! + "개의 검색결과가 있습니다."
             }
             .bind(to: vinylCountLabel.rx.text)
