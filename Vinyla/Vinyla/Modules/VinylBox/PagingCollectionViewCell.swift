@@ -79,8 +79,8 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         22
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        print("self content view",self.contentView.frame.size)
         let cellHeight = (self.contentView.frame.size.height-44)/3
         let cellWidth = floor((UIScreen.main.bounds.size.width-74)/3)
         if UIScreen.main.bounds.size.height >= 812 {
@@ -88,8 +88,8 @@ extension PagingCollectionViewCell: UICollectionViewDelegate, UICollectionViewDa
         }
         return CGSize(width: 100, height: 145)
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        self.coordinator?.moveToAddInformationView(vinylID: Int(nineVinylItems[indexPath.row].vinylID), vinylImageURL: "", isDeleteMode: true)
 
         /// 썸네일 이미지 추가
         self.coordinator?.moveToAddInformationViewWithIndex(
