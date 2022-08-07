@@ -68,7 +68,7 @@ final class SearchTableViewCell: UITableViewCell {
 
     func setCachedImage(imageURL: String) {
         self.testURL = imageURL
-        DispatchQueue.global(qos: .background).async {//weak self?
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
 
             /// cache할 객체의 key값을 string으로 생성
             let cachedKey = NSString(string: imageURL)
@@ -76,7 +76,7 @@ final class SearchTableViewCell: UITableViewCell {
             /// cache된 이미지가 존재하면 그 이미지를 사용 (API 호출안하는 형태)
             if let cachedImage = NSCacheManager.shared.object(forKey: cachedKey) {
                 DispatchQueue.main.async {
-                    self.searchVinylImageView.image = cachedImage
+                    self?.searchVinylImageView.image = cachedImage
                 }
                 return
             }
@@ -84,7 +84,7 @@ final class SearchTableViewCell: UITableViewCell {
 
             guard let url = URL(string: imageURL) else { return }
 
-            self.cellImageDataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, result, error) in
+            self?.cellImageDataTask = URLSession.shared.dataTask(with: url) { [weak self] (data, result, error) in
                 guard error == nil else {
                     DispatchQueue.main.async { [weak self] in
                         self?.searchVinylImageView.image = UIImage()
@@ -102,7 +102,7 @@ final class SearchTableViewCell: UITableViewCell {
                 }
             }
 
-            self.cellImageDataTask?.resume()
+            self?.cellImageDataTask?.resume()
 
         }
     }
