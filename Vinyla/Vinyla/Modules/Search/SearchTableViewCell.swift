@@ -14,7 +14,7 @@ final class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var singerNameLabel: UILabel!
     @IBOutlet weak var customSeperatorView: UIView!
 
-    private var cellImageDataTask: URLSessionDataTask?
+    var cellImageDataTask: URLSessionDataTask?
     var testURL: String?
 
     lazy var whiteCircleVinylView: UIView = { () -> UIView in

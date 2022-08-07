@@ -354,12 +354,9 @@ extension SearchViewController: UITextFieldDelegate {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? SearchTableViewCell else { return }
-        //        print("did end display",cell.testURL)
-        //        print("did end display",cell.cellImageDataTask)
-        //        print("did end display",indexPath.row)
-        //        cell.cellImageDataTask?.cancel()
-        
-//        cell.searchVinylImageView.kf.cancelDownloadTask()
+//        print("did end display",cell.cellImageDataTask)
+//        print("did end display",indexPath.row)
+        cell.cellImageDataTask?.cancel()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
