@@ -15,18 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-//   기존 window가 아닌 windowScene을 이용해 Window를 초기화해서 사용하기때문에 , 적용 X
-//        if #available(iOS 13.0, *) {
-//            window?.overrideUserInterfaceStyle = .light
-//        }
         
         let sceneWindow = UIWindow(windowScene: windowScene)
 
         appCoordinator = AppCoordinator(window: sceneWindow)
         
         window = sceneWindow
-        //window초기화 이후 사용이므로 적용 OK
-//        window?.overrideUserInterfaceStyle = .light
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
