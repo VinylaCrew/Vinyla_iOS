@@ -13,16 +13,23 @@ final class CoreDataManager {
     static let shared = CoreDataManager()
     
     private init() { }
+    //MARK: - CoreData PersistentContainer
+    private let persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "MainFavoriteModel")
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                
+                print(("Unresolved error \(error), \(error.userInfo)"))
+            }
+        })
+        return container
+    }()
 
-    private let appDelegate = UIApplication.shared.delegate as? AppDelegate
     //MARK: - UI Update and Data Fetch Main Thread
-    private lazy var context = appDelegate?.persistentContainer.viewContext
+    private lazy var context = persistentContainer.viewContext
     //MARK: - Data Save and Delete Unique Background Thread
     private lazy var backgroundContext: NSManagedObjectContext = {
-        guard let myAppDelegate = appDelegate else {
-            return NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        }
-        let newbackgroundContext = myAppDelegate.persistentContainer.newBackgroundContext()
+        let newbackgroundContext = persistentContainer.newBackgroundContext()
         newbackgroundContext.automaticallyMergesChangesFromParent = true
         return newbackgroundContext
     }()
@@ -152,7 +159,7 @@ final class CoreDataManager {
             let sortCondition = NSSortDescriptor(key: "index", ascending: true)
             fetchRequest.sortDescriptors = [sortCondition]
 
-            fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
+            fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
 
             if Thread.isMainThread {
                 print("fetchVinylBox: MainThread")
@@ -172,7 +179,7 @@ final class CoreDataManager {
         fetchRequest.sortDescriptors = [sortCondition]
 
         do {
-            fetchVinylBox = try context?.fetch(fetchRequest) as! [VinylBox]
+            fetchVinylBox = try context.fetch(fetchRequest) as! [VinylBox]
         } catch {
             print("Error while fetching the image")
         }
@@ -193,7 +200,7 @@ final class CoreDataManager {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "MyImage")
         
         do {
-            fetchingImage = try context?.fetch(fetchRequest) as! [MyImage]
+            fetchingImage = try context.fetch(fetchRequest) as! [MyImage]
         } catch {
             print("Error while fetching the image")
         }
@@ -206,10 +213,10 @@ final class CoreDataManager {
         fetchRequest.predicate = NSPredicate(format: "imageID = %@", imageID)
         
         do {
-            let results = try context?.fetch(fetchRequest) as! [NSManagedObject]
+            let results = try context.fetch(fetchRequest) as! [NSManagedObject]
             // Delete _all_ objects:
             for object in results {
-                context?.delete(object)
+                context.delete(object)
             }
             
             print("CoreData object 수:\(results.count)")
@@ -220,7 +227,7 @@ final class CoreDataManager {
             for object in results {
                 print("oject \(object)")
             }
-            try context?.save() // data 추가 삭제후 필수로
+            try context.save() // data 추가 삭제후 필수로
             
         } catch {
             print("Error while delete func")
@@ -335,7 +342,7 @@ final class CoreDataManager {
     }
     
     func printData() {
-        do { let myImage = try context?.fetch(MyImage.fetchRequest()) as! [MyImage]
+        do { let myImage = try context.fetch(MyImage.fetchRequest()) as! [MyImage]
             print("Data 출력")
             myImage.forEach { print($0.favoriteImage)
                 print($0.imageID)
@@ -345,7 +352,7 @@ final class CoreDataManager {
     }
     
     func printVinylBoxData() {
-        do { let vinylBox = try context?.fetch(VinylBox.fetchRequest()) as! [VinylBox]
+        do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             print("Data 출력")
             vinylBox.forEach { //print($0.vinylImage)
                 print($0.songTitle)
@@ -356,7 +363,7 @@ final class CoreDataManager {
     }
     
     func getCountVinylBoxData() -> Int? {
-        do { let vinylBox = try context?.fetch(VinylBox.fetchRequest()) as! [VinylBox]
+        do { let vinylBox = try context.fetch(VinylBox.fetchRequest()) as! [VinylBox]
             return vinylBox.count
         }
         catch { print(error.localizedDescription)
