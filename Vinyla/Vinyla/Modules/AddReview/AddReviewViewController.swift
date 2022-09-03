@@ -91,7 +91,7 @@ final class AddReviewViewController: UIViewController {
 
     lazy var pointCircleView: UIView = {
     let view = UIView()
-        view.frame = CGRect(x: recommendMentLabel.frame.size.width, y: 0, width: 5, height: 5)
+        view.frame = CGRect(x: self.recommendMentLabel.frame.size.width, y: 0, width: 5, height: 5)
         view.backgroundColor = UIColor.vinylaMainOrangeColor()
         view.layer.cornerRadius = 2.5
         view.translatesAutoresizingMaskIntoConstraints = false
