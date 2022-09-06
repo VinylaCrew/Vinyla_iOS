@@ -9,12 +9,12 @@ import Foundation
 import Moya
 
 extension Moya.Response {
-
+    
     var vinylaErrorModel: VinylaErrorModel? {
         guard let decodedData = try? JSONDecoder().decode(VinylaErrorModel.self, from: self.data) else { return nil }
         return decodedData
     }
-
+    
 }
 
 enum NetworkError: Error {
@@ -33,13 +33,13 @@ struct VinylaErrorModel: Codable {
 
 extension VinylaErrorModel {
     var vinylaError: NetworkError? {
-            switch self.status {
-            case 204: return NetworkError.nonExistentVinylaUser
-            case 200..<300: return nil
-            case 409: return NetworkError.alreadyExistedVinylError
-            case 400..<500: return NetworkError.requestDataError
-            case 500...600: return NetworkError.serverError
-            default: return NetworkError.unexpectedError
-            }
+        switch self.status {
+        case 204: return NetworkError.nonExistentVinylaUser
+        case 200..<300: return nil
+        case 409: return NetworkError.alreadyExistedVinylError
+        case 400..<500: return NetworkError.requestDataError
+        case 500...600: return NetworkError.serverError
+        default: return NetworkError.unexpectedError
+        }
     }
 }
