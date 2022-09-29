@@ -13,23 +13,13 @@ final class CoreDataManager {
     static let shared = CoreDataManager()
     
     private init() { }
-    //MARK: - CoreData PersistentContainer
-    private let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MainFavoriteModel")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                
-                print(("Unresolved error \(error), \(error.userInfo)"))
-            }
-        })
-        return container
-    }()
-
+    
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     //MARK: - UI Update and Data Fetch Main Thread
-    private lazy var context = persistentContainer.viewContext
+    private lazy var context = self.appDelegate.persistentContainer.viewContext
     //MARK: - Data Save and Delete Unique Background Thread
     private lazy var backgroundContext: NSManagedObjectContext = {
-        let newbackgroundContext = persistentContainer.newBackgroundContext()
+        let newbackgroundContext = self.appDelegate.persistentContainer.newBackgroundContext()
         newbackgroundContext.automaticallyMergesChangesFromParent = true
         return newbackgroundContext
     }()
